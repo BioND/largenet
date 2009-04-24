@@ -51,6 +51,9 @@
 </tool>
 </toolChain>
 </folderInfo>
+<sourceEntries>
+<entry excluding="src/myrng1.2/Makefile|src/myrng1.2/testWELL.cpp|src/myrng1.2/testMT.cpp|src/myrng1.2/myrngMT.cpp|src/myrng1.2/myrngMT.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+</sourceEntries>
 </configuration>
 </storageModule>
 <storageModule moduleId="scannerConfiguration">
@@ -496,7 +499,7 @@
 <tool id="cdt.managedbuild.tool.gnu.cpp.compiler.so.release.1422710572" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.so.release">
 <option id="gnu.cpp.compiler.so.release.option.optimization.level.1416475200" name="Optimization Level" superClass="gnu.cpp.compiler.so.release.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.so.release.option.debugging.level.1347645098" name="Debug Level" superClass="gnu.cpp.compiler.so.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
-<option id="gnu.cpp.compiler.option.preprocessor.def.1041778895" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
+<option id="gnu.cpp.compiler.option.preprocessor.def.1041778895" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 <listOptionValue builtIn="false" value="NDEBUG"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.278368497" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
@@ -511,8 +514,8 @@
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.so.release.1848167710" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.so.release">
 <option defaultValue="true" id="gnu.cpp.link.so.release.option.shared.862175906" name="Shared (-shared)" superClass="gnu.cpp.link.so.release.option.shared" valueType="boolean"/>
-<option id="gnu.cpp.link.option.strip.572647382" superClass="gnu.cpp.link.option.strip" value="true" valueType="boolean"/>
-<option id="gnu.cpp.link.option.libs.1698141517" superClass="gnu.cpp.link.option.libs" valueType="libs">
+<option id="gnu.cpp.link.option.strip.572647382" name="Omit all symbol information (-s)" superClass="gnu.cpp.link.option.strip" value="true" valueType="boolean"/>
+<option id="gnu.cpp.link.option.libs.1698141517" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 <listOptionValue builtIn="false" value="boost_graph"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1078554109" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
@@ -525,6 +528,9 @@
 </tool>
 </toolChain>
 </folderInfo>
+<sourceEntries>
+<entry excluding="src/myrng1.2/Makefile|src/myrng1.2/testWELL.cpp|src/myrng1.2/testMT.cpp|src/myrng1.2/myrngMT.cpp|src/myrng1.2/myrngMT.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+</sourceEntries>
 </configuration>
 </storageModule>
 <storageModule moduleId="scannerConfiguration">
