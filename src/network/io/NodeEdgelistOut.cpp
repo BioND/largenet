@@ -34,9 +34,12 @@ bool NodeEdgelistOut::put(std::ostream& out, const MultiNetwork& net)
 	const char sep = '\t';
 
 	// write number of nodes and edges
-	out << net.numberOfNodes() << sep << net.numberOfLinks() << sep
-			<< net.numberOfNodeStates() << sep << net.numberOfLinkStates()
-			<< "\n";
+	out << net.numberOfNodes() << sep << net.numberOfLinks();
+
+	if (writeStates_)
+		out << sep << net.numberOfNodeStates() << sep
+				<< net.numberOfLinkStates();
+	out << "\n";
 
 	// write separator
 	out << NODE_LIST << "\n";
