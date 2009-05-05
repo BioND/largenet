@@ -3,6 +3,7 @@
 #include "../MultiNetwork.h"
 #include <string>
 #include <sstream>
+#include <cassert>
 
 namespace lnet
 {
@@ -23,7 +24,8 @@ EdgelistIn::~EdgelistIn()
 
 bool EdgelistIn::get(std::istream& in, MultiNetwork& net)
 {
-	if (!in)
+	assert(false);
+/*	if (!in)
 		return false;
 
 	string line;
@@ -73,7 +75,7 @@ bool EdgelistIn::get(std::istream& in, MultiNetwork& net)
 		net.setNodeState(b, sb);
 		net.addLink(a, b, sl);
 	}
-	return true;
+*/	return true;
 }
 
 }

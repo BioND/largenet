@@ -5,6 +5,7 @@
 #include "../boost/boost_largenet_multigraph.h"
 #include <boost/graph/graphviz.hpp>
 #include <boost/version.hpp>
+#include <cassert>
 
 namespace lnet
 {
@@ -51,6 +52,9 @@ public:
 
 bool GraphvizIn::get(std::istream& in, MultiNetwork& net)
 {
+	// TODO implement me.
+	assert(false);
+	/*
 	if (!in)
 		return false;
 
@@ -116,6 +120,8 @@ bool GraphvizIn::get(std::istream& in, MultiNetwork& net)
 		}
 	}
 	return retval;
+	*/
+	return true;
 }
 
 }

@@ -22,7 +22,8 @@ typedef repo::CategorizedRepository<Link*> LinkRepo; ///< CategorizedRepository 
 
 /**
  * A class representing a network of Nodes connected by Links. Parallel edges (multiple
- * links connecting the same nodes) and self-loops are allowed.
+ * links connecting the same nodes) and self-loops are allowed. %Nodes and links can have
+ * different states that are automatically kept consistent using a LinkStateCalculator object.
  *
  * @todo We need some network class hierarchy representing directed/undirected graphs
  * 		 where parallel edges may be (dis)allowed, and self-loops, too. See boost::graph.
@@ -117,7 +118,7 @@ public:
 
 public:
 	/**
-	 * Basic constructor. Creates an empty network of zero nodes and links.
+	 * Default constructor. Creates an empty network of zero nodes and links.
 	 */
 	MultiNetwork();
 
@@ -128,13 +129,16 @@ public:
 	 * of the @p nNodeStates states. Memory is allocated to allow for
 	 * the storage of @p nLinks links (this will be enlarged as soon as necessary).
 	 * @p nLinkStates is the number of possible link states.
+	 * The supplied LinkStateCalculator object @p lsCalc will be used to keep
+	 * link and node states consistent.
 	 * @param nNodes Number of nodes in the network.
 	 * @param nLinks Number of links to reserve memory for.
 	 * @param nNodeStates Number of possible node states.
 	 * @param nLinkStates Number of possible link states.
+	 * @param lsCalc LinkStateCalculator object.
 	 */
 	MultiNetwork(id_size_t nNodes, id_size_t nLinks, id_size_t nNodeStates,
-			id_size_t nLinkStates);
+			id_size_t nLinkStates, LinkStateCalculator* lsCalc);
 	virtual ~MultiNetwork();
 
 private:
@@ -146,18 +150,40 @@ private:
 
 public:
 	/**
+	 * Set the LinkStateCalculator object to use in order to keep node and link
+	 * states consistent.
+	 * @param lsCalc
+	 * @return true
+	 */
+	bool setLinkStateCalculator(LinkStateCalculator* lsCalc);
+
+	/**
+	 * Return a copy of the internal link state calculator.
+	 * @return LinkStateCalculator object.
+	 */
+	const LinkStateCalculator& getLinkStateCalculator() const;
+
+	/**
 	 * Reset to empty network.
 	 * Deletes all nodes and links and re-creates an empty network with @p nNodes nodes,
 	 * each of which can be in any of the @p nNodeStates states. Memory is allocated
 	 * to allow for the storage of @p nLinks links. @p nLinkStates is the number
 	 * of possible link states.
+	 *
+	 * FIXME reset() will not work this way.
+	 * @todo Create factory class for networks. This should be able to create new network objects
+	 * from file input for instance.
+	 *
+	 * @deprecated Should be removed from future versions. Use factory methods instead.
+	 *
 	 * @param nNodes Number of nodes in the network.
 	 * @param nLinks Number of links to reserve memory for.
 	 * @param nNodeStates Number of possible node states.
 	 * @param nLinkStates Number of possible link states.
 	 */
 	void reset(id_size_t nNodes, id_size_t nLinks,
-			node_state_size_t nNodeStates, link_state_size_t nLinkStates);
+			node_state_size_t nNodeStates, link_state_size_t nLinkStates,
+			LinkStateCalculator* lsCalc);
 
 	/**
 	 * Return the number of nodes in the network.
@@ -207,7 +233,7 @@ public:
 
 	/**
 	 * Create a link between two nodes, given by their unique IDs. The link
-	 * will be inserted in category @p 0.
+	 * state is determined using the internal link state calculator.
 	 * @param source Unique ID of the source node
 	 * @param target Unique ID of the target node
 	 * @return Unique ID of link created
@@ -215,28 +241,16 @@ public:
 	virtual link_id_t addLink(node_id_t source, node_id_t target);
 
 	/**
-	 * Create a link between two nodes, given by their unique IDs, in state @p s.
-	 * @param source Unique ID of the source node
-	 * @param target Unique ID of the target node
-	 * @param s State of the new link.
-	 * @return Unique ID of link created
-	 * 	 */
-	virtual link_id_t addLink(node_id_t source, node_id_t target,
-			link_state_t s);
-
-	/**
-	 * Change link to connect the new @p source with the new @p target, and set link
-	 * state to @p s. If you need link rewiring, use this instead of removing and
+	 * Change link to connect the new @p source with the new @p target.
+	 * If you need link rewiring, use this instead of removing and
 	 * adding a link. Here, the link is not deleted, thus keeping its link ID.
 	 * Returns true.
 	 * @param l	Unique ID of link to change.
 	 * @param source New source node ID.
 	 * @param target New target node ID.
-	 * @param s New link state.
 	 * @return true
 	 */
-	virtual bool changeLink(link_id_t l, node_id_t source, node_id_t target,
-			link_state_t s);
+	virtual bool changeLink(link_id_t l, node_id_t source, node_id_t target);
 
 	/**
 	 * Remove link with unique ID @p l
@@ -284,12 +298,7 @@ public:
 	 */
 	node_state_t getNodeState(node_id_t n) const;
 
-	/**
-	 * Put link with ID @p l in state @p s.
-	 * @param l Link ID.
-	 * @param s New link state.
-	 */
-	void setLinkState(link_id_t l, link_state_t s);
+public:
 	/**
 	 * Return state of link with ID @p l.
 	 * @param l Link ID.
@@ -415,11 +424,17 @@ protected:
 	 * @return Reference to Link.
 	 */
 	Link& link(link_id_t l) const;
+	/**
+	 * Recalculate states of links adjacent to node @p n.
+	 * @param n %Node ID.
+	 */
+	void recalcLinkStates(node_id_t n);
+
 private:
 	NodeRepo* nodeStore_; ///< repository of nodes
 	LinkRepo* linkStore_; ///< repository of links
-	id_size_t minDegree_; ///< cached minimum degree in the network
-	id_size_t maxDegree_; ///< cached maximum degree in the network
+	LinkStateCalculator* lsCalc_; ///< link state calculator
+	bool lscOwn_; ///< true if we need to manage the link state calculator
 };
 
 inline id_size_t MultiNetwork::numberOfNodes() const
@@ -511,6 +526,11 @@ inline node_state_size_t MultiNetwork::numberOfNodeStates() const
 inline link_state_size_t MultiNetwork::numberOfLinkStates() const
 {
 	return linkStore_->numberOfCategories();
+}
+
+inline const LinkStateCalculator& MultiNetwork::getLinkStateCalculator() const
+{
+	return *lsCalc_;
 }
 
 }

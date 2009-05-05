@@ -33,6 +33,9 @@ NodeEdgelistIn::~NodeEdgelistIn()
 
 bool NodeEdgelistIn::get(istream& in, MultiNetwork& net)
 {
+	// TODO implement me.
+	assert(false);
+	/*
 	if (!in)
 		return false;
 
@@ -64,7 +67,7 @@ bool NodeEdgelistIn::get(istream& in, MultiNetwork& net)
 	ss.str(line);
 	ss >> skipws >> tok;
 	if (tok != NODE_LIST) throw("No node list token."); // FIXME
-
+*/
 // TODO
 	return true;
 }
