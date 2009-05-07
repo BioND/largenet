@@ -30,7 +30,7 @@ typedef unsigned int link_state_t; ///< %Link state type.
 typedef link_state_t link_state_size_t; ///< %Link state size type.
 
 /**
- * Functor calculating a link's state from its end nodes' states.
+ * Functor calculating a link's state from its end nodes' states (abstract class).
  */
 struct LinkStateCalculator
 {
@@ -41,13 +41,22 @@ struct LinkStateCalculator
 	 * @return %Link state.
 	 */
 	virtual link_state_t operator()(const node_state_t source,
-			const node_state_t target) = 0;
+			const node_state_t target) const = 0;
 };
 
+/**
+ * Constant link state functor.
+ */
 template<link_state_t ls = 0>
 struct ConstLinkState: public LinkStateCalculator
 {
-	link_state_t operator()(node_state_t source, node_state_t target)
+	/**
+	 * Returns constant link state @p ls
+	 * @param source ignored
+	 * @param target ignored
+	 * @return constant link state @p ls
+	 */
+	link_state_t operator()(node_state_t source, node_state_t target) const
 	{
 		return ls;
 	}

@@ -7,18 +7,15 @@
 #ifndef MULTINETWORK_H_
 #define MULTINETWORK_H_
 
-#include <cassert>
-#include <utility>
 #include "types.h"
 #include "Node.h"
 #include "Link.h"
 #include "../repo/CategorizedRepository.h"
+#include <cassert>
+#include <utility> // for std::pair
 
 namespace lnet
 {
-
-typedef repo::CategorizedRepository<Node*> NodeRepo; ///< CategorizedRepository of Node pointers
-typedef repo::CategorizedRepository<Link*> LinkRepo; ///< CategorizedRepository of Link pointers
 
 /**
  * A class representing a network of Nodes connected by Links. Parallel edges (multiple
@@ -30,6 +27,11 @@ typedef repo::CategorizedRepository<Link*> LinkRepo; ///< CategorizedRepository 
  */
 class MultiNetwork
 {
+protected:
+	// member types
+	typedef repo::CategorizedRepository<Node*> NodeRepo; ///< CategorizedRepository of Node pointers
+	typedef repo::CategorizedRepository<Link*> LinkRepo; ///< CategorizedRepository of Link pointers
+
 public:
 	// member types
 	typedef NodeRepo::IndexIterator NodeIterator; ///< %Node ID iterator type.
@@ -152,10 +154,9 @@ public:
 	/**
 	 * Set the LinkStateCalculator object to use in order to keep node and link
 	 * states consistent.
-	 * @param lsCalc
-	 * @return true
+	 * @param lsCalc pointer to LinkStateCalculator object
 	 */
-	bool setLinkStateCalculator(LinkStateCalculator* lsCalc);
+	void setLinkStateCalculator(LinkStateCalculator* lsCalc);
 
 	/**
 	 * Return a copy of the internal link state calculator.
@@ -429,6 +430,7 @@ protected:
 	 * @param n %Node ID.
 	 */
 	void recalcLinkStates(node_id_t n);
+	bool isValidLinkStateCalculator(LinkStateCalculator* lc) const;
 
 private:
 	NodeRepo* nodeStore_; ///< repository of nodes

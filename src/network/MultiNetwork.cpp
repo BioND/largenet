@@ -1,5 +1,6 @@
 #include "MultiNetwork.h"
 #include "../myrng1.2/myrngWELL.h"
+#include <stdexcept>
 
 namespace lnet
 {
@@ -24,10 +25,11 @@ MultiNetwork::~MultiNetwork()
 	clear();
 	delete nodeStore_;
 	delete linkStore_;
-	if (lscOwn_) delete lsCalc_;
+	if (lscOwn_)
+		delete lsCalc_;
 }
 
-bool MultiNetwork::setLinkStateCalculator(LinkStateCalculator* lsCalc)
+void MultiNetwork::setLinkStateCalculator(LinkStateCalculator* lsCalc)
 {
 	if (lscOwn_)
 	{
@@ -36,15 +38,30 @@ bool MultiNetwork::setLinkStateCalculator(LinkStateCalculator* lsCalc)
 	}
 	if (lsCalc != 0)
 	{
-		// FIXME do we need to check if lsCalc returns valid values only?
-		lsCalc_ = lsCalc;
+		if (isValidLinkStateCalculator(lsCalc))
+			lsCalc_ = lsCalc;
+		else
+			throw(std::invalid_argument(
+					"LinkStateCalculator gives impossible link states!"));
 	}
 	else
 	{
-		lsCalc_ = new ConstLinkState<>;
+		lsCalc_ = new ConstLinkState<> ;
 		lscOwn_ = true;
 	}
-	return true;
+}
+
+bool MultiNetwork::isValidLinkStateCalculator(LinkStateCalculator* lc) const
+{
+	bool retval = true;
+	for (node_state_t i = 0; i < numberOfNodeStates(); ++i)
+	{
+		for (node_state_t j = 0; j < numberOfNodeStates(); ++j)
+		{
+			retval &= ((*lc)(i, j) < numberOfLinkStates());
+		}
+	}
+	return retval;
 }
 
 void MultiNetwork::init(id_size_t nodes)
@@ -80,7 +97,8 @@ void MultiNetwork::clear()
 
 link_id_t MultiNetwork::addLink(const node_id_t source, const node_id_t target)
 {
-	const link_state_t s = (*lsCalc_)(getNodeState(source), getNodeState(target));
+	const link_state_t s = (*lsCalc_)(getNodeState(source),
+			getNodeState(target));
 	const link_id_t l = linkStore_->insert(new Link(source, target), s);
 	node(source).addLink(l);
 	node(target).addLink(l);
