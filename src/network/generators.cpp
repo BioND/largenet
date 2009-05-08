@@ -82,11 +82,11 @@ void erdosRenyiNetwork(Network& net, const double p)
 	}
 }
 
-node_id_t starGraph(MultiNetwork& net, const id_size_t nSpikes)
+/*node_id_t starGraph(MultiNetwork& net, const id_size_t nSpikes)
 {
 	node_state_size_t ns = net.numberOfNodeStates();
 	link_state_size_t ls = net.numberOfLinkStates();
-	net.reset(nSpikes + 1, nSpikes, ns, ls);
+	net.reset(nSpikes + 1, nSpikes, ns, ls, net.getLinkStateCalculator());
 	MultiNetwork::NodeIteratorRange iters = net.nodes();
 	assert(iters.first != iters.second);
 	node_id_t hub = *iters.first;
@@ -97,6 +97,6 @@ node_id_t starGraph(MultiNetwork& net, const id_size_t nSpikes)
 	}
 	return hub;
 }
-
+*/
 }
 }

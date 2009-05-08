@@ -81,7 +81,7 @@ void erdosRenyiNetwork(Network& net, double p);
  * @param[in] nSpikes Number of spikes of the star.
  * @return %Node ID of hub node.
  */
-node_id_t starGraph(MultiNetwork& net, id_size_t nSpikes);
+//node_id_t starGraph(MultiNetwork& net, id_size_t nSpikes);
 
 }
 }

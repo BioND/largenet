@@ -1,20 +1,22 @@
 #include "MultiNetwork.h"
 #include "../myrng1.2/myrngWELL.h"
+#include <stdexcept>
 
 namespace lnet
 {
 
-MultiNetwork::MultiNetwork()
+MultiNetwork::MultiNetwork() :
+	nodeStore_(new NodeRepo(1, 0)), linkStore_(new LinkRepo(1, 0)), lsCalc_(
+			new ConstLinkState<> ), lscOwn_(true)
 {
-	nodeStore_ = new NodeRepo(1, 0);
-	linkStore_ = new LinkRepo(1, 0);
 }
 
 MultiNetwork::MultiNetwork(const id_size_t nNodes, const id_size_t nLinks,
-		const id_size_t nNodeStates, const id_size_t nLinkStates)
+		const id_size_t nNodeStates, const id_size_t nLinkStates,
+		LinkStateCalculator* lsCalc) :
+	nodeStore_(new NodeRepo(nNodeStates, nNodes)), linkStore_(new LinkRepo(
+			nLinkStates, nLinks)), lsCalc_(lsCalc), lscOwn_(false)
 {
-	nodeStore_ = new NodeRepo(nNodeStates, nNodes);
-	linkStore_ = new LinkRepo(nLinkStates, nLinks);
 	init(nNodes);
 }
 
@@ -23,6 +25,43 @@ MultiNetwork::~MultiNetwork()
 	clear();
 	delete nodeStore_;
 	delete linkStore_;
+	if (lscOwn_)
+		delete lsCalc_;
+}
+
+void MultiNetwork::setLinkStateCalculator(LinkStateCalculator* lsCalc)
+{
+	if (lscOwn_)
+	{
+		delete lsCalc_;
+		lscOwn_ = false;
+	}
+	if (lsCalc != 0)
+	{
+		if (isValidLinkStateCalculator(lsCalc))
+			lsCalc_ = lsCalc;
+		else
+			throw(std::invalid_argument(
+					"LinkStateCalculator gives impossible link states!"));
+	}
+	else
+	{
+		lsCalc_ = new ConstLinkState<> ;
+		lscOwn_ = true;
+	}
+}
+
+bool MultiNetwork::isValidLinkStateCalculator(LinkStateCalculator* lc) const
+{
+	bool retval = true;
+	for (node_state_t i = 0; i < numberOfNodeStates(); ++i)
+	{
+		for (node_state_t j = 0; j < numberOfNodeStates(); ++j)
+		{
+			retval &= ((*lc)(i, j) < numberOfLinkStates());
+		}
+	}
+	return retval;
 }
 
 void MultiNetwork::init(id_size_t nodes)
@@ -39,13 +78,14 @@ void MultiNetwork::init(id_size_t nodes)
 
 void MultiNetwork::reset(const id_size_t nNodes, const id_size_t nLinks,
 		const node_state_size_t nNodeStates,
-		const link_state_size_t nLinkStates)
+		const link_state_size_t nLinkStates, LinkStateCalculator* lsCalc)
 {
 	clear();
 	delete nodeStore_;
 	delete linkStore_;
 	nodeStore_ = new NodeRepo(nNodeStates, nNodes);
 	linkStore_ = new LinkRepo(nLinkStates, nLinks);
+	setLinkStateCalculator(lsCalc);
 	init(nNodes);
 }
 
@@ -57,21 +97,16 @@ void MultiNetwork::clear()
 
 link_id_t MultiNetwork::addLink(const node_id_t source, const node_id_t target)
 {
-	return addLink(source, target, 0);
-}
-
-link_id_t MultiNetwork::addLink(const node_id_t source, const node_id_t target,
-		const link_state_t s)
-{
-	link_id_t l;
-	l = linkStore_->insert(new Link(source, target), s);
+	const link_state_t s = (*lsCalc_)(getNodeState(source),
+			getNodeState(target));
+	const link_id_t l = linkStore_->insert(new Link(source, target), s);
 	node(source).addLink(l);
 	node(target).addLink(l);
 	return l;
 }
 
 bool MultiNetwork::changeLink(const link_id_t l, const node_id_t source,
-		const node_id_t target, const link_state_t s)
+		const node_id_t target)
 {
 	Link& theLink = link(l);
 	if ((source != theLink.source()) || (target != theLink.target()))
@@ -83,8 +118,8 @@ bool MultiNetwork::changeLink(const link_id_t l, const node_id_t source,
 		theLink.setTarget(target);
 		node(target).addLink(l);
 	}
-	if (getLinkState(l) != s)
-		setLinkState(l, s);
+	linkStore_->setCategory(l, (*lsCalc_)(getNodeState(source), getNodeState(
+			target)));
 	return true;
 }
 
@@ -136,12 +171,17 @@ void MultiNetwork::setNodeState(const node_id_t n, const node_state_t s)
 {
 	//	node(n).setState(s);
 	nodeStore_->setCategory(n, s);
+	recalcLinkStates(n);
 }
 
-void MultiNetwork::setLinkState(const link_id_t l, const link_state_t s)
+void MultiNetwork::recalcLinkStates(const node_id_t n)
 {
-	//	link(l).setState(s);
-	linkStore_->setCategory(l, s);
+	NeighborLinkIteratorRange iters = neighborLinks(n);
+	for (NeighborLinkIterator& it = iters.first; it != iters.second; ++it)
+	{
+		linkStore_->setCategory(*it, (*lsCalc_)(getNodeState(source(*it)),
+				getNodeState(target(*it))));
+	}
 }
 
 std::pair<bool, link_id_t> MultiNetwork::isLink(const node_id_t source,

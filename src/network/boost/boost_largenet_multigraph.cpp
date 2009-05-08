@@ -56,10 +56,11 @@ void remove_vertex(graph_traits<MultiNetwork>::vertex_descriptor u,
 	g.removeNode(u);
 }
 
+
 /*
  * boost::MutablePropertyGraph concept
  */
-std::pair<graph_traits<MultiNetwork>::edge_descriptor, bool> add_edge(
+/*std::pair<graph_traits<MultiNetwork>::edge_descriptor, bool> add_edge(
 		graph_traits<MultiNetwork>::vertex_descriptor u, graph_traits<
 				MultiNetwork>::vertex_descriptor v,
 		graph_traits<MultiNetwork>::edge_property_type ep, MultiNetwork& g)
@@ -73,5 +74,5 @@ graph_traits<MultiNetwork>::vertex_descriptor add_vertex(graph_traits<
 {
 	return g.addNode(vp);
 }
-
+*/
 }
