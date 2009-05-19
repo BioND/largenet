@@ -306,36 +306,14 @@ public:
 	 * @param cat Category to put item into.
 	 */
 	void setCategory(id_t id, category_t cat);
-private:
-	/**
-	 * Set category of item with number @p n.
-	 * @param n Number of item.
-	 * @param cat Category to put item into.
-	 */
-	void setCategory(address_t n, category_t cat);
-	/**
-	 * Set category of @p n 'th item in category @p oldCat to @p newCat
-	 * @param oldCat Category the item is in.
-	 * @param n Number of item in category @p oldCat
-	 * @param newCat New category for item.
-	 */
-	void setCategory(category_t oldCat, address_t n, category_t newCat);
 
-public:
 	/**
 	 * Return item with @p id.
 	 * @param id Unique ID of item
 	 * @return Reference to item
 	 */
 	T& item(id_t id) const;
-private:
-	/**
-	 * Return item with number @p n.
-	 * @param n Number of item
-	 * @return Reference to item
-	 */
-	T& item(address_t n) const;
-public:
+
 	/**
 	 * Return @p n 'th item in category @p cat
 	 * @param cat Category of item
@@ -377,15 +355,7 @@ public:
 	 * @return Removed item
 	 */
 	T remove(id_t id);
-private:
-	/**
-	 * Remove @p n 'th item from repository.
-	 * The item is not destroyed but returned.
-	 * @param n Number of item to remove
-	 * @return Removed item.
-	 */
-	T remove(address_t n);
-public:
+
 	/**
 	 * Remove @p n 'th item in category @p cat from repository.
 	 * The item is not destroyed but returned.
@@ -414,14 +384,7 @@ public:
 	 * @return Reference to item
 	 */
 	T& operator[](id_t id) const;
-private:
-	/**
-	 * Get @p n 'th item in repository
-	 * @param n Number of item
-	 * @return Reference to item
-	 */
-	T& operator()(address_t n) const;
-public:
+
 	/**
 	 * Get @p n 'th item in category @p cat
 	 * @param cat Category of item
@@ -474,6 +437,35 @@ public:
 	bool valid(id_t i) const;
 
 private:
+	/**
+	 * Set category of item with number @p n.
+	 * @param n Number of item.
+	 * @param cat Category to put item into.
+	 */
+	void setCategory(address_t n, category_t cat);
+	/**
+	 * Set category of @p n 'th item in category @p oldCat to @p newCat
+	 * @param oldCat Category the item is in.
+	 * @param n Number of item in category @p oldCat
+	 * @param newCat New category for item.
+	 */
+	void setCategory(category_t oldCat, address_t n, category_t newCat);
+
+	/**
+	 * Return item with number @p n.
+	 * @param n Number of item
+	 * @return Reference to item
+	 */
+	T& item(address_t n) const;
+
+	/**
+	 * Remove @p n 'th item from repository.
+	 * The item is not destroyed but returned.
+	 * @param n Number of item to remove
+	 * @return Removed item.
+	 */
+	T remove(address_t n);
+
 	void allocate(); ///< allocate memory
 	void clear(); ///< clear repository and deallocate memory
 	bool enlarge(); ///< enlarge the storage space
@@ -804,13 +796,6 @@ inline T& CategorizedRepository<T, enlarge_factor, max_size>::item(
 {
 	assert(n < N_);
 	return items_[ids_[n]];
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline T& CategorizedRepository<T, enlarge_factor, max_size>::operator()(
-		const address_t n) const
-{
-	return item(n);
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
