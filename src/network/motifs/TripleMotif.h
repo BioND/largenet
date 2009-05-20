@@ -8,7 +8,7 @@
 #ifndef TRIPLEMOTIF_H_
 #define TRIPLEMOTIF_H_
 
-#include "../types.h"
+#include "../base/types.h"
 #include <string>
 #include <iostream>
 

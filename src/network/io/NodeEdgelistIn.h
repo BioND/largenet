@@ -8,12 +8,11 @@
 #ifndef NODEEDGELISTIN_H_
 #define NODEEDGELISTIN_H_
 
+#include "../MultiNetwork.h"
 #include "NetIn.h"
 
 namespace lnet
 {
-
-class MultiNetwork;
 
 namespace io
 {

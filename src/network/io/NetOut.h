@@ -7,12 +7,11 @@
 #ifndef NETOUT_H_
 #define NETOUT_H_
 
+#include "../MultiNetwork.h"
 #include <ostream>
 
 namespace lnet
 {
-
-class MultiNetwork;
 
 namespace io
 {

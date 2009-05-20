@@ -27,6 +27,10 @@ private:
 	link_id_t left_, right_;
 };
 
+inline Triple::Triple(const link_id_t left, const link_id_t right) :
+	left_(left), right_(right)
+{
+}
 
 inline link_id_t Triple::left() const
 {

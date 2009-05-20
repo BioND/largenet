@@ -7,7 +7,7 @@
 #ifndef NETWORK_H_
 #define NETWORK_H_
 
-#include "types.h"
+#include "base/types.h"
 #include "MultiNetwork.h"
 
 namespace lnet
@@ -17,7 +17,7 @@ namespace lnet
  * A class representing a network of Nodes connected by Links. Parallel edges (multiple
  * links connecting the same nodes) are silently ignored. Self-loops are allowed.
  */
-class Network: public lnet::MultiNetwork
+class Network: public MultiNetwork
 {
 public:
 	/**

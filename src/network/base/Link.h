@@ -34,7 +34,7 @@ public:
 	 * @param target %Node ID to link to.
 	 * @param state Initial link state.
 	 */
-//	Link(node_id_t source, node_id_t target, link_state_t state);
+	//	Link(node_id_t source, node_id_t target, link_state_t state);
 
 	/**
 	 * Get ID of source node.
@@ -74,12 +74,12 @@ public:
 	 * Get link state.
 	 * @return %Link state.
 	 */
-//	link_state_t state() const;
+	//	link_state_t state() const;
 	/**
 	 * Set link state.
 	 * @param state New link state.
 	 */
-//	void setState(link_state_t state);
+	//	void setState(link_state_t state);
 
 private:
 	// We use the identifiers source and target
@@ -87,8 +87,13 @@ private:
 	node_id_t source_; ///< Unique ID of source node.
 	node_id_t target_; ///< Unique ID of target node.
 
-//	link_state_t state_; ///< Link state.
+	//	link_state_t state_; ///< Link state.
 };
+
+inline Link::Link(const node_id_t source, const node_id_t target) :
+	source_(source), target_(target)
+{
+}
 
 inline node_id_t Link::source() const
 {

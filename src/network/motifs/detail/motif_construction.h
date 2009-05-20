@@ -8,12 +8,11 @@
 #ifndef MOTIF_CONSTRUCTION_H_
 #define MOTIF_CONSTRUCTION_H_
 
-#include <set>
-#include "../../types.h"
+#include "../../base/types.h"
 #include "../NodeMotif.h"
 #include "../LinkMotif.h"
 #include "../TripleMotif.h"
-
+#include <set>
 
 namespace lnet
 {

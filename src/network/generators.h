@@ -10,12 +10,12 @@
 #ifndef GENERATORS_H_
 #define GENERATORS_H_
 
-#include "types.h"
+#include "base/types.h"
+#include "MultiNetwork.h"
 
 namespace lnet
 {
 
-class MultiNetwork;
 class Network;
 
 /**

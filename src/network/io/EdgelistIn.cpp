@@ -1,5 +1,5 @@
 #include "EdgelistIn.h"
-#include "../types.h"
+#include "../base/types.h"
 #include "../MultiNetwork.h"
 #include <string>
 #include <sstream>

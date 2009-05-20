@@ -8,7 +8,7 @@
 #ifndef NODEMOTIF_H_
 #define NODEMOTIF_H_
 
-#include "../types.h"
+#include "../base/types.h"
 #include <string>
 #include <iostream>
 #include <set>

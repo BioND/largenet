@@ -1,6 +1,5 @@
 #include "EdgelistOut.h"
-#include "../types.h"
-#include "../Link.h"
+#include "../base/types.h"
 #include "../MultiNetwork.h"
 
 namespace lnet

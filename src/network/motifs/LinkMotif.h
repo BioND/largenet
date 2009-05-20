@@ -8,7 +8,7 @@
 #ifndef LINKMOTIF_H_
 #define LINKMOTIF_H_
 
-#include "../types.h"
+#include "../base/types.h"
 #include <string>
 #include <iostream>
 //#include <set>

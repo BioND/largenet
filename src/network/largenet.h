@@ -8,10 +8,8 @@
 #ifndef LARGENET_H_
 #define LARGENET_H_
 
-#include "types.h"
+#include "base/types.h"
 #include "MultiNetwork.h"
 #include "Network.h"
-#include "Link.h"
-#include "Node.h"
 
 #endif /* LARGENET_H_ */

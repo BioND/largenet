@@ -1,6 +1,5 @@
 #include "generators.h"
 #include "../myrng1.2/myrngWELL.h"
-#include "types.h"
 #include "MultiNetwork.h"
 #include "Network.h"
 #include <cassert>

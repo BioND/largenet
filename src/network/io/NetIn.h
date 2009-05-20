@@ -8,12 +8,11 @@
 #ifndef NETIN_H_
 #define NETIN_H_
 
+#include "../MultiNetwork.h"
 #include <istream>
 
 namespace lnet
 {
-
-class MultiNetwork;
 
 /**
  * Namespace containing all network input/output functionality.

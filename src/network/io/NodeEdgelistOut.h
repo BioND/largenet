@@ -8,13 +8,12 @@
 #ifndef NODEEDGELISTOUT_H_
 #define NODEEDGELISTOUT_H_
 
+#include "../MultiNetwork.h"
 #include "NetOut.h"
 #include <iostream>
 
 namespace lnet
 {
-
-class MultiNetwork;
 
 namespace io
 {
