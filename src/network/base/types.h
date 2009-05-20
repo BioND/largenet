@@ -38,6 +38,10 @@ typedef triple_state_t triple_state_size_t; ///< %Triple state size type.
 struct LinkStateCalculator
 {
 	/**
+	 * Destructor.
+	 */
+	virtual ~LinkStateCalculator() {}
+	/**
 	 * Calculates link state from end node states.
 	 * @param[in] source Source node's state.
 	 * @param[in] target Target node's state.
@@ -70,6 +74,10 @@ struct ConstLinkState: public LinkStateCalculator
  */
 struct TripleStateCalculator
 {
+	/**
+	 * Destructor.
+	 */
+	virtual ~TripleStateCalculator() {}
 	/**
 	 * Calculates triple state from node states.
 	 * @param left State of left node
