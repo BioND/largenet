@@ -461,6 +461,7 @@ inline typename BasicNetwork<_Node, _Link>::LinkRepo& BasicNetwork<_Node, _Link>
 template <class _Node, class _Link>
 inline LinkStateCalculator& BasicNetwork<_Node, _Link>::lsCalc() const
 {
+	assert(lsCalc_ != 0);
 	return *lsCalc_;
 }
 
@@ -645,8 +646,8 @@ bool BasicNetwork<_Node, _Link>::isValidLinkStateCalculator(LinkStateCalculator*
 template<class _Node, class _Link>
 void BasicNetwork<_Node, _Link>::init(id_size_t nodes)
 {
-	nodeStore_->deleteAll();
-	linkStore_->deleteAll();
+//	nodeStore_->deleteAll();
+//	linkStore_->deleteAll();
 	for (id_size_t i = 0; i < nodes; ++i)
 	{
 		(*nodeStore_) << new NodeType;
