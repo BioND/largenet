@@ -317,7 +317,7 @@ id_size_t triples_slow(const _Network& net)
 }
 
 template<class _Network>
-id_size_t triples(const _Network& net, const TripleMotif& t)
+id_size_t triples(const _Network& net, const motifs::TripleMotif& t)
 {
 	id_size_t ret = 0;
 

@@ -237,7 +237,7 @@ id_size_t triples<TripleNetwork> (const TripleNetwork& net)
 
 template<>
 id_size_t triples<TripleMultiNetwork> (const TripleMultiNetwork& net,
-		const TripleMotif& t)
+		const motifs::TripleMotif& t)
 {
 	return net.numberOfTriples(net.getTripleStateCalculator()(t.left(),
 			t.center(), t.right()));
@@ -245,7 +245,7 @@ id_size_t triples<TripleMultiNetwork> (const TripleMultiNetwork& net,
 
 template<>
 id_size_t triples<TripleNetwork> (const TripleNetwork& net,
-		const TripleMotif& t)
+		const motifs::TripleMotif& t)
 {
 	return net.numberOfTriples(net.getTripleStateCalculator()(t.left(),
 			t.center(), t.right()));
