@@ -15,6 +15,7 @@
 
 namespace lnet
 {
+namespace motifs {
 
 class NodeMotif
 {
@@ -43,5 +44,5 @@ inline node_state_t NodeMotif::operator()() const
 }
 
 }
-
+}
 #endif /* NODEMOTIF_H_ */

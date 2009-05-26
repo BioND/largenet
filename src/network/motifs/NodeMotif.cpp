@@ -10,6 +10,7 @@
 
 namespace lnet
 {
+namespace motifs {
 
 NodeMotif::NodeMotif(const node_state_t n) :
 	n_(n)
@@ -36,5 +37,5 @@ std::ostream& operator<<(std::ostream& out, const NodeMotif& n)
 	return out << n.toStr();
 }
 
-
+}
 }

@@ -16,12 +16,15 @@
 
 namespace lnet
 {
+namespace motifs
+{
 namespace detail
 {
 
 template<class Motif>
 void constructAllMotifs(std::set<Motif>& m, node_state_size_t states);
 
+}
 }
 }
 

@@ -9,6 +9,8 @@
 
 namespace lnet
 {
+namespace motifs
+{
 namespace detail
 {
 
@@ -36,5 +38,6 @@ void constructAllMotifs(std::set<TripleMotif>& m, node_state_size_t states)
 				m.insert(TripleMotif(a, b, c));
 }
 
+}
 }
 }

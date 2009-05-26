@@ -15,6 +15,7 @@
 
 namespace lnet
 {
+namespace motifs {
 
 /**
  * An undirected link. State fields @p a, @p b are always ordered.
@@ -50,5 +51,5 @@ inline bool LinkMotif::isSymmetric() const
 	return a_ == b_;
 }
 }
-
+}
 #endif /* LINKMOTIF_H_ */

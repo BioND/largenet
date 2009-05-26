@@ -14,6 +14,7 @@
 
 namespace lnet
 {
+namespace motifs {
 
 /**
  * An undirected triple. State fields @p a, @p b, @p c are always ordered.
@@ -55,5 +56,5 @@ inline bool TripleMotif::isSymmetric() const
 	return a_ == c_;
 }
 }
-
+}
 #endif /* TRIPLEMOTIF_H_ */

@@ -11,6 +11,7 @@
 
 namespace lnet
 {
+namespace motifs {
 
 TripleMotif::TripleMotif(const node_state_t aa, const node_state_t bb,
 		const node_state_t cc) :
@@ -49,5 +50,6 @@ bool operator<(const TripleMotif& A, const TripleMotif& B)
 std::ostream& operator<<(std::ostream& out, const TripleMotif& t)
 {
 	return out << t.toStr();
+}
 }
 }

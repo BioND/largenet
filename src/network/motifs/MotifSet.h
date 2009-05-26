@@ -12,6 +12,8 @@
 
 namespace lnet
 {
+namespace motifs {
+
 
 template<class Motif>
 class MotifSet
@@ -52,5 +54,5 @@ inline unsigned int MotifSet<Motif>::size() const
 }
 
 }
-
+}
 #endif /* MOTIFSET_H_ */
