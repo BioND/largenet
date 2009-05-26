@@ -916,6 +916,9 @@ T CategorizedRepository<T, enlarge_factor, max_size>::remove(const address_t n)
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::removeAll()
 {
+	// FIXME This is wrong, but fast.
+	//	clear();
+
 	while (nStored_)
 	{
 		remove(static_cast<address_t> (0));
@@ -925,6 +928,14 @@ void CategorizedRepository<T, enlarge_factor, max_size>::removeAll()
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::deleteAll()
 {
+	// FIXME This is wrong, but fast.
+	//	for (id_t i = 0; i < N_; ++i)
+	//	{
+	//		if (items_[i] != 0)
+	//			delete items_[i];
+	//	}
+	//	clear();
+
 	while (nStored_)
 	{
 		T x = remove(static_cast<address_t> (0));
