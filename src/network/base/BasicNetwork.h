@@ -9,12 +9,15 @@
 #define BASICNETWORK_H_
 
 #include "types.h"
+#include "state_calculators.h"
 #include "../../repo/CategorizedRepository.h"
 #include "../../myrng1.2/myrngWELL.h"
 #include <iterator>
 #include <cassert>
 #include <utility> // for std::pair
 #include <stdexcept>
+#include <string>
+#include <sstream>
 
 namespace lnet
 {
@@ -142,6 +145,8 @@ public:
 	BasicNetwork(id_size_t nNodes, id_size_t nLinks, node_state_size_t nNodeStates,
 			link_state_size_t nLinkStates, LinkStateCalculator* lsCalc);
 	virtual ~BasicNetwork();
+
+	std::string info() const;
 
 	/**
 	 * Return the number of nodes in the network.
@@ -447,6 +452,16 @@ private:
 };
 
 template <class _Node, class _Link>
+inline std::string BasicNetwork<_Node, _Link>::info() const
+{
+	std::stringstream ss;
+	ss << "Network of N = " << numberOfNodes() << " nodes in " << numberOfNodeStates()
+	<< " possible states and L = " << numberOfLinks() << " links in "
+	<< numberOfLinkStates() << " possible states.";
+	return ss.str();
+}
+
+template <class _Node, class _Link>
 inline typename BasicNetwork<_Node, _Link>::NodeRepo& BasicNetwork<_Node, _Link>::nodeStore() const
 {
 	return *nodeStore_;
@@ -646,8 +661,8 @@ bool BasicNetwork<_Node, _Link>::isValidLinkStateCalculator(LinkStateCalculator*
 template<class _Node, class _Link>
 void BasicNetwork<_Node, _Link>::init(id_size_t nodes)
 {
-//	nodeStore_->deleteAll();
-//	linkStore_->deleteAll();
+	//	nodeStore_->deleteAll();
+	//	linkStore_->deleteAll();
 	for (id_size_t i = 0; i < nodes; ++i)
 	{
 		(*nodeStore_) << new NodeType;
