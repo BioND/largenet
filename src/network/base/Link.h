@@ -20,6 +20,8 @@ namespace lnet
 class Link
 {
 public:
+	// Default constructor
+	Link();
 	/**
 	 * Basic constructor. Creates a link with end node IDs @p source and @p target.
 	 * The new link will have zero state.
@@ -89,6 +91,11 @@ private:
 
 	//	link_state_t state_; ///< Link state.
 };
+
+inline Link::Link() :
+	source_(0), target_(0)
+{
+}
 
 inline Link::Link(const node_id_t source, const node_id_t target) :
 	source_(source), target_(target)
