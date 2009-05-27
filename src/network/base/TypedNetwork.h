@@ -30,8 +30,8 @@ class TypedNetwork: public BasicNetwork
 {
 protected:
 	// member types
-typedef	typename repo::CategorizedRepository<_Node*> NodeRepo; ///< CategorizedRepository of Node pointers
-	typedef typename repo::CategorizedRepository<_Link*> LinkRepo; ///< CategorizedRepository of Link pointers
+typedef	typename repo::CategorizedRepository<_Node> NodeRepo; ///< CategorizedRepository of Node pointers
+	typedef typename repo::CategorizedRepository<_Link> LinkRepo; ///< CategorizedRepository of Link pointers
 
 public:
 	// member types
@@ -180,58 +180,7 @@ public:
 	 * @return Number of possible link states.
 	 */
 	link_state_size_t numberOfLinkStates() const;
-	//
-	//	/**
-	//	 * Add a new node to category 0.
-	//	 * @return	Unique ID of the new node.
-	//	 */
-	//	node_id_t addNode();
-	//
-	//	/**
-	//	 * Add a new node in state @p s.
-	//	 * @param s State of the new node.
-	//	 * @return	Unique ID of the new node.
-	//	 */
-	//	node_id_t addNode(node_state_t s);
-	//
-	//	/**
-	//	 * Create a link between two nodes, given by their unique IDs. The link
-	//	 * state is determined using the internal link state calculator.
-	//	 * @param source Unique ID of the source node
-	//	 * @param target Unique ID of the target node
-	//	 * @return Unique ID of link created
-	//	 */
-	//	virtual link_id_t addLink(node_id_t source, node_id_t target);
-	//
-	//	/**
-	//	 * Change link to connect the new @p source with the new @p target.
-	//	 * If you need link rewiring, use this instead of removing and
-	//	 * adding a link. Here, the link is not deleted, thus keeping its link ID.
-	//	 * Returns true.
-	//	 * @param l	Unique ID of link to change.
-	//	 * @param source New source node ID.
-	//	 * @param target New target node ID.
-	//	 * @return true
-	//	 */
-	//	virtual bool changeLink(link_id_t l, node_id_t source, node_id_t target);
-	//
-	//	/**
-	//	 * Remove link with unique ID @p l
-	//	 * @param l ID of link to remove.
-	//	 */
-	//	virtual void removeLink(link_id_t l);
-	//
-	//	/**
-	//	 * Remove all links in network.
-	//	 */
-	//	virtual void removeAllLinks();
-	//
-	//	/**
-	//	 * Remove node with unique ID @p n.
-	//	 * @param n	ID of node to be removed.
-	//	 */
-	//	virtual void removeNode(node_id_t n);
-	//
+
 	/**
 	 * Check if there exists a direct link between two nodes.
 	 * @param source ID of source node.
@@ -517,17 +466,13 @@ inline id_size_t TypedNetwork<_Node, _Link>::numberOfLinks(const link_state_t s)
 template <class _Node, class _Link>
 inline typename TypedNetwork<_Node, _Link>::NodeType& TypedNetwork<_Node, _Link>::node(const node_id_t n) const
 {
-	NodeType* pt = (*nodeStore_)[n];
-	assert(pt != 0);
-	return *pt;
+	return (*nodeStore_)[n];
 }
 
 template <class _Node, class _Link>
 inline typename TypedNetwork<_Node, _Link>::LinkType& TypedNetwork<_Node, _Link>::link(const link_id_t l) const
 {
-	LinkType* pt = (*linkStore_)[l];
-	assert(pt != 0);
-	return *pt;
+	return (*linkStore_)[l];
 }
 
 template <class _Node, class _Link>
@@ -623,8 +568,6 @@ nodeStore_(new NodeRepo(nNodeStates, nNodes)), linkStore_(new LinkRepo(
 template <class _Node, class _Link>
 TypedNetwork<_Node, _Link>::~TypedNetwork()
 {
-	nodeStore_->deleteAll();
-	linkStore_->deleteAll();
 	delete nodeStore_;
 	delete linkStore_;
 	if (lscOwn_)
@@ -671,11 +614,9 @@ bool TypedNetwork<_Node, _Link>::isValidLinkStateCalculator(LinkStateCalculator*
 template<class _Node, class _Link>
 void TypedNetwork<_Node, _Link>::init(id_size_t nodes)
 {
-	//	nodeStore_->deleteAll();
-	//	linkStore_->deleteAll();
 	for (id_size_t i = 0; i < nodes; ++i)
 	{
-		(*nodeStore_) << new NodeType;
+		(*nodeStore_) << NodeType();
 	}
 }
 
@@ -684,8 +625,6 @@ void TypedNetwork<_Node, _Link>::reset(const id_size_t nNodes, const id_size_t n
 		const node_state_size_t nNodeStates,
 		const link_state_size_t nLinkStates, LinkStateCalculator* lsCalc)
 {
-	nodeStore_->deleteAll();
-	linkStore_->deleteAll();
 	delete nodeStore_;
 	delete linkStore_;
 	nodeStore_ = new NodeRepo(nNodeStates, nNodes);
@@ -700,7 +639,7 @@ void TypedNetwork<_Node, _Link>::doRemoveLink(const link_id_t l)
 	LinkType& theLink = link(l);
 	node(theLink.source()).removeLink(l);
 	node(theLink.target()).removeLink(l);
-	delete linkStore_->remove(l);
+	linkStore_->remove(l);
 }
 
 template <class _Node, class _Link>
@@ -711,7 +650,7 @@ void TypedNetwork<_Node, _Link>::doRemoveAllLinks()
 	{
 		node(*it).clear();
 	}
-	linkStore_->deleteAll();
+	linkStore_->removeAll();
 }
 
 template <class _Node, class _Link>
@@ -725,9 +664,9 @@ void TypedNetwork<_Node, _Link>::doRemoveNode(const node_id_t n)
 		node_id_t m = (l.source() == n) ? l.target() : l.source();
 		node(m).removeLink(*li);
 		// delete connecting links
-		delete linkStore_->remove(*li);
+		linkStore_->remove(*li);
 	}
-	delete nodeStore_->remove(n);
+	nodeStore_->remove(n);
 }
 
 template <class _Node, class _Link>
@@ -739,14 +678,13 @@ node_id_t TypedNetwork<_Node, _Link>::doAddNode()
 template <class _Node, class _Link>
 node_id_t TypedNetwork<_Node, _Link>::doAddNode(const node_state_t s)
 {
-	return nodeStore_->insert(new NodeType, s);
+	return nodeStore_->insert(NodeType(), s);
 }
 
 template <class _Node, class _Link>
 void TypedNetwork<_Node, _Link>::doSetNodeState(const node_id_t n, const node_state_t s)
 {
 	nodeStore_->setCategory(n, s);
-	//	onNodeStateChange(n);
 }
 
 template <class _Node, class _Link>
@@ -927,7 +865,7 @@ link_id_t TypedNetwork<_Node, _Link>::doAddLink(const node_id_t source, const no
 {
 	const link_state_t s = lsCalc()(getNodeState(source),
 			getNodeState(target));
-	const link_id_t l = linkStore_->insert(new LinkType(source, target), s);
+	const link_id_t l = linkStore_->insert(LinkType(source, target), s);
 	node(source).addLink(l);
 	node(target).addLink(l);
 	return l;

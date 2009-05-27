@@ -29,7 +29,6 @@ TripleMultiNetwork::TripleMultiNetwork(const id_size_t nNodes,
 
 TripleMultiNetwork::~TripleMultiNetwork()
 {
-	tripleStore_->deleteAll();
 	delete tripleStore_;
 	if (tscOwn_)
 		delete tsCalc_;
@@ -167,7 +166,7 @@ void TripleMultiNetwork::addTriple(const link_id_t left, const link_id_t right)
 		r = source(right);
 	}
 
-	const triple_id_t t = tripleStore_->insert(new Triple(left, right),
+	const triple_id_t t = tripleStore_->insert(Triple(left, right),
 			(*tsCalc_)(getNodeState(l), getNodeState(c), getNodeState(r)));
 	link(left).addTriple(t);
 	link(right).addTriple(t);
@@ -223,7 +222,7 @@ void TripleMultiNetwork::removeTriplesFromLinkEnd(const link_id_t l,
 			!= temp.end(); ++tit)
 	{
 		link(l).removeTriple(*tit);
-		delete tripleStore_->remove(*tit);
+		tripleStore_->remove(*tit);
 	}
 }
 
@@ -277,7 +276,7 @@ void TripleMultiNetwork::doRemoveLink(const link_id_t l)
 	{
 		link_id_t nl = left(*it) == l ? right(*it) : left(*it);
 		link(nl).removeTriple(*it);
-		delete tripleStore_->remove(*it);
+		tripleStore_->remove(*it);
 	}
 	TypedNetwork<NodeType, LinkType>::doRemoveLink(l);
 }
@@ -291,7 +290,7 @@ void TripleMultiNetwork::doRemoveAllLinks()
 	{
 		link(*it).clear();
 	}
-	tripleStore_->deleteAll();
+	tripleStore_->removeAll();
 	// now really delete all links and update nodes accordingly
 	TypedNetwork<NodeType, LinkType>::doRemoveAllLinks();
 }
@@ -307,7 +306,7 @@ void TripleMultiNetwork::doRemoveNode(const node_id_t n)
 		{
 			link_id_t nl = left(*tit) == *it ? right(*tit) : left(*tit);
 			link(nl).removeTriple(*tit);
-			delete tripleStore_->remove(*tit);
+			tripleStore_->remove(*tit);
 		}
 		// link(*it).clear();
 	}

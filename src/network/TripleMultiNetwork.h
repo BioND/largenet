@@ -22,7 +22,7 @@ class TripleMultiNetwork: public TypedNetwork<Node, TLink>
 {
 protected:
 	// member types
-	typedef repo::CategorizedRepository<Triple*> TripleRepo;
+	typedef repo::CategorizedRepository<Triple> TripleRepo;
 public:
 	typedef Triple TripleType;
 	typedef TripleRepo::IndexIterator TripleIterator;
@@ -154,9 +154,7 @@ inline TripleMultiNetwork::TripleStateIteratorRange TripleMultiNetwork::triples(
 
 inline Triple& TripleMultiNetwork::triple(const triple_id_t t) const
 {
-	Triple* pt = (*tripleStore_)[t];
-	assert(pt != 0);
-	return *pt;
+	return (*tripleStore_)[t];
 }
 
 inline link_id_t TripleMultiNetwork::left(const triple_id_t t) const
