@@ -17,12 +17,11 @@
 #define CATEGORIZEDREPOSITORY_H_
 
 #include "types.h"
+#include <vector>
 #include <utility>	// for std::pair
 #include <iterator>
 #include <exception>
-#include <string>
 #include <cassert>
-#include <memory.h>
 
 namespace repo
 {
@@ -46,33 +45,16 @@ public:
  *
  * @author Gerd Zschaler <zschaler@pks.mpg.de>, original concept by Thilo Gross <gross@physics.org>
  *
- * @note @p T should be a pointer type (for now).
- *
  * @see Class @c CRepository by Thilo Gross <gross@physics.org>.
  *
- * @todo Better remove the index operators @c () and @c [], and rename @c item(address_t) and @c item(id_t) to
+ * @todo Better remove the index operators and @c [], and rename @c item(address_t) and @c item(id_t) to
  * something clearer to prevent confusion and ambiguities.
-
- * @todo Make item ownership consistent. Items should be created and destroyed
- * 		 in the same context (class). What if @c T is not a pointer type?
- * 		 Should CategorizedRepository generally be templated on a pointer
- * 	   	 type (i.e. @c T*)?
- * 			- Remove deleteAll(), then the user is responsible for destroying items, and
- * 			  @c T does not have to be a pointer type.
- * 			- Still, if @c T is not a pointer type, we need to have clear item ownership (value
- * 			  semantics?) and be careful when inserting items (at the moment we make a copy).
- * 			  Also, with pointers it is easy to just assign zero to a removed item in the items
- * 			  array before moving it into the trash category. How should a value @c T be treated?
- * 			- For value semantics (taking copies of inserted elements), we are likely to need some
- * 			  proper allocator class.
- * 			.
  */
 template<class T, unsigned int enlarge_factor = 10, unsigned int max_size =
 		100000000>
 class CategorizedRepository
 {
 public:
-	// member types
 	/**
 	 * Index iterator.
 	 *
@@ -124,7 +106,7 @@ public:
 		 */
 		bool operator==(const IndexIterator& it);
 		/**
-		 * Unequality operator.
+		 * Inequality operator.
 		 * @param it Iterator to compare with.
 		 * @return True if unequal.
 		 */
@@ -204,7 +186,7 @@ public:
 		 */
 		bool operator==(const CategoryIterator& it);
 		/**
-		 * Unequality operator.
+		 * Inequality operator.
 		 * @param it Iterator to compare with.
 		 * @return True if unequal.
 		 */
@@ -231,6 +213,10 @@ public:
 	}; // class CategorizedRepository::CategoryIterator
 
 	typedef T value_type; ///< Type of stored items.
+	typedef T& reference;
+	typedef const T& const_reference;
+	typedef T* pointer;
+	typedef const T* const_pointer;
 	typedef std::pair<IndexIterator, IndexIterator> IndexIteratorRange; ///< IndexIterator range type.
 	typedef std::pair<CategoryIterator, CategoryIterator> CategoryIteratorRange; ///< CategoryIterator range type.
 
@@ -240,7 +226,7 @@ public:
 	 * Copy constructor
 	 * @param r	CategorizedRepository to copy from
 	 */
-	CategorizedRepository(const CategorizedRepository& r);
+	//	CategorizedRepository(const CategorizedRepository& r);
 	/**
 	 * Constructor for repository for @p cat categories.
 	 * @param cat Number of categories to store. This cannot be changed later on.
@@ -312,7 +298,7 @@ public:
 	 * @param id Unique ID of item
 	 * @return Reference to item
 	 */
-	T& item(id_t id) const;
+	reference item(id_t id);
 
 	/**
 	 * Return @p n 'th item in category @p cat
@@ -320,7 +306,7 @@ public:
 	 * @param n Number of item in category
 	 * @return Reference to item
 	 */
-	T& item(category_t cat, address_t n) const;
+	reference item(category_t cat, address_t n);
 	/**
 	 * Return ID of @p n 'th item
 	 * @param n Number of item
@@ -354,7 +340,7 @@ public:
 	 * @param id Unique ID of item to remove
 	 * @return Removed item
 	 */
-	T remove(id_t id);
+	void remove(id_t id);
 
 	/**
 	 * Remove @p n 'th item in category @p cat from repository.
@@ -363,7 +349,7 @@ public:
 	 * @param n Number of item in category @p cat
 	 * @return Removed item
 	 */
-	T remove(category_t cat, address_t n);
+	void remove(category_t cat, address_t n);
 
 	/**
 	 * Remove all items from repository. The items are not destroyed.
@@ -371,27 +357,13 @@ public:
 	 * properly destroy objects pointed to. Compare with STL containers (value semantics).
 	 */
 	void removeAll();
-	/**
-	 * Remove and delete all items from repository. Delete is called for each item.
-	 * @deprecated To be removed in future versions. CategorizedRepository does not take item
-	 * ownership.
-	 */
-	void deleteAll();
 
 	/**
 	 * Get item with unique ID @p id
 	 * @param id Unique id of item
 	 * @return Reference to item
 	 */
-	T& operator[](id_t id) const;
-
-	/**
-	 * Get @p n 'th item in category @p cat
-	 * @param cat Category of item
-	 * @param n Number of item in category @p cat
-	 * @return Reference to item
-	 */
-	T& operator()(category_t cat, address_t n) const;
+	reference operator[](id_t id);
 
 	/**
 	 * Insert a copy of item @p itm into the repository.
@@ -436,7 +408,10 @@ public:
 	 */
 	bool valid(id_t i) const;
 
+	void clear(); ///< clear repository
+
 private:
+	void init();
 	/**
 	 * Set category of item with number @p n.
 	 * @param n Number of item.
@@ -456,7 +431,7 @@ private:
 	 * @param n Number of item
 	 * @return Reference to item
 	 */
-	T& item(address_t n) const;
+	reference item(address_t n);
 
 	/**
 	 * Remove @p n 'th item from repository.
@@ -464,24 +439,36 @@ private:
 	 * @param n Number of item to remove
 	 * @return Removed item.
 	 */
-	T remove(address_t n);
+	void remove(address_t n);
 
-	void allocate(); ///< allocate memory
-	void clear(); ///< clear repository and deallocate memory
 	bool enlarge(); ///< enlarge the storage space
 	void increaseCat(address_t n, category_t cat); ///< increase category of entry
 	void decreaseCat(address_t n, category_t cat); ///< decrease category of entry
 
+	void updateMinID();
+	void updateMaxID();
+	/**
+	 * Recalculate the minimum and maximum valid ID
+	 */
 	void updateMinMaxID();
+	/**
+	 * Recalculate the minimum and maximum valid ID, where @p id is guaranteed to be valid
+	 * (e. g. after insertion).
+	 * @param id Valid ID
+	 */
+	void updateMinMaxID(id_t id);
 
 	const category_t C_; ///< number of categories
 	address_t N_; ///< current max number of items
 	address_t nStored_; ///< total number of items stored
-	address_t* count_; ///< number of items per class;
-	address_t* offset_; ///< start index of a class
-	T* items_; ///< array of items @note Why not use std::vector and do not mess with memory management ourselves?
-	address_t* nums_; ///< number of an item according to id
-	id_t* ids_; ///< id of an item according to number
+
+	std::vector<address_t> count_; //	address_t* count_; ///< number of items per category;
+	std::vector<address_t> offset_; //	address_t* offset_; ///< start index of a class
+	std::vector<T> items_; //T* items_; ///< array of items @note Why not use std::vector and do not mess with memory management ourselves?
+	std::vector<address_t> nums_; //	address_t* nums_; ///< number of an item according to id
+	std::vector<id_t> ids_; //	id_t* ids_; ///< id of an item according to number
+public:
+	// FIXME
 	id_t minID_; ///< smallest valid ID
 	id_t maxID_; ///< largest valid ID
 }; // class CategorizedRepository
@@ -490,100 +477,117 @@ private:
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 CategorizedRepository<T, enlarge_factor, max_size>::CategorizedRepository(
-		const CategorizedRepository& r) :
-	C_(r.C_), N_(r.N_), nStored_(r.nStored_), minID_(r.minID_),
-			maxID_(r.maxID_)
-{
-	allocate();
-	memcpy(count_, r.count_, (C_ + 1) * sizeof(address_t));
-	memcpy(offset_, r.offset_, (C_ + 1) * sizeof(address_t));
-	memcpy(items_, r.items_, N_ * sizeof(T));
-	memcpy(ids_, r.ids_, N_ * sizeof(T));
-	memcpy(nums_, r.nums_, N_ * sizeof(T));
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-CategorizedRepository<T, enlarge_factor, max_size>::CategorizedRepository(
 		const category_t cat) :
-	C_(cat), N_(100), nStored_(0), count_(0), offset_(0), items_(0), nums_(0),
-			ids_(0), minID_(0), maxID_(0)
+	C_(cat), N_(100), nStored_(0), count_(cat + 1, 0), offset_(cat + 1, 0),
+			items_(N_), nums_(N_, 0), ids_(N_, 0), minID_(0), maxID_(0)
 {
 	assert(C_> 0);
-	allocate();
+	init();
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 CategorizedRepository<T, enlarge_factor, max_size>::CategorizedRepository(
 		const category_t cat, const address_t N) :
-	C_(cat), N_(N), nStored_(0), count_(0), offset_(0), items_(0), nums_(0),
-			ids_(0), minID_(0), maxID_(0)
+	C_(cat), N_(N), nStored_(0), count_(cat + 1, 0), offset_(cat + 1, 0),
+			items_(N_)
 {
 	assert(C_> 0);
-	//	assert(N_> 0);
-	allocate();
+	init();
 }
+
+template<class T, unsigned int enlarge_factor, unsigned int max_size>
+void CategorizedRepository<T, enlarge_factor, max_size>::init()
+{
+	nStored_ = 0;
+	nums_.reserve(N_);
+	nums_.resize(N_, 0);
+	ids_.reserve(N_);
+	ids_.resize(N_, 0);
+	count_.reserve(C_ + 1);
+	count_.resize(C_ + 1, 0);
+	offset_.reserve(C_ + 1);
+	offset_.resize(C_ + 1, 0);
+	for (unsigned int i = 0; i < N_; ++i)
+	{
+		ids_[i] = i;
+		nums_[i] = i;
+	}
+	for (unsigned int i = 0; i < C_; ++i)
+	{
+		count_[i] = 0;
+		offset_[i] = 0;
+	}
+	offset_[C_] = 0;
+	count_[C_] = N_;
+	items_.reserve(N_);
+	items_.resize(N_);
+	minID_ = 0;
+	maxID_ = 0;
+}
+
+//template<class T, unsigned int enlarge_factor, unsigned int max_size>
+//CategorizedRepository<T, enlarge_factor, max_size>::CategorizedRepository(
+//		const CategorizedRepository& r) :
+//	C_(r.C_), N_(r.N_), nStored_(r.nStored_), minID_(r.minID_),
+//			maxID_(r.maxID_)
+//{
+//	allocate();
+//	memcpy(count_, r.count_, (C_ + 1) * sizeof(address_t));
+//	memcpy(offset_, r.offset_, (C_ + 1) * sizeof(address_t));
+//	memcpy(items_, r.items_, N_ * sizeof(T));
+//	memcpy(ids_, r.ids_, N_ * sizeof(T));
+//	memcpy(nums_, r.nums_, N_ * sizeof(T));
+//}
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 CategorizedRepository<T, enlarge_factor, max_size>::~CategorizedRepository()
 {
-	clear();
 }
 
 // --------------- memory management
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-void CategorizedRepository<T, enlarge_factor, max_size>::allocate()
-{
-	delete[] count_;
-	delete[] offset_;
-	delete[] items_;
-	delete[] nums_;
-	delete[] ids_;
-	count_ = new address_t[C_ + 1];
-	offset_ = new address_t[C_ + 1];
-	if (N_ > 0)
-	{
-		items_ = new T[N_];
-		nums_ = new address_t[N_];
-		ids_ = new id_t[N_];
-	}
-	else
-	{
-		items_ = 0;
-		nums_ = 0;
-		ids_ = 0;
-	}
-	assert(count_);
-	assert(offset_);
-	memset(count_, 0, C_ * sizeof(address_t));
-	count_[C_] = N_;
-	memset(offset_, 0, (C_ + 1) * sizeof(address_t));
-	if (items_)
-		memset(items_, 0, N_ * sizeof(T));
-	for (address_t i = 0; i < N_; i++)
-	{
-		nums_[i] = i;
-		ids_[i] = i;
-	}
-
-}
-
+//template<class T, unsigned int enlarge_factor, unsigned int max_size>
+//void CategorizedRepository<T, enlarge_factor, max_size>::allocate()
+//{
+//	delete[] count_;
+//	delete[] offset_;
+//	delete[] items_;
+//	delete[] nums_;
+//	delete[] ids_;
+//	count_ = new address_t[C_ + 1];
+//	offset_ = new address_t[C_ + 1];
+//	if (N_ > 0)
+//	{
+//		items_ = new T[N_];
+//		nums_ = new address_t[N_];
+//		ids_ = new id_t[N_];
+//	}
+//	else
+//	{
+//		items_ = 0;
+//		nums_ = 0;
+//		ids_ = 0;
+//	}
+//	assert(count_);
+//	assert(offset_);
+//	memset(count_, 0, C_ * sizeof(address_t));
+//	count_[C_] = N_;
+//	memset(offset_, 0, (C_ + 1) * sizeof(address_t));
+//	if (items_)
+//		memset(items_, 0, N_ * sizeof(T));
+//	for (address_t i = 0; i < N_; i++)
+//	{
+//		nums_[i] = i;
+//		ids_[i] = i;
+//	}
+//
+//}
+//
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::clear()
 {
-	delete[] count_;
-	delete[] offset_;
-	delete[] items_;
-	delete[] nums_;
-	delete[] ids_;
-	count_ = 0;
-	offset_ = 0;
-	items_ = 0;
-	nums_ = 0;
-	ids_ = 0;
-	nStored_ = 0;
-	minID_ = 0;
-	maxID_ = 0;
+	assert(C_ > 0);
+	init();
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
@@ -596,29 +600,16 @@ bool CategorizedRepository<T, enlarge_factor, max_size>::enlarge()
 		return false;
 	else
 	{
-		// printf("Resizing Storage To %d\n",newsize);
-		T* itembuf = items_;
-		items_ = new T[newsize];
-		assert(items_);
-		memset(items_, 0, newsize * sizeof(T));
-		memcpy(items_, itembuf, N_ * sizeof(T));
-		delete[] itembuf;
+		items_.reserve(newsize);
+		items_.resize(newsize); // fills with default-constructed items
 
-		id_t* idbuf = ids_;
-		ids_ = new id_t[newsize];
-		assert(ids_);
-		for (address_t i = N_; i < newsize; i++)
-			ids_[i] = i;
-		memcpy(ids_, idbuf, N_ * sizeof(id_t));
-		delete[] idbuf;
+		ids_.reserve(newsize);
+		for (address_t i = N_; i < newsize; ++i)
+			ids_.push_back(i);
 
-		address_t* numbuf = nums_;
-		nums_ = new address_t[newsize];
-		assert(nums_);
-		for (address_t i = N_; i < newsize; i++)
-			nums_[i] = i;
-		memcpy(nums_, numbuf, N_ * sizeof(address_t));
-		delete[] numbuf;
+		nums_.reserve(newsize);
+		for (id_t i = N_; i < newsize; ++i)
+			nums_.push_back(i);
 
 		count_[C_] += newsize - N_;
 		N_ = newsize;
@@ -777,62 +768,90 @@ void CategorizedRepository<T, enlarge_factor, max_size>::setCategory(
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 inline T& CategorizedRepository<T, enlarge_factor, max_size>::item(
-		const id_t id) const
+		const id_t id)
 {
 	assert(id < N_);
+	assert(valid(id));
 	return items_[id];
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 inline T& CategorizedRepository<T, enlarge_factor, max_size>::operator[](
-		const id_t id) const
+		const id_t id)
 {
 	return item(id);
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 inline T& CategorizedRepository<T, enlarge_factor, max_size>::item(
-		const address_t n) const
+		const address_t n)
 {
 	assert(n < N_);
+	assert(valid(ids_[n]));
 	return items_[ids_[n]];
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 inline T& CategorizedRepository<T, enlarge_factor, max_size>::item(
-		const category_t cat, const address_t n) const
+		const category_t cat, const address_t n)
 {
 	assert(cat < C_);
 	assert(n < count_[cat]);
+	assert(valid(ids_[offset_[cat] + n]));
 	return items_[ids_[offset_[cat] + n]];
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline T& CategorizedRepository<T, enlarge_factor, max_size>::operator()(
-		const category_t cat, const address_t n) const
-{
-	return item(cat, n);
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 inline bool CategorizedRepository<T, enlarge_factor, max_size>::valid(
 		const id_t i) const
 {
-	return ((i < N_) && (nums_[i] < nStored_));
+	return ((nStored_ > 0) && (i < N_) && (nums_[i] < nStored_));
+}
+
+template<class T, unsigned int enlarge_factor, unsigned int max_size>
+inline void CategorizedRepository<T, enlarge_factor, max_size>::updateMinID()
+{
+	if (nStored_ > 0)
+	{
+		minID_ = 0;
+		while (!valid(minID_) && (minID_ < N_))
+			++minID_;
+	}
+	else
+		minID_ = 0;
+}
+
+template<class T, unsigned int enlarge_factor, unsigned int max_size>
+inline void CategorizedRepository<T, enlarge_factor, max_size>::updateMaxID()
+{
+	if (nStored_ > 0)
+	{
+		maxID_ = N_ - 1;
+		while (!valid(maxID_) && (maxID_ > 0))
+			--maxID_;
+	}
+	else
+		maxID_ = 0;
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 inline void CategorizedRepository<T, enlarge_factor, max_size>::updateMinMaxID()
 {
-	if ((N_ > 0) && (nStored_ > 0)) // nStored_ > 0 should suffice...
-	{
-		maxID_ = N_ - 1;
-		while (!valid(maxID_) && (maxID_ > 0))
-			--maxID_;
+	updateMinID();
+	updateMaxID();
+}
 
-		minID_ = 0;
-		while (!valid(minID_) && (minID_ < N_))
-			++minID_;
+template<class T, unsigned int enlarge_factor, unsigned int max_size>
+inline void CategorizedRepository<T, enlarge_factor, max_size>::updateMinMaxID(
+		const id_t id)
+{
+	if (nStored_ > 0)
+	{
+		assert(id < N_);
+		if (id < minID_)
+			minID_ = id;
+		if (id > maxID_)
+			maxID_ = id;
 	}
 	else
 	{
@@ -854,7 +873,7 @@ inline id_t CategorizedRepository<T, enlarge_factor, max_size>::id(
 		const category_t cat, const address_t n) const
 {
 	assert(cat < C_);
-	assert(n < N_);
+	assert(offset_[cat] + n < N_);
 	return ids_[offset_[cat] + n];
 }
 
@@ -871,12 +890,10 @@ id_t CategorizedRepository<T, enlarge_factor, max_size>::insert(const T itm,
 			throw(RepoAllocException());
 	}
 	id_t uid = ids_[curnum];
-	// TODO This stores a copy of itm. If T is not a pointer type, this is proper value semantics.
-	// However, then we should take ownership of items as well. How is this done in the STL containers?
-	items_[uid] = itm; // Store Item
+	items_[uid] = itm; // Store copy of item
 	decreaseCat(curnum, cat); // Move into right class
 	++nStored_;
-	updateMinMaxID();
+	updateMinMaxID(uid);
 	return uid;
 }
 
@@ -895,56 +912,38 @@ CategorizedRepository<T, enlarge_factor, max_size>& CategorizedRepository<T,
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
-T CategorizedRepository<T, enlarge_factor, max_size>::remove(const id_t id)
+void CategorizedRepository<T, enlarge_factor, max_size>::remove(const id_t id)
 {
 	assert(id < N_);
+	assert(valid(id));
 	return remove(nums_[id]);
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
-T CategorizedRepository<T, enlarge_factor, max_size>::remove(const address_t n)
+void CategorizedRepository<T, enlarge_factor, max_size>::remove(
+		const address_t n)
 {
 	assert(n < N_);
-	T itm = items_[ids_[n]];
-	items_[ids_[n]] = 0; // thus, IDs remain unique and unchanged
-	increaseCat(n, C_);
+	assert(n < nStored_);
+	id_t uid = ids_[n];
+	items_[ids_[n]] = T(); // set to default-constructed item; thus, IDs remain unique and unchanged
+	increaseCat(n, C_); // move to hidden category
 	--nStored_;
-	updateMinMaxID();
-	return itm;
+	if (uid == minID_)
+		updateMinID();
+	if (uid == maxID_)
+		updateMaxID();
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::removeAll()
 {
-	// FIXME This is wrong, but fast.
-	//	clear();
-
-	while (nStored_)
-	{
-		remove(static_cast<address_t> (0));
-	}
+	clear();
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
-void CategorizedRepository<T, enlarge_factor, max_size>::deleteAll()
-{
-	// FIXME This is wrong, but fast.
-	//	for (id_t i = 0; i < N_; ++i)
-	//	{
-	//		if (items_[i] != 0)
-	//			delete items_[i];
-	//	}
-	//	clear();
-
-	while (nStored_)
-	{
-		T x = remove(static_cast<address_t> (0));
-		delete x;
-	}
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-const/* */typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator CategorizedRepository<T, enlarge_factor, max_size>::begin() const
+const/* */typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator
+CategorizedRepository<T, enlarge_factor, max_size>::begin() const
 {
 	return typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator(*this, minID_);
 }
@@ -953,31 +952,10 @@ template<class T, unsigned int enlarge_factor, unsigned int max_size>
 const typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator
 CategorizedRepository<T, enlarge_factor, max_size>::end() const
 {
-	//TODO: wurde von Sebastian Kuehn geaendert
-
-	// FIXME
-	//return typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator(*this, nStored_);
-
 	if (nStored_ > 0)
 	return typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator(*this, maxID_ + 1);
 	else
 	return typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator(*this, maxID_);
-
-	/*
-	 if (nStored_> 0)
-	 {
-	 id_t lastID = static_cast<id_t>(N_) - 1;
-	 while (nums_[lastID] >= nStored_)
-	 {
-	 --lastID;
-	 }
-	 return typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator(*this, lastID + 1); // past-the-end element
-	 }
-	 else
-	 {
-	 return typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator(*this, 0);
-	 }
-	 */
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
@@ -1014,7 +992,6 @@ template<class T, unsigned int enlarge_factor, unsigned int max_size>
 CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::IndexIterator(const CategorizedRepository<T, enlarge_factor, max_size>& repo)
 : rep_(&repo), cur_(0)
 {
-	//TODO: wurde von Sebastian Kuehn geaendert
 	assert(rep_ != NULL);
 }
 
@@ -1022,10 +999,7 @@ template<class T, unsigned int enlarge_factor, unsigned int max_size>
 CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::IndexIterator(const CategorizedRepository<T, enlarge_factor, max_size>& repo,
 		const id_t n) : rep_(&repo), cur_(n)
 {
-	//TODO: wurde von Sebastian Kuehn geaendert
 	assert(rep_ != NULL);
-	//assert(cur_ <= rep_->nStored_);
-
 	// this should be correct now
 	assert(cur_ <= rep_->N_);
 }
@@ -1070,14 +1044,7 @@ template<class T, unsigned int enlarge_factor, unsigned int max_size>
 inline typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator&
 CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::operator++()
 {
-	//TODO: wurde von Sebastian Kuehn geaendert
 	assert(rep_ != NULL);
-
-	//	while (cur_ < rep_->nStored_)
-	//	{
-	//		++cur_;
-	//		if (rep_->nums_[cur_] < rep_->nStored_) break;
-	//	}
 
 	while (true)
 	{
@@ -1088,7 +1055,6 @@ CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::operator++()
 		if (cur_ > rep_->maxID_) break;
 		if (rep_->valid(++cur_)) break;
 	}
-
 	return *this;
 }
 
@@ -1104,9 +1070,7 @@ CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::operator++(in
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 id_t CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::operator*()
 {
-	//TODO: wurde von Sebastian Kuehn geaendert
 	assert(rep_ != NULL);
-
 	return cur_;
 }
 
@@ -1121,7 +1085,6 @@ template<class T, unsigned int enlarge_factor, unsigned int max_size>
 CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator::CategoryIterator(const CategorizedRepository<T, enlarge_factor, max_size>& repo,
 		const category_t cat) : rep_(&repo), category_(cat), cur_(0)
 {
-	//TODO: wurde von Sebastian Kuehn geaendert
 	assert(&repo != NULL);
 	assert(cat < repo.C_);
 }
@@ -1130,10 +1093,9 @@ template<class T, unsigned int enlarge_factor, unsigned int max_size>
 CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator::CategoryIterator(const CategorizedRepository<T, enlarge_factor, max_size>& repo,
 		const category_t cat, const address_t n) : rep_(&repo), category_(cat), cur_(n)
 {
-	//TODO: wurde von Sebastian Kuehn geaendert
 	assert(&repo != NULL);
 	assert(cat < repo.C_);
-	assert(n <= repo.count_[cat]); // equal if end()
+	assert(n <= repo.count_[cat]); // equal on end()
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
@@ -1177,7 +1139,6 @@ template<class T, unsigned int enlarge_factor, unsigned int max_size>
 inline typename CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator&
 CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator::operator++()
 {
-	//TODO: wurde von Sebastian Kuehn geaendert
 	assert(rep_ != NULL);
 
 	if (rep_)
@@ -1199,25 +1160,10 @@ CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator::operator++
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 id_t CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator::operator*()
 {
-	//TODO: wurde von Sebastian Kuehn geaendert
 	assert(rep_ != NULL);
-	//assert(rep_->nums_[cur_] < (rep_->offset_[category_] + rep_->count_[category_]));
-
 	// this should be correct now
 	assert(cur_ < rep_->count_[category_]);
-
 	return rep_->ids_[cur_ + rep_->offset_[category_]];
-
-	/*
-	 if (rep_)
-	 {
-	 return rep_->ids_[cur_];
-	 }
-	 else
-	 {
-	 return 0; // FIXME is this wise?
-	 }
-	 */
 }
 
 }
