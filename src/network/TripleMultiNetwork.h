@@ -11,14 +11,14 @@
 #include "base/Node.h"
 #include "base/TLink.h"
 #include "base/Triple.h"
-#include "base/BasicNetwork.h"
+#include "base/TypedNetwork.h"
 #include "../repo/CategorizedRepository.h"
 #include <cassert>
 
 namespace lnet
 {
 
-class TripleMultiNetwork: public BasicNetwork<Node, TLink>
+class TripleMultiNetwork: public TypedNetwork<Node, TLink>
 {
 protected:
 	// member types
@@ -66,6 +66,7 @@ public:
 	std::pair<bool, triple_id_t> randomTriple() const;
 	std::pair<bool, triple_id_t> randomTriple(triple_state_t s) const;
 
+protected:
 	/**
 	 * Create a link between two nodes, given by their unique IDs. The link
 	 * state is determined using the internal link state calculator.
@@ -73,7 +74,7 @@ public:
 	 * @param target Unique ID of the target node
 	 * @return Unique ID of link created
 	 */
-	virtual link_id_t addLink(node_id_t source, node_id_t target);
+	virtual link_id_t doAddLink(node_id_t source, node_id_t target);
 
 	/**
 	 * Change link to connect the new @p source with the new @p target.
@@ -85,27 +86,27 @@ public:
 	 * @param target New target node ID.
 	 * @return true
 	 */
-	virtual bool changeLink(link_id_t l, node_id_t source, node_id_t target);
+	virtual bool doChangeLink(link_id_t l, node_id_t source, node_id_t target);
 
 	/**
 	 * Remove link with unique ID @p l
 	 * @param l ID of link to remove.
 	 */
-	virtual void removeLink(link_id_t l);
+	virtual void doRemoveLink(link_id_t l);
 
 	/**
 	 * Remove all links in network.
 	 */
-	virtual void removeAllLinks();
+	virtual void doRemoveAllLinks();
 
 	/**
 	 * Remove node with unique ID @p n.
 	 * @param n	ID of node to be removed.
 	 */
-	virtual void removeNode(node_id_t n);
+	virtual void doRemoveNode(node_id_t n);
 
-protected:
 	virtual void onNodeStateChange(node_id_t n);
+
 	Triple& triple(triple_id_t t) const;
 	bool isValidTripleStateCalculator(TripleStateCalculator* tsCalc) const;
 

@@ -9,7 +9,7 @@
 
 #include "base/Node.h"
 #include "base/Link.h"
-#include "base/BasicNetwork.h"
+#include "base/TypedNetwork.h"
 
 namespace lnet
 {
@@ -22,7 +22,7 @@ namespace lnet
  * @todo We need some network class hierarchy representing directed/undirected graphs
  * 		 where parallel edges may be (dis)allowed, and self-loops, too. See boost::graph.
  */
-typedef BasicNetwork<Node, Link> MultiNetwork;
+typedef TypedNetwork<Node, Link> MultiNetwork;
 
 }
 

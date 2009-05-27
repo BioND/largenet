@@ -222,7 +222,9 @@ namespace measures
  return t / 2;
  }
  */
-
+/*
+ * FIXME
+ *
 template<>
 id_size_t triples<TripleMultiNetwork> (const TripleMultiNetwork& net)
 {
@@ -250,6 +252,6 @@ id_size_t triples<TripleNetwork> (const TripleNetwork& net,
 	return net.numberOfTriples(net.getTripleStateCalculator()(t.left(),
 			t.center(), t.right()));
 }
-
+*/
 }
 }

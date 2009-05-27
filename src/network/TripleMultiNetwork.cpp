@@ -11,7 +11,7 @@ namespace lnet
 {
 
 TripleMultiNetwork::TripleMultiNetwork() :
-	BasicNetwork<NodeType, LinkType> (), tripleStore_(new TripleRepo(1, 0)), tsCalc_(
+	TypedNetwork<NodeType, LinkType> (), tripleStore_(new TripleRepo(1, 0)), tsCalc_(
 			new ConstTripleState<> ), tscOwn_(true)
 {
 }
@@ -21,7 +21,7 @@ TripleMultiNetwork::TripleMultiNetwork(const id_size_t nNodes,
 		const link_state_size_t nLinkStates,
 		const triple_state_size_t nTripleStates, LinkStateCalculator* lsCalc,
 		TripleStateCalculator* tsCalc) :
-			BasicNetwork<NodeType, LinkType> (nNodes, nLinks, nNodeStates,
+			TypedNetwork<NodeType, LinkType> (nNodes, nLinks, nNodeStates,
 					nLinkStates, lsCalc), tripleStore_(new TripleRepo(
 					nTripleStates, 0)), tsCalc_(tsCalc), tscOwn_(false)
 {
@@ -98,7 +98,7 @@ node_id_t TripleMultiNetwork::centerNode(const triple_id_t t) const
 
 void TripleMultiNetwork::onNodeStateChange(const node_id_t n)
 {
-	BasicNetwork<NodeType, LinkType>::onNodeStateChange(n);
+	TypedNetwork<NodeType, LinkType>::onNodeStateChange(n);
 	NeighborLinkIteratorRange iters = neighborLinks(n);
 	for (NeighborLinkIterator& it = iters.first; it != iters.second; ++it)
 	{
@@ -173,10 +173,10 @@ void TripleMultiNetwork::addTriple(const link_id_t left, const link_id_t right)
 	link(right).addTriple(t);
 }
 
-link_id_t TripleMultiNetwork::addLink(const node_id_t source,
+link_id_t TripleMultiNetwork::doAddLink(const node_id_t source,
 		const node_id_t target)
 {
-	const link_id_t l = BasicNetwork<NodeType, LinkType>::addLink(source,
+	const link_id_t l = TypedNetwork<NodeType, LinkType>::doAddLink(source,
 			target);
 
 	// create a new triple for each adjacent link of source (except the newly created one)
@@ -227,7 +227,7 @@ void TripleMultiNetwork::removeTriplesFromLinkEnd(const link_id_t l,
 	}
 }
 
-bool TripleMultiNetwork::changeLink(const link_id_t l, const node_id_t source,
+bool TripleMultiNetwork::doChangeLink(const link_id_t l, const node_id_t source,
 		const node_id_t target)
 {
 	bool retval = true, source_changed = false, target_changed = false;
@@ -243,7 +243,7 @@ bool TripleMultiNetwork::changeLink(const link_id_t l, const node_id_t source,
 	}
 
 	// now change the link, updating its state
-	retval &= BasicNetwork<NodeType, LinkType>::changeLink(l, source, target);
+	retval &= TypedNetwork<NodeType, LinkType>::doChangeLink(l, source, target);
 
 	// and add the newly created triples accordingly
 	if (source_changed)
@@ -269,7 +269,7 @@ bool TripleMultiNetwork::changeLink(const link_id_t l, const node_id_t source,
 	return retval;
 }
 
-void TripleMultiNetwork::removeLink(const link_id_t l)
+void TripleMultiNetwork::doRemoveLink(const link_id_t l)
 {
 	// delete each triple this link is a part of and update neighboring links accordingly
 	NeighborTripleIteratorRange iters = neighborTriples(l);
@@ -279,10 +279,10 @@ void TripleMultiNetwork::removeLink(const link_id_t l)
 		link(nl).removeTriple(*it);
 		delete tripleStore_->remove(*it);
 	}
-	BasicNetwork<NodeType, LinkType>::removeLink(l);
+	TypedNetwork<NodeType, LinkType>::doRemoveLink(l);
 }
 
-void TripleMultiNetwork::removeAllLinks()
+void TripleMultiNetwork::doRemoveAllLinks()
 {
 	// removing all links also removes all triples
 	// remove all triple references from the links first
@@ -293,10 +293,10 @@ void TripleMultiNetwork::removeAllLinks()
 	}
 	tripleStore_->deleteAll();
 	// now really delete all links and update nodes accordingly
-	BasicNetwork<NodeType, LinkType>::removeAllLinks();
+	TypedNetwork<NodeType, LinkType>::doRemoveAllLinks();
 }
 
-void TripleMultiNetwork::removeNode(const node_id_t n)
+void TripleMultiNetwork::doRemoveNode(const node_id_t n)
 {
 	// remove all triples containing this node
 	NeighborLinkIteratorRange iters = neighborLinks(n);
@@ -314,6 +314,6 @@ void TripleMultiNetwork::removeNode(const node_id_t n)
 	// without clearing link(*it) above, the adjacent links of node n
 	// now reference non-existent triples; this, however, is no problem
 	// since they are deleted anyway now
-	BasicNetwork<NodeType, LinkType>::removeNode(n);
+	TypedNetwork<NodeType, LinkType>::doRemoveNode(n);
 }
 }

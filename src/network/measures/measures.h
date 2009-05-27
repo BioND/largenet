@@ -375,7 +375,6 @@ id_size_t triples(const _Network& net, const motifs::TripleMotif& t)
 	if (t.isSymmetric())
 		ret /= 2;
 	return ret;
-
 }
 
 }
