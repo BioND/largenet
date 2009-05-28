@@ -6,7 +6,7 @@
  */
 
 #include "NodeMotif.h"
-#include <boost/format.hpp>
+#include <sstream>
 
 namespace lnet
 {
@@ -19,7 +19,9 @@ NodeMotif::NodeMotif(const node_state_t n) :
 
 std::string NodeMotif::toStr() const
 {
-	return boost::str(boost::format("(%1%)") % n_);
+	std::stringstream ss;
+	ss << "(" << n_ << ")";
+	return ss.str();
 }
 
 bool operator==(const NodeMotif& A, const NodeMotif& B)

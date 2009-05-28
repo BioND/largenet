@@ -6,8 +6,7 @@
  */
 
 #include "TripleMotif.h"
-#include <boost/format.hpp>
-#include <cassert>
+#include <sstream>
 
 namespace lnet
 {
@@ -21,7 +20,9 @@ TripleMotif::TripleMotif(const node_state_t aa, const node_state_t bb,
 
 std::string TripleMotif::toStr() const
 {
-	return boost::str(boost::format("(%1%,%2%,%3%)") % a_ % b_ % c_);
+	std::stringstream ss;
+	ss << "(" << a_ << "," << b_ << "," << c_ << ")";
+	return ss.str();
 }
 
 

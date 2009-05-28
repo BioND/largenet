@@ -6,7 +6,7 @@
  */
 
 #include "LinkMotif.h"
-#include <boost/format.hpp>
+#include <sstream>
 
 namespace lnet
 {
@@ -20,7 +20,9 @@ LinkMotif::LinkMotif(const node_state_t aa, const node_state_t bb) :
 
 std::string LinkMotif::toStr() const
 {
-	return boost::str(boost::format("(%1%,%2%)") % a_ % b_);
+	std::stringstream ss;
+	ss << "(" << a_ << "," << b_ << ")";
+	return ss.str();
 }
 
 bool operator==(const LinkMotif& A, const LinkMotif& B)
