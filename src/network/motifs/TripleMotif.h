@@ -14,7 +14,8 @@
 
 namespace lnet
 {
-namespace motifs {
+namespace motifs
+{
 
 /**
  * An undirected triple. State fields @p a, @p b, @p c are always ordered.
@@ -35,6 +36,12 @@ private:
 bool operator==(const TripleMotif& A, const TripleMotif& B);
 bool operator<(const TripleMotif& A, const TripleMotif& B);
 std::ostream& operator<<(std::ostream& out, const TripleMotif& t);
+
+inline TripleMotif::TripleMotif(const node_state_t aa, const node_state_t bb,
+		const node_state_t cc) :
+	a_(aa <= cc ? aa : cc), b_(bb), c_(aa <= cc ? cc : aa)
+{
+}
 
 inline node_state_t TripleMotif::left() const
 {

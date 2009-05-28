@@ -28,6 +28,10 @@ public:
 
 public:
 	/**
+	 * Default constructor
+	 */
+	TLink();
+	/**
 	 * Constructor.
 	 */
 	TLink(node_id_t source, node_id_t target);
@@ -106,6 +110,10 @@ private:
 	Link link_;		///< Underlying Link object
 	TripleSet triples_;  ///< Multiset of triple IDs
 };
+
+inline TLink::TLink() : link_()
+{
+}
 
 inline TLink::TLink(const node_id_t source, const node_id_t target) :
 	link_(source, target)

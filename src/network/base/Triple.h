@@ -16,6 +16,7 @@ namespace lnet
 class Triple
 {
 public:
+	Triple();
 	Triple(link_id_t left, link_id_t right);
 	link_id_t left() const;
 	link_id_t right() const;
@@ -26,6 +27,10 @@ public:
 private:
 	link_id_t left_, right_;
 };
+
+inline Triple::Triple() : left_(0), right_(0)
+{
+}
 
 inline Triple::Triple(const link_id_t left, const link_id_t right) :
 	left_(left), right_(right)
