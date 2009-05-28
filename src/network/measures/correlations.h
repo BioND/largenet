@@ -1,5 +1,5 @@
-/*
- * correlations.h
+/**
+ * @file correlations.h
  *
  *  Created on: 13.03.2009
  *      Author: gerd
@@ -9,7 +9,7 @@
 #define CORRELATIONS_H_
 
 #include "../largenet.h"
-#include <tnt/tnt_array2d.h>
+#include "../../tnt/tnt_array2d.h"
 
 namespace lnet {
 namespace measures {

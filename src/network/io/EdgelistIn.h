@@ -9,11 +9,10 @@
 #define EDGELISTIN_H_
 
 #include "NetIn.h"
+#include "../MultiNetwork.h"
 
 namespace lnet
 {
-
-class MultiNetwork;
 
 namespace io
 {

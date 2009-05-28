@@ -8,21 +8,21 @@
 #ifndef NODEMOTIF_H_
 #define NODEMOTIF_H_
 
-#include "../types.h"
+#include "../base/types.h"
 #include <string>
 #include <iostream>
 #include <set>
 
 namespace lnet
 {
+namespace motifs {
 
 class NodeMotif
 {
 public:
-	explicit NodeMotif(node_state_t n);
+	NodeMotif(node_state_t n);
 	std::string toStr() const;
-	node_state_t center() const;
-	node_state_t operator()() const;
+	operator node_state_t() const;
 private:
 	node_state_t n_;
 };
@@ -31,17 +31,15 @@ bool operator==(const NodeMotif& A, const NodeMotif& B);
 bool operator<(const NodeMotif& A, const NodeMotif& B);
 std::ostream& operator<<(std::ostream& out, const NodeMotif& t);
 
+inline NodeMotif::NodeMotif(const node_state_t n) : n_(n)
+{
+}
 
-inline node_state_t NodeMotif::center() const
+inline NodeMotif::operator node_state_t() const
 {
 	return n_;
 }
 
-inline node_state_t NodeMotif::operator()() const
-{
-	return n_;
 }
-
 }
-
 #endif /* NODEMOTIF_H_ */

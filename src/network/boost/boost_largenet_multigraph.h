@@ -8,15 +8,14 @@
 #ifndef BOOST_LARGENET_MULTIGRAPH_H_
 #define BOOST_LARGENET_MULTIGRAPH_H_
 
-#include <utility>
+#include "../base/types.h"
+#include "../MultiNetwork.h"
+#include "../Network.h"
+
 //#include <boost/config.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/properties.hpp>
-
-#include "../types.h"
-#include "../Link.h"
-#include "../MultiNetwork.h"
-#include "../Network.h"
+#include <utility>
 
 namespace boost
 {

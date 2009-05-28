@@ -6,21 +6,17 @@
  */
 
 #include "TripleMotif.h"
-#include <boost/format.hpp>
-#include <cassert>
+#include <sstream>
 
 namespace lnet
 {
-
-TripleMotif::TripleMotif(const node_state_t aa, const node_state_t bb,
-		const node_state_t cc) :
-	a_(aa <= cc ? aa : cc), b_(bb), c_(aa <= cc ? cc : aa)
-{
-}
+namespace motifs {
 
 std::string TripleMotif::toStr() const
 {
-	return boost::str(boost::format("(%1%,%2%,%3%)") % a_ % b_ % c_);
+	std::stringstream ss;
+	ss << "(" << a_ << "," << b_ << "," << c_ << ")";
+	return ss.str();
 }
 
 
@@ -49,5 +45,6 @@ bool operator<(const TripleMotif& A, const TripleMotif& B)
 std::ostream& operator<<(std::ostream& out, const TripleMotif& t)
 {
 	return out << t.toStr();
+}
 }
 }

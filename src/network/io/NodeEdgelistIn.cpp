@@ -7,7 +7,7 @@
 
 #include "NodeEdgelistIn.h"
 #include "iodefs.h"
-#include "../types.h"
+#include "../base/types.h"
 #include "../MultiNetwork.h"
 #include <string>
 #include <sstream>
@@ -33,7 +33,7 @@ NodeEdgelistIn::~NodeEdgelistIn()
 
 bool NodeEdgelistIn::get(istream& in, MultiNetwork& net)
 {
-	// TODO implement me.
+	/** @todo implement me. */
 	assert(false);
 	/*
 	if (!in)

@@ -8,11 +8,13 @@
 #ifndef TRIPLEMOTIF_H_
 #define TRIPLEMOTIF_H_
 
-#include "../types.h"
+#include "../base/types.h"
 #include <string>
 #include <iostream>
 
 namespace lnet
+{
+namespace motifs
 {
 
 /**
@@ -35,6 +37,12 @@ bool operator==(const TripleMotif& A, const TripleMotif& B);
 bool operator<(const TripleMotif& A, const TripleMotif& B);
 std::ostream& operator<<(std::ostream& out, const TripleMotif& t);
 
+inline TripleMotif::TripleMotif(const node_state_t aa, const node_state_t bb,
+		const node_state_t cc) :
+	a_(aa <= cc ? aa : cc), b_(bb), c_(aa <= cc ? cc : aa)
+{
+}
+
 inline node_state_t TripleMotif::left() const
 {
 	return a_;
@@ -55,5 +63,5 @@ inline bool TripleMotif::isSymmetric() const
 	return a_ == c_;
 }
 }
-
+}
 #endif /* TRIPLEMOTIF_H_ */

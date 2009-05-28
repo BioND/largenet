@@ -11,7 +11,6 @@
 #include <set>
 #include <utility>
 
-
 namespace lnet
 {
 
@@ -25,38 +24,18 @@ class Node
 public:
 	typedef std::multiset<link_id_t> LinkSet;
 	typedef LinkSet::iterator LinkIDIterator; ///< %Link ID iterator type.
-	typedef std::pair<LinkIDIterator, LinkIDIterator> iter_range; ///< Iterator range type.
+	typedef std::pair<LinkIDIterator, LinkIDIterator> LinkIDIteratorRange; ///< Iterator range type.
 
 	/**
 	 * Basic constructor. Creates an isolated node object.
 	 */
 	Node();
-	/*
-	 * Constructor. Creates an isolated node with initial state @p state.
-	 * @param state Initial state of the node.
-	 */
-//	explicit Node(node_state_t state);
-	/**
-	 * Destructor. Does nothing.
-	 */
-	~Node();
 
 	/**
 	 * Return the degree (number of adjacent nodes) of the node.
 	 * @return Degree of the node.
 	 */
 	id_size_t degree() const;
-
-	/*
-	 * Get node state.
-	 * @return Node state.
-	 */
-//	node_state_t state() const;
-	/*
-	 * Set node state.
-	 * @param state New state of the node.
-	 */
-//	void setState(node_state_t state);
 
 	/**
 	 * Add link with ID @p l to node. The link ID is inserted in the node's link
@@ -75,7 +54,7 @@ public:
 	 * @param l %Link ID to look for.
 	 * @return True if the link ID is found in the node's link list.
 	 */
-	bool hasLink(link_id_t l) const;
+	bool inLink(link_id_t l) const;
 
 	/**
 	 * Isolate node from neighbors by clearing its link list.
@@ -88,33 +67,47 @@ public:
 	 * @return std::pair of LinkIDIterators, the first pointing to the first
 	 * link ID in the node's link list and the second pointing past-the-end
 	 */
-	iter_range links();
+	LinkIDIteratorRange links();
 
 private:
 	LinkSet links_; ///< Multiset of links to neighbors
-//	node_state_t state_; ///< State of node.
 };
+
+inline Node::Node()
+{
+}
+
+inline void Node::addLink(const link_id_t l)
+{
+	links_.insert(l);
+}
+
+inline void Node::removeLink(const link_id_t l)
+{
+	LinkSet::iterator it = links_.find(l);
+	if (it != links_.end())
+		links_.erase(it);
+}
 
 inline id_size_t Node::degree() const
 {
 	return links_.size();
 }
 
-//inline node_state_t Node::state() const
-//{
-//	return state_;
-//}
-
-
-inline Node::iter_range Node::links()
+inline Node::LinkIDIteratorRange Node::links()
 {
 	return std::make_pair(links_.begin(), links_.end());
 }
 
-//inline void Node::setState(const node_state_t state)
-//{
-//	state_ = state;
-//}
+inline void Node::clear()
+{
+	links_.clear();
+}
+
+inline bool Node::inLink(const link_id_t l) const
+{
+	return links_.find(l) != links_.end();
+}
 
 }
 

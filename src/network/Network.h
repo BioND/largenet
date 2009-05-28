@@ -7,7 +7,7 @@
 #ifndef NETWORK_H_
 #define NETWORK_H_
 
-#include "types.h"
+#include "base/types.h"
 #include "MultiNetwork.h"
 
 namespace lnet
@@ -17,7 +17,7 @@ namespace lnet
  * A class representing a network of Nodes connected by Links. Parallel edges (multiple
  * links connecting the same nodes) are silently ignored. Self-loops are allowed.
  */
-class Network: public lnet::MultiNetwork
+class Network: public MultiNetwork
 {
 public:
 	/**
@@ -45,6 +45,7 @@ public:
 	 */
 	virtual ~Network();
 
+protected:
 	/**
 	 * Create a link between two nodes, given by their unique IDs. The link
 	 * will be inserted in category @p 0. If the link already exists, no
@@ -53,7 +54,7 @@ public:
 	 * @param target Unique ID of the target node
 	 * @return Unique ID of link created
 	 */
-	virtual link_id_t addLink(node_id_t source, node_id_t target);
+	virtual link_id_t doAddLink(node_id_t source, node_id_t target);
 
 	/**
 	 * Change link to connect the new @p source with the new @p target.
@@ -67,7 +68,7 @@ public:
 	 * @param s New link state.
 	 * @return True if link has been changed, false if the target link exists already.
 	 */
-	virtual bool changeLink(link_id_t l, node_id_t source, node_id_t target);
+	virtual bool doChangeLink(link_id_t l, node_id_t source, node_id_t target);
 };
 
 }

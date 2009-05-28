@@ -10,34 +10,19 @@
 #ifndef GENERATORS_H_
 #define GENERATORS_H_
 
-#include "types.h"
+#include "base/types.h"
+#include "base/traits.h"
+#include "../myrng1.2/myrngWELL.h"
+#include <cassert>
 
 namespace lnet
 {
 
-class MultiNetwork;
-class Network;
-
 /**
  * Utility namespace containing various network generators.
  */
-namespace generators {
-
-/**
- * Create a random Erdos-Renyi network from @p net with @p nLinks.
- *
- * This function removes all links in the network and then randomly adds @p nLinks links, thus
- * creating an Erdos-Renyi network.
- *
- * If @p parallelLinks is @c false, parallel links (multiple links connecting the same nodes) are disallowed.
- *
- * @param[in,out] net MultiNetwork object (containing @p N nodes) to make random network of.
- * @param[in] nLinks  Number of links to create in @p net.
- * @param[in] selfLoops If true, self-loops are allowed.
- * @param[in] parallelLinks If true, parallel links are allowed.
- */
-void erdosRenyiNetwork(MultiNetwork& net, id_size_t nLinks, bool selfLoops = false,
-		bool parallelLinks = false);
+namespace generators
+{
 
 /**
  * Create a random Erdos-Renyi network from @p net with @p nLinks.
@@ -49,19 +34,23 @@ void erdosRenyiNetwork(MultiNetwork& net, id_size_t nLinks, bool selfLoops = fal
  * @param[in] nLinks  Number of links to create in @p net.
  * @param[in] selfLoops If true, self-loops are allowed.
  */
-void erdosRenyiNetwork(Network& net, id_size_t nLinks, bool selfLoops = false);
-
-/**
- * Create a random Erdos-Renyi network from @p net with link probability @p p.
- *
- * Links are created with probability @p p in such a way that the expected (average)
- * number of links is @f$ \frac{p}{2} N(N-1) @f$. No self-loops or parallel edges are
- * created.
- * @param[in,out] net MultiNetwork object (containing @p N nodes) to make random network of.
- * @param[in] p Link creation probability.
- */
-void erdosRenyiNetwork(MultiNetwork& net, double p);
-
+template<class _Network>
+void erdosRenyiNetwork(_Network& net, const id_size_t nLinks,
+		const bool selfLoops = false)
+{
+	id_size_t n = net.numberOfNodes();
+	if (n < 1)
+		return;
+	assert(nLinks <= n*(n-1)/2);
+	net.removeAllLinks();
+	while (net.numberOfLinks() < nLinks)
+	{
+		std::pair<bool, node_id_t> a = net.randomNode(), b = net.randomNode();
+		if (!selfLoops && (a.second == b.second))
+			continue;
+		net.addLink(a.second, b.second);
+	}
+}
 
 /**
  * Create a random Erdos-Renyi network from @p net with link probability @p p.
@@ -72,7 +61,24 @@ void erdosRenyiNetwork(MultiNetwork& net, double p);
  * @param[in,out] net Network object (containing @p N nodes) to make random network of.
  * @param[in] p Link creation probability.
  */
-void erdosRenyiNetwork(Network& net, double p);
+template<class _Network>
+void erdosRenyiNetwork(_Network& net, const double p)
+{
+	assert(p >= 0.0);
+	assert(p <= 1.0);
+	typename network_traits<_Network>::NodeIteratorRange iters = net.nodes();
+
+	for (typename network_traits<_Network>::NodeIterator it = iters.first; it
+			!= iters.second; ++it)
+	{
+		for (typename network_traits<_Network>::NodeIterator j = iters.first; j
+				!= it; ++j)
+		{
+			if (rng.Chance(p))
+				net.addLink(*it, *j);
+		}
+	}
+}
 
 /**
  * Create a star graph of @p nSpikes + 1 nodes, where one central hub is connected
@@ -81,7 +87,24 @@ void erdosRenyiNetwork(Network& net, double p);
  * @param[in] nSpikes Number of spikes of the star.
  * @return %Node ID of hub node.
  */
-//node_id_t starGraph(MultiNetwork& net, id_size_t nSpikes);
+// template <class _Network>
+//node_id_t starGraph(_Network& net, const id_size_t nSpikes);
+/*
+{
+	node_state_size_t ns = net.numberOfNodeStates();
+	link_state_size_t ls = net.numberOfLinkStates();
+	net.reset(nSpikes + 1, nSpikes, ns, ls, net.getLinkStateCalculator());
+	MultiNetwork::NodeIteratorRange iters = net.nodes();
+	assert(iters.first != iters.second);
+	node_id_t hub = *iters.first;
+	++iters.first;
+	for (MultiNetwork::NodeIterator& it = iters.first; it != iters.second; ++it)
+	{
+		net.addLink(hub, *it);
+	}
+	return hub;
+}
+*/
 
 }
 }
