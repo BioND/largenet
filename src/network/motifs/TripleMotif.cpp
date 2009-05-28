@@ -12,12 +12,6 @@ namespace lnet
 {
 namespace motifs {
 
-TripleMotif::TripleMotif(const node_state_t aa, const node_state_t bb,
-		const node_state_t cc) :
-	a_(aa <= cc ? aa : cc), b_(bb), c_(aa <= cc ? cc : aa)
-{
-}
-
 std::string TripleMotif::toStr() const
 {
 	std::stringstream ss;

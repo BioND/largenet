@@ -10,12 +10,8 @@
 
 namespace lnet
 {
-namespace motifs {
-
-NodeMotif::NodeMotif(const node_state_t n) :
-	n_(n)
+namespace motifs
 {
-}
 
 std::string NodeMotif::toStr() const
 {
@@ -26,12 +22,12 @@ std::string NodeMotif::toStr() const
 
 bool operator==(const NodeMotif& A, const NodeMotif& B)
 {
-	return A() == B();
+	return static_cast<node_state_t> (A) == static_cast<node_state_t> (B);
 }
 
 bool operator<(const NodeMotif& A, const NodeMotif& B)
 {
-	return A() < B();
+	return static_cast<node_state_t> (A) < static_cast<node_state_t> (B);
 }
 
 std::ostream& operator<<(std::ostream& out, const NodeMotif& n)

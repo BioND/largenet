@@ -13,11 +13,6 @@ namespace lnet
 namespace motifs
 {
 
-LinkMotif::LinkMotif(const node_state_t aa, const node_state_t bb) :
-	a_(aa <= bb ? aa : bb), b_(aa <= bb ? bb : aa)
-{
-}
-
 std::string LinkMotif::toStr() const
 {
 	std::stringstream ss;
