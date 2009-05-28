@@ -197,13 +197,6 @@ public:
 	 */
 	id_size_t degree(node_id_t n) const;
 
-	//	/**
-	//	 *	Put node with ID @p n in state @p s.
-	//	 *	@param n %Node ID of node.
-	//	 *	@param s New state of the node.
-	//	 */
-	//	virtual void setNodeState(node_id_t n, node_state_t s);
-	//
 	/**
 	 * Return state of node with ID @p n.
 	 * @param n Node ID.
@@ -396,6 +389,16 @@ protected:
 	 * @param n %Node ID.
 	 */
 	void recalcLinkStates(node_id_t n);
+	/**
+	 * Recalculate states of all links.
+	 */
+	void recalcLinkStates();
+	/**
+	 * Check whether @lc refers to a valid LinkStateCalculator object, i.e.
+	 * which returns at most the current maximum number of link states.
+	 * @param lc Pointer to LinkStateCalculator object
+	 * @return true if valid
+	 */
 	bool isValidLinkStateCalculator(LinkStateCalculator* lc) const;
 
 protected:
@@ -595,6 +598,7 @@ void TypedNetwork<_Node, _Link>::setLinkStateCalculator(LinkStateCalculator* lsC
 		lsCalc_ = new ConstLinkState<>;
 		lscOwn_ = true;
 	}
+	recalcLinkStates();
 }
 
 template<class _Node, class _Link>
@@ -701,6 +705,16 @@ void TypedNetwork<_Node, _Link>::recalcLinkStates(const node_id_t n)
 	{
 		linkStore_->setCategory(*it, (*lsCalc_)(getNodeState(source(*it)),
 						getNodeState(target(*it))));
+	}
+}
+
+template <class _Node, class _Link>
+void TypedNetwork<_Node, _Link>::recalcLinkStates()
+{
+	LinkIteratorRange iters = links();
+	for (LinkIterator& it = iters.first; it != iters.second; ++it)
+	{
+		linkStore_->setCategory(*it, (*lsCalc_)(getNodeState(source(*it)), getNodeState(target(*it))));
 	}
 }
 
