@@ -8,11 +8,12 @@
 #ifndef NETIN_H_
 #define NETIN_H_
 
-#include "../MultiNetwork.h"
 #include <istream>
 
 namespace lnet
 {
+
+class BasicNetwork;
 
 /**
  * Namespace containing all network input/output functionality.
@@ -53,7 +54,7 @@ public:
 	 * @param[out] net %MultiNetwork to read to.
 	 * @return true on success
 	 */
-	virtual bool get(std::istream& in, MultiNetwork& net) = 0;
+	virtual bool get(std::istream& in, BasicNetwork& net) = 0;
 
 protected:
 	bool readStates_; ///< state reading flag

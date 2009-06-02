@@ -96,7 +96,7 @@ void degreeDistribution(const _Network& net, degree_dist_t& dist,
 		for (typename network_traits<_Network>::NeighborIterator& nit =
 				neighbors.first; nit != neighbors.second; ++nit)
 		{
-			if (net.getNodeState(*nit) == target)
+			if (net.nodeState(*nit) == target)
 				++deg;
 		}
 
@@ -328,7 +328,7 @@ id_size_t triples(const _Network& net, const motifs::TripleMotif& t)
 			!= iters.second; ++it)
 	{
 		node_id_t left, right;
-		if (net.getNodeState(net.source(*it)) == t.left())
+		if (net.nodeState(net.source(*it)) == t.left())
 		{
 			left = net.source(*it);
 			right = net.target(*it);
@@ -345,7 +345,7 @@ id_size_t triples(const _Network& net, const motifs::TripleMotif& t)
 		for (typename network_traits<_Network>::NeighborIterator& nit =
 				niters.first; nit != niters.second; ++nit)
 		{
-			if (net.getNodeState(*nit) == t.right())
+			if (net.nodeState(*nit) == t.right())
 				++ret;
 		}
 
@@ -362,7 +362,7 @@ id_size_t triples(const _Network& net, const motifs::TripleMotif& t)
 			for (typename network_traits<_Network>::NeighborIterator & nit =
 					niters.first; nit != niters.second; ++nit)
 			{
-				if (net.getNodeState(*nit) == t.right())
+				if (net.nodeState(*nit) == t.right())
 					++ret;
 			}
 

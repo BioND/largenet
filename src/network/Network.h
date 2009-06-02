@@ -54,7 +54,7 @@ protected:
 	 * @param target Unique ID of the target node
 	 * @return Unique ID of link created
 	 */
-	virtual link_id_t doAddLink(node_id_t source, node_id_t target);
+	link_id_t doAddLink(node_id_t source, node_id_t target);
 
 	/**
 	 * Change link to connect the new @p source with the new @p target.
@@ -68,7 +68,7 @@ protected:
 	 * @param s New link state.
 	 * @return True if link has been changed, false if the target link exists already.
 	 */
-	virtual bool doChangeLink(link_id_t l, node_id_t source, node_id_t target);
+	bool doChangeLink(link_id_t l, node_id_t source, node_id_t target);
 };
 
 }

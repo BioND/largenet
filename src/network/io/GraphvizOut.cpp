@@ -26,7 +26,7 @@ public:
 	}
 	void operator()(std::ostream& out, const node_id_t v) const
 	{
-		out << " [label=" << net_.getNodeState(v) << "]";
+		out << " [label=" << net_.nodeState(v) << "]";
 	}
 private:
 	const MultiNetwork& net_;
@@ -41,7 +41,7 @@ public:
 	}
 	void operator()(std::ostream& out, const link_id_t l) const
 	{
-		out << " [label=" << net_.getLinkState(l) << "]";
+		out << " [label=" << net_.linkState(l) << "]";
 	}
 private:
 	const MultiNetwork& net_;
@@ -60,7 +60,7 @@ public:
 				<< ", edge_states=" << net_.numberOfLinkStates() << "]\n";
 	}
 private:
-	const MultiNetwork& net_;
+	const BasicNetwork& net_;
 };
 
 bool GraphvizOut::put(std::ostream& out, const MultiNetwork& net)

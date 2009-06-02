@@ -9,10 +9,11 @@
 #define EDGELISTIN_H_
 
 #include "NetIn.h"
-#include "../MultiNetwork.h"
 
 namespace lnet
 {
+
+class BasicNetwork;
 
 namespace io
 {
@@ -45,7 +46,7 @@ public:
 	 *
 	 * @see EdgelistOut
 	 */
-	bool get(std::istream& in, MultiNetwork& net);
+	bool get(std::istream& in, BasicNetwork& net);
 };
 
 }

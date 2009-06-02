@@ -27,13 +27,13 @@ TripleNetwork::~TripleNetwork()
 {
 }
 
-link_id_t TripleNetwork::addLink(const node_id_t source, const node_id_t target)
+link_id_t TripleNetwork::doAddLink(const node_id_t source, const node_id_t target)
 {
 	std::pair<bool, link_id_t> linkExists = isLink(source, target);
 	link_id_t l;
 	if (!linkExists.first)
 	{
-		l = TripleMultiNetwork::addLink(source, target);
+		l = TripleMultiNetwork::doAddLink(source, target);
 	}
 	else
 	{
@@ -42,13 +42,13 @@ link_id_t TripleNetwork::addLink(const node_id_t source, const node_id_t target)
 	return l;
 }
 
-bool TripleNetwork::changeLink(const link_id_t l, const node_id_t source,
+bool TripleNetwork::doChangeLink(const link_id_t l, const node_id_t source,
 		const node_id_t target)
 {
 	if (isLink(source, target).first)
 		return false;
 
-	return TripleMultiNetwork::changeLink(l, source, target);
+	return TripleMultiNetwork::doChangeLink(l, source, target);
 }
 
 }

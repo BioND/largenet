@@ -23,7 +23,7 @@ class GraphvizIn: public NetIn
 public:
 	GraphvizIn();
 	virtual ~GraphvizIn();
-	bool get(std::istream& in, MultiNetwork& net);
+	bool get(std::istream& in, BasicNetwork& net);
 };
 
 }

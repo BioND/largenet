@@ -8,7 +8,6 @@
 #ifndef NODEEDGELISTIN_H_
 #define NODEEDGELISTIN_H_
 
-#include "../MultiNetwork.h"
 #include "NetIn.h"
 
 namespace lnet
@@ -22,7 +21,7 @@ class NodeEdgelistIn: public lnet::io::NetIn
 public:
 	NodeEdgelistIn();
 	virtual ~NodeEdgelistIn();
-	bool get(std::istream& in, MultiNetwork& net);
+	bool get(std::istream& in, BasicNetwork& net);
 };
 
 }

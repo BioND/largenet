@@ -8,11 +8,12 @@
 #include "NodeEdgelistIn.h"
 #include "iodefs.h"
 #include "../base/types.h"
-#include "../MultiNetwork.h"
+#include "../base/BasicNetwork.h"
 #include <string>
 #include <sstream>
 
 #include <iostream>
+#include <cassert>
 
 namespace lnet
 {
@@ -31,7 +32,7 @@ NodeEdgelistIn::~NodeEdgelistIn()
 {
 }
 
-bool NodeEdgelistIn::get(istream& in, MultiNetwork& net)
+bool NodeEdgelistIn::get(istream& in, BasicNetwork& net)
 {
 	/** @todo implement me. */
 	assert(false);

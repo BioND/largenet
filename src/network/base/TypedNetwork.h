@@ -146,71 +146,6 @@ public:
 			link_state_size_t nLinkStates, LinkStateCalculator* lsCalc);
 	virtual ~TypedNetwork();
 
-	std::string info() const;
-
-	/**
-	 * Return the number of nodes in the network.
-	 * @return Number of nodes
-	 */
-	id_size_t numberOfNodes() const;
-	/**
-	 * Return the number of nodes in state @p s in the network.
-	 * @param s State to count nodes in.
-	 * @return Number of nodes in state @p s.
-	 */
-	id_size_t numberOfNodes(node_state_t s) const;
-	/**
-	 * Return the number of links in the network.
-	 * @return Number of links.
-	 */
-	id_size_t numberOfLinks() const;
-	/**
-	 * Return the number of links in state @p s in the network.
-	 * @param s State to count links in.
-	 * @return Number of links in state @p s.
-	 */
-	id_size_t numberOfLinks(link_state_t s) const;
-	/**
-	 * Get number of possible node states.
-	 * @return Number of possible node states.
-	 */
-	node_state_size_t numberOfNodeStates() const;
-	/**
-	 * Get number of possible link states.
-	 * @return Number of possible link states.
-	 */
-	link_state_size_t numberOfLinkStates() const;
-
-	/**
-	 * Check if there exists a direct link between two nodes.
-	 * @param source ID of source node.
-	 * @param target ID of target node.
-	 * @return A pair where the first part is true if the link exists, and the second part
-	 * gives its link ID. Note that the second part is meaningful only if the first part is true.
-	 */
-	std::pair<bool, link_id_t> isLink(node_id_t source, node_id_t target) const;
-
-	/**
-	 * Degree of node @p n.
-	 * @param n ID of node.
-	 * @return %Node degree.
-	 */
-	id_size_t degree(node_id_t n) const;
-
-	/**
-	 * Return state of node with ID @p n.
-	 * @param n Node ID.
-	 * @return State of the node.
-	 */
-	node_state_t getNodeState(node_id_t n) const;
-
-	/**
-	 * Return state of link with ID @p l.
-	 * @param l Link ID.
-	 * @return Link state.
-	 */
-	link_state_t getLinkState(link_id_t l) const;
-
 	/**
 	 * Return iterator range of all nodes in the network.
 	 * @return @c std::pair of NodeIterators, where the first points to the
@@ -239,48 +174,6 @@ public:
 	LinkStateIteratorRange links(link_state_t s) const;
 
 	/**
-	 * Get random node.
-	 * @return Pair of bool and node ID. If @p first is false, the network is empty
-	 * and the returned node ID is invalid.
-	 */
-	std::pair<bool, node_id_t> randomNode() const;
-	/**
-	 * Get random node in state @p s.
-	 * @param s %Node state to choose from.
-	 * @return Pair of bool and node ID. If @p first is false, there are no nodes
-	 * in state @p s and the returned node ID is invalid.
-	 */
-	std::pair<bool, node_id_t> randomNode(node_state_t s) const;
-	/**
-	 * Get random link.
-	 * @return Pair of bool and link ID. If @p first is false, the network has no links
-	 * and the returned link ID is invalid.
-	 */
-	std::pair<bool, link_id_t> randomLink() const;
-	/**
-	 * Get random link in state @p s.
-	 * @param s %Link state to choose from.
-	 * @return Pair of bool and link ID. If @p first is false, there are no links in state
-	 * @p s and the returned link ID is invalid.
-	 */
-	std::pair<bool, link_id_t> randomLink(link_state_t s) const;
-
-	/**
-	 * Get random link adjacent to node @p n.
-	 * @param n %Node ID
-	 * @return Pair of bool and link ID. If @p first is false, node @p n has no neighbors and
-	 * the returned link ID is invalid.
-	 */
-	std::pair<bool, link_id_t> randomNeighborLink(node_id_t n) const;
-	/**
-	 * Get random neighbor of node @p n.
-	 * @param n %Node ID
-	 * @return Pair of bool and node ID. If @p first is false, node @p n has no neighbors and
-	 * the returned node ID is invalid.
-	 */
-	std::pair<bool, node_id_t> randomNeighbor(node_id_t n) const;
-
-	/**
 	 * Return iterator range of all neighboring nodes of node @p n.
 	 * @param n %Node ID of node whose neighbors should be iterated over.
 	 * @return NeighborIteratorRange
@@ -293,19 +186,6 @@ public:
 	 * @return Iterator range for neighboring link IDs.
 	 */
 	NeighborLinkIteratorRange neighborLinks(node_id_t n) const;
-
-	/**
-	 * Get source node ID of link @p l.
-	 * @param l %Link ID
-	 * @return %Node ID of link source.
-	 */
-	node_id_t source(link_id_t l) const;
-	/**
-	 * Get target node ID of link @p l.
-	 * @param l %Link ID
-	 * @return %Node ID of link target.
-	 */
-	node_id_t target(link_id_t l) const;
 
 public:
 	/**
@@ -320,7 +200,7 @@ public:
 	 * @return LinkStateCalculator object.
 	 */
 	const LinkStateCalculator& getLinkStateCalculator() const;
-
+private:
 	/**
 	 * Reset to empty network.
 	 * Deletes all nodes and links and re-creates an empty network with @p nNodes nodes,
@@ -339,9 +219,8 @@ public:
 	 * @param nNodeStates Number of possible node states.
 	 * @param nLinkStates Number of possible link states.
 	 */
-	virtual void reset(id_size_t nNodes, id_size_t nLinks,
-			node_state_size_t nNodeStates, link_state_size_t nLinkStates,
-			LinkStateCalculator* lsCalc);
+	virtual void doReset(id_size_t nNodes, id_size_t nLinks,
+			node_state_size_t nNodeStates, link_state_size_t nLinkStates);
 private:
 	/* FIXME boost::graph needs copy-constructible graph concepts
 	 *
@@ -407,6 +286,127 @@ protected:
 	LinkStateCalculator& lsCalc() const;
 
 private:
+	std::string getInfo() const;
+
+	/**
+	 * Return the number of nodes in the network.
+	 * @return Number of nodes
+	 */
+	id_size_t getNumberOfNodes() const;
+	/**
+	 * Return the number of nodes in state @p s in the network.
+	 * @param s State to count nodes in.
+	 * @return Number of nodes in state @p s.
+	 */
+	id_size_t getNumberOfNodes(node_state_t s) const;
+	/**
+	 * Return the number of links in the network.
+	 * @return Number of links.
+	 */
+	id_size_t getNumberOfLinks() const;
+	/**
+	 * Return the number of links in state @p s in the network.
+	 * @param s State to count links in.
+	 * @return Number of links in state @p s.
+	 */
+	id_size_t getNumberOfLinks(link_state_t s) const;
+	/**
+	 * Get number of possible node states.
+	 * @return Number of possible node states.
+	 */
+	node_state_size_t getNumberOfNodeStates() const;
+	/**
+	 * Get number of possible link states.
+	 * @return Number of possible link states.
+	 */
+	link_state_size_t getNumberOfLinkStates() const;
+
+	/**
+	 * Check if there exists a direct link between two nodes.
+	 * @param source ID of source node.
+	 * @param target ID of target node.
+	 * @return A pair where the first part is true if the link exists, and the second part
+	 * gives its link ID. Note that the second part is meaningful only if the first part is true.
+	 */
+	std::pair<bool, link_id_t> doIsLink(node_id_t source, node_id_t target) const;
+
+	/**
+	 * Degree of node @p n.
+	 * @param n ID of node.
+	 * @return %Node degree.
+	 */
+	id_size_t getDegree(node_id_t n) const;
+
+	/**
+	 * Return state of node with ID @p n.
+	 * @param n Node ID.
+	 * @return State of the node.
+	 */
+	node_state_t getNodeState(node_id_t n) const;
+
+	/**
+	 * Return state of link with ID @p l.
+	 * @param l Link ID.
+	 * @return Link state.
+	 */
+	link_state_t getLinkState(link_id_t l) const;
+
+	/**
+	 * Get source node ID of link @p l.
+	 * @param l %Link ID
+	 * @return %Node ID of link source.
+	 */
+	node_id_t getSource(link_id_t l) const;
+	/**
+	 * Get target node ID of link @p l.
+	 * @param l %Link ID
+	 * @return %Node ID of link target.
+	 */
+	node_id_t getTarget(link_id_t l) const;
+
+	/**
+	 * Get random node.
+	 * @return Pair of bool and node ID. If @p first is false, the network is empty
+	 * and the returned node ID is invalid.
+	 */
+	std::pair<bool, node_id_t> getRandomNode() const;
+	/**
+	 * Get random node in state @p s.
+	 * @param s %Node state to choose from.
+	 * @return Pair of bool and node ID. If @p first is false, there are no nodes
+	 * in state @p s and the returned node ID is invalid.
+	 */
+	std::pair<bool, node_id_t> getRandomNode(node_state_t s) const;
+	/**
+	 * Get random link.
+	 * @return Pair of bool and link ID. If @p first is false, the network has no links
+	 * and the returned link ID is invalid.
+	 */
+	std::pair<bool, link_id_t> getRandomLink() const;
+	/**
+	 * Get random link in state @p s.
+	 * @param s %Link state to choose from.
+	 * @return Pair of bool and link ID. If @p first is false, there are no links in state
+	 * @p s and the returned link ID is invalid.
+	 */
+	std::pair<bool, link_id_t> getRandomLink(link_state_t s) const;
+
+	/**
+	 * Get random link adjacent to node @p n.
+	 * @param n %Node ID
+	 * @return Pair of bool and link ID. If @p first is false, node @p n has no neighbors and
+	 * the returned link ID is invalid.
+	 */
+	std::pair<bool, link_id_t> getRandomNeighborLink(node_id_t n) const;
+	/**
+	 * Get random neighbor of node @p n.
+	 * @param n %Node ID
+	 * @return Pair of bool and node ID. If @p first is false, node @p n has no neighbors and
+	 * the returned node ID is invalid.
+	 */
+	std::pair<bool, node_id_t> getRandomNeighbor(node_id_t n) const;
+
+private:
 	NodeRepo* nodeStore_; ///< repository of nodes
 	LinkRepo* linkStore_; ///< repository of links
 	LinkStateCalculator* lsCalc_; ///< link state calculator
@@ -414,7 +414,7 @@ private:
 };
 
 template <class _Node, class _Link>
-inline std::string TypedNetwork<_Node, _Link>::info() const
+inline std::string TypedNetwork<_Node, _Link>::getInfo() const
 {
 	std::stringstream ss;
 	ss << "Network of N = " << numberOfNodes() << " nodes in " << numberOfNodeStates()
@@ -443,25 +443,25 @@ inline LinkStateCalculator& TypedNetwork<_Node, _Link>::lsCalc() const
 }
 
 template <class _Node, class _Link>
-inline id_size_t TypedNetwork<_Node, _Link>::numberOfNodes() const
+inline id_size_t TypedNetwork<_Node, _Link>::getNumberOfNodes() const
 {
 	return nodeStore_->size();
 }
 
 template <class _Node, class _Link>
-inline id_size_t TypedNetwork<_Node, _Link>::numberOfNodes(const node_state_t s) const
+inline id_size_t TypedNetwork<_Node, _Link>::getNumberOfNodes(const node_state_t s) const
 {
 	return nodeStore_->count(s);
 }
 
 template <class _Node, class _Link>
-inline id_size_t TypedNetwork<_Node, _Link>::numberOfLinks() const
+inline id_size_t TypedNetwork<_Node, _Link>::getNumberOfLinks() const
 {
 	return linkStore_->size();
 }
 
 template <class _Node, class _Link>
-inline id_size_t TypedNetwork<_Node, _Link>::numberOfLinks(const link_state_t s) const
+inline id_size_t TypedNetwork<_Node, _Link>::getNumberOfLinks(const link_state_t s) const
 {
 	return linkStore_->count(s);
 }
@@ -479,13 +479,13 @@ inline typename TypedNetwork<_Node, _Link>::LinkType& TypedNetwork<_Node, _Link>
 }
 
 template <class _Node, class _Link>
-inline node_id_t TypedNetwork<_Node, _Link>::source(const link_id_t l) const
+inline node_id_t TypedNetwork<_Node, _Link>::getSource(const link_id_t l) const
 {
 	return link(l).source();
 }
 
 template <class _Node, class _Link>
-inline node_id_t TypedNetwork<_Node, _Link>::target(const link_id_t l) const
+inline node_id_t TypedNetwork<_Node, _Link>::getTarget(const link_id_t l) const
 {
 	return link(l).target();
 }
@@ -517,7 +517,7 @@ inline typename TypedNetwork<_Node, _Link>::LinkStateIteratorRange TypedNetwork<
 }
 
 template <class _Node, class _Link>
-inline id_size_t TypedNetwork<_Node, _Link>::degree(const node_id_t n) const
+inline id_size_t TypedNetwork<_Node, _Link>::getDegree(const node_id_t n) const
 {
 	return node(n).degree();
 }
@@ -535,13 +535,13 @@ inline link_state_t TypedNetwork<_Node, _Link>::getLinkState(const link_id_t l) 
 }
 
 template <class _Node, class _Link>
-inline node_state_size_t TypedNetwork<_Node, _Link>::numberOfNodeStates() const
+inline node_state_size_t TypedNetwork<_Node, _Link>::getNumberOfNodeStates() const
 {
 	return nodeStore_->numberOfCategories();
 }
 
 template <class _Node, class _Link>
-inline link_state_size_t TypedNetwork<_Node, _Link>::numberOfLinkStates() const
+inline link_state_size_t TypedNetwork<_Node, _Link>::getNumberOfLinkStates() const
 {
 	return linkStore_->numberOfCategories();
 }
@@ -554,7 +554,7 @@ inline const LinkStateCalculator& TypedNetwork<_Node, _Link>::getLinkStateCalcul
 
 template <class _Node, class _Link>
 TypedNetwork<_Node, _Link>::TypedNetwork() :
-BasicNetwork(), nodeStore_(new NodeRepo(1, 0)), linkStore_(new LinkRepo(1, 0)), lsCalc_(new ConstLinkState<> ), lscOwn_(true)
+BasicNetwork(), nodeStore_(new NodeRepo(1, 0)), linkStore_(new LinkRepo(1, 0)), lsCalc_(new DefaultLinkStateCalculator(1)), lscOwn_(true)
 {
 }
 
@@ -595,7 +595,7 @@ void TypedNetwork<_Node, _Link>::setLinkStateCalculator(LinkStateCalculator* lsC
 	}
 	else
 	{
-		lsCalc_ = new ConstLinkState<>;
+		lsCalc_ = new DefaultLinkStateCalculator(numberOfNodeStates());
 		lscOwn_ = true;
 	}
 	recalcLinkStates();
@@ -625,15 +625,17 @@ void TypedNetwork<_Node, _Link>::init(id_size_t nodes)
 }
 
 template<class _Node, class _Link>
-void TypedNetwork<_Node, _Link>::reset(const id_size_t nNodes, const id_size_t nLinks,
+void TypedNetwork<_Node, _Link>::doReset(const id_size_t nNodes, const id_size_t nLinks,
 		const node_state_size_t nNodeStates,
-		const link_state_size_t nLinkStates, LinkStateCalculator* lsCalc)
+		const link_state_size_t nLinkStates)
 {
 	delete nodeStore_;
 	delete linkStore_;
 	nodeStore_ = new NodeRepo(nNodeStates, nNodes);
 	linkStore_ = new LinkRepo(nLinkStates, nLinks);
-	setLinkStateCalculator(lsCalc);
+	// reset link state calculator if invalidated by network reset
+	if (!isValidLinkStateCalculator(lsCalc_))
+	setLinkStateCalculator(0);
 	init(nNodes);
 }
 
@@ -719,7 +721,7 @@ void TypedNetwork<_Node, _Link>::recalcLinkStates()
 }
 
 template <class _Node, class _Link>
-std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::isLink(const node_id_t source,
+std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::doIsLink(const node_id_t source,
 		const node_id_t target) const
 {
 	node_id_t a, b;
@@ -759,7 +761,7 @@ std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::isLink(const node_id_t so
 }
 
 template <class _Node, class _Link>
-std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::randomNode() const
+std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::getRandomNode() const
 {
 	std::pair<bool, node_id_t> ret = std::make_pair(false, 0);
 	if (nodeStore_->size() > 0)
@@ -773,7 +775,7 @@ std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::randomNode() const
 }
 
 template <class _Node, class _Link>
-std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::randomNode(const node_state_t s) const
+std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::getRandomNode(const node_state_t s) const
 {
 	std::pair<bool, node_id_t> ret = std::make_pair(false, 0);
 	if (nodeStore_->count(s) > 0)
@@ -787,7 +789,7 @@ std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::randomNode(const node_sta
 }
 
 template <class _Node, class _Link>
-std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::randomLink() const
+std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::getRandomLink() const
 {
 	std::pair<bool, link_id_t> ret = std::make_pair(false, 0);
 	if (linkStore_->size() > 0)
@@ -801,7 +803,7 @@ std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::randomLink() const
 }
 
 template <class _Node, class _Link>
-std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::randomLink(const link_state_t s) const
+std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::getRandomLink(const link_state_t s) const
 {
 	std::pair<bool, link_id_t> ret = std::make_pair(false, 0);
 	if (linkStore_->count(s) > 0)
@@ -815,7 +817,7 @@ std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::randomLink(const link_sta
 }
 
 template <class _Node, class _Link>
-std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::randomNeighborLink(const node_id_t n) const
+std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::getRandomNeighborLink(const node_id_t n) const
 {
 	std::pair<bool, link_id_t> ret = std::make_pair(false, 0);
 	if (degree(n) != 0)
@@ -838,7 +840,7 @@ std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::randomNeighborLink(const 
 }
 
 template <class _Node, class _Link>
-std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::randomNeighbor(const node_id_t n) const
+std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::getRandomNeighbor(const node_id_t n) const
 {
 	std::pair<bool, node_id_t> ret = std::make_pair(false, 0);
 	if (degree(n) != 0)

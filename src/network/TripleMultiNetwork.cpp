@@ -11,8 +11,8 @@ namespace lnet
 {
 
 TripleMultiNetwork::TripleMultiNetwork() :
-	TypedNetwork<NodeType, LinkType> (), tripleStore_(new TripleRepo(1, 0)), tsCalc_(
-			new ConstTripleState<> ), tscOwn_(true)
+	TypedNetwork<NodeType, LinkType> (), tripleStore_(new TripleRepo(1, 0)),
+			tsCalc_(new DefaultTripleStateCalculator(1)), tscOwn_(true)
 {
 }
 
@@ -21,9 +21,9 @@ TripleMultiNetwork::TripleMultiNetwork(const id_size_t nNodes,
 		const link_state_size_t nLinkStates,
 		const triple_state_size_t nTripleStates, LinkStateCalculator* lsCalc,
 		TripleStateCalculator* tsCalc) :
-			TypedNetwork<NodeType, LinkType> (nNodes, nLinks, nNodeStates,
-					nLinkStates, lsCalc), tripleStore_(new TripleRepo(
-					nTripleStates, 0)), tsCalc_(tsCalc), tscOwn_(false)
+	TypedNetwork<NodeType, LinkType> (nNodes, nLinks, nNodeStates, nLinkStates,
+			lsCalc), tripleStore_(new TripleRepo(nTripleStates, 0)), tsCalc_(
+			tsCalc), tscOwn_(false)
 {
 }
 
@@ -51,7 +51,7 @@ void TripleMultiNetwork::setTripleStateCalculator(TripleStateCalculator* tsCalc)
 	}
 	else
 	{
-		tsCalc_ = new ConstTripleState<> ;
+		tsCalc_ = new DefaultTripleStateCalculator(numberOfNodeStates());
 		tscOwn_ = true;
 	}
 
@@ -104,9 +104,9 @@ void TripleMultiNetwork::onNodeStateChange(const node_id_t n)
 		NeighborTripleIteratorRange niters = neighborTriples(*it);
 		for (NeighborTripleIterator& nit = niters.first; nit != niters.second; ++nit)
 		{
-			tripleStore_->setCategory(*nit, (*tsCalc_)(getNodeState(leftNode(
-					*nit)), getNodeState(centerNode(*nit)), getNodeState(
-					rightNode(*nit))));
+			tripleStore_->setCategory(*nit, (*tsCalc_)(
+					nodeState(leftNode(*nit)), nodeState(centerNode(*nit)),
+					nodeState(rightNode(*nit))));
 		}
 	}
 }
@@ -166,8 +166,8 @@ void TripleMultiNetwork::addTriple(const link_id_t left, const link_id_t right)
 		r = source(right);
 	}
 
-	const triple_id_t t = tripleStore_->insert(Triple(left, right),
-			(*tsCalc_)(getNodeState(l), getNodeState(c), getNodeState(r)));
+	const triple_id_t t = tripleStore_->insert(Triple(left, right), (*tsCalc_)(
+			nodeState(l), nodeState(c), nodeState(r)));
 	link(left).addTriple(t);
 	link(right).addTriple(t);
 }
@@ -226,8 +226,8 @@ void TripleMultiNetwork::removeTriplesFromLinkEnd(const link_id_t l,
 	}
 }
 
-bool TripleMultiNetwork::doChangeLink(const link_id_t l, const node_id_t source,
-		const node_id_t target)
+bool TripleMultiNetwork::doChangeLink(const link_id_t l,
+		const node_id_t source, const node_id_t target)
 {
 	bool retval = true, source_changed = false, target_changed = false;
 	if (link(l).source() != source)

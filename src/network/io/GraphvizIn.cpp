@@ -1,4 +1,5 @@
 #include "GraphvizIn.h"
+#include "../base/BasicNetwork.h"
 #include <algorithm>
 #include <boost/property_map.hpp>
 #include <boost/dynamic_property_map.hpp>
@@ -50,10 +51,9 @@ public:
 };
 #endif
 
-bool GraphvizIn::get(std::istream& in, MultiNetwork& net)
+bool GraphvizIn::get(std::istream& in, BasicNetwork& net)
 {
 	// TODO implement me.
-	assert(false);
 	/*
 	if (!in)
 		return false;
