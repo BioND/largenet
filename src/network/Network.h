@@ -38,7 +38,7 @@ public:
 	 * @param nLinkStates Number of possible link states.
 	 */
 	Network(id_size_t nNodes, id_size_t nLinks, id_size_t nNodeStates,
-			id_size_t nLinkStates, LinkStateCalculator* lsCalc);
+			id_size_t nLinkStates, LinkStateCalculator* lsCalc = 0);
 
 	/**
 	 * Destructor.

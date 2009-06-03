@@ -143,7 +143,7 @@ public:
 	 * @param lsCalc LinkStateCalculator object.
 	 */
 	TypedNetwork(id_size_t nNodes, id_size_t nLinks, node_state_size_t nNodeStates,
-			link_state_size_t nLinkStates, LinkStateCalculator* lsCalc);
+			link_state_size_t nLinkStates, LinkStateCalculator* lsCalc = 0);
 	virtual ~TypedNetwork();
 
 	/**
@@ -409,7 +409,7 @@ private:
 private:
 	NodeRepo* nodeStore_; ///< repository of nodes
 	LinkRepo* linkStore_; ///< repository of links
-	LinkStateCalculator* lsCalc_; ///< link state calculator
+	LinkStateCalculator* lsCalc_; ///< link state calculator @todo Use shared_ptr?
 	bool lscOwn_; ///< true if we need to manage the link state calculator
 };
 
@@ -565,6 +565,11 @@ TypedNetwork<_Node, _Link>::TypedNetwork(const id_size_t nNodes, const id_size_t
 nodeStore_(new NodeRepo(nNodeStates, nNodes)), linkStore_(new LinkRepo(
 				nLinkStates, nLinks)), lsCalc_(lsCalc), lscOwn_(false)
 {
+	if (lsCalc_ == 0)
+	{
+		lsCalc_ = new DefaultLinkStateCalculator(nNodeStates);
+		lscOwn_ = true;
+	}
 	init(nNodes);
 }
 

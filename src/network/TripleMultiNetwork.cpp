@@ -25,6 +25,11 @@ TripleMultiNetwork::TripleMultiNetwork(const id_size_t nNodes,
 			lsCalc), tripleStore_(new TripleRepo(nTripleStates, 0)), tsCalc_(
 			tsCalc), tscOwn_(false)
 {
+	if (tsCalc_ == 0)
+	{
+		tsCalc_ = new DefaultTripleStateCalculator(nNodeStates);
+		tscOwn_ = true;
+	}
 }
 
 TripleMultiNetwork::~TripleMultiNetwork()
