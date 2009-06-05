@@ -7,12 +7,13 @@
 #ifndef TRAITS_H_
 #define TRAITS_H_
 
-namespace lnet {
+namespace lnet
+{
 
 template<class _Network>
 struct network_traits
 {
-	typedef typename _Network::NodeType NodeType;
+	typedef	typename _Network::NodeType NodeType;
 	typedef typename _Network::LinkType LinkType;
 	typedef typename _Network::NodeIterator NodeIterator; ///< %Node ID iterator type.
 	typedef typename _Network::NodeStateIterator NodeStateIterator; ///< %Node ID in state iterator type.
@@ -27,6 +28,9 @@ struct network_traits
 	typedef typename _Network::NeighborLinkIteratorRange NeighborLinkIteratorRange; ///< %Link ID iterator range type for neighboring links of a given node.
 	typedef typename _Network::NeighborIterator NeighborIterator;
 	typedef typename _Network::NeighborIteratorRange NeighborIteratorRange; ///< Neighbor iterator range type.
+
+	// boost inspired stuff
+	typedef typename _Network::edge_parallel_category edge_parallel_category;
 };
 
 template<class _TNetwork>
@@ -40,6 +44,22 @@ struct triple_network_traits: public network_traits<_TNetwork>
 	typedef typename _TNetwork::NeighborTripleIterator NeighborTripleIterator;
 	typedef typename _TNetwork::NeighborTripleIterartorRange NeighborTripleIteratorRange;
 };
+
+
+struct allow_parallel_edge_tag {};
+struct disallow_parallel_edge_tag {};
+
+namespace detail
+{
+	inline bool allows_parallel(allow_parallel_edge_tag) { return true; }
+	inline bool allows_parallel(disallow_parallel_edge_tag) { return false; }
+}
+
+template <class _Network>
+bool allows_parallel_edges(const _Network&) {
+  typedef typename network_traits<_Network>::edge_parallel_category Cat;
+  return detail::allows_parallel(Cat());
+}
 
 }
 

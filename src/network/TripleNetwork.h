@@ -8,6 +8,7 @@
 #define TRIPLENETWORK_H_
 
 #include "TripleMultiNetwork.h"
+#include "base/traits.h"
 
 namespace lnet
 {
@@ -15,6 +16,8 @@ namespace lnet
 class TripleNetwork: public lnet::TripleMultiNetwork
 {
 public:
+	typedef disallow_parallel_edge_tag edge_parallel_category;
+
 	TripleNetwork();
 	TripleNetwork(id_size_t nNodes, id_size_t nLinks, id_size_t nNodeStates,
 			id_size_t nLinkStates, id_size_t nTripleStates,

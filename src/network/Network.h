@@ -7,8 +7,9 @@
 #ifndef NETWORK_H_
 #define NETWORK_H_
 
-#include "base/types.h"
 #include "MultiNetwork.h"
+#include "base/types.h"
+#include "base/traits.h"
 
 namespace lnet
 {
@@ -20,6 +21,8 @@ namespace lnet
 class Network: public MultiNetwork
 {
 public:
+	typedef disallow_parallel_edge_tag edge_parallel_category;
+
 	/**
 	 * Default constructor.
 	 * Creates an empty network of zero nodes and links.

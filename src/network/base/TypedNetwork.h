@@ -7,8 +7,9 @@
 #ifndef TYPEDNETWORK_H_
 #define TYPEDNETWORK_H_
 
-#include "types.h"
 #include "BasicNetwork.h"
+#include "types.h"
+#include "traits.h"
 #include "state_calculators.h"
 #include "../../repo/CategorizedRepository.h"
 #include "../../myrng1.2/myrngWELL.h"
@@ -48,6 +49,8 @@ public:
 
 	typedef typename NodeType::LinkIDIterator NeighborLinkIterator; ///< %Link ID iterator type for neighboring links of a given node.
 	typedef typename NodeType::LinkIDIteratorRange NeighborLinkIteratorRange; ///< %Link ID iterator range type for neighboring links of a given node.
+
+	typedef allow_parallel_edge_tag edge_parallel_category;
 
 	/**
 	 * Neighbor iterator.
