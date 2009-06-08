@@ -18,6 +18,8 @@
 namespace lnet
 {
 
+class BasicNetwork;
+
 /**
  * Utility namespace containing various network generators.
  */
@@ -34,23 +36,8 @@ namespace generators
  * @param[in] nLinks  Number of links to create in @p net.
  * @param[in] selfLoops If true, self-loops are allowed.
  */
-template<class _Network>
-void erdosRenyiNetwork(_Network& net, const id_size_t nLinks,
-		const bool selfLoops = false)
-{
-	id_size_t n = net.numberOfNodes();
-	if (n < 1)
-		return;
-	assert(nLinks <= n*(n-1)/2);
-	net.removeAllLinks();
-	while (net.numberOfLinks() < nLinks)
-	{
-		std::pair<bool, node_id_t> a = net.randomNode(), b = net.randomNode();
-		if (!selfLoops && (a.second == b.second))
-			continue;
-		net.addLink(a.second, b.second);
-	}
-}
+void erdosRenyiNetwork(BasicNetwork& net, const id_size_t nLinks,
+		const bool selfLoops = false);
 
 /**
  * Create a random Erdos-Renyi network from @p net with link probability @p p.
@@ -90,21 +77,21 @@ void erdosRenyiNetwork(_Network& net, const double p)
 // template <class _Network>
 //node_id_t starGraph(_Network& net, const id_size_t nSpikes);
 /*
-{
-	node_state_size_t ns = net.numberOfNodeStates();
-	link_state_size_t ls = net.numberOfLinkStates();
-	net.reset(nSpikes + 1, nSpikes, ns, ls, net.getLinkStateCalculator());
-	MultiNetwork::NodeIteratorRange iters = net.nodes();
-	assert(iters.first != iters.second);
-	node_id_t hub = *iters.first;
-	++iters.first;
-	for (MultiNetwork::NodeIterator& it = iters.first; it != iters.second; ++it)
-	{
-		net.addLink(hub, *it);
-	}
-	return hub;
-}
-*/
+ {
+ node_state_size_t ns = net.numberOfNodeStates();
+ link_state_size_t ls = net.numberOfLinkStates();
+ net.reset(nSpikes + 1, nSpikes, ns, ls, net.getLinkStateCalculator());
+ MultiNetwork::NodeIteratorRange iters = net.nodes();
+ assert(iters.first != iters.second);
+ node_id_t hub = *iters.first;
+ ++iters.first;
+ for (MultiNetwork::NodeIterator& it = iters.first; it != iters.second; ++it)
+ {
+ net.addLink(hub, *it);
+ }
+ return hub;
+ }
+ */
 
 }
 }
