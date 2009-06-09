@@ -19,6 +19,7 @@ public:
 	typedef disallow_parallel_edge_tag edge_parallel_category;
 
 	TripleNetwork();
+	TripleNetwork(const TripleNetwork& net);
 	TripleNetwork(id_size_t nNodes, id_size_t nLinks, id_size_t nNodeStates,
 			id_size_t nLinkStates, id_size_t nTripleStates,
 			LinkStateCalculator* lsCalc = 0, TripleStateCalculator* tsCalc = 0);

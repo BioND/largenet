@@ -147,6 +147,13 @@ public:
 	 */
 	TypedNetwork(id_size_t nNodes, id_size_t nLinks, node_state_size_t nNodeStates,
 			link_state_size_t nLinkStates, LinkStateCalculator* lsCalc = 0);
+
+	/**
+	 * Copy constructor.
+	 * @param net
+	 */
+	TypedNetwork(const TypedNetwork& net);
+
 	virtual ~TypedNetwork();
 
 	/**
@@ -559,6 +566,23 @@ template <class _Node, class _Link>
 TypedNetwork<_Node, _Link>::TypedNetwork() :
 BasicNetwork(), nodeStore_(new NodeRepo(1, 0)), linkStore_(new LinkRepo(1, 0)), lsCalc_(new DefaultLinkStateCalculator(1)), lscOwn_(true)
 {
+}
+
+template <class _Node, class _Link>
+TypedNetwork<_Node, _Link>::TypedNetwork(const TypedNetwork<_Node, _Link>& net) :
+BasicNetwork(), nodeStore_(new NodeRepo(*net.nodeStore_)), linkStore_(new LinkRepo(*net.linkStore_)), lsCalc_(0), lscOwn_(false)
+{
+	if (net.lscOwn_)
+	{
+		// make our own default link state calculator
+		lsCalc_ = new DefaultLinkStateCalculator(net.numberOfNodeStates());
+		lscOwn_ = true;
+	}
+	else
+	{
+		lscOwn_ = false;
+		lsCalc_ = net.lsCalc_;
+	}
 }
 
 template <class _Node, class _Link>

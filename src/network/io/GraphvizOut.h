@@ -23,7 +23,8 @@ class GraphvizOut: public NetOut
 public:
 	GraphvizOut();
 	virtual ~GraphvizOut();
-	bool put(std::ostream& out, const MultiNetwork& net);
+private:
+	bool doPut(std::ostream& out, const MultiNetwork& net) const;
 };
 
 }

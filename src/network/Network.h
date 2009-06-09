@@ -28,6 +28,7 @@ public:
 	 * Creates an empty network of zero nodes and links.
 	 */
 	Network();
+	Network(const Network& net);
 	/**
 	 * Constructor.
 	 *

@@ -25,7 +25,7 @@ NodeEdgelistOut::~NodeEdgelistOut()
 {
 }
 
-bool NodeEdgelistOut::put(std::ostream& out, const MultiNetwork& net)
+bool NodeEdgelistOut::doPut(std::ostream& out, const MultiNetwork& net) const
 {
 	if (!out)
 		return false;

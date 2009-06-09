@@ -42,6 +42,7 @@ public:
 			node_state_size_t nNodeStates, link_state_size_t nLinkStates,
 			triple_state_size_t nTripleStates, LinkStateCalculator* lsCalc = 0,
 			TripleStateCalculator* tsCalc = 0);
+	TripleMultiNetwork(const TripleMultiNetwork& net);
 	virtual ~TripleMultiNetwork();
 
 	triple_state_size_t numberOfTripleStates() const;

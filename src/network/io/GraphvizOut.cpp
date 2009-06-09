@@ -63,7 +63,7 @@ private:
 	const BasicNetwork& net_;
 };
 
-bool GraphvizOut::put(std::ostream& out, const MultiNetwork& net)
+bool GraphvizOut::doPut(std::ostream& out, const MultiNetwork& net) const
 {
 	if (!out)
 		return false;

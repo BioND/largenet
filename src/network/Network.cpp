@@ -8,8 +8,14 @@ Network::Network() :
 {
 }
 
+Network::Network(const Network& net) :
+	MultiNetwork(net)
+{
+}
+
 Network::Network(const id_size_t nNodes, const id_size_t nLinks,
-		const id_size_t nNodeStates, const id_size_t nLinkStates, LinkStateCalculator* lsCalc) :
+		const id_size_t nNodeStates, const id_size_t nLinkStates,
+		LinkStateCalculator* lsCalc) :
 	MultiNetwork(nNodes, nLinks, nNodeStates, nLinkStates, lsCalc)
 {
 }
@@ -33,7 +39,8 @@ link_id_t Network::doAddLink(const node_id_t source, const node_id_t target)
 	return l;
 }
 
-bool Network::doChangeLink(const link_id_t l, const node_id_t source, const node_id_t target)
+bool Network::doChangeLink(const link_id_t l, const node_id_t source,
+		const node_id_t target)
 {
 	if (isLink(source, target).first)
 		return false;

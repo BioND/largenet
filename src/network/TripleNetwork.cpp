@@ -14,6 +14,11 @@ TripleNetwork::TripleNetwork() :
 {
 }
 
+TripleNetwork::TripleNetwork(const TripleNetwork& net) :
+	TripleMultiNetwork(net)
+{
+}
+
 TripleNetwork::TripleNetwork(const id_size_t nNodes, const id_size_t nLinks,
 		const id_size_t nNodeStates, const id_size_t nLinkStates,
 		const id_size_t nTripleStates, LinkStateCalculator* lsCalc,
@@ -27,7 +32,8 @@ TripleNetwork::~TripleNetwork()
 {
 }
 
-link_id_t TripleNetwork::doAddLink(const node_id_t source, const node_id_t target)
+link_id_t TripleNetwork::doAddLink(const node_id_t source,
+		const node_id_t target)
 {
 	std::pair<bool, link_id_t> linkExists = isLink(source, target);
 	link_id_t l;

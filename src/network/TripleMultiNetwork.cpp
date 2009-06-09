@@ -32,6 +32,22 @@ TripleMultiNetwork::TripleMultiNetwork(const id_size_t nNodes,
 	}
 }
 
+TripleMultiNetwork::TripleMultiNetwork(const TripleMultiNetwork& net) :
+	TypedNetwork<NodeType, LinkType>::TypedNetwork(net), tsCalc_(0), tscOwn_(
+			false)
+{
+	if (net.tscOwn_)
+	{
+		tsCalc_ = new DefaultTripleStateCalculator(net.numberOfNodeStates());
+		tscOwn_ = true;
+	}
+	else
+	{
+		tsCalc_ = net.tsCalc_;
+		tscOwn_ = false;
+	}
+}
+
 TripleMultiNetwork::~TripleMultiNetwork()
 {
 	delete tripleStore_;

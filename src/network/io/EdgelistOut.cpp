@@ -18,7 +18,7 @@ EdgelistOut::~EdgelistOut()
 {
 }
 
-bool EdgelistOut::put(std::ostream& out, const MultiNetwork& net)
+bool EdgelistOut::doPut(std::ostream& out, const MultiNetwork& net) const
 {
 	if (!out)
 		return false;
