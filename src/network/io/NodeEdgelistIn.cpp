@@ -7,12 +7,13 @@
 
 #include "NodeEdgelistIn.h"
 #include "iodefs.h"
-#include "../types.h"
-#include "../MultiNetwork.h"
+#include "../base/types.h"
+#include "../base/BasicNetwork.h"
 #include <string>
 #include <sstream>
 
 #include <iostream>
+#include <cassert>
 
 namespace lnet
 {
@@ -31,8 +32,11 @@ NodeEdgelistIn::~NodeEdgelistIn()
 {
 }
 
-bool NodeEdgelistIn::get(istream& in, MultiNetwork& net)
+bool NodeEdgelistIn::get(istream& in, BasicNetwork& net)
 {
+	/** @todo implement me. */
+	assert(false);
+	/*
 	if (!in)
 		return false;
 
@@ -64,7 +68,7 @@ bool NodeEdgelistIn::get(istream& in, MultiNetwork& net)
 	ss.str(line);
 	ss >> skipws >> tok;
 	if (tok != NODE_LIST) throw("No node list token."); // FIXME
-
+*/
 // TODO
 	return true;
 }

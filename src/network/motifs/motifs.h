@@ -13,4 +13,14 @@
 #include "TripleMotif.h"
 #include "MotifSet.h"
 
+namespace lnet
+{
+namespace motifs
+{
+typedef MotifSet<NodeMotif> NodeMotifSet;
+typedef MotifSet<LinkMotif> LinkMotifSet;
+typedef MotifSet<TripleMotif> TripleMotifSet;
+}
+}
+
 #endif /* MOTIFS_H_ */

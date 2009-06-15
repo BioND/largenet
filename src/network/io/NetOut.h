@@ -7,12 +7,11 @@
 #ifndef NETOUT_H_
 #define NETOUT_H_
 
+#include "../MultiNetwork.h"
 #include <ostream>
 
 namespace lnet
 {
-
-class MultiNetwork;
 
 namespace io
 {
@@ -29,12 +28,14 @@ public:
 	bool writesStates() const;
 	void writeStates(bool v);
 
-	virtual bool put(std::ostream& out, const MultiNetwork& net) = 0;
+	bool put(std::ostream& out, const MultiNetwork& net) const;
 
 protected:
 	bool writeStates_;
-};
 
+private:
+	virtual bool doPut(std::ostream& out, const MultiNetwork& net) const = 0;
+};
 
 inline void NetOut::writeStates(const bool v)
 {
@@ -44,6 +45,13 @@ inline void NetOut::writeStates(const bool v)
 inline bool NetOut::writesStates() const
 {
 	return writeStates_;
+}
+
+inline bool NetOut::put(std::ostream& out, const MultiNetwork& net) const
+{
+	// make a copy in order to get a contiguous range of valid IDs
+	MultiNetwork n(net);
+	return doPut(out, n);
 }
 
 }

@@ -13,8 +13,6 @@
 namespace lnet
 {
 
-class MultiNetwork;
-
 namespace io
 {
 
@@ -23,7 +21,7 @@ class NodeEdgelistIn: public lnet::io::NetIn
 public:
 	NodeEdgelistIn();
 	virtual ~NodeEdgelistIn();
-	bool get(std::istream& in, MultiNetwork& net);
+	bool get(std::istream& in, BasicNetwork& net);
 };
 
 }

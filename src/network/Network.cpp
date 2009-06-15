@@ -8,9 +8,15 @@ Network::Network() :
 {
 }
 
+Network::Network(const Network& net) :
+	MultiNetwork(net)
+{
+}
+
 Network::Network(const id_size_t nNodes, const id_size_t nLinks,
-		const id_size_t nNodeStates, const id_size_t nLinkStates) :
-	MultiNetwork(nNodes, nLinks, nNodeStates, nLinkStates)
+		const id_size_t nNodeStates, const id_size_t nLinkStates,
+		LinkStateCalculator* lsCalc) :
+	MultiNetwork(nNodes, nLinks, nNodeStates, nLinkStates, lsCalc)
 {
 }
 
@@ -18,33 +24,28 @@ Network::~Network()
 {
 }
 
-link_id_t Network::addLink(const node_id_t source, const node_id_t target)
-{
-	return addLink(source, target, 0);
-}
-
-link_id_t Network::addLink(const node_id_t source, const node_id_t target, const link_state_t s)
+link_id_t Network::doAddLink(const node_id_t source, const node_id_t target)
 {
 	std::pair<bool, link_id_t> linkExists = isLink(source, target);
 	link_id_t l;
 	if (!linkExists.first)
 	{
-		l = MultiNetwork::addLink(source, target, s);
+		l = MultiNetwork::doAddLink(source, target);
 	}
 	else
 	{
 		l = linkExists.second;
-		setLinkState(l, s);
 	}
 	return l;
 }
 
-bool Network::changeLink(const link_id_t l, const node_id_t source, const node_id_t target, const link_state_t s)
+bool Network::doChangeLink(const link_id_t l, const node_id_t source,
+		const node_id_t target)
 {
 	if (isLink(source, target).first)
 		return false;
 
-	return MultiNetwork::changeLink(l, source, target, s);
+	return MultiNetwork::doChangeLink(l, source, target);
 }
 
 }

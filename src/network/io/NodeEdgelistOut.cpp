@@ -7,7 +7,6 @@
 
 #include "NodeEdgelistOut.h"
 #include "iodefs.h"
-#include "../MultiNetwork.h"
 
 using namespace std;
 
@@ -26,7 +25,7 @@ NodeEdgelistOut::~NodeEdgelistOut()
 {
 }
 
-bool NodeEdgelistOut::put(std::ostream& out, const MultiNetwork& net)
+bool NodeEdgelistOut::doPut(std::ostream& out, const MultiNetwork& net) const
 {
 	if (!out)
 		return false;
@@ -52,7 +51,7 @@ bool NodeEdgelistOut::put(std::ostream& out, const MultiNetwork& net)
 		for (MultiNetwork::NodeIterator& nit = niters.first; nit
 				!= niters.second; ++nit)
 		{
-			out << *nit << sep << net.getNodeState(*nit) << "\n";
+			out << *nit << sep << net.nodeState(*nit) << "\n";
 		}
 
 		// write separator
@@ -65,7 +64,7 @@ bool NodeEdgelistOut::put(std::ostream& out, const MultiNetwork& net)
 				!= liters.second; ++lit)
 		{
 			out << *lit << sep << net.source(*lit) << sep << net.target(*lit)
-					<< sep << net.getLinkState(*lit) << "\n";
+					<< sep << net.linkState(*lit) << "\n";
 		}
 	}
 	else

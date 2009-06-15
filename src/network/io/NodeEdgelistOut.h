@@ -14,8 +14,6 @@
 namespace lnet
 {
 
-class MultiNetwork;
-
 namespace io
 {
 
@@ -24,7 +22,8 @@ class NodeEdgelistOut: public lnet::io::NetOut
 public:
 	NodeEdgelistOut();
 	virtual ~NodeEdgelistOut();
-	bool put(std::ostream& out, const MultiNetwork& net);
+private:
+	bool doPut(std::ostream& out, const MultiNetwork& net) const;
 };
 
 }

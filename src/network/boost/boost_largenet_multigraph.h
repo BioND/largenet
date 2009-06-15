@@ -8,15 +8,14 @@
 #ifndef BOOST_LARGENET_MULTIGRAPH_H_
 #define BOOST_LARGENET_MULTIGRAPH_H_
 
-#include <utility>
+#include "../base/types.h"
+#include "../MultiNetwork.h"
+#include "../Network.h"
+
 //#include <boost/config.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/properties.hpp>
-
-#include "../types.h"
-#include "../Link.h"
-#include "../MultiNetwork.h"
-#include "../Network.h"
+#include <utility>
 
 namespace boost
 {
@@ -267,7 +266,7 @@ public:
 
 	value_type operator[](key_type e) const
 	{
-		return net_->getNodeState(e);
+		return net_->nodeState(e);
 	}
 
 private:
@@ -294,18 +293,20 @@ public:
 
 	value_type operator[](key_type e) const
 	{
-		return net_->getLinkState(e);
+		return net_->linkState(e);
 	}
 
 private:
 	const lnet::MultiNetwork* net_;
 };
 
-struct vertex_state_t {
-  typedef vertex_property_tag kind;
+struct vertex_state_t
+{
+	typedef vertex_property_tag kind;
 };
 
-struct edge_state_t {
+struct edge_state_t
+{
 	typedef edge_property_tag kind;
 };
 

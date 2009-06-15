@@ -1,7 +1,5 @@
 #include "EdgelistOut.h"
-#include "../types.h"
-#include "../Link.h"
-#include "../MultiNetwork.h"
+#include "../base/types.h"
 
 namespace lnet
 {
@@ -20,7 +18,7 @@ EdgelistOut::~EdgelistOut()
 {
 }
 
-bool EdgelistOut::put(std::ostream& out, const MultiNetwork& net)
+bool EdgelistOut::doPut(std::ostream& out, const MultiNetwork& net) const
 {
 	if (!out)
 		return false;
@@ -41,9 +39,8 @@ bool EdgelistOut::put(std::ostream& out, const MultiNetwork& net)
 		for (MultiNetwork::LinkIterator& it = iters.first; it != iters.second; ++it)
 		{
 			out << net.source(*it) << sep << net.target(*it) << sep
-					<< net.getNodeState(net.source(*it)) << sep
-					<< net.getNodeState(net.target(*it)) << sep
-					<< net.getLinkState(*it) << "\n";
+					<< net.nodeState(net.source(*it)) << sep << net.nodeState(
+					net.target(*it)) << sep << net.linkState(*it) << "\n";
 		}
 	}
 	else

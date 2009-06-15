@@ -13,7 +13,7 @@
 namespace lnet
 {
 
-class MultiNetwork;
+class BasicNetwork;
 
 /**
  * Namespace containing all network input/output functionality.
@@ -54,7 +54,7 @@ public:
 	 * @param[out] net %MultiNetwork to read to.
 	 * @return true on success
 	 */
-	virtual bool get(std::istream& in, MultiNetwork& net) = 0;
+	virtual bool get(std::istream& in, BasicNetwork& net) = 0;
 
 protected:
 	bool readStates_; ///< state reading flag

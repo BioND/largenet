@@ -1,8 +1,9 @@
 #include "EdgelistIn.h"
-#include "../types.h"
-#include "../MultiNetwork.h"
+#include "../base/types.h"
+#include "../base/BasicNetwork.h"
 #include <string>
 #include <sstream>
+#include <cassert>
 
 namespace lnet
 {
@@ -21,7 +22,7 @@ EdgelistIn::~EdgelistIn()
 {
 }
 
-bool EdgelistIn::get(std::istream& in, MultiNetwork& net)
+bool EdgelistIn::get(std::istream& in, BasicNetwork& net)
 {
 	if (!in)
 		return false;
@@ -71,7 +72,7 @@ bool EdgelistIn::get(std::istream& in, MultiNetwork& net)
 		net.setNodeState(a, sa); // FIXME This might fail if a node state in the edge list file
 		// is larger than the (erroneously not supplied) number of node states
 		net.setNodeState(b, sb);
-		net.addLink(a, b, sl);
+		net.addLink(a, b);
 	}
 	return true;
 }

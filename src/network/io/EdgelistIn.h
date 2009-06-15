@@ -13,7 +13,7 @@
 namespace lnet
 {
 
-class MultiNetwork;
+class BasicNetwork;
 
 namespace io
 {
@@ -46,7 +46,7 @@ public:
 	 *
 	 * @see EdgelistOut
 	 */
-	bool get(std::istream& in, MultiNetwork& net);
+	bool get(std::istream& in, BasicNetwork& net);
 };
 
 }

@@ -1,10 +1,12 @@
 #include "GraphvizIn.h"
+#include "../base/BasicNetwork.h"
 #include <algorithm>
 #include <boost/property_map.hpp>
 #include <boost/dynamic_property_map.hpp>
 #include "../boost/boost_largenet_multigraph.h"
 #include <boost/graph/graphviz.hpp>
 #include <boost/version.hpp>
+#include <cassert>
 
 namespace lnet
 {
@@ -49,8 +51,10 @@ public:
 };
 #endif
 
-bool GraphvizIn::get(std::istream& in, MultiNetwork& net)
+bool GraphvizIn::get(std::istream& in, BasicNetwork& net)
 {
+	// TODO implement me.
+	/*
 	if (!in)
 		return false;
 
@@ -116,6 +120,8 @@ bool GraphvizIn::get(std::istream& in, MultiNetwork& net)
 		}
 	}
 	return retval;
+	*/
+	return true;
 }
 
 }
