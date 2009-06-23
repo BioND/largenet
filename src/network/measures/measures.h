@@ -323,7 +323,7 @@ id_size_t triples(const _Network& net, const motifs::TripleMotif& t)
 
 	// loop over all a-b links
 	typename network_traits<_Network>::LinkStateIteratorRange iters =
-			net.links(net.getLinkStateCalculator()(t.left(), t.center()));
+			net.links(net.linkStateCalculator()(t.left(), t.center()));
 	for (typename network_traits<_Network>::LinkStateIterator& it = iters.first; it
 			!= iters.second; ++it)
 	{

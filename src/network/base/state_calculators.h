@@ -8,7 +8,6 @@
 #define STATE_CALCULATORS_H_
 
 #include "types.h"
-#include "BasicNetwork.h"
 #include "../motifs/motifs.h"
 #include <map>
 #include <utility>
@@ -35,10 +34,12 @@ public:
 	 */
 	link_state_t operator()(node_state_t source, node_state_t target) const;
 	link_state_t fromLinkMotif(const motifs::LinkMotif& l) const;
+	link_state_size_t numberOfLinkStates() const;
 
 private:
 	virtual link_state_t fromNodeStates(node_state_t source,
 			node_state_t target) const = 0;
+	virtual link_state_size_t getNumberOfLinkStates() const = 0;
 };
 
 /**
@@ -55,6 +56,7 @@ private:
 	 * @return constant link state @p _ls
 	 */
 	link_state_t fromNodeStates(node_state_t source, node_state_t target) const;
+	link_state_size_t getNumberOfLinkStates() const;
 };
 
 /**
@@ -67,7 +69,7 @@ public:
 	DefaultLinkStateCalculator(node_state_size_t nNodeStates);
 private:
 	link_state_t fromNodeStates(node_state_t source, node_state_t target) const;
-
+	link_state_size_t getNumberOfLinkStates() const;
 	std::map<motifs::LinkMotif, link_state_t> states_;
 };
 
@@ -92,9 +94,11 @@ public:
 			node_state_t right) const;
 	triple_state_t operator()(const motifs::TripleMotif& t) const;
 	triple_state_t fromTripleMotif(const motifs::TripleMotif& t) const;
+	triple_state_size_t numberOfTripleStates() const;
 private:
 	virtual triple_state_t fromNodeStates(node_state_t left,
 			node_state_t center, node_state_t right) const = 0;
+	virtual triple_state_size_t getNumberOfTripleStates() const = 0;
 };
 
 /**
@@ -113,6 +117,7 @@ private:
 	 */
 	triple_state_t fromNodeStates(node_state_t left, node_state_t center,
 			node_state_t right) const;
+	triple_state_size_t getNumberOfTripleStates() const;
 };
 
 class DefaultTripleStateCalculator: public TripleStateCalculator
@@ -122,6 +127,7 @@ public:
 private:
 	triple_state_t fromNodeStates(node_state_t left, node_state_t center,
 			node_state_t right) const;
+	triple_state_size_t getNumberOfTripleStates() const;
 	std::map<motifs::TripleMotif, triple_state_t> states_;
 };
 
@@ -148,6 +154,11 @@ inline link_state_t LinkStateCalculator::fromLinkMotif(
 	return fromNodeStates(l.source(), l.target());
 }
 
+inline link_state_size_t LinkStateCalculator::numberOfLinkStates() const
+{
+	return getNumberOfLinkStates();
+}
+
 // const link state
 
 template<link_state_t _ls>
@@ -155,6 +166,13 @@ inline link_state_t ConstLinkState<_ls>::fromNodeStates(
 		const node_state_t source, const node_state_t target) const
 {
 	return _ls;
+}
+
+
+template<link_state_t _ls>
+inline link_state_size_t ConstLinkState<_ls>::getNumberOfLinkStates() const
+{
+	return 1;
 }
 
 // canonical link state calculator
@@ -176,6 +194,11 @@ inline link_state_t DefaultLinkStateCalculator::fromNodeStates(
 		const node_state_t source, const node_state_t target) const
 {
 	return (states_.find(motifs::LinkMotif(source, target)))->second;
+}
+
+inline link_state_size_t DefaultLinkStateCalculator::getNumberOfLinkStates() const
+{
+	return states_.size();
 }
 
 // triple state calculator
@@ -203,6 +226,11 @@ inline triple_state_t TripleStateCalculator::fromTripleMotif(
 	return fromNodeStates(t.left(), t.center(), t.right());
 }
 
+inline triple_state_size_t TripleStateCalculator::numberOfTripleStates() const
+{
+	return getNumberOfTripleStates();
+}
+
 // constant triple state
 
 template<triple_state_t _ts>
@@ -211,6 +239,12 @@ inline triple_state_t ConstTripleState<_ts>::fromNodeStates(
 		const node_state_t right) const
 {
 	return _ts;
+}
+
+template<triple_state_t _ts>
+inline triple_state_size_t ConstTripleState<_ts>::getNumberOfTripleStates() const
+{
+	return 1;
 }
 
 // canonical triple state calculator
@@ -231,6 +265,11 @@ inline triple_state_t DefaultTripleStateCalculator::fromNodeStates(
 		const node_state_t right) const
 {
 	return (states_.find(motifs::TripleMotif(left, center, right)))->second;
+}
+
+inline triple_state_size_t DefaultTripleStateCalculator::getNumberOfTripleStates() const
+{
+	return states_.size();
 }
 
 }

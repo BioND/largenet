@@ -8,6 +8,8 @@
 #define BASICNETWORK_H_
 
 #include "types.h"
+#include "state_calculators.h"
+#include "../../repo/iterators.h"
 #include <utility>
 #include <string>
 
@@ -20,29 +22,20 @@ namespace lnet
 class BasicNetwork
 {
 public:
-	BasicNetwork();
-	virtual ~BasicNetwork();
 
-	/**
-	 * Reset to empty network.
-	 * Deletes all nodes and links and re-creates an empty network with @p nNodes nodes,
-	 * each of which can be in any of the @p nNodeStates states. Memory is allocated
-	 * to allow for the storage of @p nLinks links. @p nLinkStates is the number
-	 * of possible link states.
-	 *
-	 * FIXME reset() will not work this way.
-	 * @todo Create factory class for networks. This should be able to create new network objects
-	 * from file input for instance.
-	 *
-	 * @deprecated Should be removed from future versions. Use factory methods instead.
-	 *
-	 * @param nNodes Number of nodes in the network.
-	 * @param nLinks Number of links to reserve memory for.
-	 * @param nNodeStates Number of possible node states.
-	 * @param nLinkStates Number of possible link states.
-	 */
-	void reset(id_size_t nNodes, id_size_t nLinks,
-			node_state_size_t nNodeStates, link_state_size_t nLinkStates);
+	typedef repo::IndexIterator NodeIterator; ///< %Node ID iterator type.
+	typedef repo::CategoryIterator NodeStateIterator; ///< %Node ID in state iterator type.
+	typedef repo::IndexIteratorRange NodeIteratorRange; ///< %Node ID iterator range type.
+	typedef repo::CategoryIteratorRange NodeStateIteratorRange; ///< %Node ID in state iterator range type.
+	typedef repo::IndexIterator LinkIterator; ///< %Link ID iterator type.
+	typedef repo::CategoryIterator LinkStateIterator; ///< %Link ID in state iterator type.
+	typedef repo::IndexIteratorRange LinkIteratorRange; ///< %Link ID iterator range type.
+	typedef repo::CategoryIteratorRange LinkStateIteratorRange; ///< %Link ID in state iterator range type.
+
+	BasicNetwork();
+	BasicNetwork(LinkStateCalculator* lsCalc);
+	BasicNetwork(const BasicNetwork& net);
+	virtual ~BasicNetwork();
 
 	std::string info() const;
 
@@ -79,6 +72,21 @@ public:
 	 */
 	link_state_size_t numberOfLinkStates() const;
 
+	/**
+	 * Set the LinkStateCalculator object to use in order to keep node and link
+	 * states consistent.
+	 * @param lsCalc pointer to LinkStateCalculator object
+	 */
+	void setLinkStateCalculator(LinkStateCalculator* lsCalc);
+
+	/**
+	 * Return a copy of the internal link state calculator.
+	 * @return LinkStateCalculator object.
+	 */
+	const LinkStateCalculator& linkStateCalculator() const;
+
+	void reset(id_size_t nNodes, id_size_t nLinks,
+			node_state_size_t nNodeStates, LinkStateCalculator* lsCalc = 0);
 	/**
 	 * Add a new node to category 0.
 	 * @return	Unique ID of the new node.
@@ -131,6 +139,11 @@ public:
 	void removeNode(node_id_t n);
 
 	/**
+	 * Remove all nodes and links.
+	 */
+	void clear();
+
+	/**
 	 * Check if there exists a direct link between two nodes.
 	 * @param source ID of source node.
 	 * @param target ID of target node.
@@ -167,32 +180,32 @@ public:
 	 */
 	link_state_t linkState(link_id_t l) const;
 
-	//	/**
-	//	 * Return iterator range of all nodes in the network.
-	//	 * @return @c std::pair of NodeIterators, where the first points to the
-	//	 * first node in the network and the second to the past-the-end node.
-	//	 */
-	//	NodeIteratorRange nodes() const;
-	//	/**
-	//	 * Return iterator range of all nodes in state @p s.
-	//	 * @return @c std::pair of NodeIterators, where the first points to the
-	//	 * first node in state @p s and the second to the past-the-end node
-	//	 * in this state.
-	//	 */
-	//	NodeStateIteratorRange nodes(node_state_t s) const;
-	//	/**
-	//	 * Return iterator range of all links in the network.
-	//	 * @return @c std::pair of LinkIterators, where the first points to the
-	//	 * first link in the network and the second to the past-the-end link.
-	//	 */
-	//	LinkIteratorRange links() const;
-	//	/**
-	//	 * Return iterator range of all links in state @p s.
-	//	 * @return @c std::pair of LinksIterators, where the first points to the
-	//	 * first link in the state @p s and the second to the past-the-end link
-	//	 * in this state.
-	//	 */
-	//	LinkStateIteratorRange links(link_state_t s) const;
+	/**
+	 * Return iterator range of all nodes in the network.
+	 * @return @c std::pair of NodeIterators, where the first points to the
+	 * first node in the network and the second to the past-the-end node.
+	 */
+	NodeIteratorRange nodes() const;
+	/**
+	 * Return iterator range of all nodes in state @p s.
+	 * @return @c std::pair of NodeIterators, where the first points to the
+	 * first node in state @p s and the second to the past-the-end node
+	 * in this state.
+	 */
+	NodeStateIteratorRange nodes(node_state_t s) const;
+	/**
+	 * Return iterator range of all links in the network.
+	 * @return @c std::pair of LinkIterators, where the first points to the
+	 * first link in the network and the second to the past-the-end link.
+	 */
+	LinkIteratorRange links() const;
+	/**
+	 * Return iterator range of all links in state @p s.
+	 * @return @c std::pair of LinksIterators, where the first points to the
+	 * first link in the state @p s and the second to the past-the-end link
+	 * in this state.
+	 */
+	LinkStateIteratorRange links(link_state_t s) const;
 
 	/**
 	 * Get random node.
@@ -272,12 +285,20 @@ protected:
 	virtual void doRemoveLink(link_id_t l) = 0;
 	virtual void doRemoveNode(node_id_t n) = 0;
 	virtual void doRemoveAllLinks() = 0;
+	virtual void doClear() = 0;
 	virtual void doSetNodeState(node_id_t n, node_state_t s) = 0;
 
 	virtual void onNodeStateChange(node_id_t n) = 0;
 
-	virtual void doReset(id_size_t nNodes, id_size_t nLinks,
-			node_state_size_t nNodeStates, link_state_size_t nLinkStates) = 0;
+	virtual void recalcLinkStates() = 0;
+
+	/**
+	 * Check whether @lc refers to a valid LinkStateCalculator object, i.e.
+	 * which returns at most the current maximum number of link states.
+	 * @param lc Pointer to LinkStateCalculator object
+	 * @return true if valid
+	 */
+	bool isValidLinkStateCalculator(LinkStateCalculator* lc) const;
 
 private:
 	virtual id_size_t getDegree(node_id_t n) const = 0;
@@ -288,6 +309,9 @@ private:
 	virtual id_size_t getNumberOfLinks(node_state_t s) const = 0;
 	virtual node_state_size_t getNumberOfNodeStates() const = 0;
 	virtual link_state_size_t getNumberOfLinkStates() const = 0;
+
+	virtual void doReset(id_size_t nNodes, id_size_t nLinks,
+			node_state_size_t nNodeStates) = 0;
 
 	virtual node_state_t getNodeState(node_id_t n) const = 0;
 	virtual link_state_t getLinkState(link_id_t l) const = 0;
@@ -305,15 +329,16 @@ private:
 	virtual std::pair<bool, link_id_t>
 			getRandomNeighborLink(node_id_t n) const = 0;
 	virtual std::pair<bool, node_id_t> getRandomNeighbor(node_id_t n) const = 0;
+
+	virtual LinkIteratorRange getLinks() const = 0;
+	virtual LinkStateIteratorRange getLinks(link_state_t s) const = 0;
+	virtual NodeIteratorRange getNodes() const = 0;
+	virtual NodeStateIteratorRange getNodes(link_state_t s) const = 0;
+
+private:
+	LinkStateCalculator* lsCalc_; ///< link state calculator @todo Use shared_ptr?
+	bool lscOwn_; ///< true if we need to manage the link state calculator
 };
-
-inline BasicNetwork::BasicNetwork()
-{
-}
-
-inline BasicNetwork::~BasicNetwork()
-{
-}
 
 inline node_id_t BasicNetwork::addNode()
 {
@@ -345,6 +370,12 @@ inline id_size_t BasicNetwork::degree(const node_id_t n) const
 inline std::string BasicNetwork::info() const
 {
 	return getInfo();
+}
+
+inline const LinkStateCalculator& BasicNetwork::linkStateCalculator() const
+{
+	assert(lsCalc_ != 0);
+	return *lsCalc_;
 }
 
 inline std::pair<bool, link_id_t> BasicNetwork::isLink(const node_id_t source,
@@ -440,11 +471,9 @@ inline void BasicNetwork::removeAllLinks()
 	doRemoveAllLinks();
 }
 
-inline void BasicNetwork::reset(const id_size_t nNodes, const id_size_t nLinks,
-		const node_state_size_t nNodeStates,
-		const link_state_size_t nLinkStates)
+inline void BasicNetwork::clear()
 {
-	doReset(nNodes, nLinks, nNodeStates, nLinkStates);
+	doClear();
 }
 
 inline void BasicNetwork::setNodeState(const node_id_t n, const node_state_t s)
@@ -463,6 +492,27 @@ inline node_id_t BasicNetwork::target(const link_id_t l) const
 	return getTarget(l);
 }
 
+inline BasicNetwork::NodeIteratorRange BasicNetwork::nodes() const
+{
+	return getNodes();
+}
+
+inline BasicNetwork::NodeStateIteratorRange BasicNetwork::nodes(
+		const node_state_t s) const
+{
+	return getNodes(s);
+}
+
+inline BasicNetwork::LinkStateIteratorRange BasicNetwork::links(
+		const link_state_t s) const
+{
+	return getLinks(s);
+}
+
+inline BasicNetwork::LinkIteratorRange BasicNetwork::links() const
+{
+	return getLinks();
+}
 }
 
 #endif /* BASICNETWORK_H_ */

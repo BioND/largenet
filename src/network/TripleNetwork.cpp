@@ -20,11 +20,9 @@ TripleNetwork::TripleNetwork(const TripleNetwork& net) :
 }
 
 TripleNetwork::TripleNetwork(const id_size_t nNodes, const id_size_t nLinks,
-		const id_size_t nNodeStates, const id_size_t nLinkStates,
-		const id_size_t nTripleStates, LinkStateCalculator* lsCalc,
+		const id_size_t nNodeStates, LinkStateCalculator* lsCalc,
 		TripleStateCalculator* tsCalc) :
-	TripleMultiNetwork(nNodes, nLinks, nNodeStates, nLinkStates, nTripleStates,
-			lsCalc, tsCalc)
+	TripleMultiNetwork(nNodes, nLinks, nNodeStates, lsCalc, tsCalc)
 {
 }
 

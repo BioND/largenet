@@ -6,6 +6,7 @@
 
 #include "TripleMultiNetwork.h"
 #include <vector>
+#include <stdexcept>
 
 namespace lnet
 {
@@ -18,18 +19,16 @@ TripleMultiNetwork::TripleMultiNetwork() :
 
 TripleMultiNetwork::TripleMultiNetwork(const id_size_t nNodes,
 		const id_size_t nLinks, const node_state_size_t nNodeStates,
-		const link_state_size_t nLinkStates,
-		const triple_state_size_t nTripleStates, LinkStateCalculator* lsCalc,
-		TripleStateCalculator* tsCalc) :
-	TypedNetwork<NodeType, LinkType> (nNodes, nLinks, nNodeStates, nLinkStates,
-			lsCalc), tripleStore_(new TripleRepo(nTripleStates, 0)), tsCalc_(
-			tsCalc), tscOwn_(false)
+		LinkStateCalculator* lsCalc, TripleStateCalculator* tsCalc) :
+	TypedNetwork<NodeType, LinkType> (nNodes, nLinks, nNodeStates, lsCalc),
+			tripleStore_(0), tsCalc_(tsCalc), tscOwn_(false)
 {
 	if (tsCalc_ == 0)
 	{
 		tsCalc_ = new DefaultTripleStateCalculator(nNodeStates);
 		tscOwn_ = true;
 	}
+	tripleStore_ = new TripleRepo(tsCalc_->numberOfTripleStates(), 0);
 }
 
 TripleMultiNetwork::TripleMultiNetwork(const TripleMultiNetwork& net) :

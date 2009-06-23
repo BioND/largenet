@@ -10,13 +10,11 @@
 #include "BasicNetwork.h"
 #include "types.h"
 #include "traits.h"
-#include "state_calculators.h"
 #include "../../repo/CategorizedRepository.h"
 #include "../../myrng1.2/myrngWELL.h"
 #include <iterator>
 #include <cassert>
 #include <utility> // for std::pair
-#include <stdexcept>
 #include <string>
 #include <sstream>
 
@@ -38,14 +36,6 @@ public:
 	// member types
 	typedef _Node NodeType;
 	typedef _Link LinkType;
-	typedef typename NodeRepo::IndexIterator NodeIterator; ///< %Node ID iterator type.
-	typedef typename NodeRepo::CategoryIterator NodeStateIterator; ///< %Node ID in state iterator type.
-	typedef typename NodeRepo::IndexIteratorRange NodeIteratorRange; ///< %Node ID iterator range type.
-	typedef typename NodeRepo::CategoryIteratorRange NodeStateIteratorRange; ///< %Node ID in state iterator range type.
-	typedef typename LinkRepo::IndexIterator LinkIterator; ///< %Link ID iterator type.
-	typedef typename LinkRepo::CategoryIterator LinkStateIterator; ///< %Link ID in state iterator type.
-	typedef typename LinkRepo::IndexIteratorRange LinkIteratorRange; ///< %Link ID iterator range type.
-	typedef typename LinkRepo::CategoryIteratorRange LinkStateIteratorRange; ///< %Link ID in state iterator range type.
 
 	typedef typename NodeType::LinkIDIterator NeighborLinkIterator; ///< %Link ID iterator type for neighboring links of a given node.
 	typedef typename NodeType::LinkIDIteratorRange NeighborLinkIteratorRange; ///< %Link ID iterator range type for neighboring links of a given node.
@@ -145,8 +135,7 @@ public:
 	 * @param nLinkStates Number of possible link states.
 	 * @param lsCalc LinkStateCalculator object.
 	 */
-	TypedNetwork(id_size_t nNodes, id_size_t nLinks, node_state_size_t nNodeStates,
-			link_state_size_t nLinkStates, LinkStateCalculator* lsCalc = 0);
+	TypedNetwork(id_size_t nNodes, id_size_t nLinks, node_state_size_t nNodeStates, LinkStateCalculator* lsCalc = 0);
 
 	/**
 	 * Copy constructor.
@@ -155,33 +144,6 @@ public:
 	TypedNetwork(const TypedNetwork& net);
 
 	virtual ~TypedNetwork();
-
-	/**
-	 * Return iterator range of all nodes in the network.
-	 * @return @c std::pair of NodeIterators, where the first points to the
-	 * first node in the network and the second to the past-the-end node.
-	 */
-	NodeIteratorRange nodes() const;
-	/**
-	 * Return iterator range of all nodes in state @p s.
-	 * @return @c std::pair of NodeIterators, where the first points to the
-	 * first node in state @p s and the second to the past-the-end node
-	 * in this state.
-	 */
-	NodeStateIteratorRange nodes(node_state_t s) const;
-	/**
-	 * Return iterator range of all links in the network.
-	 * @return @c std::pair of LinkIterators, where the first points to the
-	 * first link in the network and the second to the past-the-end link.
-	 */
-	LinkIteratorRange links() const;
-	/**
-	 * Return iterator range of all links in state @p s.
-	 * @return @c std::pair of LinksIterators, where the first points to the
-	 * first link in the state @p s and the second to the past-the-end link
-	 * in this state.
-	 */
-	LinkStateIteratorRange links(link_state_t s) const;
 
 	/**
 	 * Return iterator range of all neighboring nodes of node @p n.
@@ -197,40 +159,6 @@ public:
 	 */
 	NeighborLinkIteratorRange neighborLinks(node_id_t n) const;
 
-public:
-	/**
-	 * Set the LinkStateCalculator object to use in order to keep node and link
-	 * states consistent.
-	 * @param lsCalc pointer to LinkStateCalculator object
-	 */
-	void setLinkStateCalculator(LinkStateCalculator* lsCalc);
-
-	/**
-	 * Return a copy of the internal link state calculator.
-	 * @return LinkStateCalculator object.
-	 */
-	const LinkStateCalculator& getLinkStateCalculator() const;
-private:
-	/**
-	 * Reset to empty network.
-	 * Deletes all nodes and links and re-creates an empty network with @p nNodes nodes,
-	 * each of which can be in any of the @p nNodeStates states. Memory is allocated
-	 * to allow for the storage of @p nLinks links. @p nLinkStates is the number
-	 * of possible link states.
-	 *
-	 * FIXME reset() will not work this way.
-	 * @todo Create factory class for networks. This should be able to create new network objects
-	 * from file input for instance.
-	 *
-	 * @deprecated Should be removed from future versions. Use factory methods instead.
-	 *
-	 * @param nNodes Number of nodes in the network.
-	 * @param nLinks Number of links to reserve memory for.
-	 * @param nNodeStates Number of possible node states.
-	 * @param nLinkStates Number of possible link states.
-	 */
-	virtual void doReset(id_size_t nNodes, id_size_t nLinks,
-			node_state_size_t nNodeStates, link_state_size_t nLinkStates);
 private:
 	/* FIXME boost::graph needs copy-constructible graph concepts
 	 *
@@ -239,21 +167,22 @@ private:
 	TypedNetwork& operator=(const TypedNetwork& net); // disallow assignment
 
 protected:
-	virtual node_id_t doAddNode();
-	virtual node_id_t doAddNode(node_state_t s);
-	virtual link_id_t doAddLink(node_id_t source, node_id_t target);
-	virtual bool
+	node_id_t doAddNode();
+	node_id_t doAddNode(node_state_t s);
+	link_id_t doAddLink(node_id_t source, node_id_t target);
+	bool
 	doChangeLink(link_id_t l, node_id_t source, node_id_t target);
-	virtual void doRemoveLink(link_id_t l);
-	virtual void doRemoveNode(node_id_t n);
-	virtual void doRemoveAllLinks();
-	virtual void doSetNodeState(node_id_t n, node_state_t s);
+	void doRemoveLink(link_id_t l);
+	void doRemoveNode(node_id_t n);
+	void doRemoveAllLinks();
+	void doClear();
+	void doSetNodeState(node_id_t n, node_state_t s);
 
 	/**
 	 * Initialize network with @p nodes Nodes.
 	 * @param nodes Number of nodes to create.
 	 */
-	virtual void init(id_size_t nodes);
+	void init(id_size_t nodes);
 
 	/**
 	 * Return reference to Node object with unique ID @p n.
@@ -282,18 +211,9 @@ protected:
 	 * Recalculate states of all links.
 	 */
 	void recalcLinkStates();
-	/**
-	 * Check whether @lc refers to a valid LinkStateCalculator object, i.e.
-	 * which returns at most the current maximum number of link states.
-	 * @param lc Pointer to LinkStateCalculator object
-	 * @return true if valid
-	 */
-	bool isValidLinkStateCalculator(LinkStateCalculator* lc) const;
 
-protected:
 	NodeRepo& nodeStore() const;
 	LinkRepo& linkStore() const;
-	LinkStateCalculator& lsCalc() const;
 
 private:
 	std::string getInfo() const;
@@ -330,6 +250,8 @@ private:
 	 * @return Number of possible link states.
 	 */
 	link_state_size_t getNumberOfLinkStates() const;
+
+	void doReset(id_size_t nNodes, id_size_t nLinks, node_state_size_t nNodeStates);
 
 	/**
 	 * Check if there exists a direct link between two nodes.
@@ -416,11 +338,14 @@ private:
 	 */
 	std::pair<bool, node_id_t> getRandomNeighbor(node_id_t n) const;
 
+	LinkIteratorRange getLinks() const;
+	LinkStateIteratorRange getLinks(link_state_t s) const;
+	NodeIteratorRange getNodes() const;
+	NodeStateIteratorRange getNodes(link_state_t s) const;
+
 private:
 	NodeRepo* nodeStore_; ///< repository of nodes
 	LinkRepo* linkStore_; ///< repository of links
-	LinkStateCalculator* lsCalc_; ///< link state calculator @todo Use shared_ptr?
-	bool lscOwn_; ///< true if we need to manage the link state calculator
 };
 
 template <class _Node, class _Link>
@@ -443,13 +368,6 @@ template <class _Node, class _Link>
 inline typename TypedNetwork<_Node, _Link>::LinkRepo& TypedNetwork<_Node, _Link>::linkStore() const
 {
 	return *linkStore_;
-}
-
-template <class _Node, class _Link>
-inline LinkStateCalculator& TypedNetwork<_Node, _Link>::lsCalc() const
-{
-	assert(lsCalc_ != 0);
-	return *lsCalc_;
 }
 
 template <class _Node, class _Link>
@@ -501,26 +419,26 @@ inline node_id_t TypedNetwork<_Node, _Link>::getTarget(const link_id_t l) const
 }
 
 template <class _Node, class _Link>
-inline typename TypedNetwork<_Node, _Link>::NodeIteratorRange TypedNetwork<_Node, _Link>::nodes() const
+inline BasicNetwork::NodeIteratorRange TypedNetwork<_Node, _Link>::getNodes() const
 {
 	return nodeStore_->ids();
 }
 
 template <class _Node, class _Link>
-inline typename TypedNetwork<_Node, _Link>::NodeStateIteratorRange TypedNetwork<_Node, _Link>::nodes(
+inline BasicNetwork::NodeStateIteratorRange TypedNetwork<_Node, _Link>::getNodes(
 		const node_state_t s) const
 {
 	return nodeStore_->ids(s);
 }
 
 template <class _Node, class _Link>
-inline typename TypedNetwork<_Node, _Link>::LinkIteratorRange TypedNetwork<_Node, _Link>::links() const
+inline BasicNetwork::LinkIteratorRange TypedNetwork<_Node, _Link>::getLinks() const
 {
 	return linkStore_->ids();
 }
 
 template <class _Node, class _Link>
-inline typename TypedNetwork<_Node, _Link>::LinkStateIteratorRange TypedNetwork<_Node, _Link>::links(
+inline BasicNetwork::LinkStateIteratorRange TypedNetwork<_Node, _Link>::getLinks(
 		const link_state_t s) const
 {
 	return linkStore_->ids(s);
@@ -557,46 +475,24 @@ inline link_state_size_t TypedNetwork<_Node, _Link>::getNumberOfLinkStates() con
 }
 
 template <class _Node, class _Link>
-inline const LinkStateCalculator& TypedNetwork<_Node, _Link>::getLinkStateCalculator() const
-{
-	return lsCalc();
-}
-
-template <class _Node, class _Link>
 TypedNetwork<_Node, _Link>::TypedNetwork() :
-BasicNetwork(), nodeStore_(new NodeRepo(1, 0)), linkStore_(new LinkRepo(1, 0)), lsCalc_(new DefaultLinkStateCalculator(1)), lscOwn_(true)
+BasicNetwork(), nodeStore_(new NodeRepo(1, 0)), linkStore_(new LinkRepo(1, 0))
 {
 }
 
 template <class _Node, class _Link>
 TypedNetwork<_Node, _Link>::TypedNetwork(const TypedNetwork<_Node, _Link>& net) :
-BasicNetwork(), nodeStore_(new NodeRepo(*net.nodeStore_)), linkStore_(new LinkRepo(*net.linkStore_)), lsCalc_(0), lscOwn_(false)
+BasicNetwork(net), nodeStore_(new NodeRepo(*net.nodeStore_)), linkStore_(new LinkRepo(*net.linkStore_))
 {
-	if (net.lscOwn_)
-	{
-		// make our own default link state calculator
-		lsCalc_ = new DefaultLinkStateCalculator(net.numberOfNodeStates());
-		lscOwn_ = true;
-	}
-	else
-	{
-		lscOwn_ = false;
-		lsCalc_ = net.lsCalc_;
-	}
 }
 
 template <class _Node, class _Link>
 TypedNetwork<_Node, _Link>::TypedNetwork(const id_size_t nNodes, const id_size_t nLinks,
-		const node_state_size_t nNodeStates, const link_state_size_t nLinkStates,
-		LinkStateCalculator* lsCalc) : BasicNetwork(),
-nodeStore_(new NodeRepo(nNodeStates, nNodes)), linkStore_(new LinkRepo(
-				nLinkStates, nLinks)), lsCalc_(lsCalc), lscOwn_(false)
+		const node_state_size_t nNodeStates, LinkStateCalculator* lsCalc) :
+BasicNetwork(lsCalc == 0 ? new DefaultLinkStateCalculator(nNodeStates) : lsCalc), nodeStore_(new NodeRepo(nNodeStates, nNodes)),
+linkStore_(0)
 {
-	if (lsCalc_ == 0)
-	{
-		lsCalc_ = new DefaultLinkStateCalculator(nNodeStates);
-		lscOwn_ = true;
-	}
+	linkStore_ = new LinkRepo(linkStateCalculator().numberOfLinkStates(), nLinks);
 	init(nNodes);
 }
 
@@ -605,46 +501,17 @@ TypedNetwork<_Node, _Link>::~TypedNetwork()
 {
 	delete nodeStore_;
 	delete linkStore_;
-	if (lscOwn_)
-	delete lsCalc_;
 }
 
 template <class _Node, class _Link>
-void TypedNetwork<_Node, _Link>::setLinkStateCalculator(LinkStateCalculator* lsCalc)
+void TypedNetwork<_Node, _Link>::doReset(const id_size_t nNodes, const id_size_t nLinks,
+		const node_state_size_t nNodeStates)
 {
-	if (lscOwn_)
-	{
-		delete lsCalc_;
-		lscOwn_ = false;
-	}
-	if (lsCalc != 0)
-	{
-		if (isValidLinkStateCalculator(lsCalc))
-		lsCalc_ = lsCalc;
-		else
-		throw(std::invalid_argument(
-						"LinkStateCalculator gives impossible link states!"));
-	}
-	else
-	{
-		lsCalc_ = new DefaultLinkStateCalculator(numberOfNodeStates());
-		lscOwn_ = true;
-	}
-	recalcLinkStates();
-}
-
-template<class _Node, class _Link>
-bool TypedNetwork<_Node, _Link>::isValidLinkStateCalculator(LinkStateCalculator* lc) const
-{
-	bool retval = true;
-	for (node_state_t i = 0; i < numberOfNodeStates(); ++i)
-	{
-		for (node_state_t j = 0; j < numberOfNodeStates(); ++j)
-		{
-			retval &= ((*lc)(i, j) < numberOfLinkStates());
-		}
-	}
-	return retval;
+	delete nodeStore_;
+	delete linkStore_;
+	nodeStore_ = new NodeRepo(nNodeStates, nNodes);
+	linkStore_ = new LinkRepo(linkStateCalculator().numberOfLinkStates(), nLinks);
+	init(nNodes);
 }
 
 template<class _Node, class _Link>
@@ -654,21 +521,6 @@ void TypedNetwork<_Node, _Link>::init(id_size_t nodes)
 	{
 		(*nodeStore_) << NodeType();
 	}
-}
-
-template<class _Node, class _Link>
-void TypedNetwork<_Node, _Link>::doReset(const id_size_t nNodes, const id_size_t nLinks,
-		const node_state_size_t nNodeStates,
-		const link_state_size_t nLinkStates)
-{
-	delete nodeStore_;
-	delete linkStore_;
-	nodeStore_ = new NodeRepo(nNodeStates, nNodes);
-	linkStore_ = new LinkRepo(nLinkStates, nLinks);
-	// reset link state calculator if invalidated by network reset
-	if (!isValidLinkStateCalculator(lsCalc_))
-	setLinkStateCalculator(0);
-	init(nNodes);
 }
 
 template <class _Node, class _Link>
@@ -708,6 +560,13 @@ void TypedNetwork<_Node, _Link>::doRemoveNode(const node_id_t n)
 }
 
 template <class _Node, class _Link>
+void TypedNetwork<_Node, _Link>::doClear()
+{
+	removeAllLinks();
+	nodeStore_->removeAll();
+}
+
+template <class _Node, class _Link>
 node_id_t TypedNetwork<_Node, _Link>::doAddNode()
 {
 	return doAddNode(0);
@@ -737,7 +596,7 @@ void TypedNetwork<_Node, _Link>::recalcLinkStates(const node_id_t n)
 	NeighborLinkIteratorRange iters = neighborLinks(n);
 	for (NeighborLinkIterator& it = iters.first; it != iters.second; ++it)
 	{
-		linkStore_->setCategory(*it, (*lsCalc_)(getNodeState(source(*it)),
+		linkStore_->setCategory(*it, linkStateCalculator()(getNodeState(source(*it)),
 						getNodeState(target(*it))));
 	}
 }
@@ -748,7 +607,7 @@ void TypedNetwork<_Node, _Link>::recalcLinkStates()
 	LinkIteratorRange iters = links();
 	for (LinkIterator& it = iters.first; it != iters.second; ++it)
 	{
-		linkStore_->setCategory(*it, (*lsCalc_)(getNodeState(source(*it)), getNodeState(target(*it))));
+		linkStore_->setCategory(*it, linkStateCalculator()(getNodeState(source(*it)), getNodeState(target(*it))));
 	}
 }
 
@@ -911,7 +770,7 @@ typename TypedNetwork<_Node, _Link>::NeighborLinkIteratorRange TypedNetwork<_Nod
 template <class _Node, class _Link>
 link_id_t TypedNetwork<_Node, _Link>::doAddLink(const node_id_t source, const node_id_t target)
 {
-	const link_state_t s = lsCalc()(getNodeState(source),
+	const link_state_t s = linkStateCalculator()(getNodeState(source),
 			getNodeState(target));
 	const link_id_t l = linkStore_->insert(LinkType(source, target), s);
 	node(source).addLink(l);
@@ -936,7 +795,7 @@ bool TypedNetwork<_Node, _Link>::doChangeLink(const link_id_t l, const node_id_t
 		theLink.setTarget(target);
 		node(target).addLink(l);
 	}
-	linkStore_->setCategory(l, lsCalc()(getNodeState(source), getNodeState(
+	linkStore_->setCategory(l, linkStateCalculator()(getNodeState(source), getNodeState(
 							target)));
 	return true;
 }

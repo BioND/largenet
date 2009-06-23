@@ -17,23 +17,17 @@
 #define CATEGORIZEDREPOSITORY_H_
 
 #include "types.h"
+#include "repo_base.h"
+#include "iterators.h"
 #include <vector>
 #include <utility>	// for std::pair
 #include <iterator>
 #include <exception>
 #include <cassert>
+#include <algorithm>
 
 namespace repo
 {
-
-class RepoAllocException: public std::exception
-{
-public:
-	const char* what() const throw()
-	{
-		return "Could not resize repository!";
-	}
-};
 
 /**
  * A categorized repository of items.
@@ -52,173 +46,29 @@ public:
  */
 template<class T, unsigned int enlarge_factor = 10, unsigned int max_size =
 		100000000>
-class CategorizedRepository
+class CategorizedRepository: public _Repo_base
 {
 public:
-	/**
-	 * Index iterator.
-	 *
-	 * This should be used for the traversal of the repository. If valid, it will
-	 * always dereference to the unique ID of an item actually stored in the repository.
-	 * Note that inserting into the repository invalidates all iterators.
-	 */
-	class IndexIterator: public std::iterator<std::input_iterator_tag, id_t>
+	class RepoAllocException: public std::exception
 	{
 	public:
-		/**
-		 * Default constructor needed for STL compliance. This creates a singular
-		 * (invalid) iterator which does not belong to any repository.
-		 */
-		IndexIterator();
-		/**
-		 * Basic constructor. This creates an iterator pointing to the first
-		 * item in the repository @p repo.
-		 * @param repo Repository the iterator belongs to.
-		 */
-		IndexIterator(const CategorizedRepository& repo);
-		/**
-		 * Position constructor. This creates an iterator pointing to the @p n'th
-		 * item in the repository @p repo.
-		 * @param repo Repository the iterator belongs to.
-		 * @param n Number of item.
-		 */
-		IndexIterator(const CategorizedRepository& repo, id_t n);
-		/**
-		 * Copy constructor.
-		 * @param it Iterator to copy from.
-		 */
-		IndexIterator(const IndexIterator& it);
-		/**
-		 * Destructor. Does nothing.
-		 */
-		~IndexIterator();
-
-		/**
-		 * Assignment operator.
-		 * @param it Iterator to assign from.
-		 * @return Reference to self.
-		 */
-		IndexIterator& operator=(const IndexIterator& it);
-		/**
-		 * Equality operator.
-		 * @param it Iterator to compare with.
-		 * @return True if equal.
-		 */
-		bool operator==(const IndexIterator& it);
-		/**
-		 * Inequality operator.
-		 * @param it Iterator to compare with.
-		 * @return True if unequal.
-		 */
-		bool operator!=(const IndexIterator& it);
-		/**
-		 * Prefix increment operator.
-		 * @return Reference to (incremented) self.
-		 */
-		IndexIterator& operator++();
-		/**
-		 * Postfix increment operator.
-		 * @return Copy of self before increment.
-		 */
-		IndexIterator operator++(int);
-		/**
-		 * Dereference operator.
-		 * @return Reference to item.
-		 */
-		id_t operator*();
-	private:
-		const CategorizedRepository* rep_; ///< repository the iterator belongs to
-		id_t cur_; ///< current iterator position
-	}; // class CategorizedRepository::IndexIterator
-
-	/**
-	 * Category iterator.
-	 *
-	 * Iterates over all items in one category. If valid, it will
-	 * always dereference to the unique ID of an item actually stored in the repository.
-	 * Note that in addition to insertion into the repository, <b>changing an item's category
-	 * invalidates this iterator</b>, too.
-	 */
-	class CategoryIterator: public std::iterator<std::input_iterator_tag, id_t>
-	{
-	public:
-		/**
-		 * Default constructor needed for STL compliance. This creates a singular
-		 * (invalid) iterator which does not belong to any repository.
-		 */
-		CategoryIterator();
-		/**
-		 * Basic constructor. This creates an iterator pointing to the first
-		 * item in category @p cat in the repository @p repo.
-		 * @param repo Repository the iterator belongs to.
-		 * @param cat Category to iterate over.
-		 */
-		CategoryIterator(const CategorizedRepository& repo, category_t cat);
-		/**
-		 * Position constructor. This creates an iterator pointing to the @p n'th
-		 * item in category @p cat in the repository @p repo.
-		 * @param repo Repository the iterator belongs to.
-		 * @param cat Category to iterate over.
-		 * @param n Number of item.
-		 */
-		CategoryIterator(const CategorizedRepository& repo, category_t cat,
-				address_t n);
-		/**
-		 * Copy constructor.
-		 * @param it Iterator to copy from.
-		 */
-		CategoryIterator(const CategoryIterator& it);
-		/**
-		 * Destructor. Does nothing.
-		 */
-		~CategoryIterator();
-
-		/**
-		 * Assignment operator.
-		 * @param it Iterator to assign from.
-		 * @return Reference to self.
-		 */
-		CategoryIterator& operator=(const CategoryIterator& it);
-		/**
-		 * Equality operator.
-		 * @param it Iterator to compare with.
-		 * @return True if equal.
-		 */
-		bool operator==(const CategoryIterator& it);
-		/**
-		 * Inequality operator.
-		 * @param it Iterator to compare with.
-		 * @return True if unequal.
-		 */
-		bool operator!=(const CategoryIterator& it);
-		/**
-		 * Prefix increment operator.
-		 * @return Reference to (incremented) self.
-		 */
-		CategoryIterator& operator++();
-		/**
-		 * Postfix increment operator.
-		 * @return Copy of self before increment.
-		 */
-		CategoryIterator operator++(int);
-		/**
-		 * Dereference operator.
-		 * @return Reference to item.
-		 */
-		id_t operator*();
-	private:
-		const CategorizedRepository* rep_; ///< Repository the iterator belongs to.
-		category_t category_; ///< Category the iterator traverses.
-		address_t cur_; ///< Current iterator position, relative to rep_->offset_[category_] (index in ids_ array).
-	}; // class CategorizedRepository::CategoryIterator
+		const char* what() const throw()
+		{
+			return "Could not resize repository!";
+		}
+	};
 
 	typedef T value_type; ///< Type of stored items.
 	typedef T& reference;
 	typedef const T& const_reference;
 	typedef T* pointer;
 	typedef const T* const_pointer;
-	typedef std::pair<IndexIterator, IndexIterator> IndexIteratorRange; ///< IndexIterator range type.
-	typedef std::pair<CategoryIterator, CategoryIterator> CategoryIteratorRange; ///< CategoryIterator range type.
+	typedef repo::IndexIterator iterator;
+	typedef const repo::IndexIterator const_iterator;
+	typedef repo::IndexIterator IndexIterator;
+	typedef repo::CategoryIterator CategoryIterator;
+	typedef repo::IndexIteratorRange IndexIteratorRange;
+	typedef repo::CategoryIteratorRange CategoryIteratorRange;
 
 public:
 	// member functions
@@ -246,38 +96,17 @@ public:
 	/**
 	 * Destructor
 	 */
-	~CategorizedRepository();
+	virtual ~CategorizedRepository();
 
 	CategorizedRepository& operator=(const CategorizedRepository& r);
 
 	/**
-	 * Return number of items stored.
-	 * @return Number of items stored.
+	 * Set number of possible categories. If @p n is smaller than the current number of
+	 * categories, all items with category numbers greater or equal than @p n are put into
+	 * category @p n - 1.
+	 * @param n New number of categories
 	 */
-	id_size_t count() const;
-	/**
-	 * Convenience function, same as count().
-	 * @return Number of items stored.
-	 */
-	id_size_t size() const;
-	/**
-	 * Return number of items in category @p cat.
-	 * @param cat Category to count items in.
-	 * @return Number of items in category @p cat
-	 */
-	id_size_t count(category_t cat) const;
-
-	/**
-	 * Return current maximum number of storable items, i.e. reserved memory.
-	 * @return Current capacity.
-	 */
-	address_t capacity() const;
-
-	/**
-	 * Get the number of categories in the repository.
-	 * @return Number of categories.
-	 */
-	category_t numberOfCategories() const;
+	void setNumberOfCategories(category_t n);
 
 	/**
 	 * Return category of item with number @p n.
@@ -387,12 +216,13 @@ public:
 	 * over all items. These iterators will always dereference to valid item IDs.
 	 * @return Iterator pointing to first item ID.
 	 */
-	const IndexIterator begin() const;
+	IndexIterator begin() const;
+
 	/**
 	 * Return an iterator referring to the past-the-end element in the repository.
 	 * @return Past-the-end iterator
 	 */
-	const IndexIterator end() const;
+	IndexIterator end() const;
 	/**
 	 * Return iterator range of the unique IDs of all items stored in the repository.
 	 * @return @c std::pair of IndexIterators, where the first points to the
@@ -409,16 +239,6 @@ public:
 	 * in the repository.
 	 */
 	CategoryIteratorRange ids(category_t cat) const;
-
-	/**
-	 * Check if @p i is a valid ID of an item in the repository.
-	 * @param i ID
-	 * @return true if valid
-	 */
-	bool valid(id_t i) const;
-
-	id_t maxID() const;
-	id_t minID() const;
 
 	void clear(); ///< clear repository
 
@@ -459,30 +279,10 @@ private:
 	void increaseCat(address_t n, category_t cat); ///< increase category of entry
 	void decreaseCat(address_t n, category_t cat); ///< decrease category of entry
 
-	void updateMinID();
-	void updateMaxID();
-	/**
-	 * Recalculate the minimum and maximum valid ID
-	 */
-	void updateMinMaxID();
-	/**
-	 * Recalculate the minimum and maximum valid ID, where @p id is guaranteed to be valid
-	 * (e. g. after insertion).
-	 * @param id Valid ID
-	 */
-	void updateMinMaxID(id_t id);
+	void reorderToMaxCategory(const category_t n);
 
-	category_t C_; ///< number of categories
-	address_t N_; ///< current max number of items
-	address_t nStored_; ///< total number of items stored
+	std::vector<T> items_; ///< array of items
 
-	std::vector<address_t> count_; //	address_t* count_; ///< number of items per category;
-	std::vector<address_t> offset_; //	address_t* offset_; ///< start index of a class
-	std::vector<T> items_; //T* items_; ///< array of items @note Why not use std::vector and do not mess with memory management ourselves?
-	std::vector<address_t> nums_; //	address_t* nums_; ///< number of an item according to id
-	std::vector<id_t> ids_; //	id_t* ids_; ///< id of an item according to number
-	id_t minID_; ///< smallest valid ID
-	id_t maxID_; ///< largest valid ID
 }; // class CategorizedRepository
 
 // --------------- construction/destruction
@@ -490,18 +290,15 @@ private:
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 CategorizedRepository<T, enlarge_factor, max_size>::CategorizedRepository(
 		const category_t cat) :
-	C_(cat), N_(100), nStored_(0), count_(cat + 1, 0), offset_(cat + 1, 0),
-			items_(N_), nums_(N_, 0), ids_(N_, 0), minID_(0), maxID_(0)
+	_Repo_base(cat, 100), items_(N_)
 {
-	assert(C_> 0);
 	init();
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 CategorizedRepository<T, enlarge_factor, max_size>::CategorizedRepository(
 		const category_t cat, const address_t N) :
-	C_(cat), N_(N), nStored_(0), count_(cat + 1, 0), offset_(cat + 1, 0),
-			items_(N_)
+	_Repo_base(cat, N), items_(N_)
 {
 	assert(C_> 0);
 	init();
@@ -510,7 +307,7 @@ CategorizedRepository<T, enlarge_factor, max_size>::CategorizedRepository(
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 CategorizedRepository<T, enlarge_factor, max_size>::CategorizedRepository(
 		const CategorizedRepository<T, enlarge_factor, max_size>& r) :
-	C_(r.C_), N_(r.nStored_), count_(C_ + 1, 0), offset_(C_ + 1, 0), items_(N_)
+	_Repo_base(r), items_(N_)
 {
 	init();
 	copyItems(r);
@@ -519,31 +316,8 @@ CategorizedRepository<T, enlarge_factor, max_size>::CategorizedRepository(
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::init()
 {
-	nStored_ = 0;
-	nums_.reserve(N_);
-	nums_.resize(N_, 0);
-	ids_.reserve(N_);
-	ids_.resize(N_, 0);
-	count_.reserve(C_ + 1);
-	count_.resize(C_ + 1, 0);
-	offset_.reserve(C_ + 1);
-	offset_.resize(C_ + 1, 0);
-	for (unsigned int i = 0; i < N_; ++i)
-	{
-		ids_[i] = i;
-		nums_[i] = i;
-	}
-	for (unsigned int i = 0; i < C_; ++i)
-	{
-		count_[i] = 0;
-		offset_[i] = 0;
-	}
-	offset_[C_] = 0;
-	count_[C_] = N_;
 	items_.reserve(N_);
 	items_.resize(N_);
-	minID_ = 0;
-	maxID_ = 0;
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
@@ -565,6 +339,7 @@ CategorizedRepository<T, enlarge_factor, max_size>& CategorizedRepository<T,
 {
 	C_ = r.C_;
 	N_ = r.nStored_;
+	_init();
 	init();
 	copyItems(r);
 	return *this;
@@ -575,45 +350,46 @@ CategorizedRepository<T, enlarge_factor, max_size>::~CategorizedRepository()
 {
 }
 
-// --------------- memory management
+template<class T, unsigned int enlarge_factor, unsigned int max_size>
+void CategorizedRepository<T, enlarge_factor, max_size>::setNumberOfCategories(
+		const category_t n)
+{
+	if (n == 0)
+		return;
+	if (nStored_ > 0)
+		reorderToMaxCategory(n - 1);
+	address_t oldCCount = count_[C_];
+	address_t oldCOffset = offset_[C_];
+	category_t oldC = C_;
+	C_ = n;
+	count_.resize(C_ + 1, 0);
+	offset_.resize(C_ + 1, oldCOffset);
+	count_[oldC] = 0;
+	count_[C_] = oldCCount;
+	offset_[C_] = oldCOffset;
+}
 
-//template<class T, unsigned int enlarge_factor, unsigned int max_size>
-//void CategorizedRepository<T, enlarge_factor, max_size>::allocate()
-//{
-//	delete[] count_;
-//	delete[] offset_;
-//	delete[] items_;
-//	delete[] nums_;
-//	delete[] ids_;
-//	count_ = new address_t[C_ + 1];
-//	offset_ = new address_t[C_ + 1];
-//	if (N_ > 0)
-//	{
-//		items_ = new T[N_];
-//		nums_ = new address_t[N_];
-//		ids_ = new id_t[N_];
-//	}
-//	else
-//	{
-//		items_ = 0;
-//		nums_ = 0;
-//		ids_ = 0;
-//	}
-//	assert(count_);
-//	assert(offset_);
-//	memset(count_, 0, C_ * sizeof(address_t));
-//	count_[C_] = N_;
-//	memset(offset_, 0, (C_ + 1) * sizeof(address_t));
-//	if (items_)
-//		memset(items_, 0, N_ * sizeof(T));
-//	for (address_t i = 0; i < N_; i++)
-//	{
-//		nums_[i] = i;
-//		ids_[i] = i;
-//	}
-//
-//}
-//
+template<class T, unsigned int enlarge_factor, unsigned int max_size>
+void CategorizedRepository<T, enlarge_factor, max_size>::reorderToMaxCategory(
+		const category_t n)
+{
+	if (n >= C_ - 1)
+		return;
+
+	// first id to move should be ids_[offset_[n+1]], last ids_[offset_[C_]-1]
+	// number of ids to move should be offset_[C_] - offset_[n+1]
+
+	id_size_t num = offset_[C_] - offset_[n + 1];
+	std::vector<id_t> temp(num, 0);
+	std::copy(ids_.begin() + offset_[n + 1], ids_.begin() + offset_[C_],
+			temp.begin());
+
+	for (std::vector<id_t>::const_iterator it = temp.begin(); it != temp.end(); ++it)
+	{
+		decreaseCat(nums_[*it], n);
+	}
+}
+
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::clear()
 {
@@ -708,38 +484,6 @@ void CategorizedRepository<T, enlarge_factor, max_size>::decreaseCat(
 		++offset_[cls];
 		--cls;
 	}
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline id_size_t CategorizedRepository<T, enlarge_factor, max_size>::count() const
-{
-	return nStored_;
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline id_size_t CategorizedRepository<T, enlarge_factor, max_size>::size() const
-{
-	return count();
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline id_size_t CategorizedRepository<T, enlarge_factor, max_size>::count(
-		const category_t cat) const
-{
-	assert(cat < C_);
-	return count_[cat];
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline address_t CategorizedRepository<T, enlarge_factor, max_size>::capacity() const
-{
-	return N_;
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline category_t CategorizedRepository<T, enlarge_factor, max_size>::numberOfCategories() const
-{
-	return C_;
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
@@ -876,77 +620,6 @@ CategorizedRepository<T, enlarge_factor, max_size>::item(
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline bool CategorizedRepository<T, enlarge_factor, max_size>::valid(
-		const id_t i) const
-{
-	return ((nStored_ > 0) && (i < N_) && (nums_[i] < nStored_));
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline id_t CategorizedRepository<T, enlarge_factor, max_size>::maxID() const
-{
-	return maxID_;
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline id_t CategorizedRepository<T, enlarge_factor, max_size>::minID() const
-{
-	return minID_;
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline void CategorizedRepository<T, enlarge_factor, max_size>::updateMinID()
-{
-	if (nStored_ > 0)
-	{
-		minID_ = 0;
-		while (!valid(minID_) && (minID_ < N_))
-		++minID_;
-	}
-	else
-	minID_ = 0;
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline void CategorizedRepository<T, enlarge_factor, max_size>::updateMaxID()
-{
-	if (nStored_ > 0)
-	{
-		maxID_ = N_ - 1;
-		while (!valid(maxID_) && (maxID_ > 0))
-		--maxID_;
-	}
-	else
-	maxID_ = 0;
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline void CategorizedRepository<T, enlarge_factor, max_size>::updateMinMaxID()
-{
-	updateMinID();
-	updateMaxID();
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline void CategorizedRepository<T, enlarge_factor, max_size>::updateMinMaxID(
-		const id_t id)
-{
-	if (nStored_ > 0)
-	{
-		assert(id < N_);
-		if (id < minID_)
-		minID_ = id;
-		if (id > maxID_)
-		maxID_ = id;
-	}
-	else
-	{
-		minID_ = 0;
-		maxID_ = 0;
-	}
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
 inline id_t CategorizedRepository<T, enlarge_factor, max_size>::id(
 		const address_t n) const
 {
@@ -960,6 +633,7 @@ inline id_t CategorizedRepository<T, enlarge_factor, max_size>::id(
 {
 	assert(cat < C_);
 	assert(offset_[cat] + n < N_);
+	assert(n < count_[cat]);
 	return ids_[offset_[cat] + n];
 }
 
@@ -1028,31 +702,27 @@ void CategorizedRepository<T, enlarge_factor, max_size>::removeAll()
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
-const/* */typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator
-CategorizedRepository<T, enlarge_factor, max_size>::begin() const
+IndexIterator CategorizedRepository<T, enlarge_factor, max_size>::begin() const
 {
-	return typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator(*this, minID_);
+	return IndexIterator(*this, minID_);
 }
 
 template<class T, unsigned int enlarge_factor, unsigned int max_size>
-const typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator
-CategorizedRepository<T, enlarge_factor, max_size>::end() const
+IndexIterator CategorizedRepository<T, enlarge_factor, max_size>::end() const
 {
 	if (nStored_ > 0)
-	return typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator(*this, maxID_ + 1);
+	return IndexIterator(*this, maxID_ + 1);
 	else
-	return typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator(*this, maxID_);
+	return IndexIterator(*this, maxID_);
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIteratorRange
+template<class T, unsigned int enlarge_factor, unsigned int max_size> IndexIteratorRange
 CategorizedRepository<T, enlarge_factor, max_size>::ids() const
 {
 	return std::make_pair(begin(), end());
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-typename CategorizedRepository<T, enlarge_factor, max_size>::CategoryIteratorRange
+template<class T, unsigned int enlarge_factor, unsigned int max_size> CategoryIteratorRange
 CategorizedRepository<T, enlarge_factor, max_size>::ids(
 		const category_t cat) const
 {
@@ -1061,195 +731,8 @@ CategorizedRepository<T, enlarge_factor, max_size>::ids(
 	 * This is safe, because any empty items are guaranteed to be put in the
 	 * private category C_. See increaseCat() and decreaseCat().
 	 */
-	return std::make_pair(
-			typename CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator(*this, cat),
-			typename CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator(*this, cat, count_[cat])
+	return std::make_pair( CategoryIterator(*this, cat), CategoryIterator(*this, cat, count_[cat])
 	);
-}
-
-// --------------- IndexIterator
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::IndexIterator() : rep_(0), cur_(0)
-{
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::IndexIterator(const CategorizedRepository<T, enlarge_factor, max_size>& repo)
-: rep_(&repo), cur_(0)
-{
-	assert(rep_ != NULL);
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::IndexIterator(const CategorizedRepository<T, enlarge_factor, max_size>& repo,
-		const id_t n) : rep_(&repo), cur_(n)
-{
-	assert(rep_ != NULL);
-	// this should be correct now
-	assert(cur_ <= rep_->N_);
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::IndexIterator(
-		const typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator& it)
-: rep_(it.rep_), cur_(it.cur_)
-{
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::~IndexIterator()
-{
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator&
-CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::operator=(
-		const typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator& it)
-{
-	rep_ = it.rep_;
-	cur_ = it.cur_;
-	return *this;
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline bool CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::operator==(
-		const typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator& it)
-{
-	return ((rep_ == it.rep_) && (cur_ == it.cur_));
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline bool CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::operator!=(
-		const typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator& it)
-{
-	return !this->operator==(it);
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator&
-CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::operator++()
-{
-	assert(rep_ != NULL);
-
-	while (true)
-	{
-		if (cur_ == rep_->maxID_)
-		{
-			++cur_; break;
-		}
-		if (cur_ > rep_->maxID_) break;
-		if (rep_->valid(++cur_)) break;
-	}
-	return *this;
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator
-CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::operator++(int)
-{
-	typename CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator tmp(*this);
-	++(*this);
-	return(tmp);
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-id_t CategorizedRepository<T, enlarge_factor, max_size>::IndexIterator::operator*()
-{
-	assert(rep_ != NULL);
-	return cur_;
-}
-
-// --------------- CategoryIterator
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator::CategoryIterator() : rep_(NULL), category_(0), cur_(0)
-{
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator::CategoryIterator(const CategorizedRepository<T, enlarge_factor, max_size>& repo,
-		const category_t cat) : rep_(&repo), category_(cat), cur_(0)
-{
-	assert(&repo != NULL);
-	assert(cat < repo.C_);
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator::CategoryIterator(const CategorizedRepository<T, enlarge_factor, max_size>& repo,
-		const category_t cat, const address_t n) : rep_(&repo), category_(cat), cur_(n)
-{
-	assert(&repo != NULL);
-	assert(cat < repo.C_);
-	assert(n <= repo.count_[cat]); // equal on end()
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator::CategoryIterator(
-		const typename CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator& it)
-: rep_(it.rep_), category_(it.category_), cur_(it.cur_)
-{
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator::~CategoryIterator()
-{
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-typename CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator&
-CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator::operator=(
-		const typename CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator& it)
-{
-	rep_ = it.rep_;
-	category_ = it.category_;
-	cur_ = it.cur_;
-	return *this;
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline bool CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator::operator==(
-		const typename CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator& it)
-{
-	return ((rep_ == it.rep_) && (category_ == it.category_) && (cur_ == it.cur_));
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline bool CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator::operator!=(
-		const typename CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator& it)
-{
-	return !this->operator==(it);
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline typename CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator&
-CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator::operator++()
-{
-	assert(rep_ != NULL);
-
-	if (rep_)
-	{
-		++cur_;
-	}
-	return *this;
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline typename CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator
-CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator::operator++(int)
-{
-	typename CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator tmp(*this);
-	++(*this);
-	return(tmp);
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-id_t CategorizedRepository<T, enlarge_factor, max_size>::CategoryIterator::operator*()
-{
-	assert(rep_ != NULL);
-	// this should be correct now
-	assert(cur_ < rep_->count_[category_]);
-	return rep_->ids_[cur_ + rep_->offset_[category_]];
 }
 
 }

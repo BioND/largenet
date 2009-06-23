@@ -26,12 +26,12 @@ bool EdgelistOut::doPut(std::ostream& out, const MultiNetwork& net) const
 	const char sep = '\t';
 
 	// write number of nodes and edges
-	out << net.numberOfNodes() << sep << net.numberOfLinks();
+//	out << net.numberOfNodes() << sep << net.numberOfLinks();
 
-	if (writeStates_)
-		out << sep << net.numberOfNodeStates() << sep
-				<< net.numberOfLinkStates();
-	out << "\n";
+//	if (writeStates_)
+//		out << sep << net.numberOfNodeStates() << sep
+//				<< net.numberOfLinkStates();
+//	out << "\n";
 
 	MultiNetwork::LinkIteratorRange iters = net.links();
 	if (writeStates_)
@@ -40,7 +40,7 @@ bool EdgelistOut::doPut(std::ostream& out, const MultiNetwork& net) const
 		{
 			out << net.source(*it) << sep << net.target(*it) << sep
 					<< net.nodeState(net.source(*it)) << sep << net.nodeState(
-					net.target(*it)) << sep << net.linkState(*it) << "\n";
+					net.target(*it)) /* << sep << net.linkState(*it) */ << "\n";
 		}
 	}
 	else

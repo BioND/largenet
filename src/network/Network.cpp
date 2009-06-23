@@ -14,9 +14,8 @@ Network::Network(const Network& net) :
 }
 
 Network::Network(const id_size_t nNodes, const id_size_t nLinks,
-		const id_size_t nNodeStates, const id_size_t nLinkStates,
-		LinkStateCalculator* lsCalc) :
-	MultiNetwork(nNodes, nLinks, nNodeStates, nLinkStates, lsCalc)
+		const id_size_t nNodeStates, LinkStateCalculator* lsCalc) :
+	MultiNetwork(nNodes, nLinks, nNodeStates, lsCalc)
 {
 }
 
