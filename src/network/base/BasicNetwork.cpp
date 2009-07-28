@@ -5,6 +5,7 @@
  */
 
 #include "BasicNetwork.h"
+#include "state_calculators.h"
 #include <stdexcept>
 
 namespace lnet

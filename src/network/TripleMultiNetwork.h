@@ -22,7 +22,7 @@ class TripleMultiNetwork: public TypedNetwork<Node, TLink>
 {
 protected:
 	// member types
-	typedef repo::CategorizedRepository<Triple> TripleRepo;
+	typedef repo::CategorizedRepository<Triple, 3> TripleRepo;
 public:
 	typedef Triple TripleType;
 	typedef TripleRepo::IndexIterator TripleIterator;
@@ -32,6 +32,8 @@ public:
 
 	typedef TLink::TripleIDIterator NeighborTripleIterator;
 	typedef TLink::TripleIDIteratorRange NeighborTripleIteratorRange;
+
+	typedef count_triples_tag triple_counting_category;
 
 public:
 	/**

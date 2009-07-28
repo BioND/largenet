@@ -8,13 +8,14 @@
 #define BASICNETWORK_H_
 
 #include "types.h"
-#include "state_calculators.h"
 #include "../../repo/iterators.h"
 #include <utility>
 #include <string>
 
 namespace lnet
 {
+
+class LinkStateCalculator;
 
 /**
  * Basic network interface class (abstract).

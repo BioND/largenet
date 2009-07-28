@@ -44,7 +44,7 @@ namespace repo
  * @todo Better remove the index operators and @c [], and rename @c item(address_t) and @c item(id_t) to
  * something clearer to prevent confusion and ambiguities.
  */
-template<class T, unsigned int enlarge_factor = 10, unsigned int max_size =
+template<class T, unsigned int enlarge_factor = 10, unsigned long int max_size =
 		100000000>
 class CategorizedRepository: public _Repo_base
 {
@@ -52,7 +52,7 @@ public:
 	class RepoAllocException: public std::exception
 	{
 	public:
-		const char* what() const throw()
+		const char* what() const throw ()
 		{
 			return "Could not resize repository!";
 		}
@@ -275,7 +275,7 @@ private:
 	 */
 	void remove(address_t n);
 
-	bool enlarge(); ///< enlarge the storage space
+	void enlarge(); ///< enlarge the storage space
 	void increaseCat(address_t n, category_t cat); ///< increase category of entry
 	void decreaseCat(address_t n, category_t cat); ///< decrease category of entry
 
@@ -287,7 +287,7 @@ private:
 
 // --------------- construction/destruction
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 CategorizedRepository<T, enlarge_factor, max_size>::CategorizedRepository(
 		const category_t cat) :
 	_Repo_base(cat, 100), items_(N_)
@@ -295,7 +295,7 @@ CategorizedRepository<T, enlarge_factor, max_size>::CategorizedRepository(
 	init();
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 CategorizedRepository<T, enlarge_factor, max_size>::CategorizedRepository(
 		const category_t cat, const address_t N) :
 	_Repo_base(cat, N), items_(N_)
@@ -304,7 +304,7 @@ CategorizedRepository<T, enlarge_factor, max_size>::CategorizedRepository(
 	init();
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 CategorizedRepository<T, enlarge_factor, max_size>::CategorizedRepository(
 		const CategorizedRepository<T, enlarge_factor, max_size>& r) :
 	_Repo_base(r), items_(N_)
@@ -313,14 +313,14 @@ CategorizedRepository<T, enlarge_factor, max_size>::CategorizedRepository(
 	copyItems(r);
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::init()
 {
 	items_.reserve(N_);
 	items_.resize(N_);
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::copyItems(
 		const CategorizedRepository<T, enlarge_factor, max_size>& r)
 {
@@ -332,7 +332,7 @@ void CategorizedRepository<T, enlarge_factor, max_size>::copyItems(
 	}
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 CategorizedRepository<T, enlarge_factor, max_size>& CategorizedRepository<T,
 		enlarge_factor, max_size>::operator=(const CategorizedRepository<T,
 		enlarge_factor, max_size>& r)
@@ -345,12 +345,12 @@ CategorizedRepository<T, enlarge_factor, max_size>& CategorizedRepository<T,
 	return *this;
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 CategorizedRepository<T, enlarge_factor, max_size>::~CategorizedRepository()
 {
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::setNumberOfCategories(
 		const category_t n)
 {
@@ -369,7 +369,7 @@ void CategorizedRepository<T, enlarge_factor, max_size>::setNumberOfCategories(
 	offset_[C_] = oldCOffset;
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::reorderToMaxCategory(
 		const category_t n)
 {
@@ -390,24 +390,23 @@ void CategorizedRepository<T, enlarge_factor, max_size>::reorderToMaxCategory(
 	}
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::clear()
 {
 	assert(C_ > 0);
 	init();
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-bool CategorizedRepository<T, enlarge_factor, max_size>::enlarge()
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
+void CategorizedRepository<T, enlarge_factor, max_size>::enlarge()
 {
 	address_t newsize = (N_ > 0) ? N_ * enlarge_factor : enlarge_factor;
 	if (newsize > max_size)
 		newsize = max_size;
 	if (newsize <= N_)
-		return false;
+		throw RepoAllocException();
 	else
 	{
-		items_.reserve(newsize);
 		items_.resize(newsize); // fills with default-constructed items
 
 		ids_.reserve(newsize);
@@ -420,13 +419,12 @@ bool CategorizedRepository<T, enlarge_factor, max_size>::enlarge()
 
 		count_[C_] += newsize - N_;
 		N_ = newsize;
-		return true;
 	}
 }
 
 // --------------- category management
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::increaseCat(
 		const address_t n, const category_t cat)
 {
@@ -456,7 +454,7 @@ void CategorizedRepository<T, enlarge_factor, max_size>::increaseCat(
 	}
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::decreaseCat(
 		const address_t n, const category_t cat)
 {
@@ -486,7 +484,7 @@ void CategorizedRepository<T, enlarge_factor, max_size>::decreaseCat(
 	}
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 inline category_t CategorizedRepository<T, enlarge_factor, max_size>::category(
 		const id_t id) const
 {
@@ -494,7 +492,7 @@ inline category_t CategorizedRepository<T, enlarge_factor, max_size>::category(
 	return category(nums_[id]);
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 inline category_t CategorizedRepository<T, enlarge_factor, max_size>::category(
 		const address_t n) const
 {
@@ -509,7 +507,7 @@ inline category_t CategorizedRepository<T, enlarge_factor, max_size>::category(
 	return c;
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::setCategory(
 		const id_t id, const category_t cat)
 {
@@ -517,7 +515,7 @@ void CategorizedRepository<T, enlarge_factor, max_size>::setCategory(
 	setCategory(nums_[id], cat);
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::setCategory(
 		const address_t n, const category_t cat)
 {
@@ -530,7 +528,7 @@ void CategorizedRepository<T, enlarge_factor, max_size>::setCategory(
 		decreaseCat(n, cat);
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::setCategory(
 		const category_t oldCat, const address_t n, const category_t newCat)
 {
@@ -541,85 +539,79 @@ void CategorizedRepository<T, enlarge_factor, max_size>::setCategory(
 	setCategory(num, newCat);
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline/* */typename CategorizedRepository<T, enlarge_factor, max_size>::reference
-CategorizedRepository<T, enlarge_factor, max_size>::item(
-		const id_t id)
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
+inline/* */typename CategorizedRepository<T, enlarge_factor, max_size>::reference CategorizedRepository<
+		T, enlarge_factor, max_size>::item(const id_t id)
 {
 	assert(id < N_);
 	assert(valid(id));
 	return items_[id];
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline typename CategorizedRepository<T, enlarge_factor, max_size>::const_reference
-CategorizedRepository<T, enlarge_factor, max_size>::item(
-		const id_t id) const
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
+inline typename CategorizedRepository<T, enlarge_factor, max_size>::const_reference CategorizedRepository<
+		T, enlarge_factor, max_size>::item(const id_t id) const
 {
 	assert(id < N_);
 	assert(valid(id));
 	return items_[id];
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline typename CategorizedRepository<T, enlarge_factor, max_size>::reference
-CategorizedRepository<T, enlarge_factor, max_size>::operator[](
-		const id_t id)
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
+inline typename CategorizedRepository<T, enlarge_factor, max_size>::reference CategorizedRepository<
+		T, enlarge_factor, max_size>::operator[](const id_t id)
 {
 	return item(id);
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline typename CategorizedRepository<T, enlarge_factor, max_size>::const_reference
-CategorizedRepository<T, enlarge_factor, max_size>::operator[](
-		const id_t id) const
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
+inline typename CategorizedRepository<T, enlarge_factor, max_size>::const_reference CategorizedRepository<
+		T, enlarge_factor, max_size>::operator[](const id_t id) const
 {
 	return item(id);
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline typename CategorizedRepository<T, enlarge_factor, max_size>::reference
-CategorizedRepository<T, enlarge_factor, max_size>::item(
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
+inline typename CategorizedRepository<T, enlarge_factor, max_size>::reference CategorizedRepository<
+		T, enlarge_factor, max_size>::item(const address_t n)
+{
+	assert(n < N_);
+	assert(valid(ids_[n]));
+	return items_[ids_[n]];
+}
+
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
+inline typename CategorizedRepository<T, enlarge_factor, max_size>::const_reference CategorizedRepository<
+		T, enlarge_factor, max_size>::item(const address_t n) const
+{
+	assert(n < N_);
+	assert(valid(ids_[n]));
+	return items_[ids_[n]];
+}
+
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
+inline typename CategorizedRepository<T, enlarge_factor, max_size>::reference CategorizedRepository<
+		T, enlarge_factor, max_size>::item(const category_t cat,
 		const address_t n)
 {
-	assert(n < N_);
-	assert(valid(ids_[n]));
-	return items_[ids_[n]];
+	assert(cat < C_);
+	assert(n < count_[cat]);
+	assert(valid(ids_[offset_[cat] + n]));
+	return items_[ids_[offset_[cat] + n]];
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline typename CategorizedRepository<T, enlarge_factor, max_size>::const_reference
-CategorizedRepository<T, enlarge_factor, max_size>::item(
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
+inline typename CategorizedRepository<T, enlarge_factor, max_size>::const_reference CategorizedRepository<
+		T, enlarge_factor, max_size>::item(const category_t cat,
 		const address_t n) const
 {
-	assert(n < N_);
-	assert(valid(ids_[n]));
-	return items_[ids_[n]];
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline typename CategorizedRepository<T, enlarge_factor, max_size>::reference
-CategorizedRepository<T, enlarge_factor, max_size>::item(
-		const category_t cat, const address_t n)
-{
 	assert(cat < C_);
 	assert(n < count_[cat]);
 	assert(valid(ids_[offset_[cat] + n]));
 	return items_[ids_[offset_[cat] + n]];
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
-inline typename CategorizedRepository<T, enlarge_factor, max_size>::const_reference
-CategorizedRepository<T, enlarge_factor, max_size>::item(
-		const category_t cat, const address_t n) const
-{
-	assert(cat < C_);
-	assert(n < count_[cat]);
-	assert(valid(ids_[offset_[cat] + n]));
-	return items_[ids_[offset_[cat] + n]];
-}
-
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 inline id_t CategorizedRepository<T, enlarge_factor, max_size>::id(
 		const address_t n) const
 {
@@ -627,7 +619,7 @@ inline id_t CategorizedRepository<T, enlarge_factor, max_size>::id(
 	return ids_[n];
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 inline id_t CategorizedRepository<T, enlarge_factor, max_size>::id(
 		const category_t cat, const address_t n) const
 {
@@ -637,7 +629,7 @@ inline id_t CategorizedRepository<T, enlarge_factor, max_size>::id(
 	return ids_[offset_[cat] + n];
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 id_t CategorizedRepository<T, enlarge_factor, max_size>::insert(const T itm,
 		const category_t cat)
 {
@@ -645,10 +637,7 @@ id_t CategorizedRepository<T, enlarge_factor, max_size>::insert(const T itm,
 	// Basic storage at the end
 	address_t curnum = offset_[C_];
 	if (curnum >= N_)
-	{
-		if (!enlarge())
-		throw(RepoAllocException());
-	}
+		enlarge();
 	id_t uid = ids_[curnum];
 	items_[uid] = itm; // Store copy of item
 	decreaseCat(curnum, cat); // Move into right class
@@ -657,21 +646,21 @@ id_t CategorizedRepository<T, enlarge_factor, max_size>::insert(const T itm,
 	return uid;
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 id_t CategorizedRepository<T, enlarge_factor, max_size>::insert(const T itm)
 {
 	return insert(itm, 0);
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 CategorizedRepository<T, enlarge_factor, max_size>& CategorizedRepository<T,
-enlarge_factor, max_size>::operator<<(const T itm)
+		enlarge_factor, max_size>::operator<<(const T itm)
 {
 	insert(itm, 0);
 	return *this;
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::remove(const id_t id)
 {
 	assert(id < N_);
@@ -679,7 +668,7 @@ void CategorizedRepository<T, enlarge_factor, max_size>::remove(const id_t id)
 	return remove(nums_[id]);
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::remove(
 		const address_t n)
 {
@@ -690,49 +679,48 @@ void CategorizedRepository<T, enlarge_factor, max_size>::remove(
 	increaseCat(n, C_); // move to hidden category
 	--nStored_;
 	if (uid == minID_)
-	updateMinID();
+		updateMinID();
 	if (uid == maxID_)
-	updateMaxID();
+		updateMaxID();
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 void CategorizedRepository<T, enlarge_factor, max_size>::removeAll()
 {
 	clear();
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 IndexIterator CategorizedRepository<T, enlarge_factor, max_size>::begin() const
 {
 	return IndexIterator(*this, minID_);
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size>
+template<class T, unsigned int enlarge_factor, unsigned long int max_size>
 IndexIterator CategorizedRepository<T, enlarge_factor, max_size>::end() const
 {
 	if (nStored_ > 0)
-	return IndexIterator(*this, maxID_ + 1);
+		return IndexIterator(*this, maxID_ + 1);
 	else
-	return IndexIterator(*this, maxID_);
+		return IndexIterator(*this, maxID_);
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size> IndexIteratorRange
-CategorizedRepository<T, enlarge_factor, max_size>::ids() const
+template<class T, unsigned int enlarge_factor, unsigned long int max_size> IndexIteratorRange CategorizedRepository<
+		T, enlarge_factor, max_size>::ids() const
 {
 	return std::make_pair(begin(), end());
 }
 
-template<class T, unsigned int enlarge_factor, unsigned int max_size> CategoryIteratorRange
-CategorizedRepository<T, enlarge_factor, max_size>::ids(
-		const category_t cat) const
+template<class T, unsigned int enlarge_factor, unsigned long int max_size> CategoryIteratorRange CategorizedRepository<
+		T, enlarge_factor, max_size>::ids(const category_t cat) const
 {
 	assert(cat < C_);
 	/*
 	 * This is safe, because any empty items are guaranteed to be put in the
 	 * private category C_. See increaseCat() and decreaseCat().
 	 */
-	return std::make_pair( CategoryIterator(*this, cat), CategoryIterator(*this, cat, count_[cat])
-	);
+	return std::make_pair(CategoryIterator(*this, cat), CategoryIterator(*this,
+			cat, count_[cat]));
 }
 
 }
