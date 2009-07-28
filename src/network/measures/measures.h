@@ -230,7 +230,7 @@ double clusteringCoefficient(const _Network& net, node_id_t n)
 				++triangles;
 		}
 	}
-	return static_cast<double> (triangles) * 6 / (deg * (deg - 1));
+	return static_cast<double> (triangles) * 2 / (deg * (deg - 1));
 }
 
 /**
