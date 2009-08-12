@@ -14,238 +14,176 @@
 namespace lnet
 {
 
-namespace detail
+struct directedS
 {
-
-template<class directed_category, typename edge_descriptor>
-class NodeData;
-
-template<typename edge_descriptor>
-class NodeData<directed_tag, edge_descriptor>
-{
-public:
-	typedef std::set<edge_descriptor> edge_set;
-	typedef typename edge_set::iterator edge_iterator;
-	typedef std::pair<edge_iterator, edge_iterator> edge_iterator_range;
-	typedef typename edge_set::size_type degree_size_type;
-
-	void addInEdge(edge_descriptor l);
-	void addOutEdge(edge_descriptor l);
-	degree_size_type inDegree() const;
-	degree_size_type outDegree() const;
-	degree_size_type degree() const;
-	/**
-	 * Remove link with ID @p l from node. The link ID is removed from the node's
-	 * link list, thus decreasing the node's degree by one.
-	 * @param l %Link ID to remove.
-	 */
-	void removeEdge(edge_descriptor l);
-	/**
-	 * Return true if link ID @p l is in the node's link list.
-	 * @param l %Link ID to look for.
-	 * @return True if the link ID is found in the node's link list.
-	 */
-	bool partOfEdge(edge_descriptor l) const;
-
-	/**
-	 * Isolate node from neighbors by clearing its link list.
-	 * Note that this does only affect the node, and not its neighbors.
-	 */
-	void clear();
-
-	/**
-	 * Return iterator range for all IDs of the node's links.
-	 * @return std::pair of LinkIDIterators, the first pointing to the first
-	 * link ID in the node's link list and the second pointing past-the-end
-	 */
-	edge_iterator_range inEdges();
-	edge_iterator_range outEdges();
-protected:
-	edge_set inEdges_, outEdges_;
 };
-
-template<typename edge_descriptor>
-class NodeData<undirected_tag, edge_descriptor>
-{
-public:
-	typedef std::set<edge_descriptor> edge_set;
-	typedef typename edge_set::iterator edge_iterator;
-	typedef std::pair<edge_iterator, edge_iterator> edge_iterator_range;
-	typedef typename edge_set::size_type degree_size_type;
-
-	void addEdge(edge_descriptor l);
-	degree_size_type degree() const;
-	/**
-	 * Remove link with ID @p l from node. The link ID is removed from the node's
-	 * link list, thus decreasing the node's degree by one.
-	 * @param l %Link ID to remove.
-	 */
-	void removeEdge(edge_descriptor l);
-	/**
-	 * Return true if link ID @p l is in the node's link list.
-	 * @param l %Link ID to look for.
-	 * @return True if the link ID is found in the node's link list.
-	 */
-	bool partOfEdge(edge_descriptor l) const;
-
-	/**
-	 * Isolate node from neighbors by clearing its link list.
-	 * Note that this does only affect the node, and not its neighbors.
-	 */
-	void clear();
-
-	/**
-	 * Return iterator range for all IDs of the node's links.
-	 * @return std::pair of LinkIDIterators, the first pointing to the first
-	 * link ID in the node's link list and the second pointing past-the-end
-	 */
-	edge_iterator_range edges();
-
-protected:
-	edge_set edges_;
-};
-
-template<class directed_category, typename edge_descriptor>
-class NodeImpl: public NodeData<directed_category, edge_descriptor>
+struct undirectedS
 {
 };
 
-}
-
-/**
- * Class representing one network node.
- *
- * A %Node keeps a list of the IDs of adjacent links.
- */
-template<class G>
-class Node: public detail::NodeImpl<
-		typename graph_traits<G>::directed_category,
-		typename graph_traits<G>::edge_descriptor>
-{
-};
 
 namespace detail
 {
 
 template<typename edge_descriptor>
-inline void NodeData<undirected_tag, edge_descriptor>::addEdge(
-		const edge_descriptor l)
+class UndirectedNodeP
 {
-	edges_.insert(l);
-}
+public:
+	typedef std::set<edge_descriptor> edge_set;
+	typedef typename edge_set::size_type degree_size_type;
+	typedef typename edge_set::iterator edge_iterator;
+	typedef typename edge_set::const_iterator const_edge_iterator;
+	typedef std::pair<edge_iterator, edge_iterator> edge_iterator_range;
+	typedef std::pair<const_edge_iterator, const_edge_iterator>
+			const_edge_iterator_range;
+protected:
+	~UndirectedNodeP()
+	{
+	}
+	edge_set outEdges_;
+
+public:
+	UndirectedNodeP()
+	{
+	}
+	degree_size_type degree() const
+	{
+		return outDegree();
+	}
+	degree_size_type outDegree() const
+	{
+		return outEdges_.size();
+	}
+	void addOutEdge(edge_descriptor e)
+	{
+		outEdges_.insert(e);
+	}
+	void addEdge(edge_descriptor e)
+	{
+		addOutEdge(e);
+	}
+	void removeEdge(edge_descriptor e)
+	{
+		edge_iterator it = outEdges_.find(e);
+		if (it != outEdges_.end())
+			outEdges_.erase(it);
+	}
+	bool hasOutEdge(edge_descriptor e) const
+	{
+		return outEdges_.find(e) != outEdges_.end();
+	}
+	bool hasEdge(edge_descriptor e) const
+	{
+		return hasOutEdge(e);
+	}
+
+	edge_iterator_range outEdges() const
+	{
+		return std::make_pair(outEdges_.begin(), outEdges_.end());
+	}
+	edge_iterator_range edges() const
+	{
+		return outEdges();
+	}
+};
 
 template<typename edge_descriptor>
-inline void NodeData<directed_tag, edge_descriptor>::addInEdge(
-		const edge_descriptor l)
+class DirectedNodeP
 {
-	inEdges_.insert(l);
-}
+public:
+	typedef std::set<edge_descriptor> edge_set;
+	typedef typename edge_set::size_type degree_size_type;
+	typedef typename edge_set::iterator edge_iterator;
+	typedef typename edge_set::const_iterator const_edge_iterator;
+	typedef std::pair<edge_iterator, edge_iterator> edge_iterator_range;
+	typedef std::pair<const_edge_iterator, const_edge_iterator>
+			const_edge_iterator_range;
+protected:
+	~DirectedNodeP()
+	{
+	}
+	edge_set outEdges_, inEdges_;
+
+public:
+	DirectedNodeP()
+	{
+	}
+	degree_size_type degree() const
+	{
+		return outDegree() + inDegree();
+	}
+	degree_size_type outDegree() const
+	{
+		return outEdges_.size();
+	}
+	degree_size_type inDegree() const
+	{
+		return inEdges_.size();
+	}
+	void addOutEdge(edge_descriptor e)
+	{
+		outEdges_.insert(e);
+	}
+	void addInEdge(edge_descriptor e)
+	{
+		inEdges_.insert(e);
+	}
+	void removeEdge(edge_descriptor e)
+	{
+		edge_iterator it = inEdges_.find(e);
+		if (it != inEdges_.end())
+			inEdges_.erase(it);
+		it = outEdges_.find(e);
+		if (it != outEdges_.end())
+			outEdges_.erase(it);
+	}
+	bool hasOutEdge(edge_descriptor e) const
+	{
+		return outEdges_.find(e) != outEdges_.end();
+	}
+	bool hasInEdge(edge_descriptor e) const
+	{
+		return inEdges_.find(e) != inEdges_.end();
+	}
+	bool hasEdge(edge_descriptor e) const
+	{
+		return hasInEdge(e) || hasOutEdge(e);
+	}
+
+	edge_iterator_range outEdges() const
+	{
+		return std::make_pair(outEdges_.begin(), outEdges_.end());
+	}
+	edge_iterator_range inEdges() const
+	{
+		return std::make_pair(inEdges_.begin(), inEdges_.end());
+	}
+};
+
+template<class dirSelector, typename edge_descriptor> struct directed_policy_tag;
 
 template<typename edge_descriptor>
-inline void NodeData<directed_tag, edge_descriptor>::addOutEdge(
-		const edge_descriptor l)
+struct directed_policy_tag<directedS, edge_descriptor>
 {
-	outEdges_.insert(l);
-}
+	typedef DirectedNodeP<edge_descriptor> policy;
+};
 
 template<typename edge_descriptor>
-inline void NodeData<undirected_tag, edge_descriptor>::removeEdge(
-		const edge_descriptor l)
+struct directed_policy_tag<undirectedS, edge_descriptor>
 {
-	edge_iterator it = edges_.find(l);
-	if (it != edges_.end())
-		edges_.erase(it);
-}
-
-template<typename edge_descriptor>
-inline void NodeData<directed_tag, edge_descriptor>::removeEdge(
-		const edge_descriptor l)
-{
-	edge_iterator it = inEdges_.find(l);
-	if (it != inEdges_.end())
-		inEdges_.erase(it);
-	it = outEdges_.find(l);
-	if (it != outEdges_.end())
-		outEdges_.erase(it);
-}
-
-template<typename edge_descriptor>
-inline typename NodeData<undirected_tag, edge_descriptor>::degree_size_type NodeData<
-		undirected_tag, edge_descriptor>::degree() const
-{
-	return edges_.size();
-}
-
-template<typename edge_descriptor>
-inline typename NodeData<directed_tag, edge_descriptor>::degree_size_type NodeData<
-		directed_tag, edge_descriptor>::degree() const
-{
-	return inEdges_.size() + outEdges_.size();
-}
-
-template<typename edge_descriptor>
-inline typename NodeData<directed_tag, edge_descriptor>::degree_size_type NodeData<
-		directed_tag, edge_descriptor>::inDegree() const
-{
-	return inEdges_.size();
-}
-
-template<typename edge_descriptor>
-inline typename NodeData<directed_tag, edge_descriptor>::degree_size_type NodeData<
-		directed_tag, edge_descriptor>::outDegree() const
-{
-	return outEdges_.size();
-}
-
-template<typename edge_descriptor>
-inline typename NodeData<undirected_tag, edge_descriptor>::edge_iterator_range NodeData<
-		undirected_tag, edge_descriptor>::edges()
-{
-	return std::make_pair(edges_.begin(), edges_.end());
-}
-
-template<typename edge_descriptor>
-inline typename NodeData<directed_tag, edge_descriptor>::edge_iterator_range NodeData<
-		directed_tag, edge_descriptor>::inEdges()
-{
-	return std::make_pair(inEdges_.begin(), inEdges_.end());
-}
-
-template<typename edge_descriptor>
-inline typename NodeData<directed_tag, edge_descriptor>::edge_iterator_range NodeData<
-		directed_tag, edge_descriptor>::outEdges()
-{
-	return std::make_pair(outEdges_.begin(), outEdges_.end());
-}
-
-template<typename edge_descriptor>
-inline void NodeData<undirected_tag, edge_descriptor>::clear()
-{
-	edges_.clear();
-}
-
-template<typename edge_descriptor>
-inline void NodeData<directed_tag, edge_descriptor>::clear()
-{
-	inEdges_.clear();
-	outEdges_.clear();
-}
-
-template<typename edge_descriptor>
-inline bool NodeData<undirected_tag, edge_descriptor>::partOfEdge(
-		const edge_descriptor l) const
-{
-	return edges_.find(l) != edges_.end();
-}
-
-template<typename edge_descriptor>
-inline bool NodeData<directed_tag, edge_descriptor>::partOfEdge(
-		const edge_descriptor l) const
-{
-	return (inEdges_.find(l) != inEdges_.end()) || (outEdges_.find(l)
-			!= outEdges_.end());
-}
+	typedef UndirectedNodeP<edge_descriptor> policy;
+};
 
 }
+
+template<class dirSelector, typename edge_descriptor>
+class Node: public detail::directed_policy_tag<dirSelector, edge_descriptor>::policy
+{
+public:
+	Node() : detail::directed_policy_tag<dirSelector, edge_descriptor>::policy()
+	{
+	}
+};
+
 }
 #endif /*NODE_H_*/

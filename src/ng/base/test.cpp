@@ -34,8 +34,8 @@ struct UndirectedGraph
 	typedef unsigned long int edges_size_type;
 };
 
-typedef Node<DirectedGraph> DirectedNode;
-typedef Node<UndirectedGraph> UndirectedNode;
+typedef Node<directedS, DirectedGraph::edge_descriptor> DirectedNode;
+typedef Node<undirectedS, UndirectedGraph::edge_descriptor> UndirectedNode;
 
 void testNode()
 {
