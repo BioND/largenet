@@ -265,7 +265,7 @@ private:
 	 * gives its link ID. Note that the second part is meaningful only if the first part is true.
 	 */
 	std::pair<bool, link_id_t>
-			doIsLink(node_id_t source, node_id_t target) const;
+	doIsLink(node_id_t source, node_id_t target) const;
 
 	/**
 	 * Degree of node @p n.
@@ -571,14 +571,21 @@ void TypedNetwork<_Node, _Link>::doRemoveAllLinks()
 template<class _Node, class _Link>
 void TypedNetwork<_Node, _Link>::doRemoveNode(const node_id_t n)
 {
-	typename NodeType::LinkIDIteratorRange iters = node(n).links();
+	typename NodeType::LinkIDIteratorRange iters = node(n).outLinks();
 	for (typename NodeType::LinkIDIterator& li = iters.first; li
 			!= iters.second; ++li)
 	{
 		// remove neighbors' references to connecting links
-		LinkType& l = link(*li);
-		node_id_t m = (l.source() == n) ? l.target() : l.source();
-		node(m).removeLink(*li);
+		node(target(*li)).removeLink(*li);
+		// delete connecting links
+		linkStore_->remove(*li);
+	}
+	iters = node(n).inLinks();
+	for (typename NodeType::LinkIDIterator& li = iters.first; li
+			!= iters.second; ++li)
+	{
+		// remove neighbors' references to connecting links
+		node(source(*li)).removeLink(*li);
 		// delete connecting links
 		linkStore_->remove(*li);
 	}
@@ -655,9 +662,11 @@ std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::doIsLink(
 		b = source;
 	}
 
-	typename NodeType::LinkIDIteratorRange iters = node(a).links();
 	if (a == b)
 	{
+		// if source == target, then it is enough to look at outLinks only,
+		// as a loop is both an in and out link by definition
+		typename NodeType::LinkIDIteratorRange iters = node(a).outLinks();
 		for (typename NodeType::LinkIDIterator& it = iters.first; it
 				!= iters.second; ++it)
 		{
@@ -669,10 +678,20 @@ std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::doIsLink(
 	}
 	else
 	{
+		typename NodeType::LinkIDIteratorRange iters = node(a).outLinks();
 		for (typename NodeType::LinkIDIterator& it = iters.first; it
 				!= iters.second; ++it)
 		{
-			if (link(*it).connectsTo(b))
+			if (this->target(*it) == b)
+			{
+				return std::make_pair(true, *it);
+			}
+		}
+		iters = node(a).inLinks();
+		for (typename NodeType::LinkIDIterator& it = iters.first; it
+				!= iters.second; ++it)
+		{
+			if (this->source(*it) == b)
 			{
 				return std::make_pair(true, *it);
 			}
@@ -809,8 +828,8 @@ link_id_t TypedNetwork<_Node, _Link>::doAddLink(const node_id_t source,
 	const link_state_t s = linkStateCalculator()(getNodeState(source),
 			getNodeState(target));
 	const link_id_t l = linkStore_->insert(LinkType(source, target), s);
-	node(source).addLink(l);
-	node(target).addLink(l);
+	node(source).addOutLink(l);
+	node(target).addInLink(l);
 	return l;
 }
 
@@ -823,13 +842,13 @@ bool TypedNetwork<_Node, _Link>::doChangeLink(const link_id_t l,
 	{
 		node(theLink.source()).removeLink(l);
 		theLink.setSource(source);
-		node(source).addLink(l);
+		node(source).addOutLink(l);
 	}
 	if (target != theLink.target())
 	{
 		node(theLink.target()).removeLink(l);
 		theLink.setTarget(target);
-		node(target).addLink(l);
+		node(target).addInLink(l);
 	}
 	linkStore_->setCategory(l, linkStateCalculator()(getNodeState(source),
 			getNodeState(target)));

@@ -36,13 +36,18 @@ public:
 	 * @return Degree of the node.
 	 */
 	id_size_t degree() const;
+	id_size_t inDegree() const;
+	id_size_t outDegree() const;
 
 	/**
 	 * Add link with ID @p l to node. The link ID is inserted in the node's link
 	 * list, thus increasing the node's degree by one.
 	 * @param l %Link ID to add.
 	 */
+	void addInLink(link_id_t l);
+	void addOutLink(link_id_t l);
 	void addLink(link_id_t l);
+
 	/**
 	 * Remove link with ID @p l from node. The link ID is removed from the node's
 	 * link list, thus decreasing the node's degree by one.
@@ -55,6 +60,8 @@ public:
 	 * @return True if the link ID is found in the node's link list.
 	 */
 	bool inLink(link_id_t l) const;
+	bool hasInLink(link_id_t l) const;
+	bool hasOutLink(link_id_t l) const;
 
 	/**
 	 * Isolate node from neighbors by clearing its link list.
@@ -67,46 +74,86 @@ public:
 	 * @return std::pair of LinkIDIterators, the first pointing to the first
 	 * link ID in the node's link list and the second pointing past-the-end
 	 */
-	LinkIDIteratorRange links();
+	LinkIDIteratorRange inLinks();
+	LinkIDIteratorRange outLinks();
 
 private:
-	LinkSet links_; ///< Multiset of links to neighbors
+	LinkSet outLinks_, inLinks_; ///< Multiset of links to neighbors
 };
 
 inline Node::Node()
 {
 }
 
+inline void Node::addOutLink(const link_id_t l)
+{
+	outLinks_.insert(l);
+}
+
+inline void Node::addInLink(const link_id_t l)
+{
+	inLinks_.insert(l);
+}
+
 inline void Node::addLink(const link_id_t l)
 {
-	links_.insert(l);
+	addOutLink(l);
 }
 
 inline void Node::removeLink(const link_id_t l)
 {
-	LinkSet::iterator it = links_.find(l);
-	if (it != links_.end())
-		links_.erase(it);
+	LinkSet::iterator it = outLinks_.find(l);
+	if (it != outLinks_.end())
+		outLinks_.erase(it);
+	it = inLinks_.find(l);
+	if (it != inLinks_.end())
+		inLinks_.erase(it);
 }
 
 inline id_size_t Node::degree() const
 {
-	return links_.size();
+	return outDegree() + inDegree();
 }
 
-inline Node::LinkIDIteratorRange Node::links()
+inline id_size_t Node::inDegree() const
 {
-	return std::make_pair(links_.begin(), links_.end());
+	return inLinks_.size();
+}
+
+inline id_size_t Node::outDegree() const
+{
+	return outLinks_.size();
+}
+
+inline Node::LinkIDIteratorRange Node::inLinks()
+{
+	return std::make_pair(inLinks_.begin(), inLinks_.end());
+}
+
+inline Node::LinkIDIteratorRange Node::outLinks()
+{
+	return std::make_pair(outLinks_.begin(), outLinks_.end());
 }
 
 inline void Node::clear()
 {
-	links_.clear();
+	inLinks_.clear();
+	outLinks_.clear();
+}
+
+inline bool Node::hasInLink(const link_id_t l) const
+{
+	return inLinks_.find(l) != inLinks_.end();
+}
+
+inline bool Node::hasOutLink(const link_id_t l) const
+{
+	return outLinks_.find(l) != outLinks_.end();
 }
 
 inline bool Node::inLink(const link_id_t l) const
 {
-	return links_.find(l) != links_.end();
+	return hasOutLink(l) || hasInLink(l);
 }
 
 }
