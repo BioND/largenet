@@ -45,7 +45,7 @@ bool EdgelistIn::get(std::istream& in, BasicNetwork& net)
 
 	link_vector links;
 	node_info a, b;
-	node_state_size_t node_states = 1;
+	node_state_size_t node_states = readStates_ ? 1 : net.numberOfNodeStates();
 	std::set<node_id_t> node_ids;
 
 	while (std::getline(in, line))
@@ -59,6 +59,9 @@ bool EdgelistIn::get(std::istream& in, BasicNetwork& net)
 			{
 				a.state = 0;
 				readStates_ = false; // failed on reading state, so do not continue reading states
+				// do not reduce number of node states if failed to read states
+				if (node_states < net.numberOfNodeStates())
+					node_states = net.numberOfNodeStates();
 			}
 			if (!(ss >> b.state))
 				b.state = 0;

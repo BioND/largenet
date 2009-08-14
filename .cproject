@@ -43,7 +43,7 @@
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.so.debug.237569095" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.so.debug">
 <option defaultValue="true" id="gnu.cpp.link.so.debug.option.shared.1218605266" name="Shared (-shared)" superClass="gnu.cpp.link.so.debug.option.shared" valueType="boolean"/>
-<option id="gnu.cpp.link.option.debugging.gprof.27400708" name="Generate gprof information (-pg)" superClass="gnu.cpp.link.option.debugging.gprof" value="true" valueType="boolean"/>
+<option id="gnu.cpp.link.option.debugging.gprof.27400708" name="Generate gprof information (-pg)" superClass="gnu.cpp.link.option.debugging.gprof" value="false" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.745492733" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
