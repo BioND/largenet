@@ -18,10 +18,13 @@ struct disallow_parallel_edge_tag {};
 
 template<class G> struct graph_traits
 {
-	typedef typename G::vertex_descriptor vertex_descriptor;
+	typedef typename G::NodeType node_type;
+	typedef typename G::EdgeType edge_type;
+	typedef typename G::node_descriptor node_descriptor;
+	typedef node_descriptor vertex_descriptor;
 	typedef typename G::edge_descriptor edge_descriptor;
 	typedef typename G::directed_category directed_category;
-	typedef typename G::edge_parallel_category edge_parallel_category;
+//	typedef typename G::edge_parallel_category edge_parallel_category;
 
 	typedef typename G::degree_size_type degree_size_type;
 	typedef typename G::vertices_size_type vertices_size_type;

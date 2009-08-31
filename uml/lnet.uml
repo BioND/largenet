@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_Lu4V0IcdEd6ol5hKnwcXeg" name="lnet">
+  <elementImport xmi:id="_L1nP8IcdEd6ol5hKnwcXeg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+  </elementImport>
+  <elementImport xmi:id="_L1xA8IcdEd6ol5hKnwcXeg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+  </elementImport>
+  <elementImport xmi:id="_L1xoAIcdEd6ol5hKnwcXeg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+  </elementImport>
+  <elementImport xmi:id="_L1xoAYcdEd6ol5hKnwcXeg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_UOPu0IcdEd6ol5hKnwcXeg" name="Edge">
+    <ownedOperation xmi:id="_mytvkIcdEd6ol5hKnwcXeg" name="source">
+      <ownedParameter xmi:id="_zvkAgIcdEd6ol5hKnwcXeg" type="_YuSLgIcdEd6ol5hKnwcXeg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_18cu0IcdEd6ol5hKnwcXeg" name="target">
+      <ownedParameter xmi:id="_3Wo04IcdEd6ol5hKnwcXeg" type="_YuSLgIcdEd6ol5hKnwcXeg" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_V8tJ0IcfEd6ol5hKnwcXeg" name="isLoop">
+      <ownedParameter xmi:id="_W-nSwIcfEd6ol5hKnwcXeg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_i9rQUIcgEd6ol5hKnwcXeg" name="Edge">
+      <ownedParameter xmi:id="_lSr_4IcgEd6ol5hKnwcXeg" direction="return"/>
+      <ownedParameter xmi:id="_lSsm8IcgEd6ol5hKnwcXeg" name="source" type="_YuSLgIcdEd6ol5hKnwcXeg"/>
+      <ownedParameter xmi:id="_lStOAIcgEd6ol5hKnwcXeg" name="target" type="_YuSLgIcdEd6ol5hKnwcXeg"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_YuSLgIcdEd6ol5hKnwcXeg" name="Node">
+    <ownedOperation xmi:id="_JkUtUIceEd6ol5hKnwcXeg" name="inDegree">
+      <ownedParameter xmi:id="_NjhRUIcfEd6ol5hKnwcXeg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_Msq-UIceEd6ol5hKnwcXeg" name="outDegree">
+      <ownedParameter xmi:id="_OqPo0IcfEd6ol5hKnwcXeg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_OTvp0IceEd6ol5hKnwcXeg" name="degree">
+      <ownedParameter xmi:id="_P3DaMIcfEd6ol5hKnwcXeg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:id="_FXBJ8IcfEd6ol5hKnwcXeg" name="hasInEdge">
+      <ownedParameter xmi:id="_IdoVkIcfEd6ol5hKnwcXeg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_Ido8oIcfEd6ol5hKnwcXeg" name="Edge"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_RpXFUIcfEd6ol5hKnwcXeg" name="hasOutEdge">
+      <ownedParameter xmi:id="_SqPTgIcfEd6ol5hKnwcXeg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_SqP6kIcfEd6ol5hKnwcXeg" name="Edge"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_TBQFUIcfEd6ol5hKnwcXeg" name="hasEdge">
+      <ownedParameter xmi:id="_T3_gEIcfEd6ol5hKnwcXeg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_T3_gEYcfEd6ol5hKnwcXeg" name="Edge"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_XAvkQIcgEd6ol5hKnwcXeg" name="registerEdge" visibility="protected">
+      <ownedParameter xmi:id="_YQ6LoIcgEd6ol5hKnwcXeg" direction="return"/>
+      <ownedParameter xmi:id="_YQ6LoYcgEd6ol5hKnwcXeg" name="Edge"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_o2QE4IcuEd6ol5hKnwcXeg" name="unregisterEdge" visibility="protected">
+      <ownedParameter xmi:id="_qdpggIcuEd6ol5hKnwcXeg" direction="return"/>
+      <ownedParameter xmi:id="_qdpggYcuEd6ol5hKnwcXeg" name="Edge"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_7mmG0IcgEd6ol5hKnwcXeg" name="DefaultEdge" clientDependency="_NHoUoIchEd6ol5hKnwcXeg">
+    <ownedAttribute xmi:id="_ex9BUIchEd6ol5hKnwcXeg" name="source" type="_YuSLgIcdEd6ol5hKnwcXeg" aggregation="composite"/>
+    <ownedAttribute xmi:id="_f5IEwIchEd6ol5hKnwcXeg" name="target" type="_YuSLgIcdEd6ol5hKnwcXeg" aggregation="composite"/>
+    <interfaceRealization xmi:id="_NHoUoIchEd6ol5hKnwcXeg" supplier="_UOPu0IcdEd6ol5hKnwcXeg" client="_7mmG0IcgEd6ol5hKnwcXeg" contract="_UOPu0IcdEd6ol5hKnwcXeg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_WiwyUIchEd6ol5hKnwcXeg" name="DefaultNode" clientDependency="_aBfjAIchEd6ol5hKnwcXeg">
+    <interfaceRealization xmi:id="_aBfjAIchEd6ol5hKnwcXeg" supplier="_YuSLgIcdEd6ol5hKnwcXeg" client="_WiwyUIchEd6ol5hKnwcXeg" contract="_YuSLgIcdEd6ol5hKnwcXeg"/>
+  </packagedElement>
+</uml:Package>

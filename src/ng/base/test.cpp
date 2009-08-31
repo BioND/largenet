@@ -4,53 +4,42 @@
  * @author gerd
  */
 
+#include "DirectedGraph.h"
+#include "Edge.h"
 #include "Node.h"
 #include <iostream>
+#include <boost/assert.hpp>
 
-namespace lnet
+using namespace lnet;
+
+
+int main()
 {
+	DirectedGraph g;
+	for (unsigned int i = 0; i < 10; ++i)
+	{
+		DirectedGraph::node_id_t n = g.addNode();
+		BOOST_ASSERT(n == i);
+	}
+	BOOST_ASSERT(g.numberOfNodes() == 10);
+	g.addEdge(0, 2);
+	g.addEdge(3, 4);
+	g.addEdge(9, 1);
+	g.addEdge(1, 9);
+//	g.addEdge(1, 9);
 
-struct DirectedGraph
-{
-	typedef unsigned long int vertex_descriptor;
-	typedef unsigned long int edge_descriptor;
-	typedef directed_tag directed_category;
-	typedef disallow_parallel_edge_tag edge_parallel_category;
+	DirectedGraph::NodeIteratorRange nodes(g.nodes());
+	for (DirectedGraph::NodeIterator n(nodes.first); n != nodes.second; ++n)
+	{
+		std::cout << "k_in = " << n->second->inDegree() << ", k_out = " << n->second->outDegree() << "\n";
+	}
 
-	typedef unsigned long int degree_size_type;
-	typedef unsigned long int vertices_size_type;
-	typedef unsigned long int edges_size_type;
-};
+	DirectedGraph::EdgeIteratorRange edges(g.edges());
+	for (DirectedGraph::EdgeIterator e(edges.first); e != edges.second; ++e)
+	{
+		std::cout << e->second->source()->id() << " " << e->second->target()->id() << "\n";
+	}
 
-struct UndirectedGraph
-{
-	typedef unsigned long int vertex_descriptor;
-	typedef unsigned long int edge_descriptor;
-	typedef undirected_tag directed_category;
-	typedef disallow_parallel_edge_tag edge_parallel_category;
-
-	typedef unsigned long int degree_size_type;
-	typedef unsigned long int vertices_size_type;
-	typedef unsigned long int edges_size_type;
-};
-
-typedef Node<directedS, DirectedGraph::edge_descriptor> DirectedNode;
-typedef Node<undirectedS, UndirectedGraph::edge_descriptor> UndirectedNode;
-
-void testNode()
-{
-	DirectedNode nd;
-	UndirectedNode und;
-
-	nd.addInEdge(0);
-	nd.addInEdge(1);
-	nd.addInEdge(2);
-	nd.addOutEdge(3);
-	std::cout << nd.degree();
-	std::cout << nd.inDegree();
-
-	und.addEdge(2);
-	und.removeEdge(2);
-	std::cout << und.degree();
+	return 0;
 }
-}
+

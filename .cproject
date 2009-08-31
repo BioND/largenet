@@ -20,7 +20,7 @@
 </extensions>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<configuration artifactExtension="so" artifactName="largenet" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.so.debug.801323477" name="Debug" parent="cdt.managedbuild.config.gnu.so.debug">
+<configuration artifactName="largenet" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.so.debug.801323477" name="Debug" parent="cdt.managedbuild.config.gnu.so.debug">
 <folderInfo id="cdt.managedbuild.config.gnu.so.debug.801323477." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.so.debug.927051861" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.so.debug">
 <targetPlatform id="cdt.managedbuild.target.gnu.platform.so.debug.1546268213" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.so.debug"/>
@@ -39,10 +39,10 @@
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1119820887" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.so.debug.679115619" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.so.debug">
-<option defaultValue="true" id="gnu.c.link.so.debug.option.shared.938185555" name="Shared (-shared)" superClass="gnu.c.link.so.debug.option.shared" valueType="boolean"/>
+<option id="gnu.c.link.so.debug.option.shared.938185555" name="Shared (-shared)" superClass="gnu.c.link.so.debug.option.shared"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.so.debug.237569095" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.so.debug">
-<option defaultValue="true" id="gnu.cpp.link.so.debug.option.shared.1218605266" name="Shared (-shared)" superClass="gnu.cpp.link.so.debug.option.shared" valueType="boolean"/>
+<option id="gnu.cpp.link.so.debug.option.shared.1218605266" name="Shared (-shared)" superClass="gnu.cpp.link.so.debug.option.shared"/>
 <option id="gnu.cpp.link.option.debugging.gprof.27400708" name="Generate gprof information (-pg)" superClass="gnu.cpp.link.option.debugging.gprof" value="false" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.745492733" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
@@ -55,10 +55,14 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="src/network|src/myrng1.2/Makefile|src/myrng1.2/testWELL.cpp|src/myrng1.2/testMT.cpp|src/myrng1.2/myrngMT.cpp|src/myrng1.2/myrngMT.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="src/tnt|src/network|src/myrng1.2/Makefile|src/myrng1.2/testWELL.cpp|src/myrng1.2/testMT.cpp|src/myrng1.2/myrngMT.cpp|src/myrng1.2/myrngMT.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
+<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
+<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 <storageModule moduleId="scannerConfiguration">
 <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
@@ -141,8 +145,8 @@
 <parser enabled="true"/>
 </scannerInfoProvider>
 </profile>
-<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.so.debug.801323477;cdt.managedbuild.config.gnu.so.debug.801323477.;cdt.managedbuild.tool.gnu.c.compiler.so.debug.527254016;cdt.managedbuild.tool.gnu.c.compiler.input.1119820887">
-<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.so.release.1544272050;cdt.managedbuild.config.gnu.so.release.1544272050.;cdt.managedbuild.tool.gnu.cpp.compiler.so.release.1422710572;cdt.managedbuild.tool.gnu.cpp.compiler.input.278368497">
+<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 <buildOutputProvider>
 <openAction enabled="true" filePath=""/>
@@ -390,8 +394,8 @@
 </scannerInfoProvider>
 </profile>
 </scannerConfigBuildInfo>
-<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.so.release.1544272050;cdt.managedbuild.config.gnu.so.release.1544272050.;cdt.managedbuild.tool.gnu.cpp.compiler.so.release.1422710572;cdt.managedbuild.tool.gnu.cpp.compiler.input.278368497">
-<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
+<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.so.debug.801323477;cdt.managedbuild.config.gnu.so.debug.801323477.;cdt.managedbuild.tool.gnu.c.compiler.so.debug.527254016;cdt.managedbuild.tool.gnu.c.compiler.input.1119820887">
+<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 <buildOutputProvider>
 <openAction enabled="true" filePath=""/>
@@ -474,17 +478,15 @@
 </profile>
 </scannerConfigBuildInfo>
 </storageModule>
-<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
-<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
-<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
-<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cconfiguration>
 <cconfiguration id="cdt.managedbuild.config.gnu.so.release.1544272050">
 <storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.so.release.1544272050" moduleId="org.eclipse.cdt.core.settings" name="Release">
 <externalSettings>
 <externalSetting>
 <entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/largenet"/>
+<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/largenet_ng"/>
 <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/largenet/Release"/>
+<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/largenet_ng/Release"/>
 </externalSetting>
 </externalSettings>
 <extensions>
@@ -534,10 +536,14 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry excluding="src/network|src/myrng1.2/Makefile|src/myrng1.2/testWELL.cpp|src/myrng1.2/testMT.cpp|src/myrng1.2/myrngMT.cpp|src/myrng1.2/myrngMT.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+<entry excluding="src/tnt|src/network|src/myrng1.2/Makefile|src/myrng1.2/testWELL.cpp|src/myrng1.2/testMT.cpp|src/myrng1.2/myrngMT.cpp|src/myrng1.2/myrngMT.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
+<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
+<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 <storageModule moduleId="scannerConfiguration">
 <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
@@ -620,8 +626,8 @@
 <parser enabled="true"/>
 </scannerInfoProvider>
 </profile>
-<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.so.debug.801323477;cdt.managedbuild.config.gnu.so.debug.801323477.;cdt.managedbuild.tool.gnu.c.compiler.so.debug.527254016;cdt.managedbuild.tool.gnu.c.compiler.input.1119820887">
-<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.so.release.1544272050;cdt.managedbuild.config.gnu.so.release.1544272050.;cdt.managedbuild.tool.gnu.cpp.compiler.so.release.1422710572;cdt.managedbuild.tool.gnu.cpp.compiler.input.278368497">
+<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 <buildOutputProvider>
 <openAction enabled="true" filePath=""/>
@@ -869,8 +875,8 @@
 </scannerInfoProvider>
 </profile>
 </scannerConfigBuildInfo>
-<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.so.release.1544272050;cdt.managedbuild.config.gnu.so.release.1544272050.;cdt.managedbuild.tool.gnu.cpp.compiler.so.release.1422710572;cdt.managedbuild.tool.gnu.cpp.compiler.input.278368497">
-<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP"/>
+<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.so.debug.801323477;cdt.managedbuild.config.gnu.so.debug.801323477.;cdt.managedbuild.tool.gnu.c.compiler.so.debug.527254016;cdt.managedbuild.tool.gnu.c.compiler.input.1119820887">
+<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 <buildOutputProvider>
 <openAction enabled="true" filePath=""/>
@@ -953,10 +959,6 @@
 </profile>
 </scannerConfigBuildInfo>
 </storageModule>
-<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
-<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
-<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
-<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cconfiguration>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
