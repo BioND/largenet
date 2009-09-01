@@ -20,11 +20,11 @@ public:
 	SingleEdgeElementFactory() {}
 	virtual ~SingleEdgeElementFactory() {}
 private:
-	Node* doCreateNode(node_id_t id);
+	SingleNode* doCreateNode(node_id_t id);
 	Edge* doCreateEdge(edge_id_t id, Node* source, Node* target);
 };
 
-inline Node* SingleEdgeElementFactory::doCreateNode(const node_id_t id)
+inline SingleNode* SingleEdgeElementFactory::doCreateNode(const node_id_t id)
 {
 	return new SingleNode(id);
 }

@@ -4,9 +4,10 @@
  * @author gerd
  */
 
-#include "DirectedGraph.h"
+#include "Graph.h"
 #include "Edge.h"
 #include "Node.h"
+#include "MultiEdgeElementFactory.h"
 #include <iostream>
 #include <boost/assert.hpp>
 
@@ -15,7 +16,8 @@ using namespace largenet;
 
 int main()
 {
-	DirectedGraph g;
+	Graph g;
+//	g.setElementFactory(std::auto_ptr<ElementFactory>(new MultiEdgeElementFactory));
 	for (unsigned int i = 0; i < 10; ++i)
 	{
 		node_id_t n = g.addNode();
@@ -23,21 +25,21 @@ int main()
 	}
 	BOOST_ASSERT(g.numberOfNodes() == 10);
 	g.addEdge(0, 2);
-	g.addEdge(3, 4);
 	g.addEdge(9, 1);
 	g.addEdge(1, 9);
 //	g.addEdge(1, 9);
 
-	DirectedGraph::NodeIteratorRange nodes(g.nodes());
-	for (DirectedGraph::NodeIterator n(nodes.first); n != nodes.second; ++n)
+	Graph::NodeIteratorRange nodes(g.nodes());
+	for (Graph::NodeIterator n(nodes.first); n != nodes.second; ++n)
 	{
-		std::cout << "k_in = " << n->second->inDegree() << ", k_out = " << n->second->outDegree() << "\n";
+		std::cout << "Node " << *n
+		<< ": k_in = " << n->inDegree() << ", k_out = " << n->outDegree() << "\n";
 	}
 
-	DirectedGraph::EdgeIteratorRange edges(g.edges());
-	for (DirectedGraph::EdgeIterator e(edges.first); e != edges.second; ++e)
+	Graph::EdgeIteratorRange edges(g.edges());
+	for (Graph::EdgeIterator e(edges.first); e != edges.second; ++e)
 	{
-		std::cout << e->second->source()->id() << " " << e->second->target()->id() << "\n";
+		std::cout << e->source()->id() << " " << e->target()->id() << "\n";
 	}
 
 	return 0;
