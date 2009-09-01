@@ -9,7 +9,7 @@
 
 #include <string>
 
-namespace lnet
+namespace largenet
 {
 
 class LNetException

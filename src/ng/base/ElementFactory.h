@@ -7,32 +7,26 @@
 #ifndef ELEMENTFACTORY_H_
 #define ELEMENTFACTORY_H_
 
-#include "traits.h"
+#include "types.h"
 
-namespace lnet
+namespace largenet
 {
 
-template<class G> class Node;
-template<class G> class Edge;
+class Node;
+class Edge;
 //class Triple;
 
-template<class G>
 class ElementFactory
 {
 public:
-	typedef typename graph_traits<G>::node_type NodeType;
-	typedef typename graph_traits<G>::edge_type EdgeType;
-	typedef typename graph_traits<G>::node_descriptor node_descriptor;
-	typedef typename graph_traits<G>::edge_descriptor edge_descriptor;
-
 	ElementFactory() {}
 	virtual ~ElementFactory() {}
-	NodeType* createNode(node_descriptor id) { return doCreateNode(id); }
-	EdgeType* createEdge(edge_descriptor id, NodeType* source, NodeType* target) { return doCreateEdge(id, source, target); }
-	//Triple* createTriple(edge_descriptor left, edge_descriptor right);	FIXME directed triples?
+	Node* createNode(node_id_t id) { return doCreateNode(id); }
+	Edge* createEdge(edge_id_t id, Node* source, Node* target) { return doCreateEdge(id, source, target); }
+	//Triple* createTriple(edge_id_t left, edge_id_t right);	FIXME directed triples?
 private:
-	virtual NodeType* doCreateNode(node_descriptor id) = 0;
-	virtual EdgeType* doCreateEdge(edge_descriptor id, NodeType* source, NodeType* target) = 0;
+	virtual Node* doCreateNode(node_id_t id) = 0;
+	virtual Edge* doCreateEdge(edge_id_t id, Node* source, Node* target) = 0;
 };
 
 }

@@ -9,12 +9,11 @@
 #include "Edge.h"
 #include "SingleEdgeElementFactory.h"
 
-namespace lnet
+namespace largenet
 {
 
 DirectedGraph::DirectedGraph() :
-	elf_(std::auto_ptr<ElementFactory<DirectedGraph> >(
-			new SingleEdgeElementFactory<DirectedGraph> ))
+	elf_(std::auto_ptr<ElementFactory>(new SingleEdgeElementFactory))
 {
 }
 
@@ -28,15 +27,14 @@ void DirectedGraph::clear()
 	nodes_.clear();
 }
 
-DirectedGraph::node_id_t DirectedGraph::addNode()
+node_id_t DirectedGraph::addNode()
 {
 	node_id_t id = nodes_.size();
 	nodes_.insert(id, elf_->createNode(id));
 	return id;
 }
 
-DirectedGraph::edge_id_t DirectedGraph::addEdge(const node_id_t source,
-		const node_id_t target)
+edge_id_t DirectedGraph::addEdge(const node_id_t source, const node_id_t target)
 {
 	edge_id_t id = edges_.size();
 	edges_.insert(id, elf_->createEdge(id, node(source), node(target)));

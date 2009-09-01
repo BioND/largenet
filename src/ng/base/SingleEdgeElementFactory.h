@@ -8,41 +8,31 @@
 #define SINGLEEDGEELEMENTFACTORY_H_
 
 #include "ElementFactory.h"
-#include "Node.h"
+#include "SingleNode.h"
 #include "Edge.h"
 
-namespace lnet
+namespace largenet
 {
 
-template<class G>
-class SingleEdgeElementFactory: public ElementFactory<G>
+class SingleEdgeElementFactory: public ElementFactory
 {
 public:
-	typedef typename ElementFactory<G>::NodeType NodeType;
-	typedef typename ElementFactory<G>::EdgeType EdgeType;
-	typedef typename ElementFactory<G>::node_descriptor node_descriptor;
-	typedef typename ElementFactory<G>::edge_descriptor edge_descriptor;
 	SingleEdgeElementFactory() {}
 	virtual ~SingleEdgeElementFactory() {}
 private:
-	NodeType* doCreateNode(node_descriptor id);
-	EdgeType* doCreateEdge(edge_descriptor id, NodeType* source,
-			NodeType* target);
+	Node* doCreateNode(node_id_t id);
+	Edge* doCreateEdge(edge_id_t id, Node* source, Node* target);
 };
 
-template<class G>
-inline typename SingleEdgeElementFactory<G>::NodeType* SingleEdgeElementFactory<
-		G>::doCreateNode(const node_descriptor id)
+inline Node* SingleEdgeElementFactory::doCreateNode(const node_id_t id)
 {
-	return new SingleNode<G> (id);
+	return new SingleNode(id);
 }
 
-template<class G>
-inline typename SingleEdgeElementFactory<G>::EdgeType* SingleEdgeElementFactory<
-		G>::doCreateEdge(const edge_descriptor id, NodeType* source,
-		NodeType* target)
+inline Edge* SingleEdgeElementFactory::doCreateEdge(const edge_id_t id, Node* source,
+		Node* target)
 {
-	return new Edge<G> (id, source, target);
+	return new Edge(id, source, target);
 }
 }
 

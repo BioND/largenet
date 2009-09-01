@@ -10,7 +10,7 @@
 #include <iostream>
 #include <boost/assert.hpp>
 
-using namespace lnet;
+using namespace largenet;
 
 
 int main()
@@ -18,7 +18,7 @@ int main()
 	DirectedGraph g;
 	for (unsigned int i = 0; i < 10; ++i)
 	{
-		DirectedGraph::node_id_t n = g.addNode();
+		node_id_t n = g.addNode();
 		BOOST_ASSERT(n == i);
 	}
 	BOOST_ASSERT(g.numberOfNodes() == 10);

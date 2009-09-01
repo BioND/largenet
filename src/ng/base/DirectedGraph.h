@@ -7,41 +7,27 @@
 #ifndef DIRECTEDGRAPH_H_
 #define DIRECTEDGRAPH_H_
 
-#include "traits.h"
+#include "types.h"
 #include <boost/noncopyable.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <utility>
 #include <memory>
 #include <iterator>
 
-namespace lnet
+namespace largenet
 {
 
-template<class G> class Node;
-template<class G> class Edge;
-template<class G> class ElementFactory;
+class Node;
+class Edge;
+class ElementFactory;
 
 class DirectedGraph: public boost::noncopyable
 {
-public:
-	typedef unsigned long int node_descriptor;
-	typedef unsigned long int edge_descriptor;
-	typedef node_descriptor node_id_t;
-	typedef edge_descriptor edge_id_t;
-	typedef directed_tag directed_category;
-	typedef node_descriptor degree_size_type;
-	typedef node_descriptor vertices_size_type;
-	typedef edge_descriptor edges_size_type;
-	typedef Node<DirectedGraph> NodeType;
-	typedef Edge<DirectedGraph> EdgeType;
 private:
-	typedef boost::ptr_map<node_id_t, NodeType> NodeContainer;
-	typedef boost::ptr_map<edge_id_t, EdgeType> EdgeContainer;
+	typedef boost::ptr_map<node_id_t, Node> NodeContainer;
+	typedef boost::ptr_map<edge_id_t, Edge> EdgeContainer;
 
 public:
-	typedef NodeContainer::size_type node_count_t;
-	typedef NodeContainer::size_type edge_count_t;
-
 	typedef NodeContainer::iterator NodeIterator;
 
 	//	class NodeIterator : public std::iterator<std::iterator_traits<NodeContainer::iterator>::iterator_category, node_id_t>
@@ -84,37 +70,37 @@ public:
 
 	DirectedGraph();
 	virtual ~DirectedGraph();
-	void setElementFactory(std::auto_ptr<ElementFactory<DirectedGraph> > elf);
+	void setElementFactory(std::auto_ptr<ElementFactory> elf);
 	void clear();
-	node_count_t numberOfNodes() const;
-	edge_count_t numberOfEdges() const;
+	node_size_t numberOfNodes() const;
+	edge_size_t numberOfEdges() const;
 	node_id_t addNode();
 	edge_id_t addEdge(node_id_t source, node_id_t target);
 	void removeNode(node_id_t n);
 	void removeEdge(edge_id_t e);
-	NodeType* node(node_id_t n);
-	EdgeType* edge(edge_id_t e);
+	Node* node(node_id_t n);
+	Edge* edge(edge_id_t e);
 
 	NodeIteratorRange nodes();
 	EdgeIteratorRange edges();
 
 private:
-	std::auto_ptr<ElementFactory<DirectedGraph> > elf_;
+	std::auto_ptr<ElementFactory> elf_;
 	NodeContainer nodes_;
 	EdgeContainer edges_;
 };
 
-inline DirectedGraph::node_count_t DirectedGraph::numberOfNodes() const
+inline node_size_t DirectedGraph::numberOfNodes() const
 {
 	return nodes_.size();
 }
 
-inline DirectedGraph::edge_count_t DirectedGraph::numberOfEdges() const
+inline edge_size_t DirectedGraph::numberOfEdges() const
 {
 	return edges_.size();
 }
 
-inline DirectedGraph::NodeType* DirectedGraph::node(const node_id_t n)
+inline Node* DirectedGraph::node(const node_id_t n)
 {
 	NodeContainer::iterator pos(nodes_.find(n));
 	if (pos != nodes_.end())
@@ -123,7 +109,7 @@ inline DirectedGraph::NodeType* DirectedGraph::node(const node_id_t n)
 		return 0;
 }
 
-inline DirectedGraph::EdgeType* DirectedGraph::edge(const edge_id_t e)
+inline Edge* DirectedGraph::edge(const edge_id_t e)
 {
 	EdgeContainer::iterator pos(edges_.find(e));
 	if (pos != edges_.end())
@@ -133,8 +119,7 @@ inline DirectedGraph::EdgeType* DirectedGraph::edge(const edge_id_t e)
 }
 
 inline
-void DirectedGraph::setElementFactory(std::auto_ptr<ElementFactory<
-		DirectedGraph> > elf)
+void DirectedGraph::setElementFactory(std::auto_ptr<ElementFactory> elf)
 {
 	if (elf_.get() != elf.get())
 	{
