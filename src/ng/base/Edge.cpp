@@ -6,6 +6,7 @@
 
 #include "Edge.h"
 #include "Node.h"
+#include <algorithm>
 
 namespace largenet
 {
@@ -50,6 +51,12 @@ void Edge::disconnect()
 		return;
 	source_->unregisterEdge(this);
 	target_->unregisterEdge(this);
+}
+
+UndirectedEdge::UndirectedEdge(const edge_id_t id, Node* source, Node* target) :
+	Edge(id, source->id() < target->id() ? source : target, source->id()
+			< target->id() ? target : source)
+{
 }
 
 }

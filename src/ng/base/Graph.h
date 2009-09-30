@@ -12,6 +12,7 @@
 #include <boost/ptr_container/ptr_map.hpp>
 #include <utility>
 #include <memory>
+#include <iterator>
 
 namespace largenet
 {
@@ -118,7 +119,7 @@ inline void Graph::setElementFactory(std::auto_ptr<ElementFactory> elf)
 {
 	if (elf_.get() != elf.get())
 	{
-		elf_.reset();
+		elf_.reset();	// destroy and delete old factory
 		elf_ = elf;
 	}
 }

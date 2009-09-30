@@ -15,16 +15,20 @@ namespace largenet
 
 class Node;
 
+/**
+ * A directed edge.
+ */
 class Edge: public boost::noncopyable
 {
 public:
 	Edge();
 	Edge(edge_id_t id, Node* source, Node* target);
-	~Edge();
+	virtual ~Edge();
 	Node* source() const { return source_; }
 	Node* target() const { return target_; }
 	Node* opposite(const Node* from) const;
-	bool isLoop() const;
+	bool isLoop() const { return source_ == target_; }
+	virtual bool operator==(const Edge& e) const { return (source_ == e.source_) && (target_ == e.target_); }
 
 private:
 	void connect();
@@ -34,9 +38,20 @@ private:
 	Node* target_;
 };
 
-inline bool Edge::isLoop() const
+typedef Edge DirectedEdge;
+
+class UndirectedEdge: public Edge
 {
-	return source_ == target_;
+public:
+	UndirectedEdge() : Edge() {}
+	UndirectedEdge(edge_id_t id, Node* source, Node* target);
+	virtual ~UndirectedEdge() {}
+	virtual bool operator==(const Edge& e) const;
+};
+
+inline bool UndirectedEdge::operator==(const Edge& e) const
+{
+	return ((source() == e.source()) && (target() == e.target())) || ((source() == e.target()) && (target() == e.source()));
 }
 
 }

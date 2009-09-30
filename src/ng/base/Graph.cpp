@@ -13,7 +13,7 @@ namespace largenet
 {
 
 Graph::Graph() :
-	elf_(std::auto_ptr<ElementFactory>(new SingleEdgeElementFactory))
+	elf_(std::auto_ptr<ElementFactory>(new SingleEdgeElementFactory<>))
 {
 }
 

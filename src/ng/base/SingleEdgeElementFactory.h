@@ -14,6 +14,7 @@
 namespace largenet
 {
 
+template<class EdgeType = UndirectedEdge>
 class SingleEdgeElementFactory: public ElementFactory
 {
 public:
@@ -21,18 +22,20 @@ public:
 	virtual ~SingleEdgeElementFactory() {}
 private:
 	SingleNode* doCreateNode(node_id_t id);
-	Edge* doCreateEdge(edge_id_t id, Node* source, Node* target);
+	EdgeType* doCreateEdge(edge_id_t id, Node* source, Node* target);
 };
 
-inline SingleNode* SingleEdgeElementFactory::doCreateNode(const node_id_t id)
+template<class EdgeType>
+inline SingleNode* SingleEdgeElementFactory<EdgeType>::doCreateNode(const node_id_t id)
 {
 	return new SingleNode(id);
 }
 
-inline Edge* SingleEdgeElementFactory::doCreateEdge(const edge_id_t id, Node* source,
+template<class EdgeType>
+inline EdgeType* SingleEdgeElementFactory<EdgeType>::doCreateEdge(const edge_id_t id, Node* source,
 		Node* target)
 {
-	return new Edge(id, source, target);
+	return new EdgeType(id, source, target);
 }
 }
 
