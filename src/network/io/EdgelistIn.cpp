@@ -6,7 +6,6 @@
 #include <cassert>
 #include <utility>
 #include <vector>
-#include <set>
 #include <cstdlib>
 
 namespace lnet
@@ -46,7 +45,7 @@ bool EdgelistIn::get(std::istream& in, BasicNetwork& net)
 	link_vector links;
 	node_info a, b;
 	node_state_size_t node_states = readStates_ ? 1 : net.numberOfNodeStates();
-	std::set<node_id_t> node_ids;
+	node_id_t max_node_id = 0;
 
 	while (std::getline(in, line))
 	{
@@ -72,13 +71,13 @@ bool EdgelistIn::get(std::istream& in, BasicNetwork& net)
 				++node_states;
 		}
 		ss.clear();
-		node_ids.insert(a.id);
-		node_ids.insert(b.id);
+		if (a.id > max_node_id) max_node_id = a.id;
+		if (b.id > max_node_id) max_node_id = b.id;
 		links.push_back(std::make_pair(a, b));
 	}
 
-	net.reset(node_ids.size(), links.size(), node_states);
-	for (link_vector::const_iterator it = links.begin(); it != links.end(); ++it)
+	net.reset(max_node_id + 1, links.size(), node_states);
+	for (link_vector::iterator it = links.begin(); it != links.end(); ++it)
 	{
 		net.setNodeState(it->first.id, it->first.state);
 		net.setNodeState(it->second.id, it->second.state);
