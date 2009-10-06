@@ -33,6 +33,8 @@ public:
 	typedef TLink::TripleIDIterator NeighborTripleIterator;
 	typedef TLink::TripleIDIteratorRange NeighborTripleIteratorRange;
 
+	typedef count_triples_tag triple_counting_category;
+
 public:
 	/**
 	 * Default constructor.

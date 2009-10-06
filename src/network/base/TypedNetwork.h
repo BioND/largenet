@@ -41,6 +41,7 @@ public:
 	typedef typename NodeType::LinkIDIteratorRange NeighborLinkIteratorRange; ///< %Link ID iterator range type for neighboring links of a given node.
 
 	typedef allow_parallel_edge_tag edge_parallel_category;
+	typedef no_count_triples_tag triple_counting_category;
 
 	/**
 	 * Neighbor iterator.
