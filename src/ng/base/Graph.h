@@ -9,12 +9,12 @@
 
 #include "types.h"
 #include "../../repo/CRepository.h"
+#include "graph_iterators.h"
 #include "GraphListener.h"
 #include <boost/noncopyable.hpp>
 #include <list>
 #include <utility>
 #include <memory>
-#include <iterator>
 
 namespace largenet
 {
@@ -31,109 +31,8 @@ private:
 	typedef std::list<GraphListener*> ListenerContainer; // use boost::ptr_list if taking ownership seems better
 
 public:
-	class NodeIterator: public std::iterator<std::iterator_traits<
-			NodeContainer::iterator>::iterator_category, node_id_t>
-	{
-	public:
-		explicit NodeIterator(const NodeContainer::iterator& i) :
-			it_(i)
-		{
-		}
-		NodeIterator()
-		{
-		}
-		NodeIterator(const NodeIterator& other) :
-			it_(other.it_)
-		{
-		}
-		node_id_t operator*()
-		{
-			return it_.id();
-		}
-		Node* operator->()
-		{
-			return *it_;
-		}
-		NodeIterator& operator=(const NodeIterator& i)
-		{
-			if (&i != this)
-				it_ = i.it_;
-			return *this;
-		}
-		bool operator==(const NodeIterator& i)
-		{
-			return it_ == i.it_;
-		}
-		bool operator!=(const NodeIterator& i)
-		{
-			return !this->operator==(i);
-		}
-		NodeIterator& operator++()
-		{
-			++it_;
-			return *this;
-		}
-		NodeIterator operator++(int)
-		{
-			NodeIterator temp(*this);
-			++(*this);
-			return temp;
-		}
-	private:
-		NodeContainer::iterator it_;
-	};
-
-	class EdgeIterator: public std::iterator<std::iterator_traits<
-			EdgeContainer::iterator>::iterator_category, edge_id_t>
-	{
-	public:
-		explicit EdgeIterator(const EdgeContainer::iterator& i) :
-			it_(i)
-		{
-		}
-		EdgeIterator()
-		{
-		}
-		EdgeIterator(const EdgeIterator& other) :
-			it_(other.it_)
-		{
-		}
-		edge_id_t operator*()
-		{
-			return it_.id();
-		}
-		Edge* operator->()
-		{
-			return *it_;
-		}
-		EdgeIterator& operator=(const EdgeIterator& i)
-		{
-			if (&i != this)
-				it_ = i.it_;
-			return *this;
-		}
-		bool operator==(const EdgeIterator& i)
-		{
-			return it_ == i.it_;
-		}
-		bool operator!=(const EdgeIterator& i)
-		{
-			return !this->operator==(i);
-		}
-		EdgeIterator& operator++()
-		{
-			++it_;
-			return *this;
-		}
-		EdgeIterator operator++(int)
-		{
-			EdgeIterator temp(*this);
-			++(*this);
-			return temp;
-		}
-	private:
-		EdgeContainer::iterator it_;
-	};
+	typedef iterators::GraphNodeIterator<NodeContainer> NodeIterator;
+	typedef iterators::GraphEdgeIterator<EdgeContainer> EdgeIterator;
 
 	typedef std::pair<NodeIterator, NodeIterator> NodeIteratorRange;
 	typedef std::pair<EdgeIterator, EdgeIterator> EdgeIteratorRange;
