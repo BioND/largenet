@@ -15,6 +15,9 @@ typedef unsigned long int edge_id_t;
 typedef edge_id_t edge_size_t;
 typedef unsigned long int degree_size_t;
 
+typedef unsigned int node_state_t;
+typedef unsigned int edge_state_t;
+
 }
 
 #endif /* TYPES_H_ */

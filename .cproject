@@ -498,7 +498,7 @@
 </extensions>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<configuration artifactExtension="so" artifactName="largenet" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.so.release.1544272050" name="Release" parent="cdt.managedbuild.config.gnu.so.release">
+<configuration artifactName="largenet" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.so.release.1544272050" name="Release" parent="cdt.managedbuild.config.gnu.so.release">
 <folderInfo id="cdt.managedbuild.config.gnu.so.release.1544272050." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.so.release.1841143300" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.so.release">
 <targetPlatform id="cdt.managedbuild.target.gnu.platform.so.release.114841826" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.so.release"/>
@@ -519,10 +519,10 @@
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.149430229" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.so.release.860818514" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.so.release">
-<option defaultValue="true" id="gnu.c.link.so.release.option.shared.463760924" name="Shared (-shared)" superClass="gnu.c.link.so.release.option.shared" valueType="boolean"/>
+<option id="gnu.c.link.so.release.option.shared.463760924" name="Shared (-shared)" superClass="gnu.c.link.so.release.option.shared"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.so.release.1848167710" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.so.release">
-<option defaultValue="true" id="gnu.cpp.link.so.release.option.shared.862175906" name="Shared (-shared)" superClass="gnu.cpp.link.so.release.option.shared" valueType="boolean"/>
+<option id="gnu.cpp.link.so.release.option.shared.862175906" name="Shared (-shared)" superClass="gnu.cpp.link.so.release.option.shared" value="false" valueType="boolean"/>
 <option id="gnu.cpp.link.option.strip.572647382" name="Omit all symbol information (-s)" superClass="gnu.cpp.link.option.strip" value="true" valueType="boolean"/>
 <option id="gnu.cpp.link.option.libs.1698141517" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1078554109" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">

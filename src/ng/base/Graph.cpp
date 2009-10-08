@@ -13,12 +13,16 @@ namespace largenet
 {
 
 Graph::Graph() :
-	elf_(std::auto_ptr<ElementFactory>(new SingleEdgeElementFactory<>))
+	elf_(std::auto_ptr<ElementFactory>(new SingleEdgeElementFactory<> ))
 {
 }
 
 Graph::~Graph()
 {
+	for (EdgeContainer::iterator i = edges_.begin(); i != edges_.end(); ++i)
+		delete *i;
+	for (NodeContainer::iterator i = nodes_.begin(); i != nodes_.end(); ++i)
+		delete *i;
 }
 
 void Graph::clear()
@@ -29,30 +33,28 @@ void Graph::clear()
 
 node_id_t Graph::addNode()
 {
-	node_id_t id = nodes_.size();
-	nodes_.insert(id, elf_->createNode(id));
+	// FIXME this is an ugly hack
+	node_id_t id = nodes_.insert(0);
+	nodes_[id] = elf_->createNode(id);
 	return id;
 }
 
 edge_id_t Graph::addEdge(const node_id_t source, const node_id_t target)
 {
-	edge_id_t id = edges_.size();
-	edges_.insert(id, elf_->createEdge(id, node(source), node(target)));
+	// FIXME this is an ugly hack
+	edge_id_t id = edges_.insert(0);
+	edges_[id] = elf_->createEdge(id, node(source), node(target));
 	return id;
 }
 
 void Graph::removeNode(const node_id_t n)
 {
-	NodeContainer::iterator it(nodes_.find(n));
-	if (it != nodes_.end())
-		nodes_.erase(it);
+	nodes_.erase(n);
 }
 
 void Graph::removeEdge(const edge_id_t e)
 {
-	EdgeContainer::iterator it(edges_.find(e));
-	if (it != edges_.end())
-		edges_.erase(it);
+	edges_.erase(e);
 }
 
 Graph::NodeIteratorRange Graph::nodes()

@@ -9,7 +9,6 @@
 #include "Node.h"
 #include "MultiEdgeElementFactory.h"
 
-#include "PropertyMap.h"
 #include <iostream>
 #include <boost/assert.hpp>
 
@@ -20,10 +19,7 @@ int main()
 	Graph g;
 	g.setElementFactory(std::auto_ptr<ElementFactory>(new MultiEdgeElementFactory<UndirectedEdge>));
 	for (unsigned int i = 0; i < 10; ++i)
-	{
-		node_id_t n = g.addNode();
-		BOOST_ASSERT(n == i);
-	}
+		g.addNode();
 	BOOST_ASSERT(g.numberOfNodes() == 10);
 	g.addEdge(0, 2);
 	g.addEdge(3, 4);
@@ -43,10 +39,6 @@ int main()
 	{
 		std::cout << e->source()->id() << " " << e->target()->id() << "\n";
 	}
-
-	PropertyMap<node_id_t, int> pm(3, g.numberOfNodes());
-	pm[0] = 1;
-	pm[1] = 2;
 
 	return 0;
 }
