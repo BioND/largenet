@@ -13,6 +13,9 @@
 namespace largenet
 {
 
+struct directed_edge_tag {};
+struct undirected_edge_tag {};
+
 class Node;
 
 /**
@@ -21,6 +24,7 @@ class Node;
 class Edge: public boost::noncopyable
 {
 public:
+	typedef directed_edge_tag directed_category;
 	Edge();
 	Edge(edge_id_t id, Node* source, Node* target);
 	virtual ~Edge();
@@ -43,6 +47,7 @@ typedef Edge DirectedEdge;
 class UndirectedEdge: public Edge
 {
 public:
+	typedef undirected_edge_tag directed_category;
 	UndirectedEdge() : Edge() {}
 	UndirectedEdge(edge_id_t id, Node* source, Node* target);
 	virtual ~UndirectedEdge() {}
@@ -52,6 +57,19 @@ public:
 inline bool UndirectedEdge::operator==(const Edge& e) const
 {
 	return ((source() == e.source()) && (target() == e.target())) || ((source() == e.target()) && (target() == e.source()));
+}
+
+namespace detail
+{
+	inline bool is_directed(directed_edge_tag) { return true; }
+	inline bool is_directed(undirected_edge_tag) { return false; }
+}
+
+template<class E>
+inline bool is_directed(const E&)
+{
+	typedef typename E::directed_category Cat;
+	return detail::is_directed(Cat());
 }
 
 }

@@ -23,6 +23,7 @@ public:
 private:
 	SingleNode* doCreateNode(node_id_t id);
 	EdgeType* doCreateEdge(edge_id_t id, Node* source, Node* target);
+	bool doDirectedEdges() const { return is_directed(EdgeType()); }
 };
 
 template<class EdgeType>

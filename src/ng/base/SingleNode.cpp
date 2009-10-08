@@ -11,9 +11,9 @@
 namespace largenet
 {
 
-bool SingleNode::hasEdgeTo(Node* n) const
+bool SingleNode::hasEdgeTo(const Node* n) const
 {
-	for (edge_set::const_iterator it = outEdges_.begin(); it != outEdges_.end(); ++it)
+	for (edge_set::iterator it = outEdges_.begin(); it != outEdges_.end(); ++it)
 	{
 		if ((*it)->target() == n)
 			return true;
@@ -21,9 +21,9 @@ bool SingleNode::hasEdgeTo(Node* n) const
 	return false;
 }
 
-bool SingleNode::hasEdgeFrom(Node* n) const
+bool SingleNode::hasEdgeFrom(const Node* n) const
 {
-	for (edge_set::const_iterator it = inEdges_.begin(); it != inEdges_.end(); ++it)
+	for (edge_set::iterator it = inEdges_.begin(); it != inEdges_.end(); ++it)
 	{
 		if ((*it)->source() == n)
 			return true;
