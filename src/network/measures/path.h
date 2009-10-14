@@ -17,6 +17,7 @@ namespace lnet
 namespace measures {
 
 typedef std::map<node_id_t, unsigned int> path_length_map;
+typedef std::vector<node_id_t> node_id_vector;
 
 /**
  * Calculate shortest path length from @p source to all reachable nodes.
@@ -36,7 +37,6 @@ void singleSourceShortestPathLengths(const _Network& g, const node_id_t source,
 	unsigned int level = 0;
 	paths.clear();
 
-	typedef std::vector<node_id_t> node_id_vector;
 	typedef typename _Network::NeighborIteratorRange NeighborIteratorRange;
 	typedef typename _Network::NeighborIterator NeighborIterator;
 

@@ -264,7 +264,7 @@ private:
 	 * gives its link ID. Note that the second part is meaningful only if the first part is true.
 	 */
 	std::pair<bool, link_id_t>
-			doIsLink(node_id_t source, node_id_t target) const;
+	doIsLink(node_id_t source, node_id_t target) const;
 
 	/**
 	 * Degree of node @p n.
@@ -359,7 +359,8 @@ inline std::string TypedNetwork<_Node, _Link>::getInfo() const
 	ss << "Network of N = " << numberOfNodes() << " nodes in "
 			<< numberOfNodeStates() << " possible states and L = "
 			<< numberOfLinks() << " links in " << numberOfLinkStates()
-			<< " possible states.";
+			<< " possible states.\nAverage degree: " << 2.0
+			* static_cast<double> (numberOfLinks()) / numberOfNodes() << ".";
 	return ss.str();
 }
 
@@ -740,7 +741,7 @@ std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::getRandomNeighborLink(
 		NeighborLinkIteratorRange iters = neighborLinks(n);
 		NeighborLinkIterator it = iters.first;
 		std::advance(it, num);
-		ret.first = it != iters.second;		// should always give true
+		ret.first = it != iters.second; // should always give true
 		ret.second = *it;
 	}
 	return ret;
@@ -757,7 +758,7 @@ std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::getRandomNeighbor(
 		NeighborIteratorRange iters = neighbors(n);
 		NeighborIterator it = iters.first;
 		std::advance(it, num);
-		ret.first = it != iters.second;	// should always give true
+		ret.first = it != iters.second; // should always give true
 		ret.second = *it;
 	}
 	return ret;
