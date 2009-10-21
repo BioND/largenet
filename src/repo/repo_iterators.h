@@ -8,7 +8,7 @@
 #define REPO_ITERATORS_H_
 
 #include "repo_types.h"
-#include "choosetype.h"
+#include "../util/choosetype.h"
 #include <boost/call_traits.hpp>
 #include <iterator>
 #include <cassert>

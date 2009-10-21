@@ -28,6 +28,7 @@ public:
 	Edge();
 	Edge(edge_id_t id, Node* source, Node* target);
 	virtual ~Edge();
+	edge_id_t id() const { return id_; }
 	Node* source() const { return source_; }
 	Node* target() const { return target_; }
 	Node* opposite(const Node* from) const;

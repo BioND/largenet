@@ -80,6 +80,9 @@ public:
 	bool hasEdge(Edge* e) const { return hasOutEdge(e) || hasInEdge(e); }
 	virtual bool hasEdgeTo(const Node* n) const = 0;
 	virtual bool hasEdgeFrom(const Node* n) const = 0;
+	virtual Edge* edgeTo(const Node* n) const = 0;
+	virtual Edge* edgeFrom(const Node* n) const = 0;
+	Edge* edgeToAdjacentNode(const Node* n) const { Edge* e = edgeTo(n); return e == 0 ? edgeFrom(n) : e; }
 	bool isAdjacentTo(const Node* n) const { return hasEdgeTo(n) || hasEdgeFrom(n); }
 	virtual edge_iterator_range outEdges() const = 0;
 	virtual edge_iterator_range inEdges() const = 0;

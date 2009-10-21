@@ -13,7 +13,8 @@ namespace largenet
 {
 
 Graph::Graph(const node_state_t nodeStates, const edge_state_t edgeStates) :
-	elf_(std::auto_ptr<ElementFactory>(new SingleEdgeElementFactory<> )), nodes_(nodeStates), edges_(edgeStates)
+	elf_(std::auto_ptr<ElementFactory>(new SingleEdgeElementFactory<> )),
+			nodes_(nodeStates), edges_(edgeStates)
 {
 }
 
@@ -53,11 +54,25 @@ node_id_t Graph::addNode(const node_state_t s)
 
 edge_id_t Graph::addEdge(const node_id_t source, const node_id_t target)
 {
-	// FIXME this is an ugly hack
 	edge_id_t id = edges_.insert(0);
-	edges_[id] = elf_->createEdge(id, node(source), node(target));
-	afterEdgeAdd(id);
-	return id;
+	Edge* e = 0;
+	try
+	{
+		// FIXME this is an ugly hack
+		e = elf_->createEdge(id, node(source), node(target));
+		edges_[id] = e;
+		afterEdgeAdd(id);
+		return id;
+	} catch (SingletonException& ex)
+	{
+		// edge exists and we do not allow multiple edges
+		edges_.erase(id);
+		delete e;
+		if (isDirected())
+			return node(source)->edgeTo(node(target))->id();
+		else
+			return node(source)->edgeToAdjacentNode(node(target))->id();
+	}
 }
 
 void Graph::removeNode(const node_id_t n)
@@ -88,7 +103,7 @@ bool Graph::isEdge(const node_id_t source, const node_id_t target) const
 {
 	assert(nodes_.valid(source));
 	assert(nodes_.valid(target));
-	if (isDirected())	// FIXME
+	if (isDirected()) // FIXME
 		return node(source)->hasEdgeTo(node(target));
 	else
 		return node(source)->isAdjacentTo(node(target));
@@ -129,15 +144,19 @@ void Graph::beforeGraphClear()
 		(*i)->beforeGraphClear(this);
 }
 
-void Graph::afterNodeStateChange(const node_id_t n, const node_state_t oldState, const node_state_t newState)
+void Graph::afterNodeStateChange(const node_id_t n,
+		const node_state_t oldState, const node_state_t newState)
 {
-	for (ListenerContainer::iterator i = listeners_.begin(); i != listeners_.end(); ++i)
+	for (ListenerContainer::iterator i = listeners_.begin(); i
+			!= listeners_.end(); ++i)
 		(*i)->afterNodeStateChange(this, node(n), oldState, newState);
 }
 
-void Graph::afterEdgeStateChange(const edge_id_t e, const edge_state_t oldState, const edge_state_t newState)
+void Graph::afterEdgeStateChange(const edge_id_t e,
+		const edge_state_t oldState, const edge_state_t newState)
 {
-	for (ListenerContainer::iterator i = listeners_.begin(); i != listeners_.end(); ++i)
+	for (ListenerContainer::iterator i = listeners_.begin(); i
+			!= listeners_.end(); ++i)
 		(*i)->afterEdgeStateChange(this, edge(e), oldState, newState);
 }
 

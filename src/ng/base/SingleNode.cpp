@@ -21,6 +21,17 @@ bool SingleNode::hasEdgeTo(const Node* n) const
 	return false;
 }
 
+Edge* SingleNode::edgeTo(const Node* n) const
+{
+	for (edge_set::iterator it = outEdges_.begin(); it != outEdges_.end(); ++it)
+	{
+		if ((*it)->target() == n)
+			return *it;
+	}
+	return 0;
+
+}
+
 bool SingleNode::hasEdgeFrom(const Node* n) const
 {
 	for (edge_set::iterator it = inEdges_.begin(); it != inEdges_.end(); ++it)
@@ -29,6 +40,16 @@ bool SingleNode::hasEdgeFrom(const Node* n) const
 			return true;
 	}
 	return false;
+}
+
+Edge* SingleNode::edgeFrom(const Node* n) const
+{
+	for (edge_set::iterator it = inEdges_.begin(); it != inEdges_.end(); ++it)
+	{
+		if ((*it)->source() == n)
+			return *it;
+	}
+	return 0;
 }
 
 void SingleNode::registerEdge(Edge* e)

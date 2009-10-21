@@ -8,6 +8,7 @@
 #define GRAPH_ITERATORS_H_
 
 #include "types.h"
+#include "../../util/choosetype.h"
 #include <iterator>
 
 namespace largenet
@@ -19,12 +20,24 @@ class Edge;
 namespace iterators
 {
 
-template<class NodeContainer>
-class GraphNodeIterator: public std::iterator<typename std::iterator_traits<
-		typename NodeContainer::iterator>::iterator_category, node_id_t>
+template<class Iterator, bool is_const = false>
+class GraphNodeIterator
 {
 public:
-	explicit GraphNodeIterator(const typename NodeContainer::iterator& i) :
+	typedef typename std::iterator_traits<Iterator>::value_type value_type;
+	typedef typename choose_type<is_const, const typename std::iterator_traits<
+			Iterator>::reference,
+			typename std::iterator_traits<Iterator>::reference>::type reference;
+	typedef const typename std::iterator_traits<Iterator>::reference
+			const_reference;
+	typedef typename choose_type<is_const, const typename std::iterator_traits<
+			Iterator>::pointer,
+			typename std::iterator_traits<Iterator>::pointer>::type pointer;
+	typedef node_id_t difference_type;
+	typedef typename std::iterator_traits<Iterator>::iterator_category iterator_category;
+	typedef typename choose_type<is_const, const Node*, Node*>::type node_pointer;
+
+	explicit GraphNodeIterator(const Iterator& i) :
 		it_(i)
 	{
 	}
@@ -35,11 +48,11 @@ public:
 		it_(other.it_)
 	{
 	}
-	node_id_t operator*()
+	typename choose_type<is_const, const node_id_t, node_id_t>::type operator*()
 	{
 		return it_.id();
 	}
-	Node* operator->()
+	node_pointer operator->()
 	{
 		return *it_;
 	}
@@ -49,13 +62,14 @@ public:
 			it_ = i.it_;
 		return *this;
 	}
-	bool operator==(const GraphNodeIterator& i)
+
+	friend bool operator==(const GraphNodeIterator& a, const GraphNodeIterator& b)
 	{
-		return it_ == i.it_;
+		return a.it_ == b.it_;
 	}
-	bool operator!=(const GraphNodeIterator& i)
+	friend bool operator!=(const GraphNodeIterator& a, const GraphNodeIterator& b)
 	{
-		return !this->operator==(i);
+		return a.it_ != b.it_;
 	}
 	GraphNodeIterator& operator++()
 	{
@@ -69,15 +83,28 @@ public:
 		return temp;
 	}
 private:
-	typename NodeContainer::iterator it_;
+	Iterator it_;
 };
 
-template<class EdgeContainer>
-class GraphEdgeIterator: public std::iterator<typename std::iterator_traits<
-		typename EdgeContainer::iterator>::iterator_category, edge_id_t>
+template<class Iterator, bool is_const = false>
+class GraphEdgeIterator
 {
 public:
-	explicit GraphEdgeIterator(const typename EdgeContainer::iterator& i) :
+	typedef typename std::iterator_traits<Iterator>::value_type value_type;
+	typedef typename choose_type<is_const, const typename std::iterator_traits<
+			Iterator>::reference,
+			typename std::iterator_traits<Iterator>::reference>::type reference;
+	typedef const typename std::iterator_traits<Iterator>::reference
+			const_reference;
+	typedef typename choose_type<is_const, const typename std::iterator_traits<
+			Iterator>::pointer,
+			typename std::iterator_traits<Iterator>::pointer>::type pointer;
+	typedef typename std::iterator_traits<Iterator>::difference_type difference_type;
+	typedef typename std::iterator_traits<Iterator>::iterator_category iterator_category;
+
+	typedef typename choose_type<is_const, const Edge*, Edge*>::type edge_pointer;
+
+	explicit GraphEdgeIterator(const Iterator& i) :
 		it_(i)
 	{
 	}
@@ -88,11 +115,11 @@ public:
 		it_(other.it_)
 	{
 	}
-	edge_id_t operator*()
+	typename choose_type<is_const, const edge_id_t, edge_id_t>::type operator*()
 	{
 		return it_.id();
 	}
-	Edge* operator->()
+	edge_pointer operator->()
 	{
 		return *it_;
 	}
@@ -102,13 +129,13 @@ public:
 			it_ = i.it_;
 		return *this;
 	}
-	bool operator==(const GraphEdgeIterator& i)
+	friend bool operator==(const GraphEdgeIterator& a, const GraphEdgeIterator& b)
 	{
-		return it_ == i.it_;
+		return a.it_ == b.it_;
 	}
-	bool operator!=(const GraphEdgeIterator& i)
+	friend bool operator!=(const GraphEdgeIterator& a, const GraphEdgeIterator& b)
 	{
-		return !this->operator==(i);
+		return a.it_ != b.it_;
 	}
 	GraphEdgeIterator& operator++()
 	{
@@ -122,7 +149,7 @@ public:
 		return temp;
 	}
 private:
-	typename EdgeContainer::iterator it_;
+	Iterator it_;
 };
 }
 }

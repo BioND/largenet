@@ -31,8 +31,10 @@ private:
 	typedef std::list<GraphListener*> ListenerContainer; // use boost::ptr_list if taking ownership seems better
 
 public:
-	typedef iterators::GraphNodeIterator<NodeContainer> NodeIterator;
-	typedef iterators::GraphEdgeIterator<EdgeContainer> EdgeIterator;
+	typedef iterators::GraphNodeIterator<NodeContainer::iterator> NodeIterator;
+	typedef iterators::GraphEdgeIterator<EdgeContainer::iterator> EdgeIterator;
+	typedef iterators::GraphNodeIterator<NodeContainer::const_iterator, true> ConstNodeIterator;
+	typedef iterators::GraphEdgeIterator<EdgeContainer::const_iterator, true> ConstEdgeIterator;
 
 	typedef std::pair<NodeIterator, NodeIterator> NodeIteratorRange;
 	typedef std::pair<EdgeIterator, EdgeIterator> EdgeIteratorRange;

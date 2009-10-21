@@ -13,9 +13,35 @@
 #include "GraphListener.h"
 
 #include <iostream>
+#include <fstream>
 #include <boost/assert.hpp>
 
+#include "../../myrng1.2/myrngWELL.h"
+
 using namespace largenet;
+
+void erdosRenyi(Graph& g, node_size_t nodes, double p)
+{
+	g.clear();
+	for (node_size_t i = 0; i < nodes; ++i)
+		g.addNode();
+	Graph::NodeIteratorRange iters = g.nodes();
+	for (Graph::NodeIterator i = iters.first; i != iters.second; ++i)
+	{
+		for (Graph::NodeIterator j = iters.first; j != iters.second; ++j)
+		{
+			if (rng.Chance(p))
+				g.addEdge(*i, *j);
+		}
+	}
+}
+
+void writeEdgeList(Graph& g, std::ostream& o)
+{
+	Graph::EdgeIteratorRange edges = g.edges();
+	for (Graph::EdgeIterator i = edges.first; i != edges.second; ++i)
+		o << i->source()->id() << " " << i->target()->id() << "\n";
+}
 
 class TestListener: public GraphListener
 {
@@ -23,6 +49,10 @@ class TestListener: public GraphListener
 	{
 		std::cout << "Added node " << n->id() << " in state " << g->nodeState(
 				n->id()) << "\n";
+	}
+	void afterEdgeAddEvent(Graph* g, Edge* e)
+	{
+		std::cout << "Added edge (" << e->source()->id() << "," << e->target()->id() << ")\n";
 	}
 };
 
@@ -63,6 +93,15 @@ int main()
 	if (!g.isEdge(4, 3))
 		std::cout << "not ";
 	std::cout << "an edge.\n";
+
+	Graph g2(1, 1);
+	g2.setElementFactory(std::auto_ptr<ElementFactory> (new MultiEdgeElementFactory<DirectedEdge>));
+	erdosRenyi(g2, 5000, 0.001);
+	std::ofstream f("test.edgelist");
+	if (!f)
+		return 1;
+	writeEdgeList(g, f);
+	f.close();
 
 	return 0;
 }

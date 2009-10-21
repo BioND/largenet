@@ -24,6 +24,8 @@ public:
 	virtual bool hasOutEdge(Edge* e) const { return outEdges_.find(e) != outEdges_.end(); }
 	virtual bool hasEdgeTo(const Node* n) const;
 	virtual bool hasEdgeFrom(const Node* n) const;
+	virtual Edge* edgeTo(const Node* n) const;
+	virtual Edge* edgeFrom(const Node* n) const;
 	virtual edge_iterator_range outEdges() const { return std::make_pair(outEdges_.begin(), outEdges_.end()); }
 	virtual edge_iterator_range inEdges() const { return std::make_pair(inEdges_.begin(), inEdges_.end()); }
 	virtual OutNeighborIteratorRange outNeighbors() const { return std::make_pair(OutNeighborIterator(this, outEdges_.begin()), OutNeighborIterator(this, outEdges_.end())); }
