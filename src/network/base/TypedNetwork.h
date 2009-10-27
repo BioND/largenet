@@ -502,12 +502,21 @@ template<class _Node, class _Link>
 TypedNetwork<_Node, _Link>::TypedNetwork(const id_size_t nNodes,
 		const id_size_t nLinks, const node_state_size_t nNodeStates,
 		LinkStateCalculator* lsCalc) :
-	BasicNetwork(lsCalc == 0 ? new DefaultLinkStateCalculator(nNodeStates)
-			: lsCalc), nodeStore_(new NodeRepo(nNodeStates, nNodes)),
+	BasicNetwork(lsCalc), nodeStore_(new NodeRepo(nNodeStates, nNodes)),
 			linkStore_(0)
 {
-	linkStore_ = new LinkRepo(linkStateCalculator().numberOfLinkStates(),
-			nLinks);
+	// FIXME this is awkward, but fixes memory leak
+	if (lsCalc == 0)
+	{
+		DefaultLinkStateCalculator dlsc(nNodeStates);
+		linkStore_ = new LinkRepo(dlsc.numberOfLinkStates(), nLinks);
+		setLinkStateCalculator(0);
+	}
+	else
+	{
+		linkStore_ = new LinkRepo(linkStateCalculator().numberOfLinkStates(),
+				nLinks);
+	}
 	init(nNodes);
 }
 
