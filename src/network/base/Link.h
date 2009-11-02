@@ -8,6 +8,7 @@
 #define LINK_H_
 
 #include "types.h"
+#include <stdexcept>
 
 namespace lnet
 {
@@ -48,6 +49,13 @@ public:
 	 * @return Target node ID.
 	 */
 	node_id_t target() const;
+
+	/**
+	 * Get ID of node opposite to given link end ID.
+	 * @param ID of one link end
+	 * @return ID of other link end
+	 */
+	node_id_t opposite(node_id_t n) const;
 
 	/**
 	 * Set source node ID of the link.
@@ -110,6 +118,15 @@ inline node_id_t Link::source() const
 inline node_id_t Link::target() const
 {
 	return target_;
+}
+
+inline node_id_t Link::opposite(const node_id_t n) const
+{
+	if (n == source_)
+		return target_;
+	else if (n == target_)
+		return source_;
+	else throw std::invalid_argument("Cannot retrieve link opposite, link does not connect to given node.");
 }
 
 inline bool Link::connectsTo(const node_id_t n) const

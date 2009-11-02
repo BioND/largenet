@@ -30,7 +30,7 @@ class TypedNetwork: public BasicNetwork
 {
 protected:
 	// member types
-typedef	typename repo::CategorizedRepository<_Node> NodeRepo; ///< CategorizedRepository of Node pointers
+	typedef typename repo::CategorizedRepository<_Node> NodeRepo; ///< CategorizedRepository of Node pointers
 	typedef typename repo::CategorizedRepository<_Link> LinkRepo; ///< CategorizedRepository of Link pointers
 
 public:
@@ -49,7 +49,7 @@ public:
 	 * This can be used to iterate over all the neighboring nodes' IDs of given node ID.
 	 */
 	class NeighborIterator: public std::iterator<std::input_iterator_tag,
-	node_id_t>
+			node_id_t>
 	{
 	public:
 		/**
@@ -137,7 +137,8 @@ public:
 	 * @param nLinkStates Number of possible link states.
 	 * @param lsCalc LinkStateCalculator object.
 	 */
-	TypedNetwork(id_size_t nNodes, id_size_t nLinks, node_state_size_t nNodeStates, LinkStateCalculator* lsCalc = 0);
+	TypedNetwork(id_size_t nNodes, id_size_t nLinks,
+			node_state_size_t nNodeStates, LinkStateCalculator* lsCalc = 0);
 
 	/**
 	 * Copy constructor.
@@ -253,7 +254,8 @@ private:
 	 */
 	link_state_size_t getNumberOfLinkStates() const;
 
-	void doReset(id_size_t nNodes, id_size_t nLinks, node_state_size_t nNodeStates);
+	void doReset(id_size_t nNodes, id_size_t nLinks,
+			node_state_size_t nNodeStates);
 
 	/**
 	 * Check if there exists a direct link between two nodes.
@@ -262,7 +264,8 @@ private:
 	 * @return A pair where the first part is true if the link exists, and the second part
 	 * gives its link ID. Note that the second part is meaningful only if the first part is true.
 	 */
-	std::pair<bool, link_id_t> doIsLink(node_id_t source, node_id_t target) const;
+	std::pair<bool, link_id_t>
+	doIsLink(node_id_t source, node_id_t target) const;
 
 	/**
 	 * Degree of node @p n.
@@ -350,169 +353,190 @@ private:
 	LinkRepo* linkStore_; ///< repository of links
 };
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 inline std::string TypedNetwork<_Node, _Link>::getInfo() const
 {
 	std::stringstream ss;
-	ss << "Network of N = " << numberOfNodes() << " nodes in " << numberOfNodeStates()
-	<< " possible states and L = " << numberOfLinks() << " links in "
-	<< numberOfLinkStates() << " possible states.";
+	ss << "Network of N = " << numberOfNodes() << " nodes in "
+			<< numberOfNodeStates() << " possible states and L = "
+			<< numberOfLinks() << " links in " << numberOfLinkStates()
+			<< " possible states.\nAverage degree: " << 2.0
+			* static_cast<double> (numberOfLinks()) / numberOfNodes() << ".";
 	return ss.str();
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 inline typename TypedNetwork<_Node, _Link>::NodeRepo& TypedNetwork<_Node, _Link>::nodeStore() const
 {
 	return *nodeStore_;
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 inline typename TypedNetwork<_Node, _Link>::LinkRepo& TypedNetwork<_Node, _Link>::linkStore() const
 {
 	return *linkStore_;
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 inline id_size_t TypedNetwork<_Node, _Link>::getNumberOfNodes() const
 {
 	return nodeStore_->size();
 }
 
-template <class _Node, class _Link>
-inline id_size_t TypedNetwork<_Node, _Link>::getNumberOfNodes(const node_state_t s) const
+template<class _Node, class _Link>
+inline id_size_t TypedNetwork<_Node, _Link>::getNumberOfNodes(
+		const node_state_t s) const
 {
 	return nodeStore_->count(s);
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 inline id_size_t TypedNetwork<_Node, _Link>::getNumberOfLinks() const
 {
 	return linkStore_->size();
 }
 
-template <class _Node, class _Link>
-inline id_size_t TypedNetwork<_Node, _Link>::getNumberOfLinks(const link_state_t s) const
+template<class _Node, class _Link>
+inline id_size_t TypedNetwork<_Node, _Link>::getNumberOfLinks(
+		const link_state_t s) const
 {
 	return linkStore_->count(s);
 }
 
-template <class _Node, class _Link>
-inline typename TypedNetwork<_Node, _Link>::NodeType& TypedNetwork<_Node, _Link>::node(const node_id_t n) const
+template<class _Node, class _Link>
+inline typename TypedNetwork<_Node, _Link>::NodeType& TypedNetwork<_Node, _Link>::node(
+		const node_id_t n) const
 {
 	return (*nodeStore_)[n];
 }
 
-template <class _Node, class _Link>
-inline typename TypedNetwork<_Node, _Link>::LinkType& TypedNetwork<_Node, _Link>::link(const link_id_t l) const
+template<class _Node, class _Link>
+inline typename TypedNetwork<_Node, _Link>::LinkType& TypedNetwork<_Node, _Link>::link(
+		const link_id_t l) const
 {
 	return (*linkStore_)[l];
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 inline node_id_t TypedNetwork<_Node, _Link>::getSource(const link_id_t l) const
 {
 	return link(l).source();
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 inline node_id_t TypedNetwork<_Node, _Link>::getTarget(const link_id_t l) const
 {
 	return link(l).target();
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 inline BasicNetwork::NodeIteratorRange TypedNetwork<_Node, _Link>::getNodes() const
 {
 	return nodeStore_->ids();
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 inline BasicNetwork::NodeStateIteratorRange TypedNetwork<_Node, _Link>::getNodes(
 		const node_state_t s) const
 {
 	return nodeStore_->ids(s);
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 inline BasicNetwork::LinkIteratorRange TypedNetwork<_Node, _Link>::getLinks() const
 {
 	return linkStore_->ids();
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 inline BasicNetwork::LinkStateIteratorRange TypedNetwork<_Node, _Link>::getLinks(
 		const link_state_t s) const
 {
 	return linkStore_->ids(s);
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 inline id_size_t TypedNetwork<_Node, _Link>::getDegree(const node_id_t n) const
 {
 	return node(n).degree();
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 inline node_state_t TypedNetwork<_Node, _Link>::getNodeState(const node_id_t n) const
 {
 	return nodeStore_->category(n);
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 inline link_state_t TypedNetwork<_Node, _Link>::getLinkState(const link_id_t l) const
 {
 	return linkStore_->category(l);
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 inline node_state_size_t TypedNetwork<_Node, _Link>::getNumberOfNodeStates() const
 {
 	return nodeStore_->numberOfCategories();
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 inline link_state_size_t TypedNetwork<_Node, _Link>::getNumberOfLinkStates() const
 {
 	return linkStore_->numberOfCategories();
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 TypedNetwork<_Node, _Link>::TypedNetwork() :
-BasicNetwork(), nodeStore_(new NodeRepo(1, 0)), linkStore_(new LinkRepo(1, 0))
+	BasicNetwork(), nodeStore_(new NodeRepo(1, 0)), linkStore_(new LinkRepo(1,
+			0))
 {
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 TypedNetwork<_Node, _Link>::TypedNetwork(const TypedNetwork<_Node, _Link>& net) :
-BasicNetwork(net), nodeStore_(new NodeRepo(*net.nodeStore_)), linkStore_(new LinkRepo(*net.linkStore_))
+	BasicNetwork(net), nodeStore_(new NodeRepo(*net.nodeStore_)), linkStore_(
+			new LinkRepo(*net.linkStore_))
 {
 }
 
-template <class _Node, class _Link>
-TypedNetwork<_Node, _Link>::TypedNetwork(const id_size_t nNodes, const id_size_t nLinks,
-		const node_state_size_t nNodeStates, LinkStateCalculator* lsCalc) :
-BasicNetwork(lsCalc == 0 ? new DefaultLinkStateCalculator(nNodeStates) : lsCalc), nodeStore_(new NodeRepo(nNodeStates, nNodes)),
-linkStore_(0)
+template<class _Node, class _Link>
+TypedNetwork<_Node, _Link>::TypedNetwork(const id_size_t nNodes,
+		const id_size_t nLinks, const node_state_size_t nNodeStates,
+		LinkStateCalculator* lsCalc) :
+	BasicNetwork(lsCalc), nodeStore_(new NodeRepo(nNodeStates, nNodes)),
+			linkStore_(0)
 {
-	linkStore_ = new LinkRepo(linkStateCalculator().numberOfLinkStates(), nLinks);
+	// FIXME this is awkward, but fixes memory leak
+	if (lsCalc == 0)
+	{
+		DefaultLinkStateCalculator dlsc(nNodeStates);
+		linkStore_ = new LinkRepo(dlsc.numberOfLinkStates(), nLinks);
+		setLinkStateCalculator(0);
+	}
+	else
+	{
+		linkStore_ = new LinkRepo(linkStateCalculator().numberOfLinkStates(),
+				nLinks);
+	}
 	init(nNodes);
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 TypedNetwork<_Node, _Link>::~TypedNetwork()
 {
 	delete nodeStore_;
 	delete linkStore_;
 }
 
-template <class _Node, class _Link>
-void TypedNetwork<_Node, _Link>::doReset(const id_size_t nNodes, const id_size_t nLinks,
-		const node_state_size_t nNodeStates)
+template<class _Node, class _Link>
+void TypedNetwork<_Node, _Link>::doReset(const id_size_t nNodes,
+		const id_size_t nLinks, const node_state_size_t nNodeStates)
 {
 	delete nodeStore_;
 	delete linkStore_;
 	nodeStore_ = new NodeRepo(nNodeStates, nNodes);
-	linkStore_ = new LinkRepo(linkStateCalculator().numberOfLinkStates(), nLinks);
+	linkStore_ = new LinkRepo(linkStateCalculator().numberOfLinkStates(),
+			nLinks);
 	init(nNodes);
 }
 
@@ -525,7 +549,7 @@ void TypedNetwork<_Node, _Link>::init(id_size_t nodes)
 	}
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 void TypedNetwork<_Node, _Link>::doRemoveLink(const link_id_t l)
 {
 	LinkType& theLink = link(l);
@@ -534,7 +558,7 @@ void TypedNetwork<_Node, _Link>::doRemoveLink(const link_id_t l)
 	linkStore_->remove(l);
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 void TypedNetwork<_Node, _Link>::doRemoveAllLinks()
 {
 	NodeIteratorRange iters = nodes();
@@ -545,11 +569,12 @@ void TypedNetwork<_Node, _Link>::doRemoveAllLinks()
 	linkStore_->removeAll();
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 void TypedNetwork<_Node, _Link>::doRemoveNode(const node_id_t n)
 {
 	typename NodeType::LinkIDIteratorRange iters = node(n).links();
-	for (typename NodeType::LinkIDIterator& li = iters.first; li != iters.second; ++li)
+	for (typename NodeType::LinkIDIterator& li = iters.first; li
+			!= iters.second; ++li)
 	{
 		// remove neighbors' references to connecting links
 		LinkType& l = link(*li);
@@ -561,61 +586,63 @@ void TypedNetwork<_Node, _Link>::doRemoveNode(const node_id_t n)
 	nodeStore_->remove(n);
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 void TypedNetwork<_Node, _Link>::doClear()
 {
 	removeAllLinks();
 	nodeStore_->removeAll();
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 node_id_t TypedNetwork<_Node, _Link>::doAddNode()
 {
 	return doAddNode(0);
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 node_id_t TypedNetwork<_Node, _Link>::doAddNode(const node_state_t s)
 {
 	return nodeStore_->insert(NodeType(), s);
 }
 
-template <class _Node, class _Link>
-void TypedNetwork<_Node, _Link>::doSetNodeState(const node_id_t n, const node_state_t s)
+template<class _Node, class _Link>
+void TypedNetwork<_Node, _Link>::doSetNodeState(const node_id_t n,
+		const node_state_t s)
 {
 	nodeStore_->setCategory(n, s);
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 void TypedNetwork<_Node, _Link>::onNodeStateChange(const node_id_t n)
 {
 	recalcLinkStates(n);
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 void TypedNetwork<_Node, _Link>::recalcLinkStates(const node_id_t n)
 {
 	NeighborLinkIteratorRange iters = neighborLinks(n);
 	for (NeighborLinkIterator& it = iters.first; it != iters.second; ++it)
 	{
-		linkStore_->setCategory(*it, linkStateCalculator()(getNodeState(source(*it)),
-						getNodeState(target(*it))));
+		linkStore_->setCategory(*it, linkStateCalculator()(getNodeState(source(
+				*it)), getNodeState(target(*it))));
 	}
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 void TypedNetwork<_Node, _Link>::recalcLinkStates()
 {
 	LinkIteratorRange iters = links();
 	for (LinkIterator& it = iters.first; it != iters.second; ++it)
 	{
-		linkStore_->setCategory(*it, linkStateCalculator()(getNodeState(source(*it)), getNodeState(target(*it))));
+		linkStore_->setCategory(*it, linkStateCalculator()(getNodeState(source(
+				*it)), getNodeState(target(*it))));
 	}
 }
 
-template <class _Node, class _Link>
-std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::doIsLink(const node_id_t source,
-		const node_id_t target) const
+template<class _Node, class _Link>
+std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::doIsLink(
+		const node_id_t source, const node_id_t target) const
 {
 	node_id_t a, b;
 	if (node(source).degree() < node(target).degree())
@@ -632,7 +659,8 @@ std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::doIsLink(const node_id_t 
 	typename NodeType::LinkIDIteratorRange iters = node(a).links();
 	if (a == b)
 	{
-		for (typename NodeType::LinkIDIterator& it = iters.first; it != iters.second; ++it)
+		for (typename NodeType::LinkIDIterator& it = iters.first; it
+				!= iters.second; ++it)
 		{
 			if (link(*it).isLoop())
 			{
@@ -642,7 +670,8 @@ std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::doIsLink(const node_id_t 
 	}
 	else
 	{
-		for (typename NodeType::LinkIDIterator& it = iters.first; it != iters.second; ++it)
+		for (typename NodeType::LinkIDIterator& it = iters.first; it
+				!= iters.second; ++it)
 		{
 			if (link(*it).connectsTo(b))
 			{
@@ -653,7 +682,7 @@ std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::doIsLink(const node_id_t 
 	return std::make_pair(false, 0);
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::getRandomNode() const
 {
 	std::pair<bool, node_id_t> ret = std::make_pair(false, 0);
@@ -662,13 +691,14 @@ std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::getRandomNode() const
 		ret.first = true;
 		ret.second = nodeStore_->id(
 				static_cast<repo::address_t> (rng.IntFromTo(0,
-								nodeStore_->size() - 1)));
+						nodeStore_->size() - 1)));
 	}
 	return ret;
 }
 
-template <class _Node, class _Link>
-std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::getRandomNode(const node_state_t s) const
+template<class _Node, class _Link>
+std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::getRandomNode(
+		const node_state_t s) const
 {
 	std::pair<bool, node_id_t> ret = std::make_pair(false, 0);
 	if (nodeStore_->count(s) > 0)
@@ -676,12 +706,12 @@ std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::getRandomNode(const node_
 		ret.first = true;
 		ret.second = nodeStore_->id(s,
 				static_cast<repo::address_t> (rng.IntFromTo(0,
-								nodeStore_->count(s) - 1)));
+						nodeStore_->count(s) - 1)));
 	}
 	return ret;
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::getRandomLink() const
 {
 	std::pair<bool, link_id_t> ret = std::make_pair(false, 0);
@@ -690,13 +720,14 @@ std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::getRandomLink() const
 		ret.first = true;
 		ret.second = linkStore_->id(
 				static_cast<repo::address_t> (rng.IntFromTo(0,
-								linkStore_->size() - 1)));
+						linkStore_->size() - 1)));
 	}
 	return ret;
 }
 
-template <class _Node, class _Link>
-std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::getRandomLink(const link_state_t s) const
+template<class _Node, class _Link>
+std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::getRandomLink(
+		const link_state_t s) const
 {
 	std::pair<bool, link_id_t> ret = std::make_pair(false, 0);
 	if (linkStore_->count(s) > 0)
@@ -704,73 +735,63 @@ std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::getRandomLink(const link_
 		ret.first = true;
 		ret.second = linkStore_->id(s,
 				static_cast<repo::address_t> (rng.IntFromTo(0,
-								linkStore_->count(s) - 1)));
+						linkStore_->count(s) - 1)));
 	}
 	return ret;
 }
 
-template <class _Node, class _Link>
-std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::getRandomNeighborLink(const node_id_t n) const
+template<class _Node, class _Link>
+std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::getRandomNeighborLink(
+		const node_id_t n) const
 {
 	std::pair<bool, link_id_t> ret = std::make_pair(false, 0);
 	if (degree(n) != 0)
 	{
-		ret.first = true;
-		const int num = rng.IntFromTo(0, degree(n));
-		int i = 0;
+		const int num = rng.IntFromTo(0, degree(n) - 1);
 		NeighborLinkIteratorRange iters = neighborLinks(n);
-		for (NeighborLinkIterator& it = iters.first; it != iters.second; ++it)
-		{
-			if (i == num)
-			{
-				ret.second = *it;
-				break;
-			}
-			++i;
-		}
+		NeighborLinkIterator it = iters.first;
+		std::advance(it, num);
+		ret.first = it != iters.second; // should always give true
+		ret.second = *it;
 	}
 	return ret;
 }
 
-template <class _Node, class _Link>
-std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::getRandomNeighbor(const node_id_t n) const
+template<class _Node, class _Link>
+std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::getRandomNeighbor(
+		const node_id_t n) const
 {
 	std::pair<bool, node_id_t> ret = std::make_pair(false, 0);
 	if (degree(n) != 0)
 	{
-		ret.first = true;
-		const int num = rng.IntFromTo(0, degree(n));
-		int i = 0;
+		const int num = rng.IntFromTo(0, degree(n) - 1);
 		NeighborIteratorRange iters = neighbors(n);
-		for (NeighborIterator& it = iters.first; it != iters.second; ++it)
-		{
-			if (i == num)
-			{
-				ret.second = *it;
-				break;
-			}
-			++i;
-		}
+		NeighborIterator it = iters.first;
+		std::advance(it, num);
+		ret.first = it != iters.second; // should always give true
+		ret.second = *it;
 	}
 	return ret;
 }
 
-template <class _Node, class _Link>
-typename TypedNetwork<_Node, _Link>::NeighborIteratorRange TypedNetwork<_Node, _Link>::neighbors(const node_id_t n) const
+template<class _Node, class _Link>
+typename TypedNetwork<_Node, _Link>::NeighborIteratorRange TypedNetwork<_Node,
+		_Link>::neighbors(const node_id_t n) const
 {
 	return std::make_pair(NeighborIterator(*this, n, node(n).links().first),
 			NeighborIterator(*this, n, node(n).links().second));
 }
 
-template <class _Node, class _Link>
-typename TypedNetwork<_Node, _Link>::NeighborLinkIteratorRange TypedNetwork<_Node, _Link>::neighborLinks(
-		const node_id_t n) const
+template<class _Node, class _Link>
+typename TypedNetwork<_Node, _Link>::NeighborLinkIteratorRange TypedNetwork<
+		_Node, _Link>::neighborLinks(const node_id_t n) const
 {
 	return node(n).links();
 }
 
-template <class _Node, class _Link>
-link_id_t TypedNetwork<_Node, _Link>::doAddLink(const node_id_t source, const node_id_t target)
+template<class _Node, class _Link>
+link_id_t TypedNetwork<_Node, _Link>::doAddLink(const node_id_t source,
+		const node_id_t target)
 {
 	const link_state_t s = linkStateCalculator()(getNodeState(source),
 			getNodeState(target));
@@ -780,9 +801,9 @@ link_id_t TypedNetwork<_Node, _Link>::doAddLink(const node_id_t source, const no
 	return l;
 }
 
-template <class _Node, class _Link>
-bool TypedNetwork<_Node, _Link>::doChangeLink(const link_id_t l, const node_id_t source,
-		const node_id_t target)
+template<class _Node, class _Link>
+bool TypedNetwork<_Node, _Link>::doChangeLink(const link_id_t l,
+		const node_id_t source, const node_id_t target)
 {
 	LinkType& theLink = link(l);
 	if (source != theLink.source())
@@ -797,39 +818,42 @@ bool TypedNetwork<_Node, _Link>::doChangeLink(const link_id_t l, const node_id_t
 		theLink.setTarget(target);
 		node(target).addLink(l);
 	}
-	linkStore_->setCategory(l, linkStateCalculator()(getNodeState(source), getNodeState(
-							target)));
+	linkStore_->setCategory(l, linkStateCalculator()(getNodeState(source),
+			getNodeState(target)));
 	return true;
 }
 
 //================ NeighborIterator implementation ======================
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 TypedNetwork<_Node, _Link>::NeighborIterator::NeighborIterator() :
-net_(0), n_(0)
+	net_(0), n_(0)
 {
 }
 
-template <class _Node, class _Link>
-TypedNetwork<_Node, _Link>::NeighborIterator::NeighborIterator(const TypedNetwork<_Node, _Link>& net,
-		const node_id_t n, const typename NodeType::LinkSet::iterator val) :
-net_(&net), n_(n), cur_(val)
+template<class _Node, class _Link>
+TypedNetwork<_Node, _Link>::NeighborIterator::NeighborIterator(
+		const TypedNetwork<_Node, _Link>& net, const node_id_t n,
+		const typename NodeType::LinkSet::iterator val) :
+	net_(&net), n_(n), cur_(val)
 {
 }
 
-template <class _Node, class _Link>
-TypedNetwork<_Node, _Link>::NeighborIterator::NeighborIterator(const typename TypedNetwork<_Node, _Link>::NeighborIterator& it) :
-net_(it.net_), n_(it.n_), cur_(it.cur_)
+template<class _Node, class _Link>
+TypedNetwork<_Node, _Link>::NeighborIterator::NeighborIterator(
+		const typename TypedNetwork<_Node, _Link>::NeighborIterator& it) :
+	net_(it.net_), n_(it.n_), cur_(it.cur_)
 {
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 TypedNetwork<_Node, _Link>::NeighborIterator::~NeighborIterator()
 {
 }
 
-template <class _Node, class _Link>
-typename TypedNetwork<_Node, _Link>::NeighborIterator& TypedNetwork<_Node, _Link>::NeighborIterator::operator=(
-		const typename TypedNetwork<_Node, _Link>::NeighborIterator& it)
+template<class _Node, class _Link>
+typename TypedNetwork<_Node, _Link>::NeighborIterator& TypedNetwork<_Node,
+		_Link>::NeighborIterator::operator=(const typename TypedNetwork<_Node,
+		_Link>::NeighborIterator& it)
 {
 	net_ = it.net_;
 	n_ = it.n_;
@@ -837,22 +861,23 @@ typename TypedNetwork<_Node, _Link>::NeighborIterator& TypedNetwork<_Node, _Link
 	return *this;
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 bool TypedNetwork<_Node, _Link>::NeighborIterator::operator==(
 		const typename TypedNetwork<_Node, _Link>::NeighborIterator& it)
 {
 	return (net_ == it.net_) && (cur_ == it.cur_) && (n_ == it.n_);
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 bool TypedNetwork<_Node, _Link>::NeighborIterator::operator!=(
 		const typename TypedNetwork<_Node, _Link>::NeighborIterator& it)
 {
 	return !this->operator==(it);
 }
 
-template <class _Node, class _Link>
-typename TypedNetwork<_Node, _Link>::NeighborIterator& TypedNetwork<_Node, _Link>::NeighborIterator::operator++()
+template<class _Node, class _Link>
+typename TypedNetwork<_Node, _Link>::NeighborIterator& TypedNetwork<_Node,
+		_Link>::NeighborIterator::operator++()
 {
 	if (net_)
 	{
@@ -861,21 +886,22 @@ typename TypedNetwork<_Node, _Link>::NeighborIterator& TypedNetwork<_Node, _Link
 	return *this;
 }
 
-template <class _Node, class _Link>
-typename TypedNetwork<_Node, _Link>::NeighborIterator TypedNetwork<_Node, _Link>::NeighborIterator::operator++(int)
+template<class _Node, class _Link>
+typename TypedNetwork<_Node, _Link>::NeighborIterator TypedNetwork<_Node, _Link>::NeighborIterator::operator++(
+		int)
 {
 	NeighborIterator tmp(*this);
 	++(*this);
 	return (tmp);
 }
 
-template <class _Node, class _Link>
+template<class _Node, class _Link>
 node_id_t TypedNetwork<_Node, _Link>::NeighborIterator::operator*()
 {
 	if (net_)
 	{
 		const LinkType& theLink = net_->link(*cur_);
-		return (theLink.source() == n_) ? theLink.target() : theLink.source();
+		return theLink.opposite(n_);
 	}
 	else
 	{

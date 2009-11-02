@@ -47,6 +47,12 @@ public:
 	 * @return Target node ID.
 	 */
 	node_id_t target() const;
+	/**
+	 * Get ID of node opposite to given link end ID.
+	 * @param ID of one link end
+	 * @return ID of other link end
+	 */
+	node_id_t opposite(node_id_t n) const;
 
 	/**
 	 * Set source node ID of the link.
@@ -128,6 +134,11 @@ inline node_id_t TLink::source() const
 inline node_id_t TLink::target() const
 {
 	return link_.target();
+}
+
+inline node_id_t TLink::opposite(const node_id_t n) const
+{
+	return link_.opposite(n);
 }
 
 inline void TLink::setSource(const node_id_t source)

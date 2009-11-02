@@ -8,6 +8,7 @@
 #define GRAPH_H_
 
 #include "types.h"
+#include "Node.h"
 #include "../../repo/CRepository.h"
 #include "graph_iterators.h"
 #include "GraphListener.h"
@@ -19,7 +20,7 @@
 namespace largenet
 {
 
-class Node;
+//class Node;
 class Edge;
 class ElementFactory;
 
