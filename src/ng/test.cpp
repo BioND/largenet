@@ -4,19 +4,18 @@
  * @author gerd
  */
 
-#include "Graph.h"
-#include "Edge.h"
-#include "Node.h"
-#include "MultiEdgeElementFactory.h"
-#include "SingleEdgeElementFactory.h"
-
-#include "GraphListener.h"
+#include "base/Graph.h"
+#include "base/Edge.h"
+#include "base/Node.h"
+#include "base/factories.h"
+#include "base/GraphListener.h"
+#include "StateConsistencyListener.h"
 
 #include <iostream>
 #include <fstream>
 #include <boost/assert.hpp>
 
-#include "../../myrng1.2/myrngWELL.h"
+#include "../myrng1.2/myrngWELL.h"
 
 using namespace largenet;
 
@@ -53,7 +52,19 @@ class TestListener: public GraphListener
 	void afterEdgeAddEvent(Graph* g, Edge* e)
 	{
 		std::cout << "Added edge (" << e->source()->id() << ","
-				<< e->target()->id() << ")\n";
+				<< e->target()->id() << ") in state " << g->edgeState(e->id()) << "\n";
+	}
+};
+
+struct EdgeStateCalc
+{
+	edge_state_t operator()(const node_state_t s, const node_state_t t)
+	{
+		if (s != t)
+			return 1;
+		else if (s == 0)
+			return 0;
+		else return 2;
 	}
 };
 
@@ -61,9 +72,10 @@ int main()
 {
 	Graph g(2, 3);
 	g.setElementFactory(std::auto_ptr<ElementFactory>(
-			new MultiEdgeElementFactory<DirectedEdge> ));
+			new MultiDirectedElementFactory));
 	TestListener gl;
-	g.addGraphListener(&gl);
+	StateConsistencyListener<EdgeStateCalc> scl(std::auto_ptr<EdgeStateCalc> (new EdgeStateCalc));
+	g.addGraphListener(&scl).addGraphListener(&gl);
 	for (unsigned int i = 0; i < 10; ++i)
 		g.addNode(i % 2);
 	BOOST_ASSERT(g.numberOfNodes() == 10);
@@ -106,20 +118,24 @@ int main()
 		std::cout << "Random node in state 1 has ID " << nd->id() << "\n";
 		Node* nd2 = nd->randomOutNeighbor(rng);
 		if (nd2 != 0)
-			std::cout << "Random out neighbor of node " << nd->id() << " has ID " << nd2->id() << "\n";
+			std::cout << "Random out neighbor of node " << nd->id()
+					<< " has ID " << nd2->id() << "\n";
 		Node* nd3 = nd->randomInNeighbor(rng);
 		if (nd3 != 0)
-			std::cout << "Random in neighbor of node " << nd->id() << " has ID " << nd3->id() << "\n";
+			std::cout << "Random in neighbor of node " << nd->id()
+					<< " has ID " << nd3->id() << "\n";
 	}
 
-	Edge* de = new Edge(10, g.node(3), g.node(4));
-	Edge* ue = new UndirectedEdge(11, g.node(3), g.node(4));
-	std::cout << "Edge(10, 3, 4) is" << (is_directed(*de) ? "" : " not") << " directed.\n";
-	std::cout << "UndirectedEdge(10, 3, 4) is" << (is_directed(*ue) ? "" : " not") << " directed.\n";
+	std::auto_ptr<Edge> de(new Edge(10, g.node(3), g.node(4))), ue(
+			new UndirectedEdge(11, g.node(3), g.node(4)));
+	std::cout << "Edge(10, 3, 4) is" << (is_directed(*de) ? "" : " not")
+			<< " directed.\n";
+	std::cout << "UndirectedEdge(10, 3, 4) is" << (is_directed(*ue) ? ""
+			: " not") << " directed.\n";
 
 	Graph g2(1, 1);
 	g2.setElementFactory(std::auto_ptr<ElementFactory>(
-			new MultiEdgeElementFactory<DirectedEdge> ));
+			new MultiDirectedElementFactory));
 	erdosRenyi(g2, 5000, 0.001);
 	std::ofstream f("test.edgelist");
 	if (!f)

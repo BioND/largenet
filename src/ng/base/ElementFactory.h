@@ -19,11 +19,24 @@ class Edge;
 class ElementFactory
 {
 public:
-	ElementFactory() {}
-	virtual ~ElementFactory() {}
-	bool directedEdges() const { return doDirectedEdges(); }
-	Node* createNode(node_id_t id) { return doCreateNode(id); }
-	Edge* createEdge(edge_id_t id, Node* source, Node* target) { return doCreateEdge(id, source, target); }
+	ElementFactory()
+	{
+	}
+	virtual ~ElementFactory()
+	{
+	}
+	bool directedEdges() const
+	{
+		return doDirectedEdges();
+	}
+	Node* createNode(node_id_t id)
+	{
+		return doCreateNode(id);
+	}
+	Edge* createEdge(edge_id_t id, Node* source, Node* target)
+	{
+		return doCreateEdge(id, source, target);
+	}
 	//Triple* createTriple(edge_id_t left, edge_id_t right);	FIXME directed triples?
 private:
 	virtual Node* doCreateNode(node_id_t id) = 0;

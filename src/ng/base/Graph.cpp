@@ -1,5 +1,5 @@
 /**
- * @file DirectedGraph.cpp
+ * @file Graph.cpp
  * @date 12.08.2009
  * @author gerd
  */
@@ -7,13 +7,13 @@
 #include "Graph.h"
 #include "Node.h"
 #include "Edge.h"
-#include "SingleEdgeElementFactory.h"
+#include "factories.h"
 
 namespace largenet
 {
 
 Graph::Graph(const node_state_t nodeStates, const edge_state_t edgeStates) :
-	elf_(std::auto_ptr<ElementFactory>(new SingleEdgeElementFactory<> )),
+	elf_(std::auto_ptr<ElementFactory>(new SingleUndirectedElementFactory)),
 			nodes_(nodeStates), edges_(edgeStates)
 {
 }

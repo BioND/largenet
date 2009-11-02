@@ -1,5 +1,5 @@
 /**
- * @file DirectedGraph.h
+ * @file Graph.h
  * @date 12.08.2009
  * @author gerd
  */
@@ -44,7 +44,7 @@ public:
 	Graph(node_state_t nodeStates, edge_state_t edgeStates);
 	~Graph();
 	void setElementFactory(std::auto_ptr<ElementFactory> elf);
-	void addGraphListener(GraphListener* l);
+	Graph& addGraphListener(GraphListener* l);
 	void removeGraphListener(GraphListener* l);
 	void clear();
 
@@ -175,9 +175,10 @@ inline void Graph::setElementFactory(std::auto_ptr<ElementFactory> elf)
 	}
 }
 
-inline void Graph::addGraphListener(GraphListener* l)
+inline Graph& Graph::addGraphListener(GraphListener* l)
 {
 	listeners_.push_back(l);
+	return *this;
 }
 
 inline void Graph::removeGraphListener(GraphListener* l)
