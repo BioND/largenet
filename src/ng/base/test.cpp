@@ -94,6 +94,14 @@ int main()
 		std::cout << "not ";
 	std::cout << "an edge.\n";
 
+	Node* nd = g.randomNode(rng);
+	if (nd != 0)
+		std::cout << "Node " << nd->id() << " is in state " << g.nodeState(nd->id()) << "\n";
+	nd = g.randomNode(1, rng);
+	if (nd != 0)
+		std::cout << "Random node in state 1 has ID " << nd->id() << "\n";
+
+
 	Graph g2(1, 1);
 	g2.setElementFactory(std::auto_ptr<ElementFactory> (new MultiEdgeElementFactory<DirectedEdge>));
 	erdosRenyi(g2, 5000, 0.001);

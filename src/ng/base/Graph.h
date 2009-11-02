@@ -33,8 +33,10 @@ private:
 public:
 	typedef iterators::GraphNodeIterator<NodeContainer::iterator> NodeIterator;
 	typedef iterators::GraphEdgeIterator<EdgeContainer::iterator> EdgeIterator;
-	typedef iterators::GraphNodeIterator<NodeContainer::const_iterator, true> ConstNodeIterator;
-	typedef iterators::GraphEdgeIterator<EdgeContainer::const_iterator, true> ConstEdgeIterator;
+	typedef iterators::GraphNodeIterator<NodeContainer::const_iterator, true>
+			ConstNodeIterator;
+	typedef iterators::GraphEdgeIterator<EdgeContainer::const_iterator, true>
+			ConstEdgeIterator;
 
 	typedef std::pair<NodeIterator, NodeIterator> NodeIteratorRange;
 	typedef std::pair<EdgeIterator, EdgeIterator> EdgeIteratorRange;
@@ -61,6 +63,21 @@ public:
 	const Node* node(node_id_t n) const;
 	Edge* edge(edge_id_t e);
 	const Edge* edge(edge_id_t e) const;
+
+	template<class RandomNumGen> Node* randomNode(RandomNumGen& rnd);
+	template<class RandomNumGen> const Node* randomNode(RandomNumGen& rnd) const;
+	template<class RandomNumGen> Node* randomNode(node_state_t s,
+			RandomNumGen& rnd);
+	template<class RandomNumGen> const Node* randomNode(node_state_t s,
+			RandomNumGen& rnd) const;
+	template<class RandomNumGen> Edge* randomEdge(RandomNumGen& rnd);
+	template<class RandomNumGen> const Edge* randomEdge(RandomNumGen& rnd) const;
+	template<class RandomNumGen> Edge* randomEdge(edge_state_t s,
+			RandomNumGen& rnd);
+	template<class RandomNumGen> const Edge* randomEdge(edge_state_t s,
+			RandomNumGen& rnd) const;
+	template<class RandomNumGen> Node* randomNeighbor(node_id_t n, RandomNumGen& rnd);
+	template<class RandomNumGen> const Node* randomNeighbor(node_id_t n, RandomNumGen& rnd) const;
 
 	void setNodeState(node_id_t n, node_state_t s);
 	void setEdgeState(edge_id_t e, edge_state_t s);
@@ -187,6 +204,95 @@ inline void Graph::setEdgeState(const edge_id_t e, const edge_state_t s)
 	edges_.setCategory(e, s);
 	afterEdgeStateChange(e, old, s);
 }
+
+template<class RandomNumGen>
+const Node* Graph::randomNode(RandomNumGen& rnd) const
+{
+	if (numberOfNodes() == 0)
+		return 0;
+	return node(nodes_.id(static_cast<repo::address_t> (rnd.IntFromTo(0,
+			nodes_.size() - 1))));
+}
+
+template<class RandomNumGen>
+Node* Graph::randomNode(RandomNumGen& rnd)
+{
+	if (numberOfNodes() == 0)
+		return 0;
+	return node(nodes_.id(static_cast<repo::address_t> (rnd.IntFromTo(0,
+			nodes_.size() - 1))));
+}
+
+template<class RandomNumGen>
+const Node* Graph::randomNode(const node_state_t s, RandomNumGen& rnd) const
+{
+	if (numberOfNodes(s) == 0)
+		return 0;
+	return node(nodes_.id(s, static_cast<repo::address_t> (rnd.IntFromTo(0,
+			nodes_.count(s) - 1))));
+}
+
+template<class RandomNumGen>
+Node* Graph::randomNode(const node_state_t s, RandomNumGen& rnd)
+{
+	if (numberOfNodes(s) == 0)
+		return 0;
+	return node(nodes_.id(s, static_cast<repo::address_t> (rnd.IntFromTo(0,
+			nodes_.count(s) - 1))));
+}
+
+template<class RandomNumGen>
+const Edge* Graph::randomEdge(RandomNumGen& rnd) const
+{
+	if (numberOfEdges() == 0)
+		return 0;
+	return edge(edges_.id(static_cast<repo::address_t> (rnd.IntFromTo(0,
+			edges_.size() - 1))));
+}
+
+template<class RandomNumGen>
+Edge* Graph::randomEdge(RandomNumGen& rnd)
+{
+	if (numberOfEdges() == 0)
+		return 0;
+	return edge(edges_.id(static_cast<repo::address_t> (rnd.IntFromTo(0,
+			edges_.size() - 1))));
+}
+
+template<class RandomNumGen>
+const Edge* Graph::randomEdge(const edge_state_t s, RandomNumGen& rnd) const
+{
+	if (numberOfEdges(s) == 0)
+		return 0;
+	return edge(edges_.id(s, static_cast<repo::address_t> (rnd.IntFromTo(0,
+			edges_.count(s) - 1))));
+}
+
+template<class RandomNumGen>
+Edge* Graph::randomEdge(const edge_state_t s, RandomNumGen& rnd)
+{
+	if (numberOfEdges(s) == 0)
+		return 0;
+	return edge(edges_.id(s, static_cast<repo::address_t> (rnd.IntFromTo(0,
+			edges_.count(s) - 1))));
+}
+
+template<class RandomNumGen>
+Node* Graph::randomNeighbor(const node_id_t n, RandomNumGen& rnd)
+{
+	if (node(n)->outDegree() == 0)
+		return 0;
+	// TODO implement me
+}
+
+template<class RandomNumGen>
+const Node* Graph::randomNeighbor(const node_id_t n, RandomNumGen& rnd) const
+{
+	if (node(n)->outDegree() == 0)
+		return 0;
+	// TODO implement me
+}
+
 
 }
 
