@@ -38,7 +38,8 @@ public:
 	typedef typename choose_type<is_const, const Node*, Node*>::type
 			node_pointer;
 
-	explicit NodeOutNeighborIterator(const Iterator& i)
+	explicit NodeOutNeighborIterator(const Iterator& i) :
+		it_(i)
 	{
 	}
 	NodeOutNeighborIterator()
@@ -120,7 +121,8 @@ public:
 	typedef typename choose_type<is_const, const Node*, Node*>::type
 			node_pointer;
 
-	explicit NodeInNeighborIterator(const Iterator& i)
+	explicit NodeInNeighborIterator(const Iterator& i) :
+		it_(i)
 	{
 	}
 	NodeInNeighborIterator()
