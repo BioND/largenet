@@ -56,7 +56,7 @@ void SingleNode::registerEdge(Edge* e)
 {
 	if (hasEdge(e))
 		return;
-	if (e->source() == this)
+	if ((e->source() == this) || (!e->isDirected()))	// always register undirected edges as out edges
 	{
 		if (hasEdgeTo(e->target()))
 			throw SingletonException("Edge already exists.");

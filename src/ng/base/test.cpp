@@ -112,6 +112,11 @@ int main()
 			std::cout << "Random in neighbor of node " << nd->id() << " has ID " << nd3->id() << "\n";
 	}
 
+	Edge* de = new Edge(10, g.node(3), g.node(4));
+	Edge* ue = new UndirectedEdge(11, g.node(3), g.node(4));
+	std::cout << "Edge(10, 3, 4) is" << (is_directed(*de) ? "" : " not") << " directed.\n";
+	std::cout << "UndirectedEdge(10, 3, 4) is" << (is_directed(*ue) ? "" : " not") << " directed.\n";
+
 	Graph g2(1, 1);
 	g2.setElementFactory(std::auto_ptr<ElementFactory>(
 			new MultiEdgeElementFactory<DirectedEdge> ));
@@ -119,7 +124,7 @@ int main()
 	std::ofstream f("test.edgelist");
 	if (!f)
 		return 1;
-	writeEdgeList(g, f);
+	writeEdgeList(g2, f);
 	f.close();
 
 	return 0;

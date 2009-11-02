@@ -54,7 +54,7 @@ void MultiNode::registerEdge(Edge* e)
 {
 	if (hasEdge(e))
 		return;
-	if (e->source() == this)
+	if ((e->source() == this) || (!e->isDirected()))
 		outEdges_.insert(e);
 	else if (e->target() == this)
 		inEdges_.insert(e);

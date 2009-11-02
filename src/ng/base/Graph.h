@@ -42,7 +42,7 @@ public:
 	typedef std::pair<EdgeIterator, EdgeIterator> EdgeIteratorRange;
 
 	Graph(node_state_t nodeStates, edge_state_t edgeStates);
-	virtual ~Graph();
+	~Graph();
 	void setElementFactory(std::auto_ptr<ElementFactory> elf);
 	void addGraphListener(GraphListener* l);
 	void removeGraphListener(GraphListener* l);
