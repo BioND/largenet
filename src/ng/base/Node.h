@@ -39,8 +39,11 @@ public:
 		bool operator!=(const OutNeighborIterator& other) { return !operator==(other); }
 		node_id_t operator*() { return (*it_)->target()->id(); }
 		Node* operator->() { return (*it_)->target(); }
+		Node* node() const { return (*it_)->target(); }
 		OutNeighborIterator& operator++() { ++it_; return *this; }
 		OutNeighborIterator operator++(int) { OutNeighborIterator temp(*this); ++(*this); return temp; }
+		OutNeighborIterator& operator--() { --it_; return *this; }
+		OutNeighborIterator operator--(int) { OutNeighborIterator temp(*this); --(*this); return temp; }
 
 	private:
 		const Node* node_;
@@ -58,8 +61,11 @@ public:
 		bool operator!=(const InNeighborIterator& other) { return !operator==(other); }
 		node_id_t operator*() { return (*it_)->source()->id(); }
 		Node* operator->() { return (*it_)->source(); }
+		Node* node() const { return (*it_)->source(); }
 		InNeighborIterator& operator++() { ++it_; return *this; }
 		InNeighborIterator operator++(int) { InNeighborIterator temp(*this); ++(*this); return temp; }
+		InNeighborIterator& operator--() { --it_; return *this; }
+		InNeighborIterator operator--(int) { InNeighborIterator temp(*this); --(*this); return temp; }
 
 	private:
 		const Node* node_;
@@ -88,6 +94,57 @@ public:
 	virtual edge_iterator_range inEdges() const = 0;
 	virtual OutNeighborIteratorRange outNeighbors() const = 0;
 	virtual InNeighborIteratorRange inNeighbors() const = 0;
+
+	template<class RandomNumGen>
+	Node* randomOutNeighbor(RandomNumGen& rnd)
+	{
+		const degree_size_t deg = outDegree();
+		if (deg == 0)
+			return 0;
+		const int num = rnd.IntFromTo(0, deg - 1);
+		OutNeighborIteratorRange iters = outNeighbors();
+		OutNeighborIterator it = iters.first;
+		std::advance(it, num);
+		if (it != iters.second) // should always give true
+			return it.node();
+		else
+			return 0;
+	}
+
+	// TODO implement const iterators
+//	template<class RandomNumGen>
+//	const Node* randomOutNeighbor(RandomNumGen& rnd) const
+//	{
+//		const degree_size_t deg = outDegree();
+//		if (deg == 0)
+//			return 0;
+//		const int num = rnd.IntFromTo(0, deg - 1);
+//		OutNeighborIteratorRange iters = outNeighbors();
+//		OutNeighborIterator it = iters.first;
+//		std::advance(it, num);
+//		if (it != iters.second) // should always give true
+//			return it.node();
+//		else
+//			return 0;
+//	}
+
+	template<class RandomNumGen>
+	Node* randomInNeighbor(RandomNumGen& rnd)
+	{
+		const degree_size_t deg = inDegree();
+		if (deg == 0)
+			return 0;
+		const int num = rnd.IntFromTo(0, deg - 1);
+		InNeighborIteratorRange iters = inNeighbors();
+		InNeighborIterator it = iters.first;
+		std::advance(it, num);
+		if (it != iters.second) // should always give true
+			return it.node();
+		else
+			return 0;
+	}
+
+	//template<class RandomNumGen> const Node* randomInNeighbor(RandomNumGen& rnd) const;
 
 protected:
 	virtual void registerEdge(Edge* e) = 0;

@@ -8,7 +8,6 @@
 #define GRAPH_H_
 
 #include "types.h"
-#include "Node.h"
 #include "../../repo/CRepository.h"
 #include "graph_iterators.h"
 #include "GraphListener.h"
@@ -20,7 +19,7 @@
 namespace largenet
 {
 
-//class Node;
+class Node;
 class Edge;
 class ElementFactory;
 
@@ -77,8 +76,6 @@ public:
 			RandomNumGen& rnd);
 	template<class RandomNumGen> const Edge* randomEdge(edge_state_t s,
 			RandomNumGen& rnd) const;
-	template<class RandomNumGen> Node* randomNeighbor(node_id_t n, RandomNumGen& rnd);
-	template<class RandomNumGen> const Node* randomNeighbor(node_id_t n, RandomNumGen& rnd) const;
 
 	void setNodeState(node_id_t n, node_state_t s);
 	void setEdgeState(edge_id_t e, edge_state_t s);
@@ -277,23 +274,6 @@ Edge* Graph::randomEdge(const edge_state_t s, RandomNumGen& rnd)
 	return edge(edges_.id(s, static_cast<repo::address_t> (rnd.IntFromTo(0,
 			edges_.count(s) - 1))));
 }
-
-template<class RandomNumGen>
-Node* Graph::randomNeighbor(const node_id_t n, RandomNumGen& rnd)
-{
-	if (node(n)->outDegree() == 0)
-		return 0;
-	// TODO implement me
-}
-
-template<class RandomNumGen>
-const Node* Graph::randomNeighbor(const node_id_t n, RandomNumGen& rnd) const
-{
-	if (node(n)->outDegree() == 0)
-		return 0;
-	// TODO implement me
-}
-
 
 }
 

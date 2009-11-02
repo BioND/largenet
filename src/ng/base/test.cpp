@@ -52,7 +52,8 @@ class TestListener: public GraphListener
 	}
 	void afterEdgeAddEvent(Graph* g, Edge* e)
 	{
-		std::cout << "Added edge (" << e->source()->id() << "," << e->target()->id() << ")\n";
+		std::cout << "Added edge (" << e->source()->id() << ","
+				<< e->target()->id() << ")\n";
 	}
 };
 
@@ -82,7 +83,8 @@ int main()
 	Graph::EdgeIteratorRange edges(g.edges());
 	for (Graph::EdgeIterator e(edges.first); e != edges.second; ++e)
 	{
-		std::cout << e->source()->id() << " " << e->target()->id() << "\n";
+		std::cout << "Edge " << *e << ": " << e->source()->id() << " "
+				<< e->target()->id() << "\n";
 	}
 
 	std::cout << "3-4 is ";
@@ -96,14 +98,23 @@ int main()
 
 	Node* nd = g.randomNode(rng);
 	if (nd != 0)
-		std::cout << "Node " << nd->id() << " is in state " << g.nodeState(nd->id()) << "\n";
+		std::cout << "Node " << nd->id() << " is in state " << g.nodeState(
+				nd->id()) << "\n";
 	nd = g.randomNode(1, rng);
 	if (nd != 0)
+	{
 		std::cout << "Random node in state 1 has ID " << nd->id() << "\n";
-
+		Node* nd2 = nd->randomOutNeighbor(rng);
+		if (nd2 != 0)
+			std::cout << "Random out neighbor of node " << nd->id() << " has ID " << nd2->id() << "\n";
+		Node* nd3 = nd->randomInNeighbor(rng);
+		if (nd3 != 0)
+			std::cout << "Random in neighbor of node " << nd->id() << " has ID " << nd3->id() << "\n";
+	}
 
 	Graph g2(1, 1);
-	g2.setElementFactory(std::auto_ptr<ElementFactory> (new MultiEdgeElementFactory<DirectedEdge>));
+	g2.setElementFactory(std::auto_ptr<ElementFactory>(
+			new MultiEdgeElementFactory<DirectedEdge> ));
 	erdosRenyi(g2, 5000, 0.001);
 	std::ofstream f("test.edgelist");
 	if (!f)
