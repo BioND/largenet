@@ -59,7 +59,7 @@ edge_id_t Graph::addEdge(const node_id_t source, const node_id_t target)
 	try
 	{
 		// FIXME this is an ugly hack
-		e = elf_->createEdge(id, node(source), node(target));
+		e = elf_->createEdge(id, *node(source), *node(target));
 		edges_[id] = e;
 		afterEdgeAdd(id);
 		return id;

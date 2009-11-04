@@ -16,8 +16,8 @@ Edge::Edge() :
 {
 }
 
-Edge::Edge(const edge_id_t id, Node* source, Node* target) :
-	id_(id), source_(source), target_(target)
+Edge::Edge(const edge_id_t id, Node& source, Node& target) :
+	id_(id), source_(&source), target_(&target)
 {
 	connect();
 }
@@ -27,14 +27,14 @@ Edge::~Edge()
 	disconnect();
 }
 
-Node* Edge::opposite(const Node* from) const
+Node* Edge::opposite(const Node& from) const
 {
-	if (from == source_)
+	if (&from == source_)
 		return target_;
-	else if (from == target_)
+	else if (&from == target_)
 		return source_;
 	else
-		return 0;
+		throw(std::invalid_argument("Edge is not attached to given node."));
 }
 
 void Edge::connect()
@@ -47,15 +47,15 @@ void Edge::connect()
 
 void Edge::disconnect()
 {
-	if ((source_ == 0) || (target_ == 0))
-		return;
-	source_->unregisterEdge(this);
-	target_->unregisterEdge(this);
+	if (source_ != 0)
+		source_->unregisterEdge(this);
+	if (target_ != 0)
+		target_->unregisterEdge(this);
 }
 
-UndirectedEdge::UndirectedEdge(const edge_id_t id, Node* source, Node* target) :
-	Edge(id, source->id() < target->id() ? source : target, source->id()
-			< target->id() ? target : source)
+UndirectedEdge::UndirectedEdge(const edge_id_t id, Node& source, Node& target) :
+	Edge(id, source.id() < target.id() ? source : target, source.id()
+			< target.id() ? target : source)
 {
 }
 

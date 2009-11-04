@@ -15,6 +15,7 @@
 #include <list>
 #include <utility>
 #include <memory>
+#include <stdexcept>
 
 namespace largenet
 {
@@ -129,7 +130,7 @@ inline Node* Graph::node(const node_id_t n)
 	if (nodes_.valid(n))
 		return nodes_[n];
 	else
-		return 0;
+		throw(std::invalid_argument("Invalid node ID."));
 }
 
 inline const Node* Graph::node(const node_id_t n) const
@@ -137,7 +138,7 @@ inline const Node* Graph::node(const node_id_t n) const
 	if (nodes_.valid(n))
 		return nodes_[n];
 	else
-		return 0;
+		throw(std::invalid_argument("Invalid node ID."));
 }
 
 inline Edge* Graph::edge(const edge_id_t e)
@@ -145,7 +146,7 @@ inline Edge* Graph::edge(const edge_id_t e)
 	if (edges_.valid(e))
 		return edges_[e];
 	else
-		return 0;
+		throw(std::invalid_argument("Invalid edge ID."));
 }
 
 inline const Edge* Graph::edge(const edge_id_t e) const
@@ -153,7 +154,7 @@ inline const Edge* Graph::edge(const edge_id_t e) const
 	if (edges_.valid(e))
 		return edges_[e];
 	else
-		return 0;
+		throw(std::invalid_argument("Invalid edge ID."));
 }
 
 inline node_state_t Graph::nodeState(const node_id_t n) const
@@ -169,16 +170,13 @@ inline edge_state_t Graph::edgeState(const edge_id_t e) const
 inline void Graph::setElementFactory(std::auto_ptr<ElementFactory> elf)
 {
 	if (elf_.get() != elf.get())
-	{
-		elf_.reset(); // destroy and delete old factory
-		elf_ = elf;
-	}
+		elf_ = elf;	// releases and destroys old factory (auto_ptr assignment is elf_.reset(elf.release()))
 }
 
 inline Graph& Graph::addGraphListener(GraphListener* l)
 {
 	listeners_.push_back(l);
-	return *this;
+	return *this;	// for convenience
 }
 
 inline void Graph::removeGraphListener(GraphListener* l)
@@ -208,7 +206,7 @@ template<class RandomNumGen>
 const Node* Graph::randomNode(RandomNumGen& rnd) const
 {
 	if (numberOfNodes() == 0)
-		return 0;
+		throw(std::invalid_argument("Cannot pick random node from empty set."));
 	return node(nodes_.id(static_cast<repo::address_t> (rnd.IntFromTo(0,
 			nodes_.size() - 1))));
 }
@@ -217,7 +215,7 @@ template<class RandomNumGen>
 Node* Graph::randomNode(RandomNumGen& rnd)
 {
 	if (numberOfNodes() == 0)
-		return 0;
+		throw(std::invalid_argument("Cannot pick random node from empty set."));
 	return node(nodes_.id(static_cast<repo::address_t> (rnd.IntFromTo(0,
 			nodes_.size() - 1))));
 }
@@ -226,7 +224,7 @@ template<class RandomNumGen>
 const Node* Graph::randomNode(const node_state_t s, RandomNumGen& rnd) const
 {
 	if (numberOfNodes(s) == 0)
-		return 0;
+		throw(std::invalid_argument("Cannot pick random node from empty set."));
 	return node(nodes_.id(s, static_cast<repo::address_t> (rnd.IntFromTo(0,
 			nodes_.count(s) - 1))));
 }
@@ -235,7 +233,7 @@ template<class RandomNumGen>
 Node* Graph::randomNode(const node_state_t s, RandomNumGen& rnd)
 {
 	if (numberOfNodes(s) == 0)
-		return 0;
+		throw(std::invalid_argument("Cannot pick random node from empty set."));
 	return node(nodes_.id(s, static_cast<repo::address_t> (rnd.IntFromTo(0,
 			nodes_.count(s) - 1))));
 }
@@ -244,7 +242,7 @@ template<class RandomNumGen>
 const Edge* Graph::randomEdge(RandomNumGen& rnd) const
 {
 	if (numberOfEdges() == 0)
-		return 0;
+		throw(std::invalid_argument("Cannot pick random edge from empty set."));
 	return edge(edges_.id(static_cast<repo::address_t> (rnd.IntFromTo(0,
 			edges_.size() - 1))));
 }
@@ -253,7 +251,7 @@ template<class RandomNumGen>
 Edge* Graph::randomEdge(RandomNumGen& rnd)
 {
 	if (numberOfEdges() == 0)
-		return 0;
+		throw(std::invalid_argument("Cannot pick random edge from empty set."));
 	return edge(edges_.id(static_cast<repo::address_t> (rnd.IntFromTo(0,
 			edges_.size() - 1))));
 }
@@ -262,7 +260,7 @@ template<class RandomNumGen>
 const Edge* Graph::randomEdge(const edge_state_t s, RandomNumGen& rnd) const
 {
 	if (numberOfEdges(s) == 0)
-		return 0;
+		throw(std::invalid_argument("Cannot pick random edge from empty set."));
 	return edge(edges_.id(s, static_cast<repo::address_t> (rnd.IntFromTo(0,
 			edges_.count(s) - 1))));
 }
@@ -271,7 +269,7 @@ template<class RandomNumGen>
 Edge* Graph::randomEdge(const edge_state_t s, RandomNumGen& rnd)
 {
 	if (numberOfEdges(s) == 0)
-		return 0;
+		throw(std::invalid_argument("Cannot pick random edge from empty set."));
 	return edge(edges_.id(s, static_cast<repo::address_t> (rnd.IntFromTo(0,
 			edges_.count(s) - 1))));
 }

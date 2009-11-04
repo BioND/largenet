@@ -14,6 +14,7 @@
 #include <iostream>
 #include <fstream>
 #include <boost/assert.hpp>
+#include <stdexcept>
 
 #include "../myrng1.2/myrngWELL.h"
 
@@ -52,7 +53,8 @@ class TestListener: public GraphListener
 	void afterEdgeAddEvent(Graph* g, Edge* e)
 	{
 		std::cout << "Added edge (" << e->source()->id() << ","
-				<< e->target()->id() << ") in state " << g->edgeState(e->id()) << "\n";
+				<< e->target()->id() << ") in state " << g->edgeState(e->id())
+				<< "\n";
 	}
 };
 
@@ -64,7 +66,8 @@ struct EdgeStateCalc
 			return 1;
 		else if (s == 0)
 			return 0;
-		else return 2;
+		else
+			return 2;
 	}
 };
 
@@ -74,7 +77,8 @@ int main()
 	g.setElementFactory(std::auto_ptr<ElementFactory>(
 			new MultiDirectedElementFactory));
 	TestListener gl;
-	StateConsistencyListener<EdgeStateCalc> scl(std::auto_ptr<EdgeStateCalc> (new EdgeStateCalc));
+	StateConsistencyListener<EdgeStateCalc> scl(std::auto_ptr<EdgeStateCalc>(
+			new EdgeStateCalc));
 	g.addGraphListener(&scl).addGraphListener(&gl);
 	for (unsigned int i = 0; i < 10; ++i)
 		g.addNode(i % 2);
@@ -108,26 +112,25 @@ int main()
 		std::cout << "not ";
 	std::cout << "an edge.\n";
 
-	Node* nd = g.randomNode(rng);
-	if (nd != 0)
+	try
+	{
+		Node* nd = g.randomNode(rng);
 		std::cout << "Node " << nd->id() << " is in state " << g.nodeState(
 				nd->id()) << "\n";
-	nd = g.randomNode(1, rng);
-	if (nd != 0)
-	{
+		nd = g.randomNode(1, rng);
 		std::cout << "Random node in state 1 has ID " << nd->id() << "\n";
 		Node* nd2 = nd->randomOutNeighbor(rng);
-		if (nd2 != 0)
-			std::cout << "Random out neighbor of node " << nd->id()
-					<< " has ID " << nd2->id() << "\n";
+		std::cout << "Random out neighbor of node " << nd->id() << " has ID "
+				<< nd2->id() << "\n";
 		Node* nd3 = nd->randomInNeighbor(rng);
-		if (nd3 != 0)
-			std::cout << "Random in neighbor of node " << nd->id()
-					<< " has ID " << nd3->id() << "\n";
+		std::cout << "Random in neighbor of node " << nd->id() << " has ID "
+				<< nd3->id() << "\n";
+	} catch (std::invalid_argument& e)
+	{
+		std::cerr << "\033[22;31m" << e.what() << "\n\033[0;0m";
 	}
-
-	std::auto_ptr<Edge> de(new Edge(10, g.node(3), g.node(4))), ue(
-			new UndirectedEdge(11, g.node(3), g.node(4)));
+	std::auto_ptr<Edge> de(new Edge(10, *g.node(3), *g.node(4))), ue(
+			new UndirectedEdge(11, *g.node(3), *g.node(4)));
 	std::cout << "Edge(10, 3, 4) is" << (is_directed(*de) ? "" : " not")
 			<< " directed.\n";
 	std::cout << "UndirectedEdge(10, 3, 4) is" << (is_directed(*ue) ? ""

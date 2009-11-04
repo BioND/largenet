@@ -10,9 +10,11 @@
 #include "types.h"
 #include "exceptions.h"
 #include "node_iterators.h"
+#include <cassert>
 #include <set>
 #include <utility>
 #include <boost/noncopyable.hpp>
+#include <stdexcept>
 
 namespace largenet
 {
@@ -91,15 +93,14 @@ public:
 	{
 		const degree_size_t deg = outDegree();
 		if (deg == 0)
-			return 0;
+			throw(std::invalid_argument(
+					"Cannot pick random neighbor from empty set."));
 		const int num = rnd.IntFromTo(0, deg - 1);
 		OutNeighborIteratorRange iters = outNeighbors();
 		OutNeighborIterator it = iters.first;
 		std::advance(it, num);
-		if (it != iters.second) // should always give true
-			return it.operator->();
-		else
-			return 0;
+		assert(it != iters.second);
+		return it.operator->();
 	}
 
 	template<class RandomNumGen>
@@ -107,15 +108,14 @@ public:
 	{
 		const degree_size_t deg = outDegree();
 		if (deg == 0)
-			return 0;
+			throw(std::invalid_argument(
+					"Cannot pick random neighbor from empty set."));
 		const int num = rnd.IntFromTo(0, deg - 1);
 		ConstOutNeighborIteratorRange iters = outNeighbors();
 		ConstOutNeighborIterator it = iters.first;
 		std::advance(it, num);
-		if (it != iters.second) // should always give true
-			return it.operator->();
-		else
-			return 0;
+		assert(it != iters.second); // should always give true
+		return it.operator->();
 	}
 
 	template<class RandomNumGen>
@@ -123,15 +123,14 @@ public:
 	{
 		const degree_size_t deg = inDegree();
 		if (deg == 0)
-			return 0;
+			throw(std::invalid_argument(
+					"Cannot pick random neighbor from empty set."));
 		const int num = rnd.IntFromTo(0, deg - 1);
 		InNeighborIteratorRange iters = inNeighbors();
 		InNeighborIterator it = iters.first;
 		std::advance(it, num);
-		if (it != iters.second) // should always give true
-			return it.operator->();
-		else
-			return 0;
+		assert(it != iters.second); // should always give true
+		return it.operator->();
 	}
 
 	template<class RandomNumGen>
@@ -139,15 +138,14 @@ public:
 	{
 		const degree_size_t deg = inDegree();
 		if (deg == 0)
-			return 0;
+			throw(std::invalid_argument(
+					"Cannot pick random neighbor from empty set."));
 		const int num = rnd.IntFromTo(0, deg - 1);
 		ConstInNeighborIteratorRange iters = inNeighbors();
 		ConstInNeighborIterator it = iters.first;
 		std::advance(it, num);
-		if (it != iters.second) // should always give true
-			return it.operator->();
-		else
-			return 0;
+		assert(it != iters.second); // should always give true
+		return it.operator->();
 	}
 
 protected:

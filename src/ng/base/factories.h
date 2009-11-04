@@ -23,7 +23,7 @@ private:
 		return new NodeType(id);
 	}
 
-	virtual EdgeType* doCreateEdge(edge_id_t id, Node* source, Node* target)
+	virtual EdgeType* doCreateEdge(edge_id_t id, Node& source, Node& target)
 	{
 		return new EdgeType(id, source, target);
 	}

@@ -22,13 +22,13 @@ class Edge: public boost::noncopyable
 {
 public:
 	Edge();
-	Edge(edge_id_t id, Node* source, Node* target);
+	Edge(edge_id_t id, Node& source, Node& target);
 	virtual ~Edge();
 	virtual bool isDirected() const { return true; }
 	edge_id_t id() const { return id_; }
 	Node* source() const { return source_; }
 	Node* target() const { return target_; }
-	Node* opposite(const Node* from) const;
+	Node* opposite(const Node& from) const;
 	bool isLoop() const { return source_ == target_; }
 	virtual bool operator==(const Edge& e) const { return (source_ == e.source_) && (target_ == e.target_); }
 
@@ -46,7 +46,7 @@ class UndirectedEdge: public Edge
 {
 public:
 	UndirectedEdge() : Edge() {}
-	UndirectedEdge(edge_id_t id, Node* source, Node* target);
+	UndirectedEdge(edge_id_t id, Node& source, Node& target);
 	virtual ~UndirectedEdge() {}
 	virtual bool isDirected() const { return false; }
 	virtual bool operator==(const Edge& e) const;
