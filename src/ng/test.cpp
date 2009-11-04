@@ -125,7 +125,7 @@ int main()
 		Node* nd3 = nd->randomInNeighbor(rng);
 		std::cout << "Random in neighbor of node " << nd->id() << " has ID "
 				<< nd3->id() << "\n";
-	} catch (std::invalid_argument& e)
+	} catch (const std::invalid_argument& e)
 	{
 		std::cerr << "\033[22;31m" << e.what() << "\n\033[0;0m";
 	}
@@ -135,6 +135,8 @@ int main()
 			<< " directed.\n";
 	std::cout << "UndirectedEdge(10, 3, 4) is" << (is_directed(*ue) ? ""
 			: " not") << " directed.\n";
+
+
 
 	Graph g2(1, 1);
 	g2.setElementFactory(std::auto_ptr<ElementFactory>(

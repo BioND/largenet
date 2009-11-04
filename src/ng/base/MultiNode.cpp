@@ -22,12 +22,13 @@ bool MultiNode::hasEdgeTo(const Node* n) const
 
 Edge* MultiNode::edgeTo(const Node* n) const
 {
+
 	for (edge_set::iterator it = outEdges_.begin(); it != outEdges_.end(); ++it)
 	{
 		if ((*it)->target() == n)
 			return *it;
 	}
-	return 0;
+	throw(std::invalid_argument("Node has no edge to given node."));
 }
 
 bool MultiNode::hasEdgeFrom(const Node* n) const
@@ -47,7 +48,7 @@ Edge* MultiNode::edgeFrom(const Node* n) const
 		if ((*it)->source() == n)
 			return *it;
 	}
-	return 0;
+	throw(std::invalid_argument("Node has no edge from given node."));
 }
 
 void MultiNode::registerEdge(Edge* e)

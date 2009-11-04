@@ -7,6 +7,7 @@
 #include "SingleNode.h"
 #include "Edge.h"
 #include "exceptions.h"
+#include <stdexcept>
 
 namespace largenet
 {
@@ -28,8 +29,7 @@ Edge* SingleNode::edgeTo(const Node* n) const
 		if ((*it)->target() == n)
 			return *it;
 	}
-	return 0;
-
+	throw(std::invalid_argument("Node has no edge to given node."));
 }
 
 bool SingleNode::hasEdgeFrom(const Node* n) const
@@ -49,7 +49,7 @@ Edge* SingleNode::edgeFrom(const Node* n) const
 		if ((*it)->source() == n)
 			return *it;
 	}
-	return 0;
+	throw(std::invalid_argument("Node has no edge from given node."));
 }
 
 void SingleNode::registerEdge(Edge* e)
