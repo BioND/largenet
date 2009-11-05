@@ -45,6 +45,7 @@ node_id_t Graph::addNode()
 
 node_id_t Graph::addNode(const node_state_t s)
 {
+	assert(s < nodes_.numberOfCategories());
 	// FIXME this is an ugly hack
 	node_id_t id = nodes_.insert(0, s);
 	nodes_[id] = elf_->createNode(id);
@@ -77,12 +78,14 @@ edge_id_t Graph::addEdge(const node_id_t source, const node_id_t target)
 
 void Graph::removeNode(const node_id_t n)
 {
+	assert(nodes_.valid(n));
 	beforeNodeRemove(n);
 	nodes_.erase(n);
 }
 
 void Graph::removeEdge(const edge_id_t e)
 {
+	assert(edges_.valid(e));
 	beforeEdgeRemove(e);
 	edges_.erase(e);
 }
@@ -111,53 +114,61 @@ bool Graph::isEdge(const node_id_t source, const node_id_t target) const
 
 void Graph::afterNodeAdd(const node_id_t n)
 {
+	assert(nodes_.valid(n));
 	for (ListenerContainer::iterator i = listeners_.begin(); i
 			!= listeners_.end(); ++i)
-		(*i)->afterNodeAdd(this, node(n));
+		(*i)->afterNodeAdd(*this, *node(n));
 }
 
 void Graph::afterEdgeAdd(const edge_id_t e)
 {
+	assert(edges_.valid(e));
 	for (ListenerContainer::iterator i = listeners_.begin(); i
 			!= listeners_.end(); ++i)
-		(*i)->afterEdgeAdd(this, edge(e));
+		(*i)->afterEdgeAdd(*this, *edge(e));
 }
 
 void Graph::beforeNodeRemove(const node_id_t n)
 {
 	for (ListenerContainer::iterator i = listeners_.begin(); i
 			!= listeners_.end(); ++i)
-		(*i)->beforeNodeRemove(this, node(n));
+		(*i)->beforeNodeRemove(*this, *node(n));
 }
 
 void Graph::beforeEdgeRemove(const edge_id_t e)
 {
 	for (ListenerContainer::iterator i = listeners_.begin(); i
 			!= listeners_.end(); ++i)
-		(*i)->beforeEdgeRemove(this, edge(e));
+		(*i)->beforeEdgeRemove(*this, *edge(e));
 }
 
 void Graph::beforeGraphClear()
 {
 	for (ListenerContainer::iterator i = listeners_.begin(); i
 			!= listeners_.end(); ++i)
-		(*i)->beforeGraphClear(this);
+		(*i)->beforeGraphClear(*this);
 }
 
 void Graph::afterNodeStateChange(const node_id_t n,
 		const node_state_t oldState, const node_state_t newState)
 {
+	assert(nodes_.valid(n));
+	assert(oldState < nodes_.numberOfCategories());
+	assert(newState < nodes_.numberOfCategories());
 	for (ListenerContainer::iterator i = listeners_.begin(); i
 			!= listeners_.end(); ++i)
-		(*i)->afterNodeStateChange(this, node(n), oldState, newState);
+		(*i)->afterNodeStateChange(*this, *node(n), oldState, newState);
 }
 
 void Graph::afterEdgeStateChange(const edge_id_t e,
 		const edge_state_t oldState, const edge_state_t newState)
 {
+	assert(edges_.valid(e));
+	assert(oldState < edges_.numberOfCategories());
+	assert(newState < edges_.numberOfCategories());
 	for (ListenerContainer::iterator i = listeners_.begin(); i
 			!= listeners_.end(); ++i)
-		(*i)->afterEdgeStateChange(this, edge(e), oldState, newState);
+		(*i)->afterEdgeStateChange(*this, *edge(e), oldState, newState);
 }
 
 }
