@@ -8,6 +8,7 @@
 #define FACTORIES_H_
 
 #include "ElementFactory.h"
+#include "Edge.h"
 #include "SingleNode.h"
 #include "MultiNode.h"
 

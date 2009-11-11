@@ -8,6 +8,7 @@
 #include "Node.h"
 #include "Edge.h"
 #include "factories.h"
+#include "GraphListener.h"
 
 namespace largenet
 {

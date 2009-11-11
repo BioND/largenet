@@ -4,11 +4,7 @@
  * @author gerd
  */
 
-#include "base/Graph.h"
-#include "base/Edge.h"
-#include "base/Node.h"
-#include "base/factories.h"
-#include "base/GraphListener.h"
+#include "largenet.h"
 #include "StateConsistencyListener.h"
 
 #include <iostream>

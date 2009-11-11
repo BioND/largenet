@@ -10,7 +10,6 @@
 #include "types.h"
 #include "../../repo/CRepository.h"
 #include "graph_iterators.h"
-#include "GraphListener.h"
 #include <boost/noncopyable.hpp>
 #include <list>
 #include <utility>
@@ -23,6 +22,7 @@ namespace largenet
 class Node;
 class Edge;
 class ElementFactory;
+class GraphListener;
 
 class Graph: public boost::noncopyable
 {
