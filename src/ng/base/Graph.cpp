@@ -38,6 +38,24 @@ void Graph::clear()
 	nodes_.clear();
 }
 
+void Graph::setNodeState(const node_id_t n, const node_state_t s)
+{
+	const node_state_t old = nodeState(n);
+	if (s == old)
+		return;
+	nodes_.setCategory(n, s);
+	afterNodeStateChange(n, old, s);
+}
+
+void Graph::setEdgeState(const edge_id_t e, const edge_state_t s)
+{
+	const edge_state_t old = edgeState(e);
+	if (s == old)
+		return;
+	edges_.setCategory(e, s);
+	afterEdgeStateChange(e, old, s);
+}
+
 node_id_t Graph::addNode()
 {
 	return addNode(0);
