@@ -13,7 +13,7 @@ cp $BIN/$OBJ $LIB
 
 pushd $PWD
 cd $SRC
-find . -name *.h -exec cp --parents '{}' $INC \; 
+find . -name "*.h" -exec cp --parents '{}' $INC \; 
 popd
 
 exit 0
