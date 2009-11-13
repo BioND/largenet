@@ -377,6 +377,32 @@ id_size_t triples(const _Network& net, const motifs::TripleMotif& t)
 	return ret;
 }
 
+template<class _Network>
+id_size_t quadLines(const _Network& net)
+{
+	id_size_t ret = 0;
+	// each i-j link is part of q_i*q_j quads
+	typename network_traits<_Network>::LinkIteratorRange iters = net.links();
+	for (typename network_traits<_Network>::LinkIterator i = iters.first; i != iters.second; ++i)
+		ret += (net.degree(net.source(*i)) - 1) * (net.degree(net.target(*i)) - 1);
+	return ret;
+}
+
+/*
+ * should be specialized for TripleNetworks
+ */
+template<class _Network>
+id_size_t quadLines(const _Network& net, node_state_t a, node_state_t b, node_state_t c, node_state_t d)
+{
+	id_size_t ret = 0;
+	typename network_traits<_Network>::LinkStateIteratorRange iters = net.links(net.linkStateCalculator()(b, c));
+	for (typename network_traits<_Network>::LinkStateIterator i = iters.first; i != iters.second; ++i)
+	{
+		// what if symmetric?
+	}
+	return ret;
+}
+
 }
 
 }
