@@ -10,6 +10,7 @@
 #include "../base/types.h"
 #include "../base/traits.h"
 #include "../motifs/TripleMotif.h"
+#include "../motifs/QuadLineMotif.h"
 #include <vector>
 #include <cassert>
 
@@ -394,13 +395,42 @@ id_size_t quadLines(const _Network& net)
 template<class _Network>
 id_size_t quadLines(const _Network& net, node_state_t a, node_state_t b, node_state_t c, node_state_t d)
 {
+	typedef typename network_traits<_Network>::LinkStateIteratorRange LSIRange;
+	typedef typename network_traits<_Network>::LinkStateIterator LSI;
+	typedef typename network_traits<_Network>::NeighborIteratorRange NIRange;
+	typedef typename network_traits<_Network>::NeighborIterator NI;
+
 	id_size_t ret = 0;
-	typename network_traits<_Network>::LinkStateIteratorRange iters = net.links(net.linkStateCalculator()(b, c));
-	for (typename network_traits<_Network>::LinkStateIterator i = iters.first; i != iters.second; ++i)
+	LSIRange iters = net.links(net.linkStateCalculator()(b, c));
+	for (LSI i = iters.first; i != iters.second; ++i)
 	{
 		// what if symmetric?
+		node_id_t b_node = net.nodeState(net.source(*i)) == b ? net.source(*i) : net.target(*i);
+		node_id_t c_node = b_node == net.source(*i) ? net.target(*i) : net.source(*i);
+		assert(b_node != c_node);
+		NIRange bneighbors = net.neighbors(b_node);
+		for (NI n = bneighbors.first; n != bneighbors.second; ++n)
+		{
+			if (*n == c_node) continue;
+			if (net.nodeState(*n) == a)
+			{
+				NIRange cneighbors = net.neighbors(c_node);
+				for (NI m = cneighbors.first; m != cneighbors.second; ++m)
+				{
+					if (*m == b_node) continue;
+					if (net.nodeState(*m) == d)
+						++ret;
+				}
+			}
+		}
 	}
 	return ret;
+}
+
+template<class _Network>
+id_size_t quadLines(const _Network& net, const motifs::QuadLineMotif& q)
+{
+	return quadLines(net, q.a(), q.b(), q.c(), q.d());
 }
 
 }

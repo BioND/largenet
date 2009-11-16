@@ -9,9 +9,7 @@
 #define MOTIF_CONSTRUCTION_H_
 
 #include "../../base/types.h"
-#include "../NodeMotif.h"
-#include "../LinkMotif.h"
-#include "../TripleMotif.h"
+
 #include <set>
 
 namespace lnet
