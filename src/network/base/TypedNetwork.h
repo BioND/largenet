@@ -878,10 +878,8 @@ template<class _Node, class _Link>
 typename TypedNetwork<_Node, _Link>::NeighborIterator& TypedNetwork<_Node,
 		_Link>::NeighborIterator::operator++()
 {
-	if (net_)
-	{
+	assert(net_ != 0);
 		++cur_;
-	}
 	return *this;
 }
 
@@ -897,15 +895,8 @@ typename TypedNetwork<_Node, _Link>::NeighborIterator TypedNetwork<_Node, _Link>
 template<class _Node, class _Link>
 node_id_t TypedNetwork<_Node, _Link>::NeighborIterator::operator*()
 {
-	if (net_)
-	{
-		const LinkType& theLink = net_->link(*cur_);
-		return theLink.opposite(n_);
-	}
-	else
-	{
-		return 0; // FIXME is this wise? singular iterator should not be dereferenced anyway.
-	}
+	assert(net_ != 0);
+	return net_->link(*cur_).opposite(n_);
 }
 
 }
