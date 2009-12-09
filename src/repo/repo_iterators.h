@@ -34,8 +34,8 @@ public:
 	typedef typename choose_type<is_const, typename Repo::const_reference,
 			typename Repo::reference>::type reference;
 	typedef typename Repo::const_reference const_reference;
-	typedef typename choose_type<is_const, const value_type*, value_type*>::type
-			pointer;
+	typedef typename choose_type<is_const, typename Repo::const_pointer,
+			typename Repo::pointer>::type pointer;
 	typedef long int difference_type;
 	typedef std::input_iterator_tag iterator_category;
 
@@ -202,8 +202,8 @@ public:
 	typedef typename choose_type<is_const, typename Repo::const_reference,
 			typename Repo::reference>::type reference;
 	typedef typename Repo::const_reference const_reference;
-	typedef typename choose_type<is_const, const value_type*, value_type*>::type
-			pointer;
+	typedef typename choose_type<is_const, typename Repo::const_pointer,
+			typename Repo::pointer>::type pointer;
 	typedef long int difference_type;
 	typedef std::input_iterator_tag iterator_category;
 

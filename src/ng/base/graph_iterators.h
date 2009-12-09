@@ -54,7 +54,7 @@ public:
 	}
 	node_pointer operator->()
 	{
-		return *it_;
+		return &(*it_);
 	}
 	GraphNodeIterator& operator=(const GraphNodeIterator& i)
 	{
@@ -121,7 +121,7 @@ public:
 	}
 	edge_pointer operator->()
 	{
-		return *it_;
+		return &(*it_);
 	}
 	GraphEdgeIterator& operator=(const GraphEdgeIterator& i)
 	{

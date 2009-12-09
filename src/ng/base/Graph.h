@@ -8,7 +8,7 @@
 #define GRAPH_H_
 
 #include "types.h"
-#include "../../repo/CRepository.h"
+#include "../../repo/CPtrRepository.h"
 #include "graph_iterators.h"
 #include <boost/noncopyable.hpp>
 #include <list>
@@ -27,8 +27,8 @@ class GraphListener;
 class Graph: public boost::noncopyable
 {
 private:
-	typedef repo::CRepository<Node*> NodeContainer; // FIXME these shoud be proper pointer containers...
-	typedef repo::CRepository<Edge*> EdgeContainer;
+	typedef repo::CPtrRepository<Node> NodeContainer; // FIXME these shoud be proper pointer containers...
+	typedef repo::CPtrRepository<Edge> EdgeContainer;
 	typedef std::list<GraphListener*> ListenerContainer; // use boost::ptr_list if taking ownership seems better
 
 public:
@@ -128,7 +128,7 @@ inline edge_size_t Graph::numberOfEdges(const edge_state_t s) const
 inline Node* Graph::node(const node_id_t n)
 {
 	if (nodes_.valid(n))
-		return nodes_[n];
+		return &nodes_[n];
 	else
 		throw(std::invalid_argument("Invalid node ID."));
 }
@@ -136,7 +136,7 @@ inline Node* Graph::node(const node_id_t n)
 inline const Node* Graph::node(const node_id_t n) const
 {
 	if (nodes_.valid(n))
-		return nodes_[n];
+		return &nodes_[n];
 	else
 		throw(std::invalid_argument("Invalid node ID."));
 }
@@ -144,7 +144,7 @@ inline const Node* Graph::node(const node_id_t n) const
 inline Edge* Graph::edge(const edge_id_t e)
 {
 	if (edges_.valid(e))
-		return edges_[e];
+		return &edges_[e];
 	else
 		throw(std::invalid_argument("Invalid edge ID."));
 }
@@ -152,7 +152,7 @@ inline Edge* Graph::edge(const edge_id_t e)
 inline const Edge* Graph::edge(const edge_id_t e) const
 {
 	if (edges_.valid(e))
-		return edges_[e];
+		return &edges_[e];
 	else
 		throw(std::invalid_argument("Invalid edge ID."));
 }
