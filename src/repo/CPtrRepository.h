@@ -23,6 +23,9 @@ template<class T, class CloneAllocator = boost::heap_clone_allocator,
 		class Allocator = std::allocator<T> >
 class CPtrRepository
 {
+private:
+	/// do not allow copy construction for now
+	CPtrRepository(const CPtrRepository&);
 public:
 	typedef T* value_type;
 	typedef T& reference;
@@ -54,7 +57,7 @@ public:
 	CPtrRepository();
 	CPtrRepository(category_t cat);
 	CPtrRepository(category_t cat, id_size_t n);
-	CPtrRepository(const CPtrRepository& r);
+//	CPtrRepository(const CPtrRepository& r);
 	~CPtrRepository();
 
 	/**
@@ -315,7 +318,7 @@ public:
 
 private:
 	void init();
-	void copyItems(const CPtrRepository& r);
+	//void copyItems(const CPtrRepository& r);
 	/**
 	 * Set category of item with number @p n.
 	 * @param n Number of item.
@@ -457,15 +460,17 @@ CPtrRepository<T, CloneAllocator, Allocator>::CPtrRepository(
 	init();
 }
 
-template<class T, class CloneAllocator, class Allocator>
-CPtrRepository<T, CloneAllocator, Allocator>::CPtrRepository(
-		const CPtrRepository<T, CloneAllocator, Allocator>& r) :
-	C_(r.C_), N_(r.nStored_), count_(C_ + 1, 0), offset_(C_ + 1, 0),
-			items_(N_), enlargeFactor_(r.enlargeFactor_)
-{
-	init();
-	copyItems(r);
-}
+/// needs cloneability @see boost::ptr_container
+//
+//template<class T, class CloneAllocator, class Allocator>
+//CPtrRepository<T, CloneAllocator, Allocator>::CPtrRepository(
+//		const CPtrRepository<T, CloneAllocator, Allocator>& r) :
+//	C_(r.C_), N_(r.nStored_), count_(C_ + 1, 0), offset_(C_ + 1, 0),
+//			items_(N_), enlargeFactor_(r.enlargeFactor_)
+//{
+//	init();
+//	copyItems(r);
+//}
 
 template<class T, class CloneAllocator, class Allocator>
 CPtrRepository<T, CloneAllocator, Allocator>::~CPtrRepository()
@@ -578,16 +583,18 @@ void CPtrRepository<T, CloneAllocator, Allocator>::enlarge()
 	}
 }
 
-template<class T, class CloneAllocator, class Allocator>
-void CPtrRepository<T, CloneAllocator, Allocator>::copyItems(
-		const CPtrRepository<T, CloneAllocator, Allocator>& r)
-{
-	assert(C_ == r.C_);
-	for (const_iterator it = r.begin(); it != r.end(); ++it)
-	{
-		insert(*it, it.category());
-	}
-}
+/// we cannot copy objects, must rely on cloneability @see boost::ptr_container
+//
+//template<class T, class CloneAllocator, class Allocator>
+//void CPtrRepository<T, CloneAllocator, Allocator>::copyItems(
+//		const CPtrRepository<T, CloneAllocator, Allocator>& r)
+//{
+//	assert(C_ == r.C_);
+//	for (const_iterator it = r.begin(); it != r.end(); ++it)
+//	{
+//		insert(*it, it.category());
+//	}
+//}
 
 template<class T, class CloneAllocator, class Allocator>
 void CPtrRepository<T, CloneAllocator, Allocator>::increaseCat(

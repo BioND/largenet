@@ -65,10 +65,6 @@ node_id_t Graph::addNode()
 node_id_t Graph::addNode(const node_state_t s)
 {
 	assert(s < nodes_.numberOfCategories());
-	// FIXME this is an ugly hack
-//	node_id_t id = nodes_.insert(0, s);
-//	nodes_[id] = elf_->createNode(id);
-
 	node_id_t id = nodes_.nextInsertId();
 	node_id_t nid = nodes_.insert(elf_->createNode(id));
 	assert(nid == id);
@@ -78,22 +74,17 @@ node_id_t Graph::addNode(const node_state_t s)
 
 edge_id_t Graph::addEdge(const node_id_t source, const node_id_t target)
 {
-	//edge_id_t id = edges_.insert(0);
 	edge_id_t id = edges_.nextInsertId();
 	Edge* e = 0;
 	try
 	{
-		// FIXME this is an ugly hack
 		e = elf_->createEdge(id, *node(source), *node(target));
-		//edges_[id] = e;
 		edges_.insert(e);
 		afterEdgeAdd(id);
 		return id;
 	} catch (SingletonException& ex)
 	{
 		// edge exists and we do not allow multiple edges
-//		edges_.erase(id);
-//		delete e;
 		if (isDirected())
 			return node(source)->edgeTo(node(target))->id();
 		else

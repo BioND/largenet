@@ -27,7 +27,7 @@ class GraphListener;
 class Graph: public boost::noncopyable
 {
 private:
-	typedef repo::CPtrRepository<Node> NodeContainer; // FIXME these shoud be proper pointer containers...
+	typedef repo::CPtrRepository<Node> NodeContainer;
 	typedef repo::CPtrRepository<Edge> EdgeContainer;
 	typedef std::list<GraphListener*> ListenerContainer; // use boost::ptr_list if taking ownership seems better
 
