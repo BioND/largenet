@@ -6,6 +6,8 @@
 
 #include "generators.h"
 #include "base/BasicNetwork.h"
+#include <utility>
+#include <boost/unordered_set.hpp>
 
 namespace lnet
 {
@@ -13,21 +15,50 @@ namespace lnet
 namespace generators
 {
 
-void erdosRenyiNetwork(BasicNetwork& net, const id_size_t nLinks,
-		const bool selfLoops)
+void randomNetworkGnm(BasicNetwork& net, const id_size_t nLinks)
 {
+	typedef std::pair<node_id_t, node_id_t> edge_t;
+	// hash table for edges
+	typedef boost::unordered_set<edge_t> edge_set;
+
 	id_size_t n = net.numberOfNodes();
 	if (n < 1)
 		return;
+	int max_edges = n * (n - 1) / 2;
 	assert(nLinks <= n * (n - 1) / 2);
 	net.removeAllLinks();
-	while (net.numberOfLinks() < nLinks)
+
+	/*
+	 * efficient G(n,m) from Phys. Rev. E 71, 036113 (2005)
+	 */
+
+	edge_set edges;
+	edge_t current_edge;
+	for (id_size_t i = 0; i < nLinks; ++i)
 	{
-		std::pair<bool, node_id_t> a = net.randomNode(), b = net.randomNode();
-		if (!selfLoops && (a.second == b.second))
-			continue;
-		net.addLink(a.second, b.second);
+		while (true)
+		{
+			int edge_index = rng.IntFromTo(0, max_edges - 1);
+			current_edge.first = 1 + static_cast<node_id_t> (std::floor(
+					std::sqrt(0.25 + 2.0 * edge_index) - 0.5));
+			current_edge.second = static_cast<node_id_t> (edge_index
+					- current_edge.first * (current_edge.first - 1) / 2);
+			if (edges.find(current_edge) == edges.end())
+			{
+				edges.insert(current_edge);
+				net.addLink(current_edge.first, current_edge.second);
+				break;
+			}
+		}
 	}
+
+	//	while (net.numberOfLinks() < nLinks)
+	//	{
+	//		std::pair<bool, node_id_t> a = net.randomNode(), b = net.randomNode();
+	//		if (!selfLoops && (a.second == b.second))
+	//			continue;
+	//		net.addLink(a.second, b.second);
+	//	}
 }
 
 }

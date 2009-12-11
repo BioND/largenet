@@ -14,6 +14,7 @@
 #include "base/traits.h"
 #include "../myrng1.2/myrngWELL.h"
 #include <cassert>
+#include <cmath>
 
 namespace lnet
 {
@@ -34,10 +35,8 @@ namespace generators
  *
  * @param[in,out] net Network object (containing @p N nodes) to make random network of.
  * @param[in] nLinks  Number of links to create in @p net.
- * @param[in] selfLoops If true, self-loops are allowed.
  */
-void erdosRenyiNetwork(BasicNetwork& net, const id_size_t nLinks,
-		const bool selfLoops = false);
+void randomNetworkGnm(BasicNetwork& net, const id_size_t nLinks);
 
 /**
  * Create a random Erdos-Renyi network from @p net with link probability @p p.
@@ -49,22 +48,39 @@ void erdosRenyiNetwork(BasicNetwork& net, const id_size_t nLinks,
  * @param[in] p Link creation probability.
  */
 template<class _Network>
-void erdosRenyiNetwork(_Network& net, const double p)
+void randomNetworkGnp(_Network& net, const double p)
 {
-	assert(p >= 0.0);
-	assert(p <= 1.0);
+	/*
+	 * efficient G(n,p) from Phys. Rev. E 71, 036113 (2005)
+	 */
+	assert(p > 0.0);
+	assert(p < 1.0);
 	typename network_traits<_Network>::NodeIteratorRange iters = net.nodes();
-
-	for (typename network_traits<_Network>::NodeIterator it = iters.first; it
-			!= iters.second; ++it)
+	long int w = -1;
+	for (typename network_traits<_Network>::NodeIterator v = iters.first; v != iters.second; ++v)
 	{
-		for (typename network_traits<_Network>::NodeIterator j = iters.first; j
-				!= it; ++j)
+		double r = rng.Uniform01();
+		w = 1 + w + static_cast<long int> (std::floor(std::log(1.0 - r)/std::log(1.0 - p)));
+		while ((w >= *v) && (v != iters.second))
 		{
-			if (rng.Chance(p))
-				net.addLink(*it, *j);
+			w -= *v;
+			++v;
 		}
+		if (v != iters.second)
+			net.addLink(*v, w);
 	}
+//
+//
+//	for (typename network_traits<_Network>::NodeIterator it = iters.first; it
+//			!= iters.second; ++it)
+//	{
+//		for (typename network_traits<_Network>::NodeIterator j = iters.first; j
+//				!= it; ++j)
+//		{
+//			if (rng.Chance(p))
+//				net.addLink(*it, *j);
+//		}
+//	}
 }
 
 /**
