@@ -32,6 +32,8 @@ typedef link_state_t link_state_size_t; ///< %Link state size type.
 typedef unsigned int triple_state_t; ///< %Triple state type.
 typedef triple_state_t triple_state_size_t; ///< %Triple state size type.
 
+typedef struct {} no_type;
+
 }
 
 #endif /* TYPES_H_ */

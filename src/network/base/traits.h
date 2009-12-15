@@ -19,8 +19,8 @@ struct no_count_triples_tag {};
 template<class _Network>
 struct network_traits
 {
-	typedef	typename _Network::NodeType NodeType;
-	typedef typename _Network::LinkType LinkType;
+//	typedef	typename _Network::NodeType NodeType;
+//	typedef typename _Network::LinkType LinkType;
 	typedef typename _Network::NodeIterator NodeIterator; ///< %Node ID iterator type.
 	typedef typename _Network::NodeStateIterator NodeStateIterator; ///< %Node ID in state iterator type.
 	typedef typename _Network::NodeIteratorRange NodeIteratorRange; ///< %Node ID iterator range type.
