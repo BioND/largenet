@@ -10,7 +10,9 @@
 
 #include "../base/types.h"
 #include "../MultiNetwork.h"
+#include "../TripleMultiNetwork.h"
 #include "../Network.h"
+#include "../TripleNetwork.h"
 
 //#include <boost/config.hpp>
 #include <boost/graph/graph_traits.hpp>
@@ -48,6 +50,51 @@ struct graph_traits<lnet::MultiNetwork>
 	typedef lnet::node_state_t vertex_property_type;
 	typedef lnet::link_state_t edge_property_type;
 };
+
+template<>
+struct graph_traits<lnet::TripleMultiNetwork>
+{
+	typedef lnet::node_id_t vertex_descriptor;
+	typedef lnet::link_id_t edge_descriptor;
+
+	typedef lnet::TripleMultiNetwork::NeighborLinkIterator out_edge_iterator;
+	typedef lnet::TripleMultiNetwork::NeighborLinkIterator in_edge_iterator;
+	typedef lnet::TripleMultiNetwork::LinkIterator edge_iterator;
+	typedef lnet::TripleMultiNetwork::NodeIterator vertex_iterator;
+
+	typedef largenet_multigraph_traversal_category traversal_category;
+	typedef undirected_tag directed_category;
+	typedef allow_parallel_edge_tag edge_parallel_category;
+	typedef lnet::id_size_t vertices_size_type;
+	typedef lnet::id_size_t edges_size_type;
+	typedef lnet::id_size_t degree_size_type;
+
+	typedef lnet::node_state_t vertex_property_type;
+	typedef lnet::link_state_t edge_property_type;
+};
+
+template<>
+struct graph_traits<lnet::TripleNetwork>
+{
+	typedef lnet::node_id_t vertex_descriptor;
+	typedef lnet::link_id_t edge_descriptor;
+
+	typedef lnet::TripleNetwork::NeighborLinkIterator out_edge_iterator;
+	typedef lnet::TripleNetwork::NeighborLinkIterator in_edge_iterator;
+	typedef lnet::TripleNetwork::LinkIterator edge_iterator;
+	typedef lnet::TripleNetwork::NodeIterator vertex_iterator;
+
+	typedef largenet_multigraph_traversal_category traversal_category;
+	typedef undirected_tag directed_category;
+	typedef disallow_parallel_edge_tag edge_parallel_category;
+	typedef lnet::id_size_t vertices_size_type;
+	typedef lnet::id_size_t edges_size_type;
+	typedef lnet::id_size_t degree_size_type;
+
+	typedef lnet::node_state_t vertex_property_type;
+	typedef lnet::link_state_t edge_property_type;
+};
+
 
 /*
  * boost::VertexListGraph concept
@@ -226,6 +273,21 @@ public:
 	}
 };
 
+class largenet_triplegraph_node_id_property_map: public put_get_helper<
+		lnet::node_id_t, largenet_triplegraph_node_id_property_map>
+{
+public:
+	typedef graph_traits<lnet::TripleMultiNetwork>::vertex_descriptor key_type;
+	typedef lnet::node_id_t value_type;
+	typedef lnet::node_id_t reference;
+	typedef readable_property_map_tag category;
+
+	value_type operator[](key_type e) const
+	{
+		return e;
+	}
+};
+
 /**
  * Vertex ID property map.
  */
@@ -236,10 +298,50 @@ struct property_map<lnet::MultiNetwork, vertex_index_t>
 	typedef largenet_multigraph_node_id_property_map const_type;
 };
 
+template<>
+struct property_map<lnet::TripleMultiNetwork, vertex_index_t>
+{
+	typedef largenet_triplegraph_node_id_property_map type;
+	typedef largenet_triplegraph_node_id_property_map const_type;
+};
+
+template<>
+struct property_map<lnet::Network, vertex_index_t>
+{
+	typedef largenet_multigraph_node_id_property_map type;
+	typedef largenet_multigraph_node_id_property_map const_type;
+};
+
+template<>
+struct property_map<lnet::TripleNetwork, vertex_index_t>
+{
+	typedef largenet_triplegraph_node_id_property_map type;
+	typedef largenet_triplegraph_node_id_property_map const_type;
+};
+
+
 inline property_map<lnet::MultiNetwork, vertex_index_t>::const_type get(
 		vertex_index_t, const lnet::MultiNetwork& g)
 {
 	return largenet_multigraph_node_id_property_map();
+}
+
+inline property_map<lnet::Network, vertex_index_t>::const_type get(
+		vertex_index_t, const lnet::Network& g)
+{
+	return largenet_multigraph_node_id_property_map();
+}
+
+inline property_map<lnet::TripleMultiNetwork, vertex_index_t>::const_type get(
+		vertex_index_t, const lnet::TripleMultiNetwork& g)
+{
+	return largenet_triplegraph_node_id_property_map();
+}
+
+inline property_map<lnet::TripleNetwork, vertex_index_t>::const_type get(
+		vertex_index_t, const lnet::TripleNetwork& g)
+{
+	return largenet_triplegraph_node_id_property_map();
 }
 
 /*

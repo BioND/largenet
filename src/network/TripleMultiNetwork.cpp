@@ -54,6 +54,19 @@ TripleMultiNetwork::~TripleMultiNetwork()
 		delete tsCalc_;
 }
 
+void TripleMultiNetwork::doReset(id_size_t nNodes, id_size_t nLinks,
+		node_state_size_t nNodeStates)
+{
+	TypedNetwork<NodeType, LinkType>::doReset(nNodes, nLinks, nNodeStates);
+
+	if (tscOwn_)
+		delete tsCalc_;
+	tsCalc_ = new DefaultTripleStateCalculator(nNodeStates);
+	tscOwn_ = true;
+	delete tripleStore_;
+	tripleStore_ = new TripleRepo(tsCalc_->numberOfTripleStates());
+}
+
 void TripleMultiNetwork::setTripleStateCalculator(TripleStateCalculator* tsCalc)
 {
 	if (tscOwn_)

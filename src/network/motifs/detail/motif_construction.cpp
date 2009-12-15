@@ -10,6 +10,7 @@
 #include "../LinkMotif.h"
 #include "../TripleMotif.h"
 #include "../QuadLineMotif.h"
+#include "../QuadStarMotif.h"
 
 namespace lnet
 {
@@ -50,6 +51,16 @@ void constructAllMotifs(std::set<QuadLineMotif>& m, node_state_size_t states)
 			for (node_state_t c = 0; c < states; ++c)
 				for (node_state_t d = 0; d < states; ++d)
 					m.insert(QuadLineMotif(a, b, c, d));
+}
+
+template<>
+void constructAllMotifs(std::set<QuadStarMotif>& m, node_state_size_t states)
+{
+	for (node_state_t a = 0; a < states; ++a)
+		for (node_state_t b = 0; b < states; ++b)
+			for (node_state_t c = 0; c < states; ++c)
+				for (node_state_t d = 0; d < states; ++d)
+					m.insert(QuadStarMotif(a, b, c, d));
 }
 
 }

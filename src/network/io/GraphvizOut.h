@@ -24,7 +24,7 @@ public:
 	GraphvizOut();
 	virtual ~GraphvizOut();
 private:
-	bool doPut(std::ostream& out, const MultiNetwork& net) const;
+	bool doPut(std::ostream& out, const BasicNetwork& net) const;
 };
 
 }

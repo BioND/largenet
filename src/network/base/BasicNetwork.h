@@ -299,6 +299,8 @@ protected:
 	 * @return true if valid
 	 */
 	bool isValidLinkStateCalculator(LinkStateCalculator* lc) const;
+	virtual void doReset(id_size_t nNodes, id_size_t nLinks,
+			node_state_size_t nNodeStates) = 0;
 
 private:
 	virtual id_size_t getDegree(node_id_t n) const = 0;
@@ -309,9 +311,6 @@ private:
 	virtual id_size_t getNumberOfLinks(node_state_t s) const = 0;
 	virtual node_state_size_t getNumberOfNodeStates() const = 0;
 	virtual link_state_size_t getNumberOfLinkStates() const = 0;
-
-	virtual void doReset(id_size_t nNodes, id_size_t nLinks,
-			node_state_size_t nNodeStates) = 0;
 
 	virtual node_state_t getNodeState(node_id_t n) const = 0;
 	virtual link_state_t getLinkState(link_id_t l) const = 0;

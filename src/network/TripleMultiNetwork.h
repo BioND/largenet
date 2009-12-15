@@ -112,6 +112,9 @@ protected:
 	Triple& triple(triple_id_t t) const;
 	bool isValidTripleStateCalculator(TripleStateCalculator* tsCalc) const;
 
+	void doReset(id_size_t nNodes, id_size_t nLinks,
+			node_state_size_t nNodeStates);
+
 private:
 	void addTriple(link_id_t left, link_id_t right);
 	void removeTriplesFromLinkEnd(link_id_t l, bool fromSource);

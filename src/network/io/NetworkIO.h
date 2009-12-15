@@ -13,6 +13,6 @@
 #include "EdgelistIn.h"
 #include "EdgelistOut.h"
 #include "GraphvizIn.h"
-#include "GraphvizOut.h"
+//#include "GraphvizOut.h"
 
 #endif /* NETWORKIO_H_ */

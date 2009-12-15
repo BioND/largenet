@@ -56,7 +56,7 @@ private:
 	 * from such edge list data via EdgelistIn, isolated vertices' states will be
 	 * default-constructed.
 	 */
-	bool doPut(std::ostream& out, const MultiNetwork& net) const;
+	bool doPut(std::ostream& out, const BasicNetwork& net) const;
 };
 
 }

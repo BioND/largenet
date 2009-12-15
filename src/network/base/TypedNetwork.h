@@ -214,6 +214,9 @@ protected:
 	 */
 	void recalcLinkStates();
 
+	void doReset(id_size_t nNodes, id_size_t nLinks,
+			node_state_size_t nNodeStates);
+
 	NodeRepo& nodeStore() const;
 	LinkRepo& linkStore() const;
 
@@ -252,9 +255,6 @@ private:
 	 * @return Number of possible link states.
 	 */
 	link_state_size_t getNumberOfLinkStates() const;
-
-	void doReset(id_size_t nNodes, id_size_t nLinks,
-			node_state_size_t nNodeStates);
 
 	/**
 	 * Check if there exists a direct link between two nodes.

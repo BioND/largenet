@@ -11,6 +11,9 @@
 #include "../base/traits.h"
 #include "../motifs/TripleMotif.h"
 #include "../motifs/QuadLineMotif.h"
+#include "../motifs/QuadStarMotif.h"
+#include "../TripleNetwork.h"
+#include "../TripleMultiNetwork.h"
 #include <vector>
 #include <cassert>
 
@@ -298,10 +301,22 @@ id_size_t triples(const _Network& net)
 			!= iters.second; ++it)
 	{
 		const id_size_t d = net.degree(*it);
-		if (d > 0)
+		if (d > 1)
 			t += d * (d - 1);
 	}
 	return t / 2;
+}
+
+template<>
+id_size_t triples<TripleNetwork>(const TripleNetwork& net)
+{
+	return net.numberOfTriples();
+}
+
+template<>
+id_size_t triples(const TripleMultiNetwork& net)
+{
+	return net.numberOfTriples();
 }
 
 template<class _Network>
@@ -378,22 +393,60 @@ id_size_t triples(const _Network& net, const motifs::TripleMotif& t)
 	return ret;
 }
 
+template<>
+id_size_t triples(const TripleMultiNetwork& net, const motifs::TripleMotif& t)
+{
+	return net.numberOfTriples(net.getTripleStateCalculator()(t.left(),
+			t.center(), t.right()));
+}
+
+template<>
+id_size_t triples(const TripleNetwork& net, const motifs::TripleMotif& t)
+{
+	return net.numberOfTriples(net.getTripleStateCalculator()(t.left(),
+			t.center(), t.right()));
+}
+
 template<class _Network>
 id_size_t quadLines(const _Network& net)
 {
+	typedef typename network_traits<_Network>::NeighborIteratorRange NIRange;
+	typedef typename network_traits<_Network>::NeighborIterator NI;
+	typedef typename network_traits<_Network>::LinkIteratorRange LIRange;
+	typedef typename network_traits<_Network>::LinkIterator LI;
+
+	// FIXME this is slooow.
 	id_size_t ret = 0;
+	LIRange iters = net.links();
+	for (LI i = iters.first; i != iters.second; ++i)
+	{
+		NIRange sneighbors = net.neighbors(net.source(*i));
+		for (NI sn = sneighbors.first; sn != sneighbors.second; ++sn)
+		{
+			if (*sn == net.target(*i))
+				continue;
+			NIRange tneighbors = net.neighbors(net.target(*i));
+			for (NI tn = tneighbors.first; tn != tneighbors.second; ++tn)
+			{
+				if (*tn == net.source(*i))
+					continue;
+				if (*sn == *tn)
+					continue;
+				++ret;
+			}
+		}
+	}
+
 	// each i-j link is part of q_i*q_j quads
-	typename network_traits<_Network>::LinkIteratorRange iters = net.links();
-	for (typename network_traits<_Network>::LinkIterator i = iters.first; i != iters.second; ++i)
-		ret += (net.degree(net.source(*i)) - 1) * (net.degree(net.target(*i)) - 1);
+	//		ret += (net.degree(net.source(*i)) - 1) * (net.degree(net.target(*i))
+	//				- 1); // FIXME this counts closed triangles as 3 quad lines!
+
 	return ret;
 }
 
-/*
- * should be specialized for TripleNetworks
- */
 template<class _Network>
-id_size_t quadLines(const _Network& net, node_state_t a, node_state_t b, node_state_t c, node_state_t d)
+id_size_t quadLines(const _Network& net, node_state_t a, node_state_t b,
+		node_state_t c, node_state_t d)
 {
 	typedef typename network_traits<_Network>::LinkStateIteratorRange LSIRange;
 	typedef typename network_traits<_Network>::LinkStateIterator LSI;
@@ -404,22 +457,45 @@ id_size_t quadLines(const _Network& net, node_state_t a, node_state_t b, node_st
 	LSIRange iters = net.links(net.linkStateCalculator()(b, c));
 	for (LSI i = iters.first; i != iters.second; ++i)
 	{
-		// what if symmetric?
-		node_id_t b_node = net.nodeState(net.source(*i)) == b ? net.source(*i) : net.target(*i);
-		node_id_t c_node = b_node == net.source(*i) ? net.target(*i) : net.source(*i);
+		node_id_t b_node = net.nodeState(net.source(*i)) == b ? net.source(*i)
+				: net.target(*i);
+		node_id_t c_node = b_node == net.source(*i) ? net.target(*i)
+				: net.source(*i);
 		assert(b_node != c_node);
 		NIRange bneighbors = net.neighbors(b_node);
 		for (NI n = bneighbors.first; n != bneighbors.second; ++n)
 		{
-			if (*n == c_node) continue;
+			if (*n == c_node)
+				continue;
 			if (net.nodeState(*n) == a)
 			{
 				NIRange cneighbors = net.neighbors(c_node);
 				for (NI m = cneighbors.first; m != cneighbors.second; ++m)
 				{
-					if (*m == b_node) continue;
+					if (*m == b_node)
+						continue;
+					if (*m == *n) // do not count closed triangles as quad lines
+						continue;
 					if (net.nodeState(*m) == d)
 						++ret;
+				}
+			}
+
+			// symmetric center, check swapped ends too
+			if ((b == c) && (a != d))
+			{
+				if (net.nodeState(*n) == d)
+				{
+					NIRange cneighbors = net.neighbors(c_node);
+					for (NI m = cneighbors.first; m != cneighbors.second; ++m)
+					{
+						if (*m == b_node)
+							continue;
+						if (*m == *n) // do not count closed triangles as quad lines
+							continue;
+						if (net.nodeState(*m) == a)
+							++ret;
+					}
 				}
 			}
 		}
@@ -427,11 +503,199 @@ id_size_t quadLines(const _Network& net, node_state_t a, node_state_t b, node_st
 	return ret;
 }
 
+/*
+ * FIXME this is not trivial
+template<>
+id_size_t quadLines(const TripleNetwork& net, node_state_t a, node_state_t b,
+		node_state_t c, node_state_t d)
+{
+	id_size_t ret = 0;
+	TripleNetwork::TripleStateIteratorRange iters = net.triples(
+			net.getTripleStateCalculator()(a, b, c));
+	for (TripleNetwork::TripleStateIterator i = iters.first; i != iters.second; ++i)
+	{
+		node_id_t a_node = net.nodeState(net.leftNode(*i)) == a ? net.leftNode(
+				*i) : net.rightNode(*i);
+		node_id_t c_node = a_node == net.leftNode(*i) ? net.rightNode(*i)
+				: net.leftNode(*i);
+		assert(a_node != c_node);
+		TripleNetwork::NeighborIteratorRange c_neighbors =
+				net.neighbors(c_node);
+		for (TripleNetwork::NeighborIterator n = c_neighbors.first; n
+				!= c_neighbors.second; ++n)
+		{
+			if (*n == net.centerNode(*i))
+				continue;
+			if (*n == a_node) // do not count closed triangles as quad lines
+				continue;
+			if (net.nodeState(*n) == d)
+				++ret;
+		}
+
+		if (a == c)
+		{
+			TripleNetwork::NeighborIteratorRange a_neighbors = net.neighbors(
+					a_node);
+			for (TripleNetwork::NeighborIterator n = a_neighbors.first; n
+					!= a_neighbors.second; ++n)
+			{
+				if (*n == net.centerNode(*i))
+					continue;
+				if (*n == c_node) // do not count closed triangles as quad lines
+					continue;
+				if (net.nodeState(*n) == d)
+					++ret;
+			}
+		}
+	}
+	if (a == c) ret /= 2;
+	return ret;
+}
+*/
+
 template<class _Network>
 id_size_t quadLines(const _Network& net, const motifs::QuadLineMotif& q)
 {
 	return quadLines(net, q.a(), q.b(), q.c(), q.d());
 }
+
+template<class _Network>
+id_size_t quadStars(const _Network& net)
+{
+	id_size_t t = 0;
+	typename network_traits<_Network>::NodeIteratorRange iters = net.nodes();
+	for (typename network_traits<_Network>::NodeIterator& it = iters.first; it
+			!= iters.second; ++it)
+	{
+		const id_size_t d = net.degree(*it);
+		if (d > 2)
+			t += d * (d - 1) * (d - 2);
+	}
+	return t / 6;
+}
+
+template<class _Network>
+id_size_t quadStars(const _Network& net, node_state_t center, node_state_t a,
+		node_state_t b, node_state_t c)
+{
+	typedef typename network_traits<_Network>::NodeStateIteratorRange NSIRange;
+	typedef typename network_traits<_Network>::NodeStateIterator NSI;
+	typedef typename network_traits<_Network>::LinkStateIteratorRange LSIRange;
+	typedef typename network_traits<_Network>::LinkStateIterator LSI;
+	typedef typename network_traits<_Network>::NeighborIteratorRange NIRange;
+	typedef typename network_traits<_Network>::NeighborIterator NI;
+
+	id_size_t ret = 0;
+	NSIRange nodes = net.nodes(center);
+	for (NSI i = nodes.first; i != nodes.second; ++i)
+	{
+		id_size_t an = 0, bn = 0, cn = 0;
+		NIRange neighbors = net.neighbors(*i);
+		for (NI n = neighbors.first; n != neighbors.second; ++n)
+		{
+			if (net.nodeState(*n) == a)
+				++an;
+			if (net.nodeState(*n) == b)
+				++bn;
+			if (net.nodeState(*n) == c)
+				++cn;
+		}
+		long int q = an;
+		if (a == b)
+		{
+			if (b == c) // fully symmetric
+			{
+				q *= (an - 1) * (an - 2);
+				q /= 6;
+			}
+			else // only a == b
+			{
+				q *= (an - 1) * cn;
+				q /= 2;
+			}
+		}
+		else if (a == c) // symmetric, but a != b
+		{
+			q *= (an - 1) * bn;
+			q /= 2;
+		}
+		else if (b == c) // a != b && a != c
+		{
+			q *= (bn - 1) * bn;
+			q /= 2;
+		}
+		else
+			// a != b != c && a != c
+			q *= bn * cn;
+		if (q > 0)
+			ret += q;
+	}
+
+	//	// FIXME what if center node has same state as a, b, or c?
+	//	id_size_t ret = 0;
+	//	LSIRange iters = net.links(net.linkStateCalculator()(a, center));
+	//	for (LSI i = iters.first; i != iters.second; ++i)
+	//	{
+	//		node_id_t a_node =
+	//				(net.nodeState(net.source(*i)) == a) ? net.source(*i)
+	//						: net.target(*i);
+	//		node_id_t center_node = (a_node == net.source(*i)) ? net.target(*i)
+	//				: net.source(*i);
+	//		NIRange cneighbors = net.neighbors(center_node);
+	//		for (NI n1 = cneighbors.first; n1 != cneighbors.second; ++n1)
+	//		{
+	//			if (*n1 == a_node)
+	//				continue;
+	//			NI n2 = n1;
+	//			++n2;
+	//			for (; n2 != cneighbors.second; ++n2)
+	//			{
+	//				// FIXME what if symmetric?
+	//				if (((net.nodeState(*n1) == b) && (net.nodeState(*n2) == c))
+	//						|| ((net.nodeState(*n1) == c) && (net.nodeState(*n2)
+	//								== b)))
+	//					++ret;
+	//			}
+	//		}
+	//	}
+	//
+	//	if (b == c) ret /= 2;
+
+	return ret;
+}
+
+template<class _Network>
+id_size_t quadStars(const _Network& net, const motifs::QuadStarMotif& q)
+{
+	return quadStars(net, q.center(), q.a(), q.b(), q.c());
+}
+
+/*
+ * FIXME this is not trivial
+ *
+template<>
+id_size_t quadStars<TripleNetwork>(const TripleNetwork& net, node_state_t center, node_state_t a,
+		node_state_t b, node_state_t c)
+{
+	id_size_t ret = 0;
+	TripleNetwork::TripleStateIteratorRange iters = net.triples(net.getTripleStateCalculator()(a, center, b));
+	for (TripleNetwork::TripleStateIterator i = iters.first; i != iters.second; ++i)
+	{
+		TripleNetwork::NeighborIteratorRange neighbors = net.neighbors(net.centerNode(*i));
+		for (TripleNetwork::NeighborIterator n = neighbors.first; n != neighbors.second; ++n)
+		{
+			if (*n == net.leftNode(*i))
+				continue;
+			if (*n == net.rightNode(*i))
+				continue;
+			if (net.nodeState(*n) == c)
+				++ret;
+		}
+	}
+	if (b == c) ret /= 2;
+	return ret;
+}
+*/
 
 }
 

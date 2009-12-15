@@ -20,9 +20,9 @@ namespace measures {
  * @param net MultiNetwork to calculate correlation coefficient for.
  * @return degree correlation coefficient
  */
-double edgeDegreeCorrelationCoefficient(const MultiNetwork& net);
+double edgeDegreeCorrelationCoefficient(const BasicNetwork& net);
 
-TNT::Array2D<id_size_t> edgeDegreeCorrelationMatrix(const MultiNetwork& net);
+TNT::Array2D<id_size_t> edgeDegreeCorrelationMatrix(const BasicNetwork& net);
 
 }
 }

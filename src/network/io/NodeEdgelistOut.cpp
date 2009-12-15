@@ -25,7 +25,7 @@ NodeEdgelistOut::~NodeEdgelistOut()
 {
 }
 
-bool NodeEdgelistOut::doPut(std::ostream& out, const MultiNetwork& net) const
+bool NodeEdgelistOut::doPut(std::ostream& out, const BasicNetwork& net) const
 {
 	if (!out)
 		return false;
@@ -44,11 +44,11 @@ bool NodeEdgelistOut::doPut(std::ostream& out, const MultiNetwork& net) const
 	out << NODE_LIST << "\n";
 
 	// write node list:
-	MultiNetwork::NodeIteratorRange niters = net.nodes();
+	BasicNetwork::NodeIteratorRange niters = net.nodes();
 	if (writeStates_)
 	{
 		// ID  state
-		for (MultiNetwork::NodeIterator& nit = niters.first; nit
+		for (BasicNetwork::NodeIterator& nit = niters.first; nit
 				!= niters.second; ++nit)
 		{
 			out << *nit << sep << net.nodeState(*nit) << "\n";
@@ -59,8 +59,8 @@ bool NodeEdgelistOut::doPut(std::ostream& out, const MultiNetwork& net) const
 
 		// write link list:
 		// ID  source  target  state
-		MultiNetwork::LinkIteratorRange liters = net.links();
-		for (MultiNetwork::LinkIterator& lit = liters.first; lit
+		BasicNetwork::LinkIteratorRange liters = net.links();
+		for (BasicNetwork::LinkIterator& lit = liters.first; lit
 				!= liters.second; ++lit)
 		{
 			out << *lit << sep << net.source(*lit) << sep << net.target(*lit)
@@ -70,7 +70,7 @@ bool NodeEdgelistOut::doPut(std::ostream& out, const MultiNetwork& net) const
 	else
 	{
 		// ID
-		for (MultiNetwork::NodeIterator& nit = niters.first; nit
+		for (BasicNetwork::NodeIterator& nit = niters.first; nit
 				!= niters.second; ++nit)
 		{
 			out << *nit << "\n";
@@ -81,8 +81,8 @@ bool NodeEdgelistOut::doPut(std::ostream& out, const MultiNetwork& net) const
 
 		// write link list:
 		// ID  source  target  state
-		MultiNetwork::LinkIteratorRange liters = net.links();
-		for (MultiNetwork::LinkIterator& lit = liters.first; lit
+		BasicNetwork::LinkIteratorRange liters = net.links();
+		for (BasicNetwork::LinkIterator& lit = liters.first; lit
 				!= liters.second; ++lit)
 		{
 			out << *lit << sep << net.source(*lit) << sep << net.target(*lit)

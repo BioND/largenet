@@ -23,7 +23,7 @@ public:
 	NodeEdgelistOut();
 	virtual ~NodeEdgelistOut();
 private:
-	bool doPut(std::ostream& out, const MultiNetwork& net) const;
+	bool doPut(std::ostream& out, const BasicNetwork& net) const;
 };
 
 }

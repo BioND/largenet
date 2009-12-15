@@ -20,7 +20,7 @@ GraphvizOut::~GraphvizOut()
 class node_state_writer
 {
 public:
-	node_state_writer(const MultiNetwork& net) :
+	node_state_writer(const BasicNetwork& net) :
 		net_(net)
 	{
 	}
@@ -29,13 +29,13 @@ public:
 		out << " [label=" << net_.nodeState(v) << "]";
 	}
 private:
-	const MultiNetwork& net_;
+	const BasicNetwork& net_;
 };
 
 class edge_state_writer
 {
 public:
-	edge_state_writer(const MultiNetwork& net) :
+	edge_state_writer(const BasicNetwork& net) :
 		net_(net)
 	{
 	}
@@ -44,13 +44,13 @@ public:
 		out << " [label=" << net_.linkState(l) << "]";
 	}
 private:
-	const MultiNetwork& net_;
+	const BasicNetwork& net_;
 };
 
 class graph_info_writer
 {
 public:
-	graph_info_writer(const MultiNetwork& net) :
+	graph_info_writer(const BasicNetwork& net) :
 		net_(net)
 	{
 	}
@@ -63,7 +63,7 @@ private:
 	const BasicNetwork& net_;
 };
 
-bool GraphvizOut::doPut(std::ostream& out, const MultiNetwork& net) const
+bool GraphvizOut::doPut(std::ostream& out, const BasicNetwork& net) const
 {
 	if (!out)
 		return false;
