@@ -308,13 +308,13 @@ id_size_t triples(const _Network& net)
 }
 
 template<>
-id_size_t triples<TripleNetwork>(const TripleNetwork& net)
+inline id_size_t triples<TripleNetwork>(const TripleNetwork& net)
 {
 	return net.numberOfTriples();
 }
 
 template<>
-id_size_t triples(const TripleMultiNetwork& net)
+inline id_size_t triples(const TripleMultiNetwork& net)
 {
 	return net.numberOfTriples();
 }
@@ -394,14 +394,14 @@ id_size_t triples(const _Network& net, const motifs::TripleMotif& t)
 }
 
 template<>
-id_size_t triples(const TripleMultiNetwork& net, const motifs::TripleMotif& t)
+inline id_size_t triples(const TripleMultiNetwork& net, const motifs::TripleMotif& t)
 {
 	return net.numberOfTriples(net.getTripleStateCalculator()(t.left(),
 			t.center(), t.right()));
 }
 
 template<>
-id_size_t triples(const TripleNetwork& net, const motifs::TripleMotif& t)
+inline id_size_t triples(const TripleNetwork& net, const motifs::TripleMotif& t)
 {
 	return net.numberOfTriples(net.getTripleStateCalculator()(t.left(),
 			t.center(), t.right()));
