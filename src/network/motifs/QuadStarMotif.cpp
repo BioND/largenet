@@ -16,7 +16,7 @@ namespace motifs
 std::string QuadStarMotif::toStr() const
 {
 	std::stringstream ss;
-	ss << "(" << a_ << "-" << center_ << "<" << b_ << "," << c_ << ")";
+	ss << "(" << center_ << ":" << a_ << "," << b_ << "," << c_ << ")";
 	return ss.str();
 }
 
