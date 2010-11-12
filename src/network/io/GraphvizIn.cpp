@@ -1,8 +1,8 @@
 #include "GraphvizIn.h"
 #include "../base/BasicNetwork.h"
 #include <algorithm>
-#include <boost/property_map.hpp>
-#include <boost/dynamic_property_map.hpp>
+#include <boost/property_map/property_map.hpp>
+#include <boost/property_map/dynamic_property_map.hpp>
 #include "../boost/boost_largenet_multigraph.h"
 #include <boost/graph/graphviz.hpp>
 #include <boost/version.hpp>
