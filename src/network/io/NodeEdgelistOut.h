@@ -1,8 +1,9 @@
-/*
- * NodeEdgelistOut.h
- *
- *  Created on: 16.04.2009
- *      Author: gerd
+/**
+ * This work is licensed under the Creative Commons
+ * Attribution-NonCommercial 3.0 Unported License. To view a copy of this
+ * license, visit http://creativecommons.org/licenses/by-nc/3.0/ or send a
+ * letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View,
+ * California, 94041, USA.
  */
 
 #ifndef NODEEDGELISTOUT_H_
