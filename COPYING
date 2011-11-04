@@ -1,0 +1,45 @@
+The largenet library, with the exception of the included TNT and myrng 
+libraries found in subfolders src/tnt and src/myrng1.2, is licensed under 
+the Creative Commons Attribution-NonCommercial 3.0 Unported License. To view
+a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/ 
+or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain 
+View, California, 94041, USA.
+
+The Template Numerical Toolkit (TNT) library found in src/tnt is not subject
+to copyright protection and is in the public domain. See src/tnt/tnt.h for details.
+
+The myrng random number generator library found in src/myrng1.2 is subject to
+the following license statement: 
+
+	Mersenne Twister algorithm (myrngMT.h, myrngMT.cpp): 
+	Copyright (c) 1997 - 2002, Makoto Matsumoto	and Takuji Nishimura.
+	All rights reserved. Redistribution and use in source and binary forms, 
+	with or without modification, are permitted provided that the following 
+	conditions are met:
+		1. Redistributions of source code must retain the above copyright
+    	   notice, this list of conditions and the following disclaimer.
+    	2. Redistributions in binary form must reproduce the above copyright
+    	   notice, this list of conditions and the following disclaimer in the
+    	   documentation and/or other materials provided with the distribution.
+    	3. The names of its contributors may not be used to endorse or promote
+    	   products derived from this software without specific prior written
+    	   permission.
+
+	WELL1024a algorithm implementation copyright (c) 2006, Marton Morvai. Algorithm 
+	by F. Panneton et al. in F. Panneton et al.: Improved long-period generators based 
+	on linear recurrences modulo 2, ACM Transactions on Mathematical Software, 32(1), 
+	1-16, 2006.
+
+Disclaimer:
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
