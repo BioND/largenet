@@ -26,7 +26,7 @@ AC_C_INLINE
 AC_CHECK_FUNCS([floor pow sqrt])
 
 # Sanity check
-AC_CONFIG_SRCDIR([src/network/Network.h])
+AC_CONFIG_SRCDIR([src/largenet/network/Network.h])
 
 # Output files
 AC_CONFIG_FILES([Makefile
