@@ -1,10 +1,10 @@
 #ifndef MY_RNG_WELL
 #define MY_RNG_WELL
 
-#include <math.h>
-#include <time.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <cmath>
+#include <ctime>
+#include <cstdio>
+#include <cstdlib>
 #include <cassert>
 using namespace std;
 
