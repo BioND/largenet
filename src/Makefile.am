@@ -1,10 +1,11 @@
 AUTOMAKE_OPTIONS = subdir-objects
 ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
 
-lib_LTLIBRARIES = liblargenet-@LARGENET_API_VERSION@.la
-liblargenet_@LARGENET_API_VERSION@_la_LDFLAGS = -version-info $(LARGENET_SO_VERSION)
+lib_LTLIBRARIES = liblargenet-0.5.la
+liblargenet_0_5_la_CPPFLAGS = -O3
+liblargenet_0_5_la_LDFLAGS = -version-info 0:0:0
 
-liblargenet_@LARGENET_API_VERSION@_la_SOURCES = \
+liblargenet_0_5_la_SOURCES = \
 		largenet/measures/correlations.cpp \
 		largenet/io/NodeEdgelistOut.cpp \
 		largenet/io/EdgelistOut.cpp \
@@ -30,7 +31,6 @@ liblargenet_@LARGENET_API_VERSION@_la_SOURCES = \
 		largenet/network/repo/CategorizedRepository.h \
 		largenet/network/repo/types.h \
 		largenet/network/repo/repo_base.h \
-		largenet/myrng1.2/myrngWELL.h \
 		largenet/tnt/tnt.h \
 		largenet/tnt/tnt_array1d.h \
 		largenet/tnt/tnt_subscript.h \
@@ -59,6 +59,7 @@ liblargenet_@LARGENET_API_VERSION@_la_SOURCES = \
 		largenet/tnt/tnt_cmat.h 
 
 nobase_include_HEADERS = \
+		largenet/myrng1.2/myrngWELL.h \
 		largenet/measures/path.h \
 		largenet/measures/correlations.h \
 		largenet/measures/measures.h \

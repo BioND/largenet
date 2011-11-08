@@ -1,14 +1,11 @@
 AC_PREREQ([2.67])
 AC_INIT([largenet], [0.5])
-AM_INIT_AUTOMAKE([-Wall foreign])
+AM_INIT_AUTOMAKE([foreign silent-rules])
+AM_SILENT_RULES
 LT_PREREQ([2.2])
 LT_INIT([disable-static])
 
 AC_CONFIG_MACRO_DIR([m4])
-
-# Global version substitutions
-AC_SUBST([LARGENET_SO_VERSION], [0:0:0])
-AC_SUBST([LARGENET_API_VERSION], [0.5])
 
 AC_LANG([C++])
 
@@ -29,9 +26,9 @@ AC_CHECK_FUNCS([floor pow sqrt])
 AC_CONFIG_SRCDIR([src/largenet/network/Network.h])
 
 # Output files
-AC_CONFIG_FILES([Makefile
-				 src/Makefile
-				 largenet-0.5.pc])
+AC_CONFIG_FILES([Makefile]
+                [src/Makefile]
+                [largenet-0.5.pc:largenet.pc.in])
 
 AC_CONFIG_HEADERS([config.h])
 
