@@ -14,13 +14,13 @@
 #ifndef MEASURES_H_
 #define MEASURES_H_
 
-#include "../base/types.h"
-#include "../base/traits.h"
+#include "../network/types.h"
+#include "../network/traits.h"
 #include "../motifs/TripleMotif.h"
 #include "../motifs/QuadLineMotif.h"
 #include "../motifs/QuadStarMotif.h"
-#include "../TripleNetwork.h"
-#include "../TripleMultiNetwork.h"
+#include "../network/TripleNetwork.h"
+#include "../network/TripleMultiNetwork.h"
 #include <vector>
 #include <cassert>
 

@@ -15,7 +15,7 @@
 #define STATE_CALCULATORS_H_
 
 #include "types.h"
-#include "../motifs/motifs.h"
+#include "../motifs.h"
 #include <map>
 #include <utility>
 

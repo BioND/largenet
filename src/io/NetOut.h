@@ -14,7 +14,7 @@
 #ifndef NETOUT_H_
 #define NETOUT_H_
 
-#include "../base/BasicNetwork.h"
+#include "../network/BasicNetwork.h"
 #include <ostream>
 
 namespace lnet

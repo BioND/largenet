@@ -17,8 +17,8 @@
 #include "BasicNetwork.h"
 #include "types.h"
 #include "traits.h"
-#include "../../repo/CategorizedRepository.h"
-#include "../../myrng1.2/myrngWELL.h"
+#include "repo/CategorizedRepository.h"
+#include "../myrng1.2/myrngWELL.h"
 #include <iterator>
 #include <cassert>
 #include <utility> // for std::pair

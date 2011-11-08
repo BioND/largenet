@@ -6,35 +6,18 @@
  * California, 94041, USA.
  */
 /**
- * @file GraphvizIn.h
- * @date Dec 11, 2008
+ * @file NetworkIO.h
  * @author Gerd Zschaler
+ * @date Nov 13, 2008
+ * Convenience header file providing network input/output functionality.
  */
 
-#ifndef GRAPHVIZIN_H_
-#define GRAPHVIZIN_H_
+#ifndef NETWORKIO_H_
+#define NETWORKIO_H_
 
 #include "NetIn.h"
+#include "NetOut.h"
+#include "EdgelistIn.h"
+#include "EdgelistOut.h"
 
-namespace lnet
-{
-
-namespace io
-{
-
-/**
- * Graphviz network reader.
- */
-class GraphvizIn: public NetIn
-{
-public:
-	GraphvizIn();
-	virtual ~GraphvizIn();
-	bool get(std::istream& in, BasicNetwork& net);
-};
-
-}
-
-}
-
-#endif /* GRAPHVIZIN_H_ */
+#endif /* NETWORKIO_H_ */

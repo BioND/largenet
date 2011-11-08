@@ -8,7 +8,10 @@
 				<externalSettings>
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/largenet"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/largenet-git"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/largenet/Debug"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/largenet-git/Debug"/>
+						<entry flags="RESOLVED" kind="libraryFile" name="largenet"/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -56,7 +59,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="src/network/io/GraphvizOut.cpp|src/network/io/GraphvizOut.h|src/myrng1.2/Makefile|src/myrng1.2/testWELL.cpp|src/myrng1.2/testMT.cpp|src/myrng1.2/myrngMT.cpp|src/myrng1.2/myrngMT.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="src/myrng1.2/myrngMT.cpp|src/network/io/GraphvizOut.cpp|src/myrng1.2/myrngMT.h|src/myrng1.2/testMT.cpp|src/myrng1.2/testWELL.cpp|src/myrng1.2/Makefile|src/network/io/GraphvizOut.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -69,7 +72,10 @@
 				<externalSettings>
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/largenet"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/largenet-git"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/largenet/Release"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/largenet-git/Release"/>
+						<entry flags="RESOLVED" kind="libraryFile" name="largenet"/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -120,7 +126,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="src/network/io/GraphvizOut.cpp|src/network/io/GraphvizOut.h|src/myrng1.2/Makefile|src/myrng1.2/testWELL.cpp|src/myrng1.2/testMT.cpp|src/myrng1.2/myrngMT.cpp|src/myrng1.2/myrngMT.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="src/myrng1.2/myrngMT.cpp|src/network/io/GraphvizOut.cpp|src/myrng1.2/myrngMT.h|src/myrng1.2/testMT.cpp|src/myrng1.2/testWELL.cpp|src/myrng1.2/Makefile|src/network/io/GraphvizOut.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

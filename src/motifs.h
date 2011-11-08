@@ -9,12 +9,12 @@
 #ifndef MOTIFS_H_
 #define MOTIFS_H_
 
-#include "NodeMotif.h"
-#include "LinkMotif.h"
-#include "TripleMotif.h"
-#include "QuadLineMotif.h"
-#include "QuadStarMotif.h"
-#include "MotifSet.h"
+#include "motifs/NodeMotif.h"
+#include "motifs/LinkMotif.h"
+#include "motifs/TripleMotif.h"
+#include "motifs/QuadLineMotif.h"
+#include "motifs/QuadStarMotif.h"
+#include "motifs/MotifSet.h"
 
 namespace lnet
 {

@@ -16,7 +16,7 @@
 #define CORRELATIONS_H_
 
 #include "../largenet.h"
-#include "../../tnt/tnt_array2d.h"
+#include "../tnt/tnt_array2d.h"
 
 namespace lnet {
 namespace measures {

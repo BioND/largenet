@@ -14,7 +14,7 @@
 #ifndef QUADSTARMOTIF_H_
 #define QUADSTARMOTIF_H_
 
-#include "../base/types.h"
+#include "../network/types.h"
 #include <string>
 #include <iostream>
 #include <algorithm> // for std::swap

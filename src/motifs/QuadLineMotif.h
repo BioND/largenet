@@ -9,7 +9,7 @@
 #ifndef QUADLINEMOTIF_H_
 #define QUADLINEMOTIF_H_
 
-#include "../base/types.h"
+#include "../network/types.h"
 #include <string>
 #include <iostream>
 #include <algorithm> // for std::swap

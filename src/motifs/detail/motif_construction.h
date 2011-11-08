@@ -5,14 +5,26 @@
  * letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View,
  * California, 94041, USA.
  */
-#ifndef LARGENET_H_
-#define LARGENET_H_
 
-#include "base/types.h"
-#include "base/state_calculators.h"
-#include "MultiNetwork.h"
-#include "Network.h"
-#include "TripleMultiNetwork.h"
-#include "TripleNetwork.h"
+#ifndef MOTIF_CONSTRUCTION_H_
+#define MOTIF_CONSTRUCTION_H_
 
-#endif /* LARGENET_H_ */
+#include "../../network/types.h"
+
+#include <set>
+
+namespace lnet
+{
+namespace motifs
+{
+namespace detail
+{
+
+template<class Motif>
+void constructAllMotifs(std::set<Motif>& m, node_state_size_t states);
+
+}
+}
+}
+
+#endif /* MOTIF_CONSTRUCTION_H_ */

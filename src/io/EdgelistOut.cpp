@@ -6,7 +6,7 @@
  * California, 94041, USA.
  */
 #include "EdgelistOut.h"
-#include "../base/types.h"
+#include "../network/types.h"
 
 namespace lnet
 {

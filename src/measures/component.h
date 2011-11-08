@@ -15,7 +15,7 @@
 #define COMPONENT_H_
 
 #include "path.h"
-#include "../base/types.h"
+#include "../network/types.h"
 #include <vector>
 #include <set>
 #include <algorithm>

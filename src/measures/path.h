@@ -14,7 +14,7 @@
 #ifndef PATH_H_
 #define PATH_H_
 
-#include "../base/types.h"
+#include "../network/types.h"
 #include <map>
 #include <vector>
 

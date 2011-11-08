@@ -9,7 +9,7 @@
 #ifndef LINKMOTIF_H_
 #define LINKMOTIF_H_
 
-#include "../base/types.h"
+#include "../network/types.h"
 #include <string>
 #include <iostream>
 
