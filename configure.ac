@@ -1,7 +1,6 @@
 AC_PREREQ([2.67])
 AC_INIT([largenet], [0.5])
 AM_INIT_AUTOMAKE([foreign silent-rules])
-AM_SILENT_RULES
 LT_PREREQ([2.2])
 LT_INIT([disable-static])
 
