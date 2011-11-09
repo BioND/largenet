@@ -5,7 +5,6 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = largenet-@PACKAGE_VERSION@.pc
 
 lib_LTLIBRARIES = liblargenet-0.5.la
-liblargenet_0_5_la_CPPFLAGS = -O3
 liblargenet_0_5_la_LDFLAGS = -version-info 0:0:0
 
 liblargenet_0_5_la_SOURCES = \
