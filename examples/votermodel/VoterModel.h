@@ -31,7 +31,7 @@ public:
 private:
 	void rewire(lnet::link_id_t l, lnet::node_id_t source);
 
-	Network& net_;
+	lnet::Network& net_;
 	double p_;
 };
 

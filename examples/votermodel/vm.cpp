@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 	Network::NodeIterator n = nodes.first;
 	while (net.numberOfNodes(VoterModel::DOWN) < initialDownNodes)
 	{
-		net_->setNodeState(*n, VoterModel::DOWN);
+		net.setNodeState(*n, VoterModel::DOWN);
 		++n;
 	}
 
@@ -42,7 +42,7 @@ int main(int argc, char **argv)
 
 	double t = 0, next = 0;
 	double interval = 1; // output interval
-	while ((t <= tmax) && (!model_->stopped()))
+	while ((t <= tmax) && (!model.stopped()))
 	{
 		if (t >= next)
 		{

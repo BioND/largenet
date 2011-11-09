@@ -26,12 +26,12 @@ double VoterModel::step()
 
 	pair<bool, node_id_t> n1 = net_.randomNode();
 	pair<bool, link_id_t> l2 = net_.randomNeighborLink(n1.second);
-	if (!n2.first)
+	if (!l2.first)
 		return tau;
 
 	node_id_t n2 = (net_.source(l2.second) == n1.second) ? net_.target(l2.second) : net_.source(l2.second);
 
-	if (net_.nodeState(n1.second) == net_.nodeState(n2.second))
+	if (net_.nodeState(n1.second) == net_.nodeState(n2))
 		return tau;
 
 	if (rng.Chance(p_))
@@ -39,7 +39,7 @@ double VoterModel::step()
 		rewire(l2.second, n1.second);
 	}
 	else
-		net_.setNodeState(n1.second, net_.nodeState(n2.second));
+		net_.setNodeState(n1.second, net_.nodeState(n2));
 	return tau;
 }
 
