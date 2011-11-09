@@ -99,8 +99,9 @@ nobase_include_HEADERS = \
 		largenet.h
 
 if BUILD_EXAMPLES
-	noinst_PROGRAMS = votermodel
-	votermodel_SOURCES = \
+noinst_PROGRAMS = votermodel
+votermodel_LDADD = liblargenet-0.5.la 
+votermodel_SOURCES = \
 		examples/votermodel/vm.cpp \
 		examples/votermodel/VoterModel.cpp \
 		examples/votermodel/VoterModel.h 
