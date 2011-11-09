@@ -2,6 +2,7 @@ ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = largenet-@PACKAGE_VERSION@.pc
+
 EXTRA_DIST = largenet-@PACKAGE_VERSION@.pc
 
 lib_LTLIBRARIES = liblargenet-0.5.la
@@ -97,3 +98,8 @@ nobase_include_HEADERS = \
 		largenet/tnt/tnt_cmat.h \
 		largenet.h
 
+noinst_PROGRAMS = votermodel
+votermodel_SOURCES = \
+		examples/votermodel/vm.cpp \
+		examples/votermodel/VoterModel.cpp \
+		examples/votermodel/VoterModel.h 
