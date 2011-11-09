@@ -31,7 +31,7 @@
 <option id="program-transform-name" value=""/>
 <option id="enable-maintainer-mode" value="false"/>
 <option id="user" value=""/>
-<option id="autogen" value="autogen.sh"/>
+<option id="autogen" value=""/>
 <option id="autogenOpts" value=""/>
 </configuration>
 </configurations>
