@@ -88,7 +88,6 @@ am_liblargenet_0_5_la_OBJECTS = largenet/measures/correlations.lo \
 	largenet/TripleMultiNetwork.lo largenet/Network.lo \
 	largenet/TripleNetwork.lo largenet/base/BasicNetwork.lo \
 	largenet/base/repo/repo_base.lo largenet/myrng1.2/myrngWELL.lo \
-	largenet/boost/boost_largenet_multigraph.lo \
 	largenet/motifs/QuadLineMotif.lo \
 	largenet/motifs/TripleMotif.lo \
 	largenet/motifs/detail/motif_construction.lo \
@@ -282,7 +281,6 @@ liblargenet_0_5_la_SOURCES = \
 		largenet/base/BasicNetwork.cpp \
 		largenet/base/repo/repo_base.cpp \
 		largenet/myrng1.2/myrngWELL.cpp \
-		largenet/boost/boost_largenet_multigraph.cpp \
 		largenet/motifs/QuadLineMotif.cpp \
 		largenet/motifs/TripleMotif.cpp \
 		largenet/motifs/detail/motif_construction.cpp \
@@ -318,7 +316,6 @@ nobase_include_HEADERS = \
 		largenet/base/Node.h \
 		largenet/base/state_calculators.h \
 		largenet/base/Link.h \
-		largenet/boost/boost_largenet_multigraph.h \
 		largenet/motifs/QuadLineMotif.h \
 		largenet/motifs/TripleMotif.h \
 		largenet/motifs/LinkMotif.h \
@@ -511,15 +508,6 @@ largenet/myrng1.2/$(DEPDIR)/$(am__dirstamp):
 	@: > largenet/myrng1.2/$(DEPDIR)/$(am__dirstamp)
 largenet/myrng1.2/myrngWELL.lo: largenet/myrng1.2/$(am__dirstamp) \
 	largenet/myrng1.2/$(DEPDIR)/$(am__dirstamp)
-largenet/boost/$(am__dirstamp):
-	@$(MKDIR_P) largenet/boost
-	@: > largenet/boost/$(am__dirstamp)
-largenet/boost/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) largenet/boost/$(DEPDIR)
-	@: > largenet/boost/$(DEPDIR)/$(am__dirstamp)
-largenet/boost/boost_largenet_multigraph.lo:  \
-	largenet/boost/$(am__dirstamp) \
-	largenet/boost/$(DEPDIR)/$(am__dirstamp)
 largenet/motifs/$(am__dirstamp):
 	@$(MKDIR_P) largenet/motifs
 	@: > largenet/motifs/$(am__dirstamp)
@@ -562,8 +550,6 @@ mostlyclean-compile:
 	-rm -f largenet/base/BasicNetwork.lo
 	-rm -f largenet/base/repo/repo_base.$(OBJEXT)
 	-rm -f largenet/base/repo/repo_base.lo
-	-rm -f largenet/boost/boost_largenet_multigraph.$(OBJEXT)
-	-rm -f largenet/boost/boost_largenet_multigraph.lo
 	-rm -f largenet/generators.$(OBJEXT)
 	-rm -f largenet/generators.lo
 	-rm -f largenet/io/EdgelistIn.$(OBJEXT)
@@ -604,7 +590,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@largenet/$(DEPDIR)/generators.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@largenet/base/$(DEPDIR)/BasicNetwork.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@largenet/base/repo/$(DEPDIR)/repo_base.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@largenet/boost/$(DEPDIR)/boost_largenet_multigraph.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@largenet/io/$(DEPDIR)/EdgelistIn.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@largenet/io/$(DEPDIR)/EdgelistOut.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@largenet/io/$(DEPDIR)/NetIn.Plo@am__quote@
@@ -655,7 +640,6 @@ clean-libtool:
 	-rm -rf largenet/.libs largenet/_libs
 	-rm -rf largenet/base/.libs largenet/base/_libs
 	-rm -rf largenet/base/repo/.libs largenet/base/repo/_libs
-	-rm -rf largenet/boost/.libs largenet/boost/_libs
 	-rm -rf largenet/io/.libs largenet/io/_libs
 	-rm -rf largenet/measures/.libs largenet/measures/_libs
 	-rm -rf largenet/motifs/.libs largenet/motifs/_libs
@@ -941,8 +925,6 @@ distclean-generic:
 	-rm -f largenet/base/$(am__dirstamp)
 	-rm -f largenet/base/repo/$(DEPDIR)/$(am__dirstamp)
 	-rm -f largenet/base/repo/$(am__dirstamp)
-	-rm -f largenet/boost/$(DEPDIR)/$(am__dirstamp)
-	-rm -f largenet/boost/$(am__dirstamp)
 	-rm -f largenet/io/$(DEPDIR)/$(am__dirstamp)
 	-rm -f largenet/io/$(am__dirstamp)
 	-rm -f largenet/measures/$(DEPDIR)/$(am__dirstamp)
@@ -964,7 +946,7 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf largenet/$(DEPDIR) largenet/base/$(DEPDIR) largenet/base/repo/$(DEPDIR) largenet/boost/$(DEPDIR) largenet/io/$(DEPDIR) largenet/measures/$(DEPDIR) largenet/motifs/$(DEPDIR) largenet/motifs/detail/$(DEPDIR) largenet/myrng1.2/$(DEPDIR)
+	-rm -rf largenet/$(DEPDIR) largenet/base/$(DEPDIR) largenet/base/repo/$(DEPDIR) largenet/io/$(DEPDIR) largenet/measures/$(DEPDIR) largenet/motifs/$(DEPDIR) largenet/motifs/detail/$(DEPDIR) largenet/myrng1.2/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-libtool distclean-tags
@@ -1012,7 +994,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf largenet/$(DEPDIR) largenet/base/$(DEPDIR) largenet/base/repo/$(DEPDIR) largenet/boost/$(DEPDIR) largenet/io/$(DEPDIR) largenet/measures/$(DEPDIR) largenet/motifs/$(DEPDIR) largenet/motifs/detail/$(DEPDIR) largenet/myrng1.2/$(DEPDIR)
+	-rm -rf largenet/$(DEPDIR) largenet/base/$(DEPDIR) largenet/base/repo/$(DEPDIR) largenet/io/$(DEPDIR) largenet/measures/$(DEPDIR) largenet/motifs/$(DEPDIR) largenet/motifs/detail/$(DEPDIR) largenet/myrng1.2/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

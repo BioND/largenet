@@ -21,7 +21,6 @@ liblargenet_0_5_la_SOURCES = \
 		largenet/base/BasicNetwork.cpp \
 		largenet/base/repo/repo_base.cpp \
 		largenet/myrng1.2/myrngWELL.cpp \
-		largenet/boost/boost_largenet_multigraph.cpp \
 		largenet/motifs/QuadLineMotif.cpp \
 		largenet/motifs/TripleMotif.cpp \
 		largenet/motifs/detail/motif_construction.cpp \
@@ -57,7 +56,6 @@ nobase_include_HEADERS = \
 		largenet/base/Node.h \
 		largenet/base/state_calculators.h \
 		largenet/base/Link.h \
-		largenet/boost/boost_largenet_multigraph.h \
 		largenet/motifs/QuadLineMotif.h \
 		largenet/motifs/TripleMotif.h \
 		largenet/motifs/LinkMotif.h \
