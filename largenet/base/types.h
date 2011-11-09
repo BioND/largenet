@@ -20,8 +20,8 @@
  * This namespace contains everything related to the largenet package.
  */
 
-#ifndef TYPES_H_
-#define TYPES_H_
+#ifndef LNET_TYPES_H_
+#define LNET_TYPES_H_
 
 namespace lnet
 {
@@ -43,4 +43,4 @@ typedef struct {} no_type;
 
 }
 
-#endif /* TYPES_H_ */
+#endif /* LNET_TYPES_H_ */
