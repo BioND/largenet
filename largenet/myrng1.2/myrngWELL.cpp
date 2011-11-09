@@ -1,4 +1,9 @@
 #include "myrngWELL.h"
+#include <cmath>
+#include <ctime>
+#include <cstdio>
+#include <cstdlib>
+#include <cassert>
 
 /****************************************************************************\
 * myrng  by  Thilo Gross and Marton Morvai                                 *
