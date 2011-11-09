@@ -1,8 +1,8 @@
-AUTOMAKE_OPTIONS = subdir-objects
 ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = largenet-@PACKAGE_VERSION@.pc
+EXTRA_DIST = largenet-@PACKAGE_VERSION@.pc
 
 lib_LTLIBRARIES = liblargenet-0.5.la
 liblargenet_0_5_la_LDFLAGS = -version-info 0:0:0
@@ -18,8 +18,8 @@ liblargenet_0_5_la_SOURCES = \
 		largenet/TripleMultiNetwork.cpp \
 		largenet/Network.cpp \
 		largenet/TripleNetwork.cpp \
-		largenet/base/repo/repo_base.cpp \ \
 		largenet/base/BasicNetwork.cpp \
+		largenet/base/repo/repo_base.cpp \
 		largenet/myrng1.2/myrngWELL.cpp \
 		largenet/boost/boost_largenet_multigraph.cpp \
 		largenet/motifs/QuadLineMotif.cpp \
