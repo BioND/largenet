@@ -17,7 +17,6 @@
 
 
 
-
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkgincludedir = $(includedir)/@PACKAGE@
@@ -37,7 +36,6 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-noinst_PROGRAMS = votermodel$(EXEEXT)
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(nobase_include_HEADERS) \
 	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
@@ -103,11 +101,6 @@ liblargenet_0_5_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
 	$(AM_CXXFLAGS) $(CXXFLAGS) $(liblargenet_0_5_la_LDFLAGS) \
 	$(LDFLAGS) -o $@
-PROGRAMS = $(noinst_PROGRAMS)
-am_votermodel_OBJECTS = examples/votermodel/vm.$(OBJEXT) \
-	examples/votermodel/VoterModel.$(OBJEXT)
-votermodel_OBJECTS = $(am_votermodel_OBJECTS)
-votermodel_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -131,27 +124,11 @@ CXXLINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
 AM_V_CXXLD = $(am__v_CXXLD_$(V))
 am__v_CXXLD_ = $(am__v_CXXLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CXXLD_0 = @echo "  CXXLD " $@;
-COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
-	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-LTCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) \
-	$(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
-	$(AM_CFLAGS) $(CFLAGS)
-AM_V_CC = $(am__v_CC_$(V))
-am__v_CC_ = $(am__v_CC_$(AM_DEFAULT_VERBOSITY))
-am__v_CC_0 = @echo "  CC    " $@;
-CCLD = $(CC)
-LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
-	$(AM_LDFLAGS) $(LDFLAGS) -o $@
-AM_V_CCLD = $(am__v_CCLD_$(V))
-am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
-am__v_CCLD_0 = @echo "  CCLD  " $@;
 AM_V_GEN = $(am__v_GEN_$(V))
 am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
 am__v_GEN_0 = @echo "  GEN   " $@;
-SOURCES = $(liblargenet_0_5_la_SOURCES) $(votermodel_SOURCES)
-DIST_SOURCES = $(liblargenet_0_5_la_SOURCES) $(votermodel_SOURCES)
+SOURCES = $(liblargenet_0_5_la_SOURCES)
+DIST_SOURCES = $(liblargenet_0_5_la_SOURCES)
 DATA = $(pkgconfig_DATA)
 HEADERS = $(nobase_include_HEADERS)
 ETAGS = etags
@@ -287,7 +264,7 @@ top_srcdir = @top_srcdir@
 ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = largenet-@PACKAGE_VERSION@.pc
-EXTRA_DIST = largenet-@PACKAGE_VERSION@.pc
+EXTRA_DIST = largenet-@PACKAGE_VERSION@.pc examples
 lib_LTLIBRARIES = liblargenet-0.5.la
 liblargenet_0_5_la_LDFLAGS = -version-info 0:0:0
 liblargenet_0_5_la_SOURCES = \
@@ -379,11 +356,6 @@ nobase_include_HEADERS = \
 		largenet/tnt/tnt_fortran_array1d.h \
 		largenet/tnt/tnt_cmat.h \
 		largenet.h
-
-votermodel_SOURCES = \
-		examples/votermodel/vm.cpp \
-		examples/votermodel/VoterModel.cpp \
-		examples/votermodel/VoterModel.h 
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -566,33 +538,8 @@ largenet/generators.lo: largenet/$(am__dirstamp) \
 liblargenet-0.5.la: $(liblargenet_0_5_la_OBJECTS) $(liblargenet_0_5_la_DEPENDENCIES) 
 	$(AM_V_CXXLD)$(liblargenet_0_5_la_LINK) -rpath $(libdir) $(liblargenet_0_5_la_OBJECTS) $(liblargenet_0_5_la_LIBADD) $(LIBS)
 
-clean-noinstPROGRAMS:
-	@list='$(noinst_PROGRAMS)'; test -n "$$list" || exit 0; \
-	echo " rm -f" $$list; \
-	rm -f $$list || exit $$?; \
-	test -n "$(EXEEXT)" || exit 0; \
-	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
-	echo " rm -f" $$list; \
-	rm -f $$list
-examples/votermodel/$(am__dirstamp):
-	@$(MKDIR_P) examples/votermodel
-	@: > examples/votermodel/$(am__dirstamp)
-examples/votermodel/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) examples/votermodel/$(DEPDIR)
-	@: > examples/votermodel/$(DEPDIR)/$(am__dirstamp)
-examples/votermodel/vm.$(OBJEXT): examples/votermodel/$(am__dirstamp) \
-	examples/votermodel/$(DEPDIR)/$(am__dirstamp)
-examples/votermodel/VoterModel.$(OBJEXT):  \
-	examples/votermodel/$(am__dirstamp) \
-	examples/votermodel/$(DEPDIR)/$(am__dirstamp)
-votermodel$(EXEEXT): $(votermodel_OBJECTS) $(votermodel_DEPENDENCIES) 
-	@rm -f votermodel$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(votermodel_OBJECTS) $(votermodel_LDADD) $(LIBS)
-
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
-	-rm -f examples/votermodel/VoterModel.$(OBJEXT)
-	-rm -f examples/votermodel/vm.$(OBJEXT)
 	-rm -f largenet/Network.$(OBJEXT)
 	-rm -f largenet/Network.lo
 	-rm -f largenet/TripleMultiNetwork.$(OBJEXT)
@@ -637,8 +584,6 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@examples/votermodel/$(DEPDIR)/VoterModel.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@examples/votermodel/$(DEPDIR)/vm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@largenet/$(DEPDIR)/Network.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@largenet/$(DEPDIR)/TripleMultiNetwork.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@largenet/$(DEPDIR)/TripleNetwork.Plo@am__quote@
@@ -948,8 +893,7 @@ distcleancheck: distclean
 	       exit 1; } >&2
 check-am: all-am
 check: check-am
-all-am: Makefile $(LTLIBRARIES) $(PROGRAMS) $(DATA) $(HEADERS) \
-		config.h
+all-am: Makefile $(LTLIBRARIES) $(DATA) $(HEADERS) config.h
 installdirs:
 	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(pkgconfigdir)" "$(DESTDIR)$(includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
@@ -975,8 +919,6 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
-	-rm -f examples/votermodel/$(DEPDIR)/$(am__dirstamp)
-	-rm -f examples/votermodel/$(am__dirstamp)
 	-rm -f largenet/$(DEPDIR)/$(am__dirstamp)
 	-rm -f largenet/$(am__dirstamp)
 	-rm -f largenet/base/$(DEPDIR)/$(am__dirstamp)
@@ -1000,11 +942,11 @@ maintainer-clean-generic:
 clean: clean-am
 
 clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
-	clean-noinstPROGRAMS mostlyclean-am
+	mostlyclean-am
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf examples/votermodel/$(DEPDIR) largenet/$(DEPDIR) largenet/base/$(DEPDIR) largenet/base/repo/$(DEPDIR) largenet/io/$(DEPDIR) largenet/measures/$(DEPDIR) largenet/motifs/$(DEPDIR) largenet/motifs/detail/$(DEPDIR) largenet/myrng1.2/$(DEPDIR)
+	-rm -rf largenet/$(DEPDIR) largenet/base/$(DEPDIR) largenet/base/repo/$(DEPDIR) largenet/io/$(DEPDIR) largenet/measures/$(DEPDIR) largenet/motifs/$(DEPDIR) largenet/motifs/detail/$(DEPDIR) largenet/myrng1.2/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-libtool distclean-tags
@@ -1052,7 +994,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf examples/votermodel/$(DEPDIR) largenet/$(DEPDIR) largenet/base/$(DEPDIR) largenet/base/repo/$(DEPDIR) largenet/io/$(DEPDIR) largenet/measures/$(DEPDIR) largenet/motifs/$(DEPDIR) largenet/motifs/detail/$(DEPDIR) largenet/myrng1.2/$(DEPDIR)
+	-rm -rf largenet/$(DEPDIR) largenet/base/$(DEPDIR) largenet/base/repo/$(DEPDIR) largenet/io/$(DEPDIR) largenet/measures/$(DEPDIR) largenet/motifs/$(DEPDIR) largenet/motifs/detail/$(DEPDIR) largenet/myrng1.2/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -1075,24 +1017,30 @@ uninstall-am: uninstall-libLTLIBRARIES uninstall-nobase_includeHEADERS \
 .MAKE: all install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am am--refresh check check-am clean \
-	clean-generic clean-libLTLIBRARIES clean-libtool \
-	clean-noinstPROGRAMS ctags dist dist-all dist-bzip2 dist-gzip \
-	dist-lzma dist-shar dist-tarZ dist-xz dist-zip distcheck \
-	distclean distclean-compile distclean-generic distclean-hdr \
-	distclean-libtool distclean-tags distcleancheck distdir \
-	distuninstallcheck dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am \
-	install-libLTLIBRARIES install-man \
-	install-nobase_includeHEADERS install-pdf install-pdf-am \
-	install-pkgconfigDATA install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	tags uninstall uninstall-am uninstall-libLTLIBRARIES \
-	uninstall-nobase_includeHEADERS uninstall-pkgconfigDATA
+	clean-generic clean-libLTLIBRARIES clean-libtool ctags dist \
+	dist-all dist-bzip2 dist-gzip dist-lzma dist-shar dist-tarZ \
+	dist-xz dist-zip distcheck distclean distclean-compile \
+	distclean-generic distclean-hdr distclean-libtool \
+	distclean-tags distcleancheck distdir distuninstallcheck dvi \
+	dvi-am html html-am info info-am install install-am \
+	install-data install-data-am install-dvi install-dvi-am \
+	install-exec install-exec-am install-html install-html-am \
+	install-info install-info-am install-libLTLIBRARIES \
+	install-man install-nobase_includeHEADERS install-pdf \
+	install-pdf-am install-pkgconfigDATA install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	pdf pdf-am ps ps-am tags uninstall uninstall-am \
+	uninstall-libLTLIBRARIES uninstall-nobase_includeHEADERS \
+	uninstall-pkgconfigDATA
 
+
+@BUILD_EXAMPLES_TRUE@	noinst_PROGRAMS = votermodel
+@BUILD_EXAMPLES_TRUE@	votermodel_SOURCES = \
+@BUILD_EXAMPLES_TRUE@		examples/votermodel/vm.cpp \
+@BUILD_EXAMPLES_TRUE@		examples/votermodel/VoterModel.cpp \
+@BUILD_EXAMPLES_TRUE@		examples/votermodel/VoterModel.h 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

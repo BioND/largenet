@@ -24,6 +24,18 @@ AC_CHECK_FUNCS([floor pow sqrt])
 # Sanity check
 AC_CONFIG_SRCDIR([largenet/base/TypedNetwork.h])
 
+# provide --enable-examples option
+AC_ARG_ENABLE([examples],
+		      [AS_HELP_STRING([--enable-examples],
+			  				  [build examples (default: no)])],
+     		  [case "${enableval}" in
+				yes) examples=true ;;
+				no)  examples=false ;;
+				*) AC_MSG_ERROR([bad value ${enableval} for --enable-examples]) ;;
+     		   esac],
+     		   [examples=false])
+AM_CONDITIONAL([BUILD_EXAMPLES], [test x$examples = xtrue])
+
 # Output files
 AC_CONFIG_FILES([Makefile]
                 [largenet-0.5.pc:largenet.pc.in])
