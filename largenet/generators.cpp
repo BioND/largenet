@@ -6,7 +6,7 @@
  * California, 94041, USA.
  */
 #include "generators.h"
-#include "network/BasicNetwork.h"
+#include "base/BasicNetwork.h"
 #include <utility>
 #include <boost/version.hpp>
 

@@ -16,11 +16,11 @@ liblargenet_0_5_la_SOURCES = \
 		largenet/io/NetIn.cpp \
 		largenet/io/NetOut.cpp \
 		largenet/io/NodeEdgelistIn.cpp \
-		largenet/network/TripleMultiNetwork.cpp \
-		largenet/network/Network.cpp \
-		largenet/network/TripleNetwork.cpp \
-		largenet/network/repo/repo_base.cpp \ \
-		largenet/network/BasicNetwork.cpp \
+		largenet/TripleMultiNetwork.cpp \
+		largenet/Network.cpp \
+		largenet/TripleNetwork.cpp \
+		largenet/base/repo/repo_base.cpp \ \
+		largenet/base/BasicNetwork.cpp \
 		largenet/myrng1.2/myrngWELL.cpp \
 		largenet/boost/boost_largenet_multigraph.cpp \
 		largenet/motifs/QuadLineMotif.cpp \
@@ -30,10 +30,10 @@ liblargenet_0_5_la_SOURCES = \
 		largenet/motifs/NodeMotif.cpp \
 		largenet/motifs/QuadStarMotif.cpp \
 		largenet/generators.cpp \
-		largenet/network/repo/iterators.h \
-		largenet/network/repo/CategorizedRepository.h \
-		largenet/network/repo/types.h \
-		largenet/network/repo/repo_base.h \
+		largenet/base/repo/iterators.h \
+		largenet/base/repo/CategorizedRepository.h \
+		largenet/base/repo/types.h \
+		largenet/base/repo/repo_base.h \
 		largenet/tnt/tnt.h \
 		largenet/tnt/tnt_array1d.h \
 		largenet/tnt/tnt_subscript.h \
@@ -75,19 +75,19 @@ nobase_include_HEADERS = \
 		largenet/io/iodefs.h \
 		largenet/io/NetIn.h \
 		largenet/io/EdgelistIn.h \
-		largenet/network/BasicNetwork.h \
-		largenet/network/TripleMultiNetwork.h \
-		largenet/network/TLink.h \
-		largenet/network/types.h \
-		largenet/network/Triple.h \
-		largenet/network/Network.h \
-		largenet/network/traits.h \
-		largenet/network/MultiNetwork.h \
-		largenet/network/TypedNetwork.h \
-		largenet/network/TripleNetwork.h \
-		largenet/network/Node.h \
-		largenet/network/state_calculators.h \
-		largenet/network/Link.h \
+		largenet/base/BasicNetwork.h \
+		largenet/TripleMultiNetwork.h \
+		largenet/base/TLink.h \
+		largenet/base/types.h \
+		largenet/base/Triple.h \
+		largenet/Network.h \
+		largenet/base/traits.h \
+		largenet/MultiNetwork.h \
+		largenet/base/TypedNetwork.h \
+		largenet/TripleNetwork.h \
+		largenet/base/Node.h \
+		largenet/base/state_calculators.h \
+		largenet/base/Link.h \
 		largenet/boost/boost_largenet_multigraph.h \
 		largenet/motifs/QuadLineMotif.h \
 		largenet/motifs/TripleMotif.h \

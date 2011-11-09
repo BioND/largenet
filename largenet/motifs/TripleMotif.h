@@ -9,7 +9,7 @@
 #ifndef TRIPLEMOTIF_H_
 #define TRIPLEMOTIF_H_
 
-#include "../network/types.h"
+#include "../base/types.h"
 #include <string>
 #include <iostream>
 

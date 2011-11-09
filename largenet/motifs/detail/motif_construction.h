@@ -9,7 +9,7 @@
 #ifndef MOTIF_CONSTRUCTION_H_
 #define MOTIF_CONSTRUCTION_H_
 
-#include "../../network/types.h"
+#include "../../base/types.h"
 
 #include <set>
 

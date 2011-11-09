@@ -6,8 +6,8 @@
  * California, 94041, USA.
  */
 #include "EdgelistIn.h"
-#include "../network/types.h"
-#include "../network/BasicNetwork.h"
+#include "../base/types.h"
+#include "../base/BasicNetwork.h"
 #include <string>
 #include <sstream>
 #include <cassert>

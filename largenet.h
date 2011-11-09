@@ -8,11 +8,11 @@
 #ifndef LARGENET_H_
 #define LARGENET_H_
 
-#include "largenet/network/types.h"
-#include "largenet/network/state_calculators.h"
-#include "largenet/network/MultiNetwork.h"
-#include "largenet/network/Network.h"
-#include "largenet/network/TripleMultiNetwork.h"
-#include "largenet/network/TripleNetwork.h"
+#include "largenet/base/types.h"
+#include "largenet/base/state_calculators.h"
+#include "largenet/MultiNetwork.h"
+#include "largenet/Network.h"
+#include "largenet/TripleMultiNetwork.h"
+#include "largenet/TripleNetwork.h"
 
 #endif /* LARGENET_H_ */

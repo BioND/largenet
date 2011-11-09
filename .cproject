@@ -59,7 +59,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="src/myrng1.2/myrngMT.cpp|src/network/io/GraphvizOut.cpp|src/myrng1.2/myrngMT.h|src/myrng1.2/testMT.cpp|src/myrng1.2/testWELL.cpp|src/myrng1.2/Makefile|src/network/io/GraphvizOut.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="src/myrng1.2/myrngMT.cpp|src/network/io/GraphvizOut.cpp|src/myrng1.2/myrngMT.h|src/myrng1.2/testWELL.cpp|src/myrng1.2/testMT.cpp|src/myrng1.2/Makefile|src/network/io/GraphvizOut.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -126,7 +126,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="src/myrng1.2/myrngMT.cpp|src/network/io/GraphvizOut.cpp|src/myrng1.2/myrngMT.h|src/myrng1.2/testMT.cpp|src/myrng1.2/testWELL.cpp|src/myrng1.2/Makefile|src/network/io/GraphvizOut.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="src/myrng1.2/myrngMT.cpp|src/network/io/GraphvizOut.cpp|src/myrng1.2/myrngMT.h|src/myrng1.2/testWELL.cpp|src/myrng1.2/testMT.cpp|src/myrng1.2/Makefile|src/network/io/GraphvizOut.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
