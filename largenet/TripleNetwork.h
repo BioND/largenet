@@ -14,8 +14,8 @@
 #ifndef TRIPLENETWORK_H_
 #define TRIPLENETWORK_H_
 
-#include "TripleMultiNetwork.h"
-#include "base/traits.h"
+#include <largenet/TripleMultiNetwork.h>
+#include <largenet/base/traits.h>
 
 namespace lnet
 {

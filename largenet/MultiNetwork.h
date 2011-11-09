@@ -15,9 +15,9 @@
 #ifndef MULTINETWORK_H_
 #define MULTINETWORK_H_
 
-#include "base/Node.h"
-#include "base/Link.h"
-#include "base/TypedNetwork.h"
+#include <largenet/base/Node.h>
+#include <largenet/base/Link.h>
+#include <largenet/base/TypedNetwork.h>
 
 namespace lnet
 {

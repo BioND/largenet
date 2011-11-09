@@ -14,7 +14,7 @@
 #ifndef NODE_H_
 #define NODE_H_
 
-#include "types.h"
+#include <largenet/base/types.h>
 #include <set>
 #include <utility>
 

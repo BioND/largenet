@@ -7,9 +7,9 @@
  */
 
 #include "NodeEdgelistIn.h"
-#include "iodefs.h"
-#include "../base/types.h"
-#include "../base/BasicNetwork.h"
+#include <largenet/io/iodefs.h>
+#include <largenet/base/types.h>
+#include <largenet/base/BasicNetwork.h>
 #include <string>
 #include <sstream>
 

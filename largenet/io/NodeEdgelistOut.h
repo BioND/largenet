@@ -9,7 +9,7 @@
 #ifndef NODEEDGELISTOUT_H_
 #define NODEEDGELISTOUT_H_
 
-#include "NetOut.h"
+#include <largenet/io/NetOut.h>
 #include <iostream>
 
 namespace lnet

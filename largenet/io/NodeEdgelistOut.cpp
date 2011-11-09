@@ -7,7 +7,7 @@
  */
 
 #include "NodeEdgelistOut.h"
-#include "iodefs.h"
+#include <largenet/io/iodefs.h>
 
 using namespace std;
 

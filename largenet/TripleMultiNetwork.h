@@ -14,12 +14,12 @@
 #ifndef TRIPLEMULTINETWORK_H_
 #define TRIPLEMULTINETWORK_H_
 
-#include "base/types.h"
-#include "base/Node.h"
-#include "base/TLink.h"
-#include "base/Triple.h"
-#include "base/TypedNetwork.h"
-#include "base/repo/CategorizedRepository.h"
+#include <largenet/base/types.h>
+#include <largenet/base/Node.h>
+#include <largenet/base/TLink.h>
+#include <largenet/base/Triple.h>
+#include <largenet/base/TypedNetwork.h>
+#include <largenet/base/repo/CategorizedRepository.h>
 #include <cassert>
 
 namespace lnet

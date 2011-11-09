@@ -29,38 +29,8 @@ liblargenet_0_5_la_SOURCES = \
 		largenet/motifs/LinkMotif.cpp \
 		largenet/motifs/NodeMotif.cpp \
 		largenet/motifs/QuadStarMotif.cpp \
-		largenet/generators.cpp \
-		largenet/base/repo/iterators.h \
-		largenet/base/repo/CategorizedRepository.h \
-		largenet/base/repo/types.h \
-		largenet/base/repo/repo_base.h \
-		largenet/tnt/tnt.h \
-		largenet/tnt/tnt_array1d.h \
-		largenet/tnt/tnt_subscript.h \
-		largenet/tnt/tnt_fortran_array2d_utils.h \
-		largenet/tnt/tnt_fortran_array3d.h \
-		largenet/tnt/tnt_array2d.h \
-		largenet/tnt/tnt_i_refvec.h \
-		largenet/tnt/tnt_fortran_array3d_utils.h \
-		largenet/tnt/tnt_stopwatch.h \
-		largenet/tnt/tnt_array2d_utils.h \
-		largenet/tnt/tnt_sparse_matrix_csr.h \
-		largenet/tnt/jama_eig.h \
-		largenet/tnt/tnt_array3d_utils.h \
-		largenet/tnt/jama_cholesky.h \
-		largenet/tnt/tnt_fortran_array2d.h \
-		largenet/tnt/tnt_version.h \
-		largenet/tnt/tnt_fortran_array1d_utils.h \
-		largenet/tnt/tnt_vec.h \
-		largenet/tnt/jama_lu.h \
-		largenet/tnt/tnt_array1d_utils.h \
-		largenet/tnt/jama_svd.h \
-		largenet/tnt/tnt_math_utils.h \
-		largenet/tnt/jama_qr.h \
-		largenet/tnt/tnt_array3d.h \
-		largenet/tnt/tnt_fortran_array1d.h \
-		largenet/tnt/tnt_cmat.h 
-
+		largenet/generators.cpp 
+		
 nobase_include_HEADERS = \
 		largenet/myrng1.2/myrngWELL.h \
 		largenet/measures/path.h \
@@ -98,4 +68,35 @@ nobase_include_HEADERS = \
 		largenet/motifs/MotifSet.h \
 		largenet/motifs.h \
 		largenet/generators.h \
-		largenet.h		
+		largenet/tnt/tnt_array2d.h \
+		largenet/base/repo/iterators.h \
+		largenet/base/repo/CategorizedRepository.h \
+		largenet/base/repo/types.h \
+		largenet/base/repo/repo_base.h \
+		largenet/tnt/tnt.h \
+		largenet/tnt/tnt_array1d.h \
+		largenet/tnt/tnt_subscript.h \
+		largenet/tnt/tnt_fortran_array2d_utils.h \
+		largenet/tnt/tnt_fortran_array3d.h \
+		largenet/tnt/tnt_i_refvec.h \
+		largenet/tnt/tnt_fortran_array3d_utils.h \
+		largenet/tnt/tnt_stopwatch.h \
+		largenet/tnt/tnt_array2d_utils.h \
+		largenet/tnt/tnt_sparse_matrix_csr.h \
+		largenet/tnt/jama_eig.h \
+		largenet/tnt/tnt_array3d_utils.h \
+		largenet/tnt/jama_cholesky.h \
+		largenet/tnt/tnt_fortran_array2d.h \
+		largenet/tnt/tnt_version.h \
+		largenet/tnt/tnt_fortran_array1d_utils.h \
+		largenet/tnt/tnt_vec.h \
+		largenet/tnt/jama_lu.h \
+		largenet/tnt/tnt_array1d_utils.h \
+		largenet/tnt/jama_svd.h \
+		largenet/tnt/tnt_math_utils.h \
+		largenet/tnt/jama_qr.h \
+		largenet/tnt/tnt_array3d.h \
+		largenet/tnt/tnt_fortran_array1d.h \
+		largenet/tnt/tnt_cmat.h \
+		largenet.h
+

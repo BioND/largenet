@@ -17,9 +17,9 @@
 #ifndef GENERATORS_H_
 #define GENERATORS_H_
 
-#include "base/types.h"
-#include "base/traits.h"
-#include "myrng1.2/myrngWELL.h"
+#include <largenet/base/types.h>
+#include <largenet/base/traits.h>
+#include <largenet/myrng1.2/myrngWELL.h>
 #include <cassert>
 #include <cmath>
 

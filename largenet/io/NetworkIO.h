@@ -15,9 +15,9 @@
 #ifndef NETWORKIO_H_
 #define NETWORKIO_H_
 
-#include "NetIn.h"
-#include "NetOut.h"
-#include "EdgelistIn.h"
-#include "EdgelistOut.h"
+#include <largenet/io/NetIn.h>
+#include <largenet/io/NetOut.h>
+#include <largenet/io/EdgelistIn.h>
+#include <largenet/io/EdgelistOut.h>
 
 #endif /* NETWORKIO_H_ */

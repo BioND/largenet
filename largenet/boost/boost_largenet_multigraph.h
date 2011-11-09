@@ -15,11 +15,11 @@
 #ifndef BOOST_LARGENET_MULTIGRAPH_H_
 #define BOOST_LARGENET_MULTIGRAPH_H_
 
-#include "../base/types.h"
-#include "../MultiNetwork.h"
-#include "../TripleMultiNetwork.h"
-#include "../Network.h"
-#include "../TripleNetwork.h"
+#include <largenet/base/types.h>
+#include <largenet/MultiNetwork.h>
+#include <largenet/TripleMultiNetwork.h>
+#include <largenet/Network.h>
+#include <largenet/TripleNetwork.h>
 
 //#include <boost/config.hpp>
 #include <boost/graph/graph_traits.hpp>

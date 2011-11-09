@@ -15,7 +15,7 @@
 #ifndef EDGELISTOUT_H_
 #define EDGELISTOUT_H_
 
-#include "NetOut.h"
+#include <largenet/io/NetOut.h>
 
 namespace lnet
 {

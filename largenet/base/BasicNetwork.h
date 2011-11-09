@@ -14,9 +14,9 @@
 #ifndef BASICNETWORK_H_
 #define BASICNETWORK_H_
 
-#include "types.h"
-#include "state_calculators.h"
-#include "repo/iterators.h"
+#include <largenet/base/types.h>
+#include <largenet/base/state_calculators.h>
+#include <largenet/base/repo/iterators.h>
 #include <utility>
 #include <string>
 

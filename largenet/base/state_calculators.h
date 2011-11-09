@@ -14,8 +14,8 @@
 #ifndef STATE_CALCULATORS_H_
 #define STATE_CALCULATORS_H_
 
-#include "types.h"
-#include "../motifs.h"
+#include <largenet/base/types.h>
+#include <largenet/motifs.h>
 #include <map>
 #include <utility>
 

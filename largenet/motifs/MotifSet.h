@@ -9,7 +9,7 @@
 #ifndef MOTIFSET_H_
 #define MOTIFSET_H_
 
-#include "detail/motif_construction.h"
+#include <largenet/motifs/detail/motif_construction.h>
 
 namespace lnet
 {

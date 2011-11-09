@@ -14,7 +14,7 @@
 #ifndef REPO_BASE_H_
 #define REPO_BASE_H_
 
-#include "types.h"
+#include <largenet/base/repo/types.h>
 #include <vector>
 #include <cassert>
 

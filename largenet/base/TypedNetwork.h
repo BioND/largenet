@@ -14,11 +14,11 @@
 #ifndef TYPEDNETWORK_H_
 #define TYPEDNETWORK_H_
 
-#include "BasicNetwork.h"
-#include "types.h"
-#include "traits.h"
-#include "repo/CategorizedRepository.h"
-#include "../myrng1.2/myrngWELL.h"
+#include <largenet/base/BasicNetwork.h>
+#include <largenet/base/types.h>
+#include <largenet/base/traits.h>
+#include <largenet/base/repo/CategorizedRepository.h>
+#include <largenet/myrng1.2/myrngWELL.h>
 #include <iterator>
 #include <cassert>
 #include <utility> // for std::pair

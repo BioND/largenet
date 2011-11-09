@@ -14,7 +14,7 @@
 #ifndef LINK_H_
 #define LINK_H_
 
-#include "types.h"
+#include <largenet/base/types.h>
 #include <stdexcept>
 
 namespace lnet

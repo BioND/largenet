@@ -9,8 +9,8 @@
 #ifndef TLINK_H_
 #define TLINK_H_
 
-#include "types.h"
-#include "Link.h"
+#include <largenet/base/types.h>
+#include <largenet/base/Link.h>
 #include <set>
 #include <utility>
 

@@ -14,9 +14,9 @@
 #ifndef NETWORK_H_
 #define NETWORK_H_
 
-#include "MultiNetwork.h"
-#include "base/types.h"
-#include "base/traits.h"
+#include <largenet/MultiNetwork.h>
+#include <largenet/base/types.h>
+#include <largenet/base/traits.h>
 
 namespace lnet
 {

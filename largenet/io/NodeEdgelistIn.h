@@ -9,7 +9,7 @@
 #ifndef NODEEDGELISTIN_H_
 #define NODEEDGELISTIN_H_
 
-#include "NetIn.h"
+#include <largenet/io/NetIn.h>
 
 namespace lnet
 {

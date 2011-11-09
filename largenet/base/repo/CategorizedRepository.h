@@ -23,9 +23,9 @@
 #ifndef CATEGORIZEDREPOSITORY_H_
 #define CATEGORIZEDREPOSITORY_H_
 
-#include "types.h"
-#include "repo_base.h"
-#include "iterators.h"
+#include <largenet/base/repo/types.h>
+#include <largenet/base/repo/repo_base.h>
+#include <largenet/base/repo/iterators.h>
 #include <vector>
 #include <utility>	// for std::pair
 #include <iterator>

@@ -9,7 +9,7 @@
 #ifndef TRIPLE_H_
 #define TRIPLE_H_
 
-#include "types.h"
+#include <largenet/base/types.h>
 
 namespace lnet
 {
