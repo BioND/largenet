@@ -12,7 +12,7 @@ length.
 
 The `largenet` library has been developed mostly by Gerd Zschaler <gzschaler@googlemail.com>
 based on ideas of Thilo Gross <gross@physics.org>. Most of this work is licensed under the
-Creative Commons CC-BY-NC licens. See COPYING for details.
+Creative Commons CC-BY-NC license. See COPYING for details.
 
 For installation instructions, see INSTALL. For examples how to use the library, see the 
 `examples` directory.
