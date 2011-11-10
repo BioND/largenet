@@ -38,7 +38,7 @@ AM_CONDITIONAL([BUILD_EXAMPLES], [test x$examples = xtrue])
 
 # Output files
 AC_CONFIG_FILES([Makefile]
-                [largenet-$PACKAGE_VERSION.pc:largenet.pc.in])
+                [largenet-0.5.pc:largenet.pc.in])
 
 AC_CONFIG_HEADERS([config.h])
 
