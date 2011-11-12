@@ -12,6 +12,7 @@ AC_LANG([C++])
 AC_PROG_CXX
 AC_PROG_LIBTOOL
 AC_PROG_INSTALL
+AC_PROG_TRY_DOXYGEN
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_SIZE_T
@@ -36,9 +37,12 @@ AC_ARG_ENABLE([examples],
      		   [examples=false])
 AM_CONDITIONAL([BUILD_EXAMPLES], [test x$examples = xtrue])
 
+AM_CONDITIONAL([HAVE_DOXYGEN], [test -n "$DOXYGEN"])
+
 # Output files
-AC_CONFIG_FILES([Makefile]
-                [largenet-0.5.pc:largenet.pc.in])
+AC_CONFIG_FILES([Makefile
+                largenet-0.5.pc:largenet.pc.in
+				Doxyfile])
 
 AC_CONFIG_HEADERS([config.h])
 

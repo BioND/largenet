@@ -106,3 +106,17 @@ votermodel_SOURCES = \
 		examples/votermodel/VoterModel.cpp \
 		examples/votermodel/VoterModel.h 
 endif
+
+if HAVE_DOXYGEN
+
+DOCDIR = doc
+MOSTLYCLEANFILES = -r $(DOCDIR)
+	
+doxygen-doc: $(DOCDIR)/doxygen.stamp 
+
+$(DOCDIR)/doxygen.stamp: Doxyfile
+	$(DOXYGEN) $(DOXYFLAGS) $<
+	echo Timestamp > $@
+
+endif
+
