@@ -99,12 +99,43 @@ nobase_include_HEADERS = \
 		largenet.h
 
 if BUILD_EXAMPLES
-noinst_PROGRAMS = votermodel
+noinst_PROGRAMS = votermodel swarm
 votermodel_LDADD = liblargenet-0.5.la 
 votermodel_SOURCES = \
 		examples/votermodel/vm.cpp \
 		examples/votermodel/VoterModel.cpp \
 		examples/votermodel/VoterModel.h 
+swarm_LDADD = liblargenet-0.5.la
+swarm_CXXFLAGS = $(BOOST_CXXFLAGS)
+swarm_LDFLAGS = $(BOOST_PROGRAM_OPTIONS_LDFLAGS) $(BOOST_PROGRAM_OPTIONS_LIBS)
+swarm_LIBS = $(BOOST_PROGRAM_OPTIONS_LIBS)
+ 
+swarm_SOURCES = \
+		examples/swarm/Options.cpp \
+		examples/swarm/swarm.cpp \
+		examples/swarm/SwarmApp.cpp \
+		examples/swarm/SwarmModel.cpp \
+		examples/swarm/Options.h \
+		examples/swarm/StateAlignEvent.h \
+		examples/swarm/StateSwitchEvent.h \
+		examples/swarm/SwarmApp.h \
+		examples/swarm/SwarmModel.h \
+		examples/swarm/output/DegDistOutput.cpp \
+		examples/swarm/output/DiffDegDistOutput.cpp \
+		examples/swarm/output/IntervalOutput.cpp \
+		examples/swarm/output/NodeStateOutput.cpp \
+		examples/swarm/output/Outputter.cpp \
+		examples/swarm/output/StateIntervalOutput.cpp \
+		examples/swarm/output/SuggestionPower.cpp \
+		examples/swarm/output/TimeSeriesOutput.cpp \
+		examples/swarm/output/DegDistOutput.h \
+		examples/swarm/output/DiffDegDistOutput.h \
+		examples/swarm/output/IntervalOutput.h \
+		examples/swarm/output/NodeStateOutput.h \
+		examples/swarm/output/Outputter.h \
+		examples/swarm/output/StateIntervalOutput.h \
+		examples/swarm/output/SuggestionPower.h \
+		examples/swarm/output/TimeSeriesOutput.h
 endif
 
 if HAVE_DOXYGEN
