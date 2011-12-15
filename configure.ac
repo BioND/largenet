@@ -13,6 +13,7 @@ AC_PROG_CXX
 AC_PROG_LIBTOOL
 AC_PROG_INSTALL
 AC_PROG_TRY_DOXYGEN
+AX_BOOST_BASE([1.36.0])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_SIZE_T
