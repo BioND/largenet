@@ -23,7 +23,7 @@ AC_C_INLINE
 # Checks for library functions.
 AC_CHECK_FUNCS([floor pow sqrt])
 
-BOOST_REQUIRE
+BOOST_REQUIRE([1.36.0])
 BOOST_PROGRAM_OPTIONS
 
 # Sanity check
