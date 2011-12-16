@@ -1,7 +1,10 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
-/* define if the Boost library is available */
+/* Defined if the requested minimum BOOST version is satisfied */
 #undef HAVE_BOOST
+
+/* Define to 1 if you have <boost/program_options.hpp> */
+#undef HAVE_BOOST_PROGRAM_OPTIONS_HPP
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
