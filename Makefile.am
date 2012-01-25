@@ -7,6 +7,7 @@ EXTRA_DIST = largenet-@PACKAGE_VERSION@.pc README.md Doxyfile
 
 lib_LTLIBRARIES = liblargenet-0.5.la
 liblargenet_0_5_la_LDFLAGS = -version-info 0:0:0
+liblargenet_0_5_la_CPPFLAGS = $(BOOST_CPPFLAGS)
 
 liblargenet_0_5_la_SOURCES = \
 		largenet/measures/correlations.cpp \
