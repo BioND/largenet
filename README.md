@@ -10,8 +10,8 @@ is implemented, such as the (state-resolved) degree distributions, the clusterin
 coefficient, the nearest-neighbor degree correlations, and the average shortest path
 length.
 
-The `largenet` library has been developed mostly by Gerd Zschaler <gzschaler@googlemail.com>
-based on ideas of Thilo Gross <gross@physics.org>. Most of this work is licensed under the
+The `largenet` library has been developed mostly by [Gerd Zschaler][]
+based on original ideas of [Thilo Gross][]. Most of this work is licensed under the
 Creative Commons CC-BY-NC license. See COPYING for details.
 
 For installation instructions, see INSTALL. For examples how to use the library, see the 
@@ -25,3 +25,5 @@ and opinion formation models.
 [2]: http://dx.doi.org/10.1088/1367-2630/12/9/093015 "G. Zschaler et al. (2010), New J. Phys., 12, 093015"
 [3]: http://dx.doi.org/10.1088/1367-2630/13/7/073022 "C. Huepe et al. (2011), New J. Phys., 13, 073022"
 [4]: http://www.sciencemag.org "I. Couzin et al. (2011), to be published in Science" 
+[Gerd Zschaler]: http://www.pks.mpg.de/~zschaler
+[Thilo Gross]: http://www.reallygross.de
