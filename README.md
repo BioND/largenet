@@ -24,6 +24,6 @@ and opinion formation models.
 [1]: http://dx.doi.org/10.1098/rsif.2007.1229 "T. Gross and B. Blasius (2008), J. R. Soc. Interface, 5, 259"
 [2]: http://dx.doi.org/10.1088/1367-2630/12/9/093015 "G. Zschaler et al. (2010), New J. Phys., 12, 093015"
 [3]: http://dx.doi.org/10.1088/1367-2630/13/7/073022 "C. Huepe et al. (2011), New J. Phys., 13, 073022"
-[4]: http://www.sciencemag.org "I. Couzin et al. (2011), to be published in Science" 
+[4]: http://dx.doi.org/10.1126/science.1210280 "I. Couzin et al. (2011), Science, 334, 1578-1580" 
 [Gerd Zschaler]: http://www.pks.mpg.de/~zschaler
 [Thilo Gross]: http://www.reallygross.de
