@@ -84,37 +84,37 @@ am__base_list = \
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(pkgconfigdir)" \
 	"$(DESTDIR)$(includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
-liblargenet_0_5_la_LIBADD =
+liblargenet_@PACKAGE_VERSION@_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
-am_liblargenet_0_5_la_OBJECTS =  \
-	largenet/measures/liblargenet_0_5_la-correlations.lo \
-	largenet/io/liblargenet_0_5_la-NodeEdgelistOut.lo \
-	largenet/io/liblargenet_0_5_la-EdgelistOut.lo \
-	largenet/io/liblargenet_0_5_la-EdgelistIn.lo \
-	largenet/io/liblargenet_0_5_la-NetIn.lo \
-	largenet/io/liblargenet_0_5_la-NetOut.lo \
-	largenet/io/liblargenet_0_5_la-NodeEdgelistIn.lo \
-	largenet/liblargenet_0_5_la-TripleMultiNetwork.lo \
-	largenet/liblargenet_0_5_la-Network.lo \
-	largenet/liblargenet_0_5_la-TripleNetwork.lo \
-	largenet/base/liblargenet_0_5_la-BasicNetwork.lo \
-	largenet/base/repo/liblargenet_0_5_la-repo_base.lo \
-	largenet/myrng1.2/liblargenet_0_5_la-myrngWELL.lo \
-	largenet/motifs/liblargenet_0_5_la-QuadLineMotif.lo \
-	largenet/motifs/liblargenet_0_5_la-TripleMotif.lo \
-	largenet/motifs/detail/liblargenet_0_5_la-motif_construction.lo \
-	largenet/motifs/liblargenet_0_5_la-LinkMotif.lo \
-	largenet/motifs/liblargenet_0_5_la-NodeMotif.lo \
-	largenet/motifs/liblargenet_0_5_la-QuadStarMotif.lo \
-	largenet/liblargenet_0_5_la-generators.lo
-liblargenet_0_5_la_OBJECTS = $(am_liblargenet_0_5_la_OBJECTS)
+am_liblargenet_@PACKAGE_VERSION@_la_OBJECTS = largenet/measures/liblargenet_@PACKAGE_VERSION@_la-correlations.lo \
+	largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistOut.lo \
+	largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistOut.lo \
+	largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistIn.lo \
+	largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetIn.lo \
+	largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetOut.lo \
+	largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistIn.lo \
+	largenet/liblargenet_@PACKAGE_VERSION@_la-TripleMultiNetwork.lo \
+	largenet/liblargenet_@PACKAGE_VERSION@_la-Network.lo \
+	largenet/liblargenet_@PACKAGE_VERSION@_la-TripleNetwork.lo \
+	largenet/base/liblargenet_@PACKAGE_VERSION@_la-BasicNetwork.lo \
+	largenet/base/repo/liblargenet_@PACKAGE_VERSION@_la-repo_base.lo \
+	largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo \
+	largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.lo \
+	largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.lo \
+	largenet/motifs/detail/liblargenet_@PACKAGE_VERSION@_la-motif_construction.lo \
+	largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-LinkMotif.lo \
+	largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-NodeMotif.lo \
+	largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadStarMotif.lo \
+	largenet/liblargenet_@PACKAGE_VERSION@_la-generators.lo
+liblargenet_@PACKAGE_VERSION@_la_OBJECTS =  \
+	$(am_liblargenet_@PACKAGE_VERSION@_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
 am__v_lt_0 = --silent
-liblargenet_0_5_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
-	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
-	$(AM_CXXFLAGS) $(CXXFLAGS) $(liblargenet_0_5_la_LDFLAGS) \
-	$(LDFLAGS) -o $@
+liblargenet_@PACKAGE_VERSION@_la_LINK = $(LIBTOOL) $(AM_V_lt) \
+	--tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
+	$(liblargenet_@PACKAGE_VERSION@_la_LDFLAGS) $(LDFLAGS) -o $@
 PROGRAMS = $(noinst_PROGRAMS)
 am__swarm_SOURCES_DIST = examples/swarm/Options.cpp \
 	examples/swarm/swarm.cpp examples/swarm/SwarmApp.cpp \
@@ -152,7 +152,8 @@ am__swarm_SOURCES_DIST = examples/swarm/Options.cpp \
 @BUILD_EXAMPLES_TRUE@	examples/swarm/output/swarm-SuggestionPower.$(OBJEXT) \
 @BUILD_EXAMPLES_TRUE@	examples/swarm/output/swarm-TimeSeriesOutput.$(OBJEXT)
 swarm_OBJECTS = $(am_swarm_OBJECTS)
-@BUILD_EXAMPLES_TRUE@swarm_DEPENDENCIES = liblargenet-0.5.la
+@BUILD_EXAMPLES_TRUE@swarm_DEPENDENCIES =  \
+@BUILD_EXAMPLES_TRUE@	liblargenet-@PACKAGE_VERSION@.la
 swarm_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(swarm_CXXFLAGS) \
 	$(CXXFLAGS) $(swarm_LDFLAGS) $(LDFLAGS) -o $@
@@ -163,10 +164,12 @@ am__votermodel_SOURCES_DIST = examples/votermodel/vm.cpp \
 @BUILD_EXAMPLES_TRUE@	examples/votermodel/vm.$(OBJEXT) \
 @BUILD_EXAMPLES_TRUE@	examples/votermodel/VoterModel.$(OBJEXT)
 votermodel_OBJECTS = $(am_votermodel_OBJECTS)
-@BUILD_EXAMPLES_TRUE@votermodel_DEPENDENCIES = liblargenet-0.5.la
+@BUILD_EXAMPLES_TRUE@votermodel_DEPENDENCIES =  \
+@BUILD_EXAMPLES_TRUE@	liblargenet-@PACKAGE_VERSION@.la
 DEFAULT_INCLUDES = -I.@am__isrc@
-depcomp =
-am__depfiles_maybe =
+depcomp = $(SHELL) $(top_srcdir)/depcomp
+am__depfiles_maybe = depfiles
+am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 LTCXXCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
@@ -205,10 +208,10 @@ am__v_CCLD_0 = @echo "  CCLD  " $@;
 AM_V_GEN = $(am__v_GEN_$(V))
 am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
 am__v_GEN_0 = @echo "  GEN   " $@;
-SOURCES = $(liblargenet_0_5_la_SOURCES) $(swarm_SOURCES) \
+SOURCES = $(liblargenet_@PACKAGE_VERSION@_la_SOURCES) $(swarm_SOURCES) \
 	$(votermodel_SOURCES)
-DIST_SOURCES = $(liblargenet_0_5_la_SOURCES) $(am__swarm_SOURCES_DIST) \
-	$(am__votermodel_SOURCES_DIST)
+DIST_SOURCES = $(liblargenet_@PACKAGE_VERSION@_la_SOURCES) \
+	$(am__swarm_SOURCES_DIST) $(am__votermodel_SOURCES_DIST)
 DATA = $(pkgconfig_DATA)
 HEADERS = $(nobase_include_HEADERS)
 ETAGS = etags
@@ -353,10 +356,10 @@ ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = largenet-@PACKAGE_VERSION@.pc
 EXTRA_DIST = largenet-@PACKAGE_VERSION@.pc README.md Doxyfile
-lib_LTLIBRARIES = liblargenet-0.5.la
-liblargenet_0_5_la_LDFLAGS = -version-info 0:0:0
-liblargenet_0_5_la_CPPFLAGS = $(BOOST_CPPFLAGS)
-liblargenet_0_5_la_SOURCES = \
+lib_LTLIBRARIES = liblargenet-@PACKAGE_VERSION@.la
+liblargenet_@PACKAGE_VERSION@_la_LDFLAGS = -version-info 0:0:0
+liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS = $(BOOST_CPPFLAGS)
+liblargenet_@PACKAGE_VERSION@_la_SOURCES = \
 		largenet/measures/correlations.cpp \
 		largenet/io/NodeEdgelistOut.cpp \
 		largenet/io/EdgelistOut.cpp \
@@ -446,13 +449,13 @@ nobase_include_HEADERS = \
 		largenet/tnt/tnt_cmat.h \
 		largenet.h
 
-@BUILD_EXAMPLES_TRUE@votermodel_LDADD = liblargenet-0.5.la 
+@BUILD_EXAMPLES_TRUE@votermodel_LDADD = liblargenet-@PACKAGE_VERSION@.la 
 @BUILD_EXAMPLES_TRUE@votermodel_SOURCES = \
 @BUILD_EXAMPLES_TRUE@		examples/votermodel/vm.cpp \
 @BUILD_EXAMPLES_TRUE@		examples/votermodel/VoterModel.cpp \
 @BUILD_EXAMPLES_TRUE@		examples/votermodel/VoterModel.h 
 
-@BUILD_EXAMPLES_TRUE@swarm_LDADD = liblargenet-0.5.la
+@BUILD_EXAMPLES_TRUE@swarm_LDADD = liblargenet-@PACKAGE_VERSION@.la
 @BUILD_EXAMPLES_TRUE@swarm_CXXFLAGS = $(BOOST_CXXFLAGS)
 @BUILD_EXAMPLES_TRUE@swarm_LDFLAGS = $(BOOST_PROGRAM_OPTIONS_LDFLAGS) $(BOOST_PROGRAM_OPTIONS_LIBS)
 @BUILD_EXAMPLES_TRUE@swarm_LIBS = $(BOOST_PROGRAM_OPTIONS_LIBS)
@@ -496,15 +499,15 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
-	      echo ' cd $(srcdir) && $(AUTOMAKE) --foreign --ignore-deps'; \
-	      $(am__cd) $(srcdir) && $(AUTOMAKE) --foreign --ignore-deps \
+	      echo ' cd $(srcdir) && $(AUTOMAKE) --foreign'; \
+	      $(am__cd) $(srcdir) && $(AUTOMAKE) --foreign \
 		&& exit 0; \
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign --ignore-deps Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign --ignore-deps Makefile
+	  $(AUTOMAKE) --foreign Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -579,65 +582,109 @@ clean-libLTLIBRARIES:
 largenet/measures/$(am__dirstamp):
 	@$(MKDIR_P) largenet/measures
 	@: > largenet/measures/$(am__dirstamp)
-largenet/measures/liblargenet_0_5_la-correlations.lo:  \
-	largenet/measures/$(am__dirstamp)
+largenet/measures/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) largenet/measures/$(DEPDIR)
+	@: > largenet/measures/$(DEPDIR)/$(am__dirstamp)
+largenet/measures/liblargenet_@PACKAGE_VERSION@_la-correlations.lo:  \
+	largenet/measures/$(am__dirstamp) \
+	largenet/measures/$(DEPDIR)/$(am__dirstamp)
 largenet/io/$(am__dirstamp):
 	@$(MKDIR_P) largenet/io
 	@: > largenet/io/$(am__dirstamp)
-largenet/io/liblargenet_0_5_la-NodeEdgelistOut.lo:  \
-	largenet/io/$(am__dirstamp)
-largenet/io/liblargenet_0_5_la-EdgelistOut.lo:  \
-	largenet/io/$(am__dirstamp)
-largenet/io/liblargenet_0_5_la-EdgelistIn.lo:  \
-	largenet/io/$(am__dirstamp)
-largenet/io/liblargenet_0_5_la-NetIn.lo: largenet/io/$(am__dirstamp)
-largenet/io/liblargenet_0_5_la-NetOut.lo: largenet/io/$(am__dirstamp)
-largenet/io/liblargenet_0_5_la-NodeEdgelistIn.lo:  \
-	largenet/io/$(am__dirstamp)
+largenet/io/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) largenet/io/$(DEPDIR)
+	@: > largenet/io/$(DEPDIR)/$(am__dirstamp)
+largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistOut.lo:  \
+	largenet/io/$(am__dirstamp) \
+	largenet/io/$(DEPDIR)/$(am__dirstamp)
+largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistOut.lo:  \
+	largenet/io/$(am__dirstamp) \
+	largenet/io/$(DEPDIR)/$(am__dirstamp)
+largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistIn.lo:  \
+	largenet/io/$(am__dirstamp) \
+	largenet/io/$(DEPDIR)/$(am__dirstamp)
+largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetIn.lo:  \
+	largenet/io/$(am__dirstamp) \
+	largenet/io/$(DEPDIR)/$(am__dirstamp)
+largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetOut.lo:  \
+	largenet/io/$(am__dirstamp) \
+	largenet/io/$(DEPDIR)/$(am__dirstamp)
+largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistIn.lo:  \
+	largenet/io/$(am__dirstamp) \
+	largenet/io/$(DEPDIR)/$(am__dirstamp)
 largenet/$(am__dirstamp):
 	@$(MKDIR_P) largenet
 	@: > largenet/$(am__dirstamp)
-largenet/liblargenet_0_5_la-TripleMultiNetwork.lo:  \
-	largenet/$(am__dirstamp)
-largenet/liblargenet_0_5_la-Network.lo: largenet/$(am__dirstamp)
-largenet/liblargenet_0_5_la-TripleNetwork.lo:  \
-	largenet/$(am__dirstamp)
+largenet/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) largenet/$(DEPDIR)
+	@: > largenet/$(DEPDIR)/$(am__dirstamp)
+largenet/liblargenet_@PACKAGE_VERSION@_la-TripleMultiNetwork.lo:  \
+	largenet/$(am__dirstamp) largenet/$(DEPDIR)/$(am__dirstamp)
+largenet/liblargenet_@PACKAGE_VERSION@_la-Network.lo:  \
+	largenet/$(am__dirstamp) largenet/$(DEPDIR)/$(am__dirstamp)
+largenet/liblargenet_@PACKAGE_VERSION@_la-TripleNetwork.lo:  \
+	largenet/$(am__dirstamp) largenet/$(DEPDIR)/$(am__dirstamp)
 largenet/base/$(am__dirstamp):
 	@$(MKDIR_P) largenet/base
 	@: > largenet/base/$(am__dirstamp)
-largenet/base/liblargenet_0_5_la-BasicNetwork.lo:  \
-	largenet/base/$(am__dirstamp)
+largenet/base/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) largenet/base/$(DEPDIR)
+	@: > largenet/base/$(DEPDIR)/$(am__dirstamp)
+largenet/base/liblargenet_@PACKAGE_VERSION@_la-BasicNetwork.lo:  \
+	largenet/base/$(am__dirstamp) \
+	largenet/base/$(DEPDIR)/$(am__dirstamp)
 largenet/base/repo/$(am__dirstamp):
 	@$(MKDIR_P) largenet/base/repo
 	@: > largenet/base/repo/$(am__dirstamp)
-largenet/base/repo/liblargenet_0_5_la-repo_base.lo:  \
-	largenet/base/repo/$(am__dirstamp)
+largenet/base/repo/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) largenet/base/repo/$(DEPDIR)
+	@: > largenet/base/repo/$(DEPDIR)/$(am__dirstamp)
+largenet/base/repo/liblargenet_@PACKAGE_VERSION@_la-repo_base.lo:  \
+	largenet/base/repo/$(am__dirstamp) \
+	largenet/base/repo/$(DEPDIR)/$(am__dirstamp)
 largenet/myrng1.2/$(am__dirstamp):
 	@$(MKDIR_P) largenet/myrng1.2
 	@: > largenet/myrng1.2/$(am__dirstamp)
-largenet/myrng1.2/liblargenet_0_5_la-myrngWELL.lo:  \
-	largenet/myrng1.2/$(am__dirstamp)
+largenet/myrng1.2/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) largenet/myrng1.2/$(DEPDIR)
+	@: > largenet/myrng1.2/$(DEPDIR)/$(am__dirstamp)
+largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo:  \
+	largenet/myrng1.2/$(am__dirstamp) \
+	largenet/myrng1.2/$(DEPDIR)/$(am__dirstamp)
 largenet/motifs/$(am__dirstamp):
 	@$(MKDIR_P) largenet/motifs
 	@: > largenet/motifs/$(am__dirstamp)
-largenet/motifs/liblargenet_0_5_la-QuadLineMotif.lo:  \
-	largenet/motifs/$(am__dirstamp)
-largenet/motifs/liblargenet_0_5_la-TripleMotif.lo:  \
-	largenet/motifs/$(am__dirstamp)
+largenet/motifs/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) largenet/motifs/$(DEPDIR)
+	@: > largenet/motifs/$(DEPDIR)/$(am__dirstamp)
+largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.lo:  \
+	largenet/motifs/$(am__dirstamp) \
+	largenet/motifs/$(DEPDIR)/$(am__dirstamp)
+largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.lo:  \
+	largenet/motifs/$(am__dirstamp) \
+	largenet/motifs/$(DEPDIR)/$(am__dirstamp)
 largenet/motifs/detail/$(am__dirstamp):
 	@$(MKDIR_P) largenet/motifs/detail
 	@: > largenet/motifs/detail/$(am__dirstamp)
-largenet/motifs/detail/liblargenet_0_5_la-motif_construction.lo:  \
-	largenet/motifs/detail/$(am__dirstamp)
-largenet/motifs/liblargenet_0_5_la-LinkMotif.lo:  \
-	largenet/motifs/$(am__dirstamp)
-largenet/motifs/liblargenet_0_5_la-NodeMotif.lo:  \
-	largenet/motifs/$(am__dirstamp)
-largenet/motifs/liblargenet_0_5_la-QuadStarMotif.lo:  \
-	largenet/motifs/$(am__dirstamp)
-largenet/liblargenet_0_5_la-generators.lo: largenet/$(am__dirstamp)
-liblargenet-0.5.la: $(liblargenet_0_5_la_OBJECTS) $(liblargenet_0_5_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(liblargenet_0_5_la_LINK) -rpath $(libdir) $(liblargenet_0_5_la_OBJECTS) $(liblargenet_0_5_la_LIBADD) $(LIBS)
+largenet/motifs/detail/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) largenet/motifs/detail/$(DEPDIR)
+	@: > largenet/motifs/detail/$(DEPDIR)/$(am__dirstamp)
+largenet/motifs/detail/liblargenet_@PACKAGE_VERSION@_la-motif_construction.lo:  \
+	largenet/motifs/detail/$(am__dirstamp) \
+	largenet/motifs/detail/$(DEPDIR)/$(am__dirstamp)
+largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-LinkMotif.lo:  \
+	largenet/motifs/$(am__dirstamp) \
+	largenet/motifs/$(DEPDIR)/$(am__dirstamp)
+largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-NodeMotif.lo:  \
+	largenet/motifs/$(am__dirstamp) \
+	largenet/motifs/$(DEPDIR)/$(am__dirstamp)
+largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadStarMotif.lo:  \
+	largenet/motifs/$(am__dirstamp) \
+	largenet/motifs/$(DEPDIR)/$(am__dirstamp)
+largenet/liblargenet_@PACKAGE_VERSION@_la-generators.lo:  \
+	largenet/$(am__dirstamp) largenet/$(DEPDIR)/$(am__dirstamp)
+liblargenet-@PACKAGE_VERSION@.la: $(liblargenet_@PACKAGE_VERSION@_la_OBJECTS) $(liblargenet_@PACKAGE_VERSION@_la_DEPENDENCIES) 
+	$(AM_V_CXXLD)$(liblargenet_@PACKAGE_VERSION@_la_LINK) -rpath $(libdir) $(liblargenet_@PACKAGE_VERSION@_la_OBJECTS) $(liblargenet_@PACKAGE_VERSION@_la_LIBADD) $(LIBS)
 
 clean-noinstPROGRAMS:
 	@list='$(noinst_PROGRAMS)'; test -n "$$list" || exit 0; \
@@ -650,41 +697,64 @@ clean-noinstPROGRAMS:
 examples/swarm/$(am__dirstamp):
 	@$(MKDIR_P) examples/swarm
 	@: > examples/swarm/$(am__dirstamp)
+examples/swarm/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) examples/swarm/$(DEPDIR)
+	@: > examples/swarm/$(DEPDIR)/$(am__dirstamp)
 examples/swarm/swarm-Options.$(OBJEXT):  \
-	examples/swarm/$(am__dirstamp)
-examples/swarm/swarm-swarm.$(OBJEXT): examples/swarm/$(am__dirstamp)
+	examples/swarm/$(am__dirstamp) \
+	examples/swarm/$(DEPDIR)/$(am__dirstamp)
+examples/swarm/swarm-swarm.$(OBJEXT): examples/swarm/$(am__dirstamp) \
+	examples/swarm/$(DEPDIR)/$(am__dirstamp)
 examples/swarm/swarm-SwarmApp.$(OBJEXT):  \
-	examples/swarm/$(am__dirstamp)
+	examples/swarm/$(am__dirstamp) \
+	examples/swarm/$(DEPDIR)/$(am__dirstamp)
 examples/swarm/swarm-SwarmModel.$(OBJEXT):  \
-	examples/swarm/$(am__dirstamp)
+	examples/swarm/$(am__dirstamp) \
+	examples/swarm/$(DEPDIR)/$(am__dirstamp)
 examples/swarm/output/$(am__dirstamp):
 	@$(MKDIR_P) examples/swarm/output
 	@: > examples/swarm/output/$(am__dirstamp)
+examples/swarm/output/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) examples/swarm/output/$(DEPDIR)
+	@: > examples/swarm/output/$(DEPDIR)/$(am__dirstamp)
 examples/swarm/output/swarm-DegDistOutput.$(OBJEXT):  \
-	examples/swarm/output/$(am__dirstamp)
+	examples/swarm/output/$(am__dirstamp) \
+	examples/swarm/output/$(DEPDIR)/$(am__dirstamp)
 examples/swarm/output/swarm-DiffDegDistOutput.$(OBJEXT):  \
-	examples/swarm/output/$(am__dirstamp)
+	examples/swarm/output/$(am__dirstamp) \
+	examples/swarm/output/$(DEPDIR)/$(am__dirstamp)
 examples/swarm/output/swarm-IntervalOutput.$(OBJEXT):  \
-	examples/swarm/output/$(am__dirstamp)
+	examples/swarm/output/$(am__dirstamp) \
+	examples/swarm/output/$(DEPDIR)/$(am__dirstamp)
 examples/swarm/output/swarm-NodeStateOutput.$(OBJEXT):  \
-	examples/swarm/output/$(am__dirstamp)
+	examples/swarm/output/$(am__dirstamp) \
+	examples/swarm/output/$(DEPDIR)/$(am__dirstamp)
 examples/swarm/output/swarm-Outputter.$(OBJEXT):  \
-	examples/swarm/output/$(am__dirstamp)
+	examples/swarm/output/$(am__dirstamp) \
+	examples/swarm/output/$(DEPDIR)/$(am__dirstamp)
 examples/swarm/output/swarm-StateIntervalOutput.$(OBJEXT):  \
-	examples/swarm/output/$(am__dirstamp)
+	examples/swarm/output/$(am__dirstamp) \
+	examples/swarm/output/$(DEPDIR)/$(am__dirstamp)
 examples/swarm/output/swarm-SuggestionPower.$(OBJEXT):  \
-	examples/swarm/output/$(am__dirstamp)
+	examples/swarm/output/$(am__dirstamp) \
+	examples/swarm/output/$(DEPDIR)/$(am__dirstamp)
 examples/swarm/output/swarm-TimeSeriesOutput.$(OBJEXT):  \
-	examples/swarm/output/$(am__dirstamp)
+	examples/swarm/output/$(am__dirstamp) \
+	examples/swarm/output/$(DEPDIR)/$(am__dirstamp)
 swarm$(EXEEXT): $(swarm_OBJECTS) $(swarm_DEPENDENCIES) 
 	@rm -f swarm$(EXEEXT)
 	$(AM_V_CXXLD)$(swarm_LINK) $(swarm_OBJECTS) $(swarm_LDADD) $(LIBS)
 examples/votermodel/$(am__dirstamp):
 	@$(MKDIR_P) examples/votermodel
 	@: > examples/votermodel/$(am__dirstamp)
-examples/votermodel/vm.$(OBJEXT): examples/votermodel/$(am__dirstamp)
+examples/votermodel/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) examples/votermodel/$(DEPDIR)
+	@: > examples/votermodel/$(DEPDIR)/$(am__dirstamp)
+examples/votermodel/vm.$(OBJEXT): examples/votermodel/$(am__dirstamp) \
+	examples/votermodel/$(DEPDIR)/$(am__dirstamp)
 examples/votermodel/VoterModel.$(OBJEXT):  \
-	examples/votermodel/$(am__dirstamp)
+	examples/votermodel/$(am__dirstamp) \
+	examples/votermodel/$(DEPDIR)/$(am__dirstamp)
 votermodel$(EXEEXT): $(votermodel_OBJECTS) $(votermodel_DEPENDENCIES) 
 	@rm -f votermodel$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(votermodel_OBJECTS) $(votermodel_LDADD) $(LIBS)
@@ -705,237 +775,463 @@ mostlyclean-compile:
 	-rm -f examples/swarm/swarm-swarm.$(OBJEXT)
 	-rm -f examples/votermodel/VoterModel.$(OBJEXT)
 	-rm -f examples/votermodel/vm.$(OBJEXT)
-	-rm -f largenet/base/liblargenet_0_5_la-BasicNetwork.$(OBJEXT)
-	-rm -f largenet/base/liblargenet_0_5_la-BasicNetwork.lo
-	-rm -f largenet/base/repo/liblargenet_0_5_la-repo_base.$(OBJEXT)
-	-rm -f largenet/base/repo/liblargenet_0_5_la-repo_base.lo
-	-rm -f largenet/io/liblargenet_0_5_la-EdgelistIn.$(OBJEXT)
-	-rm -f largenet/io/liblargenet_0_5_la-EdgelistIn.lo
-	-rm -f largenet/io/liblargenet_0_5_la-EdgelistOut.$(OBJEXT)
-	-rm -f largenet/io/liblargenet_0_5_la-EdgelistOut.lo
-	-rm -f largenet/io/liblargenet_0_5_la-NetIn.$(OBJEXT)
-	-rm -f largenet/io/liblargenet_0_5_la-NetIn.lo
-	-rm -f largenet/io/liblargenet_0_5_la-NetOut.$(OBJEXT)
-	-rm -f largenet/io/liblargenet_0_5_la-NetOut.lo
-	-rm -f largenet/io/liblargenet_0_5_la-NodeEdgelistIn.$(OBJEXT)
-	-rm -f largenet/io/liblargenet_0_5_la-NodeEdgelistIn.lo
-	-rm -f largenet/io/liblargenet_0_5_la-NodeEdgelistOut.$(OBJEXT)
-	-rm -f largenet/io/liblargenet_0_5_la-NodeEdgelistOut.lo
-	-rm -f largenet/liblargenet_0_5_la-Network.$(OBJEXT)
-	-rm -f largenet/liblargenet_0_5_la-Network.lo
-	-rm -f largenet/liblargenet_0_5_la-TripleMultiNetwork.$(OBJEXT)
-	-rm -f largenet/liblargenet_0_5_la-TripleMultiNetwork.lo
-	-rm -f largenet/liblargenet_0_5_la-TripleNetwork.$(OBJEXT)
-	-rm -f largenet/liblargenet_0_5_la-TripleNetwork.lo
-	-rm -f largenet/liblargenet_0_5_la-generators.$(OBJEXT)
-	-rm -f largenet/liblargenet_0_5_la-generators.lo
-	-rm -f largenet/measures/liblargenet_0_5_la-correlations.$(OBJEXT)
-	-rm -f largenet/measures/liblargenet_0_5_la-correlations.lo
-	-rm -f largenet/motifs/detail/liblargenet_0_5_la-motif_construction.$(OBJEXT)
-	-rm -f largenet/motifs/detail/liblargenet_0_5_la-motif_construction.lo
-	-rm -f largenet/motifs/liblargenet_0_5_la-LinkMotif.$(OBJEXT)
-	-rm -f largenet/motifs/liblargenet_0_5_la-LinkMotif.lo
-	-rm -f largenet/motifs/liblargenet_0_5_la-NodeMotif.$(OBJEXT)
-	-rm -f largenet/motifs/liblargenet_0_5_la-NodeMotif.lo
-	-rm -f largenet/motifs/liblargenet_0_5_la-QuadLineMotif.$(OBJEXT)
-	-rm -f largenet/motifs/liblargenet_0_5_la-QuadLineMotif.lo
-	-rm -f largenet/motifs/liblargenet_0_5_la-QuadStarMotif.$(OBJEXT)
-	-rm -f largenet/motifs/liblargenet_0_5_la-QuadStarMotif.lo
-	-rm -f largenet/motifs/liblargenet_0_5_la-TripleMotif.$(OBJEXT)
-	-rm -f largenet/motifs/liblargenet_0_5_la-TripleMotif.lo
-	-rm -f largenet/myrng1.2/liblargenet_0_5_la-myrngWELL.$(OBJEXT)
-	-rm -f largenet/myrng1.2/liblargenet_0_5_la-myrngWELL.lo
+	-rm -f largenet/base/liblargenet_@PACKAGE_VERSION@_la-BasicNetwork.$(OBJEXT)
+	-rm -f largenet/base/liblargenet_@PACKAGE_VERSION@_la-BasicNetwork.lo
+	-rm -f largenet/base/repo/liblargenet_@PACKAGE_VERSION@_la-repo_base.$(OBJEXT)
+	-rm -f largenet/base/repo/liblargenet_@PACKAGE_VERSION@_la-repo_base.lo
+	-rm -f largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistIn.$(OBJEXT)
+	-rm -f largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistIn.lo
+	-rm -f largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistOut.$(OBJEXT)
+	-rm -f largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistOut.lo
+	-rm -f largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetIn.$(OBJEXT)
+	-rm -f largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetIn.lo
+	-rm -f largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetOut.$(OBJEXT)
+	-rm -f largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetOut.lo
+	-rm -f largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistIn.$(OBJEXT)
+	-rm -f largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistIn.lo
+	-rm -f largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistOut.$(OBJEXT)
+	-rm -f largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistOut.lo
+	-rm -f largenet/liblargenet_@PACKAGE_VERSION@_la-Network.$(OBJEXT)
+	-rm -f largenet/liblargenet_@PACKAGE_VERSION@_la-Network.lo
+	-rm -f largenet/liblargenet_@PACKAGE_VERSION@_la-TripleMultiNetwork.$(OBJEXT)
+	-rm -f largenet/liblargenet_@PACKAGE_VERSION@_la-TripleMultiNetwork.lo
+	-rm -f largenet/liblargenet_@PACKAGE_VERSION@_la-TripleNetwork.$(OBJEXT)
+	-rm -f largenet/liblargenet_@PACKAGE_VERSION@_la-TripleNetwork.lo
+	-rm -f largenet/liblargenet_@PACKAGE_VERSION@_la-generators.$(OBJEXT)
+	-rm -f largenet/liblargenet_@PACKAGE_VERSION@_la-generators.lo
+	-rm -f largenet/measures/liblargenet_@PACKAGE_VERSION@_la-correlations.$(OBJEXT)
+	-rm -f largenet/measures/liblargenet_@PACKAGE_VERSION@_la-correlations.lo
+	-rm -f largenet/motifs/detail/liblargenet_@PACKAGE_VERSION@_la-motif_construction.$(OBJEXT)
+	-rm -f largenet/motifs/detail/liblargenet_@PACKAGE_VERSION@_la-motif_construction.lo
+	-rm -f largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-LinkMotif.$(OBJEXT)
+	-rm -f largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-LinkMotif.lo
+	-rm -f largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-NodeMotif.$(OBJEXT)
+	-rm -f largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-NodeMotif.lo
+	-rm -f largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.$(OBJEXT)
+	-rm -f largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.lo
+	-rm -f largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadStarMotif.$(OBJEXT)
+	-rm -f largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadStarMotif.lo
+	-rm -f largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.$(OBJEXT)
+	-rm -f largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.lo
+	-rm -f largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.$(OBJEXT)
+	-rm -f largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo
 
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@examples/swarm/$(DEPDIR)/swarm-Options.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@examples/swarm/$(DEPDIR)/swarm-SwarmApp.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@examples/swarm/$(DEPDIR)/swarm-SwarmModel.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@examples/swarm/$(DEPDIR)/swarm-swarm.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@examples/swarm/output/$(DEPDIR)/swarm-DegDistOutput.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@examples/swarm/output/$(DEPDIR)/swarm-DiffDegDistOutput.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@examples/swarm/output/$(DEPDIR)/swarm-IntervalOutput.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@examples/swarm/output/$(DEPDIR)/swarm-NodeStateOutput.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@examples/swarm/output/$(DEPDIR)/swarm-Outputter.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@examples/swarm/output/$(DEPDIR)/swarm-StateIntervalOutput.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@examples/swarm/output/$(DEPDIR)/swarm-SuggestionPower.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@examples/swarm/output/$(DEPDIR)/swarm-TimeSeriesOutput.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@examples/votermodel/$(DEPDIR)/VoterModel.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@examples/votermodel/$(DEPDIR)/vm.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-Network.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-TripleMultiNetwork.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-TripleNetwork.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-generators.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/base/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-BasicNetwork.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/base/repo/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-repo_base.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-EdgelistIn.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-EdgelistOut.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NetIn.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NetOut.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistIn.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistOut.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/measures/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-correlations.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-LinkMotif.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NodeMotif.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-QuadStarMotif.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/motifs/detail/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-motif_construction.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/myrng1.2/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.Plo@am__quote@
+
 .cpp.o:
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXXCOMPILE) -c -o $@ $<
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
+@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+@am__fastdepCXX_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ $<
 
 .cpp.obj:
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
+@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
+@am__fastdepCXX_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 .cpp.lo:
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LTCXXCOMPILE) -c -o $@ $<
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.lo$$||'`;\
+@am__fastdepCXX_TRUE@	$(LTCXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+@am__fastdepCXX_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
 
-largenet/measures/liblargenet_0_5_la-correlations.lo: largenet/measures/correlations.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/measures/liblargenet_0_5_la-correlations.lo `test -f 'largenet/measures/correlations.cpp' || echo '$(srcdir)/'`largenet/measures/correlations.cpp
+largenet/measures/liblargenet_@PACKAGE_VERSION@_la-correlations.lo: largenet/measures/correlations.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/measures/liblargenet_@PACKAGE_VERSION@_la-correlations.lo -MD -MP -MF largenet/measures/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-correlations.Tpo -c -o largenet/measures/liblargenet_@PACKAGE_VERSION@_la-correlations.lo `test -f 'largenet/measures/correlations.cpp' || echo '$(srcdir)/'`largenet/measures/correlations.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/measures/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-correlations.Tpo largenet/measures/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-correlations.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/measures/correlations.cpp' object='largenet/measures/liblargenet_@PACKAGE_VERSION@_la-correlations.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/measures/liblargenet_@PACKAGE_VERSION@_la-correlations.lo `test -f 'largenet/measures/correlations.cpp' || echo '$(srcdir)/'`largenet/measures/correlations.cpp
 
-largenet/io/liblargenet_0_5_la-NodeEdgelistOut.lo: largenet/io/NodeEdgelistOut.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/io/liblargenet_0_5_la-NodeEdgelistOut.lo `test -f 'largenet/io/NodeEdgelistOut.cpp' || echo '$(srcdir)/'`largenet/io/NodeEdgelistOut.cpp
+largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistOut.lo: largenet/io/NodeEdgelistOut.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistOut.lo -MD -MP -MF largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistOut.Tpo -c -o largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistOut.lo `test -f 'largenet/io/NodeEdgelistOut.cpp' || echo '$(srcdir)/'`largenet/io/NodeEdgelistOut.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistOut.Tpo largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistOut.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/io/NodeEdgelistOut.cpp' object='largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistOut.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistOut.lo `test -f 'largenet/io/NodeEdgelistOut.cpp' || echo '$(srcdir)/'`largenet/io/NodeEdgelistOut.cpp
 
-largenet/io/liblargenet_0_5_la-EdgelistOut.lo: largenet/io/EdgelistOut.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/io/liblargenet_0_5_la-EdgelistOut.lo `test -f 'largenet/io/EdgelistOut.cpp' || echo '$(srcdir)/'`largenet/io/EdgelistOut.cpp
+largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistOut.lo: largenet/io/EdgelistOut.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistOut.lo -MD -MP -MF largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-EdgelistOut.Tpo -c -o largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistOut.lo `test -f 'largenet/io/EdgelistOut.cpp' || echo '$(srcdir)/'`largenet/io/EdgelistOut.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-EdgelistOut.Tpo largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-EdgelistOut.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/io/EdgelistOut.cpp' object='largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistOut.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistOut.lo `test -f 'largenet/io/EdgelistOut.cpp' || echo '$(srcdir)/'`largenet/io/EdgelistOut.cpp
 
-largenet/io/liblargenet_0_5_la-EdgelistIn.lo: largenet/io/EdgelistIn.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/io/liblargenet_0_5_la-EdgelistIn.lo `test -f 'largenet/io/EdgelistIn.cpp' || echo '$(srcdir)/'`largenet/io/EdgelistIn.cpp
+largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistIn.lo: largenet/io/EdgelistIn.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistIn.lo -MD -MP -MF largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-EdgelistIn.Tpo -c -o largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistIn.lo `test -f 'largenet/io/EdgelistIn.cpp' || echo '$(srcdir)/'`largenet/io/EdgelistIn.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-EdgelistIn.Tpo largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-EdgelistIn.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/io/EdgelistIn.cpp' object='largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistIn.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/io/liblargenet_@PACKAGE_VERSION@_la-EdgelistIn.lo `test -f 'largenet/io/EdgelistIn.cpp' || echo '$(srcdir)/'`largenet/io/EdgelistIn.cpp
 
-largenet/io/liblargenet_0_5_la-NetIn.lo: largenet/io/NetIn.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/io/liblargenet_0_5_la-NetIn.lo `test -f 'largenet/io/NetIn.cpp' || echo '$(srcdir)/'`largenet/io/NetIn.cpp
+largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetIn.lo: largenet/io/NetIn.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetIn.lo -MD -MP -MF largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NetIn.Tpo -c -o largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetIn.lo `test -f 'largenet/io/NetIn.cpp' || echo '$(srcdir)/'`largenet/io/NetIn.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NetIn.Tpo largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NetIn.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/io/NetIn.cpp' object='largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetIn.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetIn.lo `test -f 'largenet/io/NetIn.cpp' || echo '$(srcdir)/'`largenet/io/NetIn.cpp
 
-largenet/io/liblargenet_0_5_la-NetOut.lo: largenet/io/NetOut.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/io/liblargenet_0_5_la-NetOut.lo `test -f 'largenet/io/NetOut.cpp' || echo '$(srcdir)/'`largenet/io/NetOut.cpp
+largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetOut.lo: largenet/io/NetOut.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetOut.lo -MD -MP -MF largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NetOut.Tpo -c -o largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetOut.lo `test -f 'largenet/io/NetOut.cpp' || echo '$(srcdir)/'`largenet/io/NetOut.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NetOut.Tpo largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NetOut.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/io/NetOut.cpp' object='largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetOut.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/io/liblargenet_@PACKAGE_VERSION@_la-NetOut.lo `test -f 'largenet/io/NetOut.cpp' || echo '$(srcdir)/'`largenet/io/NetOut.cpp
 
-largenet/io/liblargenet_0_5_la-NodeEdgelistIn.lo: largenet/io/NodeEdgelistIn.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/io/liblargenet_0_5_la-NodeEdgelistIn.lo `test -f 'largenet/io/NodeEdgelistIn.cpp' || echo '$(srcdir)/'`largenet/io/NodeEdgelistIn.cpp
+largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistIn.lo: largenet/io/NodeEdgelistIn.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistIn.lo -MD -MP -MF largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistIn.Tpo -c -o largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistIn.lo `test -f 'largenet/io/NodeEdgelistIn.cpp' || echo '$(srcdir)/'`largenet/io/NodeEdgelistIn.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistIn.Tpo largenet/io/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistIn.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/io/NodeEdgelistIn.cpp' object='largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistIn.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/io/liblargenet_@PACKAGE_VERSION@_la-NodeEdgelistIn.lo `test -f 'largenet/io/NodeEdgelistIn.cpp' || echo '$(srcdir)/'`largenet/io/NodeEdgelistIn.cpp
 
-largenet/liblargenet_0_5_la-TripleMultiNetwork.lo: largenet/TripleMultiNetwork.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/liblargenet_0_5_la-TripleMultiNetwork.lo `test -f 'largenet/TripleMultiNetwork.cpp' || echo '$(srcdir)/'`largenet/TripleMultiNetwork.cpp
+largenet/liblargenet_@PACKAGE_VERSION@_la-TripleMultiNetwork.lo: largenet/TripleMultiNetwork.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/liblargenet_@PACKAGE_VERSION@_la-TripleMultiNetwork.lo -MD -MP -MF largenet/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-TripleMultiNetwork.Tpo -c -o largenet/liblargenet_@PACKAGE_VERSION@_la-TripleMultiNetwork.lo `test -f 'largenet/TripleMultiNetwork.cpp' || echo '$(srcdir)/'`largenet/TripleMultiNetwork.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-TripleMultiNetwork.Tpo largenet/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-TripleMultiNetwork.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/TripleMultiNetwork.cpp' object='largenet/liblargenet_@PACKAGE_VERSION@_la-TripleMultiNetwork.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/liblargenet_@PACKAGE_VERSION@_la-TripleMultiNetwork.lo `test -f 'largenet/TripleMultiNetwork.cpp' || echo '$(srcdir)/'`largenet/TripleMultiNetwork.cpp
 
-largenet/liblargenet_0_5_la-Network.lo: largenet/Network.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/liblargenet_0_5_la-Network.lo `test -f 'largenet/Network.cpp' || echo '$(srcdir)/'`largenet/Network.cpp
+largenet/liblargenet_@PACKAGE_VERSION@_la-Network.lo: largenet/Network.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/liblargenet_@PACKAGE_VERSION@_la-Network.lo -MD -MP -MF largenet/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-Network.Tpo -c -o largenet/liblargenet_@PACKAGE_VERSION@_la-Network.lo `test -f 'largenet/Network.cpp' || echo '$(srcdir)/'`largenet/Network.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-Network.Tpo largenet/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-Network.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/Network.cpp' object='largenet/liblargenet_@PACKAGE_VERSION@_la-Network.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/liblargenet_@PACKAGE_VERSION@_la-Network.lo `test -f 'largenet/Network.cpp' || echo '$(srcdir)/'`largenet/Network.cpp
 
-largenet/liblargenet_0_5_la-TripleNetwork.lo: largenet/TripleNetwork.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/liblargenet_0_5_la-TripleNetwork.lo `test -f 'largenet/TripleNetwork.cpp' || echo '$(srcdir)/'`largenet/TripleNetwork.cpp
+largenet/liblargenet_@PACKAGE_VERSION@_la-TripleNetwork.lo: largenet/TripleNetwork.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/liblargenet_@PACKAGE_VERSION@_la-TripleNetwork.lo -MD -MP -MF largenet/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-TripleNetwork.Tpo -c -o largenet/liblargenet_@PACKAGE_VERSION@_la-TripleNetwork.lo `test -f 'largenet/TripleNetwork.cpp' || echo '$(srcdir)/'`largenet/TripleNetwork.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-TripleNetwork.Tpo largenet/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-TripleNetwork.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/TripleNetwork.cpp' object='largenet/liblargenet_@PACKAGE_VERSION@_la-TripleNetwork.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/liblargenet_@PACKAGE_VERSION@_la-TripleNetwork.lo `test -f 'largenet/TripleNetwork.cpp' || echo '$(srcdir)/'`largenet/TripleNetwork.cpp
 
-largenet/base/liblargenet_0_5_la-BasicNetwork.lo: largenet/base/BasicNetwork.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/base/liblargenet_0_5_la-BasicNetwork.lo `test -f 'largenet/base/BasicNetwork.cpp' || echo '$(srcdir)/'`largenet/base/BasicNetwork.cpp
+largenet/base/liblargenet_@PACKAGE_VERSION@_la-BasicNetwork.lo: largenet/base/BasicNetwork.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/base/liblargenet_@PACKAGE_VERSION@_la-BasicNetwork.lo -MD -MP -MF largenet/base/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-BasicNetwork.Tpo -c -o largenet/base/liblargenet_@PACKAGE_VERSION@_la-BasicNetwork.lo `test -f 'largenet/base/BasicNetwork.cpp' || echo '$(srcdir)/'`largenet/base/BasicNetwork.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/base/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-BasicNetwork.Tpo largenet/base/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-BasicNetwork.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/base/BasicNetwork.cpp' object='largenet/base/liblargenet_@PACKAGE_VERSION@_la-BasicNetwork.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/base/liblargenet_@PACKAGE_VERSION@_la-BasicNetwork.lo `test -f 'largenet/base/BasicNetwork.cpp' || echo '$(srcdir)/'`largenet/base/BasicNetwork.cpp
 
-largenet/base/repo/liblargenet_0_5_la-repo_base.lo: largenet/base/repo/repo_base.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/base/repo/liblargenet_0_5_la-repo_base.lo `test -f 'largenet/base/repo/repo_base.cpp' || echo '$(srcdir)/'`largenet/base/repo/repo_base.cpp
+largenet/base/repo/liblargenet_@PACKAGE_VERSION@_la-repo_base.lo: largenet/base/repo/repo_base.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/base/repo/liblargenet_@PACKAGE_VERSION@_la-repo_base.lo -MD -MP -MF largenet/base/repo/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-repo_base.Tpo -c -o largenet/base/repo/liblargenet_@PACKAGE_VERSION@_la-repo_base.lo `test -f 'largenet/base/repo/repo_base.cpp' || echo '$(srcdir)/'`largenet/base/repo/repo_base.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/base/repo/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-repo_base.Tpo largenet/base/repo/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-repo_base.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/base/repo/repo_base.cpp' object='largenet/base/repo/liblargenet_@PACKAGE_VERSION@_la-repo_base.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/base/repo/liblargenet_@PACKAGE_VERSION@_la-repo_base.lo `test -f 'largenet/base/repo/repo_base.cpp' || echo '$(srcdir)/'`largenet/base/repo/repo_base.cpp
 
-largenet/myrng1.2/liblargenet_0_5_la-myrngWELL.lo: largenet/myrng1.2/myrngWELL.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/myrng1.2/liblargenet_0_5_la-myrngWELL.lo `test -f 'largenet/myrng1.2/myrngWELL.cpp' || echo '$(srcdir)/'`largenet/myrng1.2/myrngWELL.cpp
+largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo: largenet/myrng1.2/myrngWELL.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo -MD -MP -MF largenet/myrng1.2/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.Tpo -c -o largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo `test -f 'largenet/myrng1.2/myrngWELL.cpp' || echo '$(srcdir)/'`largenet/myrng1.2/myrngWELL.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/myrng1.2/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.Tpo largenet/myrng1.2/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/myrng1.2/myrngWELL.cpp' object='largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo `test -f 'largenet/myrng1.2/myrngWELL.cpp' || echo '$(srcdir)/'`largenet/myrng1.2/myrngWELL.cpp
 
-largenet/motifs/liblargenet_0_5_la-QuadLineMotif.lo: largenet/motifs/QuadLineMotif.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/motifs/liblargenet_0_5_la-QuadLineMotif.lo `test -f 'largenet/motifs/QuadLineMotif.cpp' || echo '$(srcdir)/'`largenet/motifs/QuadLineMotif.cpp
+largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.lo: largenet/motifs/QuadLineMotif.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.lo -MD -MP -MF largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.Tpo -c -o largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.lo `test -f 'largenet/motifs/QuadLineMotif.cpp' || echo '$(srcdir)/'`largenet/motifs/QuadLineMotif.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.Tpo largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/motifs/QuadLineMotif.cpp' object='largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.lo `test -f 'largenet/motifs/QuadLineMotif.cpp' || echo '$(srcdir)/'`largenet/motifs/QuadLineMotif.cpp
 
-largenet/motifs/liblargenet_0_5_la-TripleMotif.lo: largenet/motifs/TripleMotif.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/motifs/liblargenet_0_5_la-TripleMotif.lo `test -f 'largenet/motifs/TripleMotif.cpp' || echo '$(srcdir)/'`largenet/motifs/TripleMotif.cpp
+largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.lo: largenet/motifs/TripleMotif.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.lo -MD -MP -MF largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.Tpo -c -o largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.lo `test -f 'largenet/motifs/TripleMotif.cpp' || echo '$(srcdir)/'`largenet/motifs/TripleMotif.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.Tpo largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/motifs/TripleMotif.cpp' object='largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.lo `test -f 'largenet/motifs/TripleMotif.cpp' || echo '$(srcdir)/'`largenet/motifs/TripleMotif.cpp
 
-largenet/motifs/detail/liblargenet_0_5_la-motif_construction.lo: largenet/motifs/detail/motif_construction.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/motifs/detail/liblargenet_0_5_la-motif_construction.lo `test -f 'largenet/motifs/detail/motif_construction.cpp' || echo '$(srcdir)/'`largenet/motifs/detail/motif_construction.cpp
+largenet/motifs/detail/liblargenet_@PACKAGE_VERSION@_la-motif_construction.lo: largenet/motifs/detail/motif_construction.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/motifs/detail/liblargenet_@PACKAGE_VERSION@_la-motif_construction.lo -MD -MP -MF largenet/motifs/detail/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-motif_construction.Tpo -c -o largenet/motifs/detail/liblargenet_@PACKAGE_VERSION@_la-motif_construction.lo `test -f 'largenet/motifs/detail/motif_construction.cpp' || echo '$(srcdir)/'`largenet/motifs/detail/motif_construction.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/motifs/detail/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-motif_construction.Tpo largenet/motifs/detail/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-motif_construction.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/motifs/detail/motif_construction.cpp' object='largenet/motifs/detail/liblargenet_@PACKAGE_VERSION@_la-motif_construction.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/motifs/detail/liblargenet_@PACKAGE_VERSION@_la-motif_construction.lo `test -f 'largenet/motifs/detail/motif_construction.cpp' || echo '$(srcdir)/'`largenet/motifs/detail/motif_construction.cpp
 
-largenet/motifs/liblargenet_0_5_la-LinkMotif.lo: largenet/motifs/LinkMotif.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/motifs/liblargenet_0_5_la-LinkMotif.lo `test -f 'largenet/motifs/LinkMotif.cpp' || echo '$(srcdir)/'`largenet/motifs/LinkMotif.cpp
+largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-LinkMotif.lo: largenet/motifs/LinkMotif.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-LinkMotif.lo -MD -MP -MF largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-LinkMotif.Tpo -c -o largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-LinkMotif.lo `test -f 'largenet/motifs/LinkMotif.cpp' || echo '$(srcdir)/'`largenet/motifs/LinkMotif.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-LinkMotif.Tpo largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-LinkMotif.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/motifs/LinkMotif.cpp' object='largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-LinkMotif.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-LinkMotif.lo `test -f 'largenet/motifs/LinkMotif.cpp' || echo '$(srcdir)/'`largenet/motifs/LinkMotif.cpp
 
-largenet/motifs/liblargenet_0_5_la-NodeMotif.lo: largenet/motifs/NodeMotif.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/motifs/liblargenet_0_5_la-NodeMotif.lo `test -f 'largenet/motifs/NodeMotif.cpp' || echo '$(srcdir)/'`largenet/motifs/NodeMotif.cpp
+largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-NodeMotif.lo: largenet/motifs/NodeMotif.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-NodeMotif.lo -MD -MP -MF largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NodeMotif.Tpo -c -o largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-NodeMotif.lo `test -f 'largenet/motifs/NodeMotif.cpp' || echo '$(srcdir)/'`largenet/motifs/NodeMotif.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NodeMotif.Tpo largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-NodeMotif.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/motifs/NodeMotif.cpp' object='largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-NodeMotif.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-NodeMotif.lo `test -f 'largenet/motifs/NodeMotif.cpp' || echo '$(srcdir)/'`largenet/motifs/NodeMotif.cpp
 
-largenet/motifs/liblargenet_0_5_la-QuadStarMotif.lo: largenet/motifs/QuadStarMotif.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/motifs/liblargenet_0_5_la-QuadStarMotif.lo `test -f 'largenet/motifs/QuadStarMotif.cpp' || echo '$(srcdir)/'`largenet/motifs/QuadStarMotif.cpp
+largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadStarMotif.lo: largenet/motifs/QuadStarMotif.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadStarMotif.lo -MD -MP -MF largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-QuadStarMotif.Tpo -c -o largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadStarMotif.lo `test -f 'largenet/motifs/QuadStarMotif.cpp' || echo '$(srcdir)/'`largenet/motifs/QuadStarMotif.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-QuadStarMotif.Tpo largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-QuadStarMotif.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/motifs/QuadStarMotif.cpp' object='largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadStarMotif.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadStarMotif.lo `test -f 'largenet/motifs/QuadStarMotif.cpp' || echo '$(srcdir)/'`largenet/motifs/QuadStarMotif.cpp
 
-largenet/liblargenet_0_5_la-generators.lo: largenet/generators.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_0_5_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/liblargenet_0_5_la-generators.lo `test -f 'largenet/generators.cpp' || echo '$(srcdir)/'`largenet/generators.cpp
+largenet/liblargenet_@PACKAGE_VERSION@_la-generators.lo: largenet/generators.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/liblargenet_@PACKAGE_VERSION@_la-generators.lo -MD -MP -MF largenet/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-generators.Tpo -c -o largenet/liblargenet_@PACKAGE_VERSION@_la-generators.lo `test -f 'largenet/generators.cpp' || echo '$(srcdir)/'`largenet/generators.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-generators.Tpo largenet/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-generators.Plo
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='largenet/generators.cpp' object='largenet/liblargenet_@PACKAGE_VERSION@_la-generators.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/liblargenet_@PACKAGE_VERSION@_la-generators.lo `test -f 'largenet/generators.cpp' || echo '$(srcdir)/'`largenet/generators.cpp
 
 examples/swarm/swarm-Options.o: examples/swarm/Options.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/swarm-Options.o `test -f 'examples/swarm/Options.cpp' || echo '$(srcdir)/'`examples/swarm/Options.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/swarm-Options.o -MD -MP -MF examples/swarm/$(DEPDIR)/swarm-Options.Tpo -c -o examples/swarm/swarm-Options.o `test -f 'examples/swarm/Options.cpp' || echo '$(srcdir)/'`examples/swarm/Options.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/$(DEPDIR)/swarm-Options.Tpo examples/swarm/$(DEPDIR)/swarm-Options.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/Options.cpp' object='examples/swarm/swarm-Options.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/swarm-Options.o `test -f 'examples/swarm/Options.cpp' || echo '$(srcdir)/'`examples/swarm/Options.cpp
 
 examples/swarm/swarm-Options.obj: examples/swarm/Options.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/swarm-Options.obj `if test -f 'examples/swarm/Options.cpp'; then $(CYGPATH_W) 'examples/swarm/Options.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/Options.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/swarm-Options.obj -MD -MP -MF examples/swarm/$(DEPDIR)/swarm-Options.Tpo -c -o examples/swarm/swarm-Options.obj `if test -f 'examples/swarm/Options.cpp'; then $(CYGPATH_W) 'examples/swarm/Options.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/Options.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/$(DEPDIR)/swarm-Options.Tpo examples/swarm/$(DEPDIR)/swarm-Options.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/Options.cpp' object='examples/swarm/swarm-Options.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/swarm-Options.obj `if test -f 'examples/swarm/Options.cpp'; then $(CYGPATH_W) 'examples/swarm/Options.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/Options.cpp'; fi`
 
 examples/swarm/swarm-swarm.o: examples/swarm/swarm.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/swarm-swarm.o `test -f 'examples/swarm/swarm.cpp' || echo '$(srcdir)/'`examples/swarm/swarm.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/swarm-swarm.o -MD -MP -MF examples/swarm/$(DEPDIR)/swarm-swarm.Tpo -c -o examples/swarm/swarm-swarm.o `test -f 'examples/swarm/swarm.cpp' || echo '$(srcdir)/'`examples/swarm/swarm.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/$(DEPDIR)/swarm-swarm.Tpo examples/swarm/$(DEPDIR)/swarm-swarm.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/swarm.cpp' object='examples/swarm/swarm-swarm.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/swarm-swarm.o `test -f 'examples/swarm/swarm.cpp' || echo '$(srcdir)/'`examples/swarm/swarm.cpp
 
 examples/swarm/swarm-swarm.obj: examples/swarm/swarm.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/swarm-swarm.obj `if test -f 'examples/swarm/swarm.cpp'; then $(CYGPATH_W) 'examples/swarm/swarm.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/swarm.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/swarm-swarm.obj -MD -MP -MF examples/swarm/$(DEPDIR)/swarm-swarm.Tpo -c -o examples/swarm/swarm-swarm.obj `if test -f 'examples/swarm/swarm.cpp'; then $(CYGPATH_W) 'examples/swarm/swarm.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/swarm.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/$(DEPDIR)/swarm-swarm.Tpo examples/swarm/$(DEPDIR)/swarm-swarm.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/swarm.cpp' object='examples/swarm/swarm-swarm.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/swarm-swarm.obj `if test -f 'examples/swarm/swarm.cpp'; then $(CYGPATH_W) 'examples/swarm/swarm.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/swarm.cpp'; fi`
 
 examples/swarm/swarm-SwarmApp.o: examples/swarm/SwarmApp.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/swarm-SwarmApp.o `test -f 'examples/swarm/SwarmApp.cpp' || echo '$(srcdir)/'`examples/swarm/SwarmApp.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/swarm-SwarmApp.o -MD -MP -MF examples/swarm/$(DEPDIR)/swarm-SwarmApp.Tpo -c -o examples/swarm/swarm-SwarmApp.o `test -f 'examples/swarm/SwarmApp.cpp' || echo '$(srcdir)/'`examples/swarm/SwarmApp.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/$(DEPDIR)/swarm-SwarmApp.Tpo examples/swarm/$(DEPDIR)/swarm-SwarmApp.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/SwarmApp.cpp' object='examples/swarm/swarm-SwarmApp.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/swarm-SwarmApp.o `test -f 'examples/swarm/SwarmApp.cpp' || echo '$(srcdir)/'`examples/swarm/SwarmApp.cpp
 
 examples/swarm/swarm-SwarmApp.obj: examples/swarm/SwarmApp.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/swarm-SwarmApp.obj `if test -f 'examples/swarm/SwarmApp.cpp'; then $(CYGPATH_W) 'examples/swarm/SwarmApp.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/SwarmApp.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/swarm-SwarmApp.obj -MD -MP -MF examples/swarm/$(DEPDIR)/swarm-SwarmApp.Tpo -c -o examples/swarm/swarm-SwarmApp.obj `if test -f 'examples/swarm/SwarmApp.cpp'; then $(CYGPATH_W) 'examples/swarm/SwarmApp.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/SwarmApp.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/$(DEPDIR)/swarm-SwarmApp.Tpo examples/swarm/$(DEPDIR)/swarm-SwarmApp.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/SwarmApp.cpp' object='examples/swarm/swarm-SwarmApp.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/swarm-SwarmApp.obj `if test -f 'examples/swarm/SwarmApp.cpp'; then $(CYGPATH_W) 'examples/swarm/SwarmApp.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/SwarmApp.cpp'; fi`
 
 examples/swarm/swarm-SwarmModel.o: examples/swarm/SwarmModel.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/swarm-SwarmModel.o `test -f 'examples/swarm/SwarmModel.cpp' || echo '$(srcdir)/'`examples/swarm/SwarmModel.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/swarm-SwarmModel.o -MD -MP -MF examples/swarm/$(DEPDIR)/swarm-SwarmModel.Tpo -c -o examples/swarm/swarm-SwarmModel.o `test -f 'examples/swarm/SwarmModel.cpp' || echo '$(srcdir)/'`examples/swarm/SwarmModel.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/$(DEPDIR)/swarm-SwarmModel.Tpo examples/swarm/$(DEPDIR)/swarm-SwarmModel.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/SwarmModel.cpp' object='examples/swarm/swarm-SwarmModel.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/swarm-SwarmModel.o `test -f 'examples/swarm/SwarmModel.cpp' || echo '$(srcdir)/'`examples/swarm/SwarmModel.cpp
 
 examples/swarm/swarm-SwarmModel.obj: examples/swarm/SwarmModel.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/swarm-SwarmModel.obj `if test -f 'examples/swarm/SwarmModel.cpp'; then $(CYGPATH_W) 'examples/swarm/SwarmModel.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/SwarmModel.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/swarm-SwarmModel.obj -MD -MP -MF examples/swarm/$(DEPDIR)/swarm-SwarmModel.Tpo -c -o examples/swarm/swarm-SwarmModel.obj `if test -f 'examples/swarm/SwarmModel.cpp'; then $(CYGPATH_W) 'examples/swarm/SwarmModel.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/SwarmModel.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/$(DEPDIR)/swarm-SwarmModel.Tpo examples/swarm/$(DEPDIR)/swarm-SwarmModel.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/SwarmModel.cpp' object='examples/swarm/swarm-SwarmModel.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/swarm-SwarmModel.obj `if test -f 'examples/swarm/SwarmModel.cpp'; then $(CYGPATH_W) 'examples/swarm/SwarmModel.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/SwarmModel.cpp'; fi`
 
 examples/swarm/output/swarm-DegDistOutput.o: examples/swarm/output/DegDistOutput.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-DegDistOutput.o `test -f 'examples/swarm/output/DegDistOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/DegDistOutput.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/output/swarm-DegDistOutput.o -MD -MP -MF examples/swarm/output/$(DEPDIR)/swarm-DegDistOutput.Tpo -c -o examples/swarm/output/swarm-DegDistOutput.o `test -f 'examples/swarm/output/DegDistOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/DegDistOutput.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/output/$(DEPDIR)/swarm-DegDistOutput.Tpo examples/swarm/output/$(DEPDIR)/swarm-DegDistOutput.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/output/DegDistOutput.cpp' object='examples/swarm/output/swarm-DegDistOutput.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-DegDistOutput.o `test -f 'examples/swarm/output/DegDistOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/DegDistOutput.cpp
 
 examples/swarm/output/swarm-DegDistOutput.obj: examples/swarm/output/DegDistOutput.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-DegDistOutput.obj `if test -f 'examples/swarm/output/DegDistOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/DegDistOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/DegDistOutput.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/output/swarm-DegDistOutput.obj -MD -MP -MF examples/swarm/output/$(DEPDIR)/swarm-DegDistOutput.Tpo -c -o examples/swarm/output/swarm-DegDistOutput.obj `if test -f 'examples/swarm/output/DegDistOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/DegDistOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/DegDistOutput.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/output/$(DEPDIR)/swarm-DegDistOutput.Tpo examples/swarm/output/$(DEPDIR)/swarm-DegDistOutput.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/output/DegDistOutput.cpp' object='examples/swarm/output/swarm-DegDistOutput.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-DegDistOutput.obj `if test -f 'examples/swarm/output/DegDistOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/DegDistOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/DegDistOutput.cpp'; fi`
 
 examples/swarm/output/swarm-DiffDegDistOutput.o: examples/swarm/output/DiffDegDistOutput.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-DiffDegDistOutput.o `test -f 'examples/swarm/output/DiffDegDistOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/DiffDegDistOutput.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/output/swarm-DiffDegDistOutput.o -MD -MP -MF examples/swarm/output/$(DEPDIR)/swarm-DiffDegDistOutput.Tpo -c -o examples/swarm/output/swarm-DiffDegDistOutput.o `test -f 'examples/swarm/output/DiffDegDistOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/DiffDegDistOutput.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/output/$(DEPDIR)/swarm-DiffDegDistOutput.Tpo examples/swarm/output/$(DEPDIR)/swarm-DiffDegDistOutput.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/output/DiffDegDistOutput.cpp' object='examples/swarm/output/swarm-DiffDegDistOutput.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-DiffDegDistOutput.o `test -f 'examples/swarm/output/DiffDegDistOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/DiffDegDistOutput.cpp
 
 examples/swarm/output/swarm-DiffDegDistOutput.obj: examples/swarm/output/DiffDegDistOutput.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-DiffDegDistOutput.obj `if test -f 'examples/swarm/output/DiffDegDistOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/DiffDegDistOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/DiffDegDistOutput.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/output/swarm-DiffDegDistOutput.obj -MD -MP -MF examples/swarm/output/$(DEPDIR)/swarm-DiffDegDistOutput.Tpo -c -o examples/swarm/output/swarm-DiffDegDistOutput.obj `if test -f 'examples/swarm/output/DiffDegDistOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/DiffDegDistOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/DiffDegDistOutput.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/output/$(DEPDIR)/swarm-DiffDegDistOutput.Tpo examples/swarm/output/$(DEPDIR)/swarm-DiffDegDistOutput.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/output/DiffDegDistOutput.cpp' object='examples/swarm/output/swarm-DiffDegDistOutput.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-DiffDegDistOutput.obj `if test -f 'examples/swarm/output/DiffDegDistOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/DiffDegDistOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/DiffDegDistOutput.cpp'; fi`
 
 examples/swarm/output/swarm-IntervalOutput.o: examples/swarm/output/IntervalOutput.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-IntervalOutput.o `test -f 'examples/swarm/output/IntervalOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/IntervalOutput.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/output/swarm-IntervalOutput.o -MD -MP -MF examples/swarm/output/$(DEPDIR)/swarm-IntervalOutput.Tpo -c -o examples/swarm/output/swarm-IntervalOutput.o `test -f 'examples/swarm/output/IntervalOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/IntervalOutput.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/output/$(DEPDIR)/swarm-IntervalOutput.Tpo examples/swarm/output/$(DEPDIR)/swarm-IntervalOutput.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/output/IntervalOutput.cpp' object='examples/swarm/output/swarm-IntervalOutput.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-IntervalOutput.o `test -f 'examples/swarm/output/IntervalOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/IntervalOutput.cpp
 
 examples/swarm/output/swarm-IntervalOutput.obj: examples/swarm/output/IntervalOutput.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-IntervalOutput.obj `if test -f 'examples/swarm/output/IntervalOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/IntervalOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/IntervalOutput.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/output/swarm-IntervalOutput.obj -MD -MP -MF examples/swarm/output/$(DEPDIR)/swarm-IntervalOutput.Tpo -c -o examples/swarm/output/swarm-IntervalOutput.obj `if test -f 'examples/swarm/output/IntervalOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/IntervalOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/IntervalOutput.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/output/$(DEPDIR)/swarm-IntervalOutput.Tpo examples/swarm/output/$(DEPDIR)/swarm-IntervalOutput.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/output/IntervalOutput.cpp' object='examples/swarm/output/swarm-IntervalOutput.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-IntervalOutput.obj `if test -f 'examples/swarm/output/IntervalOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/IntervalOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/IntervalOutput.cpp'; fi`
 
 examples/swarm/output/swarm-NodeStateOutput.o: examples/swarm/output/NodeStateOutput.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-NodeStateOutput.o `test -f 'examples/swarm/output/NodeStateOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/NodeStateOutput.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/output/swarm-NodeStateOutput.o -MD -MP -MF examples/swarm/output/$(DEPDIR)/swarm-NodeStateOutput.Tpo -c -o examples/swarm/output/swarm-NodeStateOutput.o `test -f 'examples/swarm/output/NodeStateOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/NodeStateOutput.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/output/$(DEPDIR)/swarm-NodeStateOutput.Tpo examples/swarm/output/$(DEPDIR)/swarm-NodeStateOutput.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/output/NodeStateOutput.cpp' object='examples/swarm/output/swarm-NodeStateOutput.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-NodeStateOutput.o `test -f 'examples/swarm/output/NodeStateOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/NodeStateOutput.cpp
 
 examples/swarm/output/swarm-NodeStateOutput.obj: examples/swarm/output/NodeStateOutput.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-NodeStateOutput.obj `if test -f 'examples/swarm/output/NodeStateOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/NodeStateOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/NodeStateOutput.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/output/swarm-NodeStateOutput.obj -MD -MP -MF examples/swarm/output/$(DEPDIR)/swarm-NodeStateOutput.Tpo -c -o examples/swarm/output/swarm-NodeStateOutput.obj `if test -f 'examples/swarm/output/NodeStateOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/NodeStateOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/NodeStateOutput.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/output/$(DEPDIR)/swarm-NodeStateOutput.Tpo examples/swarm/output/$(DEPDIR)/swarm-NodeStateOutput.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/output/NodeStateOutput.cpp' object='examples/swarm/output/swarm-NodeStateOutput.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-NodeStateOutput.obj `if test -f 'examples/swarm/output/NodeStateOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/NodeStateOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/NodeStateOutput.cpp'; fi`
 
 examples/swarm/output/swarm-Outputter.o: examples/swarm/output/Outputter.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-Outputter.o `test -f 'examples/swarm/output/Outputter.cpp' || echo '$(srcdir)/'`examples/swarm/output/Outputter.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/output/swarm-Outputter.o -MD -MP -MF examples/swarm/output/$(DEPDIR)/swarm-Outputter.Tpo -c -o examples/swarm/output/swarm-Outputter.o `test -f 'examples/swarm/output/Outputter.cpp' || echo '$(srcdir)/'`examples/swarm/output/Outputter.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/output/$(DEPDIR)/swarm-Outputter.Tpo examples/swarm/output/$(DEPDIR)/swarm-Outputter.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/output/Outputter.cpp' object='examples/swarm/output/swarm-Outputter.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-Outputter.o `test -f 'examples/swarm/output/Outputter.cpp' || echo '$(srcdir)/'`examples/swarm/output/Outputter.cpp
 
 examples/swarm/output/swarm-Outputter.obj: examples/swarm/output/Outputter.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-Outputter.obj `if test -f 'examples/swarm/output/Outputter.cpp'; then $(CYGPATH_W) 'examples/swarm/output/Outputter.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/Outputter.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/output/swarm-Outputter.obj -MD -MP -MF examples/swarm/output/$(DEPDIR)/swarm-Outputter.Tpo -c -o examples/swarm/output/swarm-Outputter.obj `if test -f 'examples/swarm/output/Outputter.cpp'; then $(CYGPATH_W) 'examples/swarm/output/Outputter.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/Outputter.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/output/$(DEPDIR)/swarm-Outputter.Tpo examples/swarm/output/$(DEPDIR)/swarm-Outputter.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/output/Outputter.cpp' object='examples/swarm/output/swarm-Outputter.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-Outputter.obj `if test -f 'examples/swarm/output/Outputter.cpp'; then $(CYGPATH_W) 'examples/swarm/output/Outputter.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/Outputter.cpp'; fi`
 
 examples/swarm/output/swarm-StateIntervalOutput.o: examples/swarm/output/StateIntervalOutput.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-StateIntervalOutput.o `test -f 'examples/swarm/output/StateIntervalOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/StateIntervalOutput.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/output/swarm-StateIntervalOutput.o -MD -MP -MF examples/swarm/output/$(DEPDIR)/swarm-StateIntervalOutput.Tpo -c -o examples/swarm/output/swarm-StateIntervalOutput.o `test -f 'examples/swarm/output/StateIntervalOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/StateIntervalOutput.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/output/$(DEPDIR)/swarm-StateIntervalOutput.Tpo examples/swarm/output/$(DEPDIR)/swarm-StateIntervalOutput.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/output/StateIntervalOutput.cpp' object='examples/swarm/output/swarm-StateIntervalOutput.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-StateIntervalOutput.o `test -f 'examples/swarm/output/StateIntervalOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/StateIntervalOutput.cpp
 
 examples/swarm/output/swarm-StateIntervalOutput.obj: examples/swarm/output/StateIntervalOutput.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-StateIntervalOutput.obj `if test -f 'examples/swarm/output/StateIntervalOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/StateIntervalOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/StateIntervalOutput.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/output/swarm-StateIntervalOutput.obj -MD -MP -MF examples/swarm/output/$(DEPDIR)/swarm-StateIntervalOutput.Tpo -c -o examples/swarm/output/swarm-StateIntervalOutput.obj `if test -f 'examples/swarm/output/StateIntervalOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/StateIntervalOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/StateIntervalOutput.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/output/$(DEPDIR)/swarm-StateIntervalOutput.Tpo examples/swarm/output/$(DEPDIR)/swarm-StateIntervalOutput.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/output/StateIntervalOutput.cpp' object='examples/swarm/output/swarm-StateIntervalOutput.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-StateIntervalOutput.obj `if test -f 'examples/swarm/output/StateIntervalOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/StateIntervalOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/StateIntervalOutput.cpp'; fi`
 
 examples/swarm/output/swarm-SuggestionPower.o: examples/swarm/output/SuggestionPower.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-SuggestionPower.o `test -f 'examples/swarm/output/SuggestionPower.cpp' || echo '$(srcdir)/'`examples/swarm/output/SuggestionPower.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/output/swarm-SuggestionPower.o -MD -MP -MF examples/swarm/output/$(DEPDIR)/swarm-SuggestionPower.Tpo -c -o examples/swarm/output/swarm-SuggestionPower.o `test -f 'examples/swarm/output/SuggestionPower.cpp' || echo '$(srcdir)/'`examples/swarm/output/SuggestionPower.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/output/$(DEPDIR)/swarm-SuggestionPower.Tpo examples/swarm/output/$(DEPDIR)/swarm-SuggestionPower.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/output/SuggestionPower.cpp' object='examples/swarm/output/swarm-SuggestionPower.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-SuggestionPower.o `test -f 'examples/swarm/output/SuggestionPower.cpp' || echo '$(srcdir)/'`examples/swarm/output/SuggestionPower.cpp
 
 examples/swarm/output/swarm-SuggestionPower.obj: examples/swarm/output/SuggestionPower.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-SuggestionPower.obj `if test -f 'examples/swarm/output/SuggestionPower.cpp'; then $(CYGPATH_W) 'examples/swarm/output/SuggestionPower.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/SuggestionPower.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/output/swarm-SuggestionPower.obj -MD -MP -MF examples/swarm/output/$(DEPDIR)/swarm-SuggestionPower.Tpo -c -o examples/swarm/output/swarm-SuggestionPower.obj `if test -f 'examples/swarm/output/SuggestionPower.cpp'; then $(CYGPATH_W) 'examples/swarm/output/SuggestionPower.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/SuggestionPower.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/output/$(DEPDIR)/swarm-SuggestionPower.Tpo examples/swarm/output/$(DEPDIR)/swarm-SuggestionPower.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/output/SuggestionPower.cpp' object='examples/swarm/output/swarm-SuggestionPower.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-SuggestionPower.obj `if test -f 'examples/swarm/output/SuggestionPower.cpp'; then $(CYGPATH_W) 'examples/swarm/output/SuggestionPower.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/SuggestionPower.cpp'; fi`
 
 examples/swarm/output/swarm-TimeSeriesOutput.o: examples/swarm/output/TimeSeriesOutput.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-TimeSeriesOutput.o `test -f 'examples/swarm/output/TimeSeriesOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/TimeSeriesOutput.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/output/swarm-TimeSeriesOutput.o -MD -MP -MF examples/swarm/output/$(DEPDIR)/swarm-TimeSeriesOutput.Tpo -c -o examples/swarm/output/swarm-TimeSeriesOutput.o `test -f 'examples/swarm/output/TimeSeriesOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/TimeSeriesOutput.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/output/$(DEPDIR)/swarm-TimeSeriesOutput.Tpo examples/swarm/output/$(DEPDIR)/swarm-TimeSeriesOutput.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/output/TimeSeriesOutput.cpp' object='examples/swarm/output/swarm-TimeSeriesOutput.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-TimeSeriesOutput.o `test -f 'examples/swarm/output/TimeSeriesOutput.cpp' || echo '$(srcdir)/'`examples/swarm/output/TimeSeriesOutput.cpp
 
 examples/swarm/output/swarm-TimeSeriesOutput.obj: examples/swarm/output/TimeSeriesOutput.cpp
-	$(AM_V_CXX) @AM_BACKSLASH@
-	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-TimeSeriesOutput.obj `if test -f 'examples/swarm/output/TimeSeriesOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/TimeSeriesOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/TimeSeriesOutput.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -MT examples/swarm/output/swarm-TimeSeriesOutput.obj -MD -MP -MF examples/swarm/output/$(DEPDIR)/swarm-TimeSeriesOutput.Tpo -c -o examples/swarm/output/swarm-TimeSeriesOutput.obj `if test -f 'examples/swarm/output/TimeSeriesOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/TimeSeriesOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/TimeSeriesOutput.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) examples/swarm/output/$(DEPDIR)/swarm-TimeSeriesOutput.Tpo examples/swarm/output/$(DEPDIR)/swarm-TimeSeriesOutput.Po
+@am__fastdepCXX_FALSE@	$(AM_V_CXX) @AM_BACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='examples/swarm/output/TimeSeriesOutput.cpp' object='examples/swarm/output/swarm-TimeSeriesOutput.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(swarm_CXXFLAGS) $(CXXFLAGS) -c -o examples/swarm/output/swarm-TimeSeriesOutput.obj `if test -f 'examples/swarm/output/TimeSeriesOutput.cpp'; then $(CYGPATH_W) 'examples/swarm/output/TimeSeriesOutput.cpp'; else $(CYGPATH_W) '$(srcdir)/examples/swarm/output/TimeSeriesOutput.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -1226,16 +1522,27 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
+	-rm -f examples/swarm/$(DEPDIR)/$(am__dirstamp)
 	-rm -f examples/swarm/$(am__dirstamp)
+	-rm -f examples/swarm/output/$(DEPDIR)/$(am__dirstamp)
 	-rm -f examples/swarm/output/$(am__dirstamp)
+	-rm -f examples/votermodel/$(DEPDIR)/$(am__dirstamp)
 	-rm -f examples/votermodel/$(am__dirstamp)
+	-rm -f largenet/$(DEPDIR)/$(am__dirstamp)
 	-rm -f largenet/$(am__dirstamp)
+	-rm -f largenet/base/$(DEPDIR)/$(am__dirstamp)
 	-rm -f largenet/base/$(am__dirstamp)
+	-rm -f largenet/base/repo/$(DEPDIR)/$(am__dirstamp)
 	-rm -f largenet/base/repo/$(am__dirstamp)
+	-rm -f largenet/io/$(DEPDIR)/$(am__dirstamp)
 	-rm -f largenet/io/$(am__dirstamp)
+	-rm -f largenet/measures/$(DEPDIR)/$(am__dirstamp)
 	-rm -f largenet/measures/$(am__dirstamp)
+	-rm -f largenet/motifs/$(DEPDIR)/$(am__dirstamp)
 	-rm -f largenet/motifs/$(am__dirstamp)
+	-rm -f largenet/motifs/detail/$(DEPDIR)/$(am__dirstamp)
 	-rm -f largenet/motifs/detail/$(am__dirstamp)
+	-rm -f largenet/myrng1.2/$(DEPDIR)/$(am__dirstamp)
 	-rm -f largenet/myrng1.2/$(am__dirstamp)
 
 maintainer-clean-generic:
@@ -1248,6 +1555,7 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
+	-rm -rf examples/swarm/$(DEPDIR) examples/swarm/output/$(DEPDIR) examples/votermodel/$(DEPDIR) largenet/$(DEPDIR) largenet/base/$(DEPDIR) largenet/base/repo/$(DEPDIR) largenet/io/$(DEPDIR) largenet/measures/$(DEPDIR) largenet/motifs/$(DEPDIR) largenet/motifs/detail/$(DEPDIR) largenet/myrng1.2/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-libtool distclean-tags
@@ -1295,6 +1603,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
+	-rm -rf examples/swarm/$(DEPDIR) examples/swarm/output/$(DEPDIR) examples/votermodel/$(DEPDIR) largenet/$(DEPDIR) largenet/base/$(DEPDIR) largenet/base/repo/$(DEPDIR) largenet/io/$(DEPDIR) largenet/measures/$(DEPDIR) largenet/motifs/$(DEPDIR) largenet/motifs/detail/$(DEPDIR) largenet/myrng1.2/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

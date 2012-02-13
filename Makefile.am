@@ -5,11 +5,11 @@ pkgconfig_DATA = largenet-@PACKAGE_VERSION@.pc
 
 EXTRA_DIST = largenet-@PACKAGE_VERSION@.pc README.md Doxyfile
 
-lib_LTLIBRARIES = liblargenet-0.5.la
-liblargenet_0_5_la_LDFLAGS = -version-info 0:0:0
-liblargenet_0_5_la_CPPFLAGS = $(BOOST_CPPFLAGS)
+lib_LTLIBRARIES = liblargenet-@PACKAGE_VERSION@.la
+liblargenet_@PACKAGE_VERSION@_la_LDFLAGS = -version-info 0:0:0
+liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS = $(BOOST_CPPFLAGS)
 
-liblargenet_0_5_la_SOURCES = \
+liblargenet_@PACKAGE_VERSION@_la_SOURCES = \
 		largenet/measures/correlations.cpp \
 		largenet/io/NodeEdgelistOut.cpp \
 		largenet/io/EdgelistOut.cpp \
@@ -101,12 +101,12 @@ nobase_include_HEADERS = \
 
 if BUILD_EXAMPLES
 noinst_PROGRAMS = votermodel swarm
-votermodel_LDADD = liblargenet-0.5.la 
+votermodel_LDADD = liblargenet-@PACKAGE_VERSION@.la 
 votermodel_SOURCES = \
 		examples/votermodel/vm.cpp \
 		examples/votermodel/VoterModel.cpp \
 		examples/votermodel/VoterModel.h 
-swarm_LDADD = liblargenet-0.5.la
+swarm_LDADD = liblargenet-@PACKAGE_VERSION@.la
 swarm_CXXFLAGS = $(BOOST_CXXFLAGS)
 swarm_LDFLAGS = $(BOOST_PROGRAM_OPTIONS_LDFLAGS) $(BOOST_PROGRAM_OPTIONS_LIBS)
 swarm_LIBS = $(BOOST_PROGRAM_OPTIONS_LIBS)
