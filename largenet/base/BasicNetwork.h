@@ -348,23 +348,27 @@ private:
 
 inline node_id_t BasicNetwork::addNode()
 {
+	/// FIXME we need to fire an onAddNode event here
 	return doAddNode();
 }
 
 inline node_id_t BasicNetwork::addNode(const node_state_t s)
 {
+	/// FIXME we need to fire an onAddNode event here
 	return doAddNode(s);
 }
 
 inline link_id_t BasicNetwork::addLink(const node_id_t source,
 		const node_id_t target)
 {
+	/// FIXME we need to fire an onAddLink event here
 	return doAddLink(source, target);
 }
 
 inline bool BasicNetwork::changeLink(const link_id_t l, const node_id_t source,
 		const node_id_t target)
 {
+	/// FIXME we need to fire an onChangeLink event here
 	return doChangeLink(l, source, target);
 }
 
