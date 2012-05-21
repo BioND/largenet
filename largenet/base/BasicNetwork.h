@@ -295,6 +295,14 @@ protected:
 	virtual void doClear() = 0;
 	virtual void doSetNodeState(node_id_t n, node_state_t s) = 0;
 
+	virtual void beforeRemoveLink(link_id_t l) = 0;
+	virtual void beforeRemoveAllLinks() = 0;
+	virtual void beforeClear() = 0;
+	virtual void beforeRemoveNode(node_id_t n) = 0;
+
+	virtual void onAddNode(node_id_t n) = 0;
+	virtual void onAddLink(link_id_t l) = 0;
+	virtual void onChangeLink(link_id_t l, node_id_t old_source, node_id_t old_target, bool success) = 0;
 	virtual void onNodeStateChange(node_id_t n) = 0;
 
 	virtual void recalcLinkStates() = 0;
@@ -348,28 +356,33 @@ private:
 
 inline node_id_t BasicNetwork::addNode()
 {
-	/// FIXME we need to fire an onAddNode event here
-	return doAddNode();
+	node_id_t id = doAddNode();
+	onAddNode(id);
+	return id;
 }
 
 inline node_id_t BasicNetwork::addNode(const node_state_t s)
 {
-	/// FIXME we need to fire an onAddNode event here
-	return doAddNode(s);
+	node_id_t id = doAddNode(s);
+	onAddNode(id);
+	return id;
 }
 
 inline link_id_t BasicNetwork::addLink(const node_id_t source,
 		const node_id_t target)
 {
-	/// FIXME we need to fire an onAddLink event here
-	return doAddLink(source, target);
+	link_id_t id = doAddLink(source, target);
+	onAddLink(id);
+	return id;
 }
 
 inline bool BasicNetwork::changeLink(const link_id_t l, const node_id_t source,
 		const node_id_t target)
 {
-	/// FIXME we need to fire an onChangeLink event here
-	return doChangeLink(l, source, target);
+	node_id_t old_source = this->source(l), old_target = this->target(l);
+	bool success = doChangeLink(l, source, target);
+	onChangeLink(l, old_source, old_target, success);
+	return success;
 }
 
 inline id_size_t BasicNetwork::degree(const node_id_t n) const
@@ -468,21 +481,25 @@ inline std::pair<bool, node_id_t> BasicNetwork::randomNode(const node_state_t s)
 
 inline void BasicNetwork::removeLink(const link_id_t l)
 {
+	beforeRemoveLink(l);
 	doRemoveLink(l);
 }
 
 inline void BasicNetwork::removeNode(const node_id_t n)
 {
+	beforeRemoveNode(n);
 	doRemoveNode(n);
 }
 
 inline void BasicNetwork::removeAllLinks()
 {
+	beforeRemoveAllLinks();
 	doRemoveAllLinks();
 }
 
 inline void BasicNetwork::clear()
 {
+	beforeClear();
 	doClear();
 }
 

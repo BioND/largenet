@@ -20,7 +20,7 @@
 					<folderInfo id="org.eclipse.linuxtools.cdt.autotools.core.configuration.build.2142853758." name="/" resourcePath="">
 						<toolChain errorParsers="" id="org.eclipse.linuxtools.cdt.autotools.core.toolChain.1460513750" name="GNU Autotools Toolchain" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolChain">
 							<targetPlatform id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.targetPlatform.1881382479" isAbstract="false" name="GNU Autotools Target Platform" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.targetPlatform"/>
-							<builder errorParsers="" id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.builder.559430832" keepEnvironmentInBuildfile="false" managedBuildOn="true" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.builder"/>
+							<builder buildPath="${workspace_loc:/largenet-git}/build" errorParsers="" id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.builder.559430832" keepEnvironmentInBuildfile="false" managedBuildOn="true" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.builder"/>
 							<tool errorParsers="" id="org.eclipse.linuxtools.cdt.autotools.core.gnu.toolchain.tool.configure.1813645160" name="configure" superClass="org.eclipse.linuxtools.cdt.autotools.core.gnu.toolchain.tool.configure">
 								<option id="org.eclipse.linuxtools.cdt.autotools.core.option.configure.name.682351179" name="Name" superClass="org.eclipse.linuxtools.cdt.autotools.core.option.configure.name" value="org.eclipse.linuxtools.cdt.autotools.core.configuration.build.2142853758" valueType="string"/>
 							</tool>
@@ -29,7 +29,7 @@
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.431905884" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.gpp.2030643408" name="GCC C++ Compiler" superClass="org.eclipse.linuxtools.cdt.autotools.core.toolchain.tool.gpp">
-								<option id="gnu.cpp.compiler.option.include.paths.1068083523" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath"/>
+								<option id="gnu.cpp.compiler.option.include.paths.1068083523" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1144882115" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 						</toolChain>
@@ -264,10 +264,218 @@
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
+			<target name="Doxyfile" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>Doxyfile</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="doxygen-doc" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>doxygen-doc</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
 			<target name="dvi" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
 				<buildTarget>dvi</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/output/swarm-DegDistOutput.o" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/output/swarm-DegDistOutput.o</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/output/swarm-DegDistOutput.obj" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/output/swarm-DegDistOutput.obj</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/output/swarm-DiffDegDistOutput.o" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/output/swarm-DiffDegDistOutput.o</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/output/swarm-DiffDegDistOutput.obj" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/output/swarm-DiffDegDistOutput.obj</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/output/swarm-IntervalOutput.o" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/output/swarm-IntervalOutput.o</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/output/swarm-IntervalOutput.obj" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/output/swarm-IntervalOutput.obj</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/output/swarm-NodeStateOutput.o" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/output/swarm-NodeStateOutput.o</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/output/swarm-NodeStateOutput.obj" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/output/swarm-NodeStateOutput.obj</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/output/swarm-Outputter.o" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/output/swarm-Outputter.o</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/output/swarm-Outputter.obj" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/output/swarm-Outputter.obj</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/output/swarm-StateIntervalOutput.o" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/output/swarm-StateIntervalOutput.o</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/output/swarm-StateIntervalOutput.obj" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/output/swarm-StateIntervalOutput.obj</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/output/swarm-SuggestionPower.o" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/output/swarm-SuggestionPower.o</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/output/swarm-SuggestionPower.obj" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/output/swarm-SuggestionPower.obj</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/output/swarm-TimeSeriesOutput.o" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/output/swarm-TimeSeriesOutput.o</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/output/swarm-TimeSeriesOutput.obj" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/output/swarm-TimeSeriesOutput.obj</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/swarm-Options.o" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/swarm-Options.o</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/swarm-Options.obj" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/swarm-Options.obj</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/swarm-swarm.o" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/swarm-swarm.o</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/swarm-swarm.obj" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/swarm-swarm.obj</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/swarm-SwarmApp.o" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/swarm-SwarmApp.o</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/swarm-SwarmApp.obj" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/swarm-SwarmApp.obj</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/swarm-SwarmModel.o" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/swarm-SwarmModel.o</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>false</runAllBuilders>
+			</target>
+			<target name="examples/swarm/swarm-SwarmModel.obj" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>examples/swarm/swarm-SwarmModel.obj</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
@@ -416,162 +624,162 @@
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/base/BasicNetwork.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/base/liblargenet_0.5_la-BasicNetwork.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/base/BasicNetwork.lo</buildTarget>
+				<buildTarget>largenet/base/liblargenet_0.5_la-BasicNetwork.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/base/repo/repo_base.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/base/repo/liblargenet_0.5_la-repo_base.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/base/repo/repo_base.lo</buildTarget>
+				<buildTarget>largenet/base/repo/liblargenet_0.5_la-repo_base.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/generators.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/io/liblargenet_0.5_la-EdgelistIn.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/generators.lo</buildTarget>
+				<buildTarget>largenet/io/liblargenet_0.5_la-EdgelistIn.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/io/EdgelistIn.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/io/liblargenet_0.5_la-EdgelistOut.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/io/EdgelistIn.lo</buildTarget>
+				<buildTarget>largenet/io/liblargenet_0.5_la-EdgelistOut.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/io/EdgelistOut.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/io/liblargenet_0.5_la-NetIn.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/io/EdgelistOut.lo</buildTarget>
+				<buildTarget>largenet/io/liblargenet_0.5_la-NetIn.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/io/NetIn.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/io/liblargenet_0.5_la-NetOut.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/io/NetIn.lo</buildTarget>
+				<buildTarget>largenet/io/liblargenet_0.5_la-NetOut.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/io/NetOut.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/io/liblargenet_0.5_la-NodeEdgelistIn.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/io/NetOut.lo</buildTarget>
+				<buildTarget>largenet/io/liblargenet_0.5_la-NodeEdgelistIn.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/io/NodeEdgelistIn.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/io/liblargenet_0.5_la-NodeEdgelistOut.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/io/NodeEdgelistIn.lo</buildTarget>
+				<buildTarget>largenet/io/liblargenet_0.5_la-NodeEdgelistOut.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/io/NodeEdgelistOut.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/liblargenet_0.5_la-generators.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/io/NodeEdgelistOut.lo</buildTarget>
+				<buildTarget>largenet/liblargenet_0.5_la-generators.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/measures/correlations.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/liblargenet_0.5_la-Network.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/measures/correlations.lo</buildTarget>
+				<buildTarget>largenet/liblargenet_0.5_la-Network.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/motifs/detail/motif_construction.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/liblargenet_0.5_la-TripleMultiNetwork.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/motifs/detail/motif_construction.lo</buildTarget>
+				<buildTarget>largenet/liblargenet_0.5_la-TripleMultiNetwork.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/motifs/LinkMotif.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/liblargenet_0.5_la-TripleNetwork.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/motifs/LinkMotif.lo</buildTarget>
+				<buildTarget>largenet/liblargenet_0.5_la-TripleNetwork.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/motifs/NodeMotif.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/measures/liblargenet_0.5_la-correlations.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/motifs/NodeMotif.lo</buildTarget>
+				<buildTarget>largenet/measures/liblargenet_0.5_la-correlations.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/motifs/QuadLineMotif.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/motifs/detail/liblargenet_0.5_la-motif_construction.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/motifs/QuadLineMotif.lo</buildTarget>
+				<buildTarget>largenet/motifs/detail/liblargenet_0.5_la-motif_construction.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/motifs/QuadStarMotif.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/motifs/liblargenet_0.5_la-LinkMotif.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/motifs/QuadStarMotif.lo</buildTarget>
+				<buildTarget>largenet/motifs/liblargenet_0.5_la-LinkMotif.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/motifs/TripleMotif.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/motifs/liblargenet_0.5_la-NodeMotif.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/motifs/TripleMotif.lo</buildTarget>
+				<buildTarget>largenet/motifs/liblargenet_0.5_la-NodeMotif.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/myrng1.2/myrngWELL.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/motifs/liblargenet_0.5_la-QuadLineMotif.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/myrng1.2/myrngWELL.lo</buildTarget>
+				<buildTarget>largenet/motifs/liblargenet_0.5_la-QuadLineMotif.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/Network.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/motifs/liblargenet_0.5_la-QuadStarMotif.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/Network.lo</buildTarget>
+				<buildTarget>largenet/motifs/liblargenet_0.5_la-QuadStarMotif.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/TripleMultiNetwork.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/motifs/liblargenet_0.5_la-TripleMotif.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/TripleMultiNetwork.lo</buildTarget>
+				<buildTarget>largenet/motifs/liblargenet_0.5_la-TripleMotif.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
 			</target>
-			<target name="largenet/TripleNetwork.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="largenet/myrng1.2/liblargenet_0.5_la-myrngWELL.lo" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>largenet/TripleNetwork.lo</buildTarget>
+				<buildTarget>largenet/myrng1.2/liblargenet_0.5_la-myrngWELL.lo</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>false</runAllBuilders>
