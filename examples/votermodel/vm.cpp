@@ -7,16 +7,16 @@
  * This is a simulation of the adaptive voter model as in Vazquez et al. (2008), Phys. Rev. Lett. 100, 108702.
  * A network of @p N nodes, representing agents, and @p L links, representing social connections, is
  * created. Each agent holds one of two possible opinions, @p UP or @p DOWN. The system evolves as
- * follows: In each update step, a random node and a random one of its neighbors are selected. If
+ * follows: In each update step a random node and a random one of its neighbors are selected. If
  * they share the same opinion, nothing happens. If they have different opinions, the first node
  * adopts the opinion of its neighbor with probability <tt>(1-p)</tt>. Otherwise, with probability
  * @p p, it cuts its link to the neighbor and rewires it to a random node holding the same opinion.
  *
- * Depending on the parameter @p p, either global consensus is reached, in which every node holds the
+ * Depending on the parameter @p p either global consensus is reached, in which every node holds the
  * same opinion, or the network splits into two disconnected clusters of nodes holding opposing opinions.
- * For low @p p, consensus is always achieved, while for large @p p, fragmentation is observed.
+ * For low @p p consensus is always achieved, while for large @p p fragmentation is observed.
  * Fragmentation sets in at a critical value of @p p, which only depends on the average degree of
- * the network, i.e., the ratio of @p L an @p N.
+ * the network, i.e., the ratio of @p L and @p N.
  */
 
 #include "VoterModel.h"
