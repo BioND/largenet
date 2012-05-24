@@ -45,8 +45,8 @@ AM_CONDITIONAL([HAVE_DOXYGEN], [test -n "$DOXYGEN"])
 
 # Output files
 AC_CONFIG_FILES([Makefile
-                largenet-0.5.pc:largenet.pc.in
-				Doxyfile])
+                largenet.pc
+		Doxyfile])
 
 AC_CONFIG_HEADERS([config.h])
 
