@@ -35,7 +35,7 @@ void randomNetworkGnm(BasicNetwork& net, const id_size_t nLinks)
 	id_size_t n = net.numberOfNodes();
 	if (n < 1)
 		return;
-	int max_edges = n * (n - 1) / 2;
+	id_size_t max_edges = n * (n - 1) / 2;
 	assert(nLinks <= n * (n - 1) / 2);
 	net.removeAllLinks();
 
@@ -49,10 +49,15 @@ void randomNetworkGnm(BasicNetwork& net, const id_size_t nLinks)
 	{
 		while (true)
 		{
-			int edge_index = rng.IntFromTo(0, max_edges - 1);
-			current_edge.first = 1 + static_cast<node_id_t> (std::floor(
-					std::sqrt(0.25 + 2.0 * edge_index) - 0.5));
-			current_edge.second = static_cast<node_id_t> (edge_index
+			// we cannot use rng.IntFromTo() here, as it does not work with long ints
+			// and this would get us into trouble for large networks (e.g. 10^6 edges...)
+			link_id_t edge_index = static_cast<link_id_t>(max_edges
+					* rng.Uniform01());
+
+			current_edge.first = 1
+					+ static_cast<node_id_t>(std::floor(
+							std::sqrt(0.25 + 2.0 * edge_index) - 0.5));
+			current_edge.second = static_cast<node_id_t>(edge_index
 					- current_edge.first * (current_edge.first - 1) / 2);
 			if (edges.find(current_edge) == edges.end())
 			{
@@ -62,14 +67,6 @@ void randomNetworkGnm(BasicNetwork& net, const id_size_t nLinks)
 			}
 		}
 	}
-
-	//	while (net.numberOfLinks() < nLinks)
-	//	{
-	//		std::pair<bool, node_id_t> a = net.randomNode(), b = net.randomNode();
-	//		if (!selfLoops && (a.second == b.second))
-	//			continue;
-	//		net.addLink(a.second, b.second);
-	//	}
 }
 
 }
