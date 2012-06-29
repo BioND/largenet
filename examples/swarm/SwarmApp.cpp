@@ -15,7 +15,7 @@
 #include <largenet/generators.h>
 #include <largenet/io/EdgelistIn.h>
 #include <largenet/measures/component.h>
-#include <largenet/myrng1.2/myrngWELL.h>
+#include <largenet/myrng/myrngWELL.h>
 #include <iostream>
 #include <cstdlib>
 #include <sstream>

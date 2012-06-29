@@ -49,10 +49,8 @@ void randomNetworkGnm(BasicNetwork& net, const id_size_t nLinks)
 	{
 		while (true)
 		{
-			// we cannot use rng.IntFromTo() here, as it does not work with long ints
-			// and this would get us into trouble for large networks (e.g. 10^6 edges...)
-			link_id_t edge_index = static_cast<link_id_t>(max_edges
-					* rng.Uniform01());
+			id_size_t from = 0, to = max_edges - 1;
+			id_size_t edge_index = rng.IntFromTo(from, to);
 
 			current_edge.first = 1
 					+ static_cast<node_id_t>(std::floor(

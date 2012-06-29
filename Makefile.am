@@ -22,7 +22,8 @@ liblargenet_@PACKAGE_VERSION@_la_SOURCES = \
 		largenet/TripleNetwork.cpp \
 		largenet/base/BasicNetwork.cpp \
 		largenet/base/repo/repo_base.cpp \
-		largenet/myrng1.2/myrngWELL.cpp \
+		largenet/myrng/myrngWELL.cpp \
+		largenet/myrng/WELLEngine.cpp \
 		largenet/motifs/QuadLineMotif.cpp \
 		largenet/motifs/TripleMotif.cpp \
 		largenet/motifs/detail/motif_construction.cpp \
@@ -32,7 +33,11 @@ liblargenet_@PACKAGE_VERSION@_la_SOURCES = \
 		largenet/generators.cpp 
 		
 nobase_include_HEADERS = \
-		largenet/myrng1.2/myrngWELL.h \
+		largenet/myrng/myrngWELL.h \
+		largenet/myrng/RandomVariates.h \
+		largenet/myrng/WELLEngine.h \
+		largenet/myrng/myrng.h \
+		largenet/myrng/util.h \
 		largenet/measures/path.h \
 		largenet/measures/correlations.h \
 		largenet/measures/measures.h \

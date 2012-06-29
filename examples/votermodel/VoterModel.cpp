@@ -5,7 +5,7 @@
  */
 
 #include "VoterModel.h"
-#include <largenet/myrng1.2/myrngWELL.h> // Makes random number generator instance rng available
+#include <largenet/myrng/myrngWELL.h> // Makes random number generator instance rng available
 #include <utility>
 
 using namespace lnet;

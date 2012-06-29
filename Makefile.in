@@ -104,7 +104,8 @@ am_liblargenet_@PACKAGE_VERSION@_la_OBJECTS = largenet/measures/liblargenet_@PAC
 	largenet/liblargenet_@PACKAGE_VERSION@_la-TripleNetwork.lo \
 	largenet/base/liblargenet_@PACKAGE_VERSION@_la-BasicNetwork.lo \
 	largenet/base/repo/liblargenet_@PACKAGE_VERSION@_la-repo_base.lo \
-	largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo \
+	largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo \
+	largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-WELLEngine.lo \
 	largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.lo \
 	largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.lo \
 	largenet/motifs/detail/liblargenet_@PACKAGE_VERSION@_la-motif_construction.lo \
@@ -384,7 +385,8 @@ liblargenet_@PACKAGE_VERSION@_la_SOURCES = \
 		largenet/TripleNetwork.cpp \
 		largenet/base/BasicNetwork.cpp \
 		largenet/base/repo/repo_base.cpp \
-		largenet/myrng1.2/myrngWELL.cpp \
+		largenet/myrng/myrngWELL.cpp \
+		largenet/myrng/WELLEngine.cpp \
 		largenet/motifs/QuadLineMotif.cpp \
 		largenet/motifs/TripleMotif.cpp \
 		largenet/motifs/detail/motif_construction.cpp \
@@ -394,7 +396,11 @@ liblargenet_@PACKAGE_VERSION@_la_SOURCES = \
 		largenet/generators.cpp 
 
 nobase_include_HEADERS = \
-		largenet/myrng1.2/myrngWELL.h \
+		largenet/myrng/myrngWELL.h \
+		largenet/myrng/RandomVariates.h \
+		largenet/myrng/WELLEngine.h \
+		largenet/myrng/myrng.h \
+		largenet/myrng/util.h \
 		largenet/measures/path.h \
 		largenet/measures/correlations.h \
 		largenet/measures/measures.h \
@@ -650,15 +656,18 @@ largenet/base/repo/$(DEPDIR)/$(am__dirstamp):
 largenet/base/repo/liblargenet_@PACKAGE_VERSION@_la-repo_base.lo:  \
 	largenet/base/repo/$(am__dirstamp) \
 	largenet/base/repo/$(DEPDIR)/$(am__dirstamp)
-largenet/myrng1.2/$(am__dirstamp):
-	@$(MKDIR_P) largenet/myrng1.2
-	@: > largenet/myrng1.2/$(am__dirstamp)
-largenet/myrng1.2/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) largenet/myrng1.2/$(DEPDIR)
-	@: > largenet/myrng1.2/$(DEPDIR)/$(am__dirstamp)
-largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo:  \
-	largenet/myrng1.2/$(am__dirstamp) \
-	largenet/myrng1.2/$(DEPDIR)/$(am__dirstamp)
+largenet/myrng/$(am__dirstamp):
+	@$(MKDIR_P) largenet/myrng
+	@: > largenet/myrng/$(am__dirstamp)
+largenet/myrng/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) largenet/myrng/$(DEPDIR)
+	@: > largenet/myrng/$(DEPDIR)/$(am__dirstamp)
+largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo:  \
+	largenet/myrng/$(am__dirstamp) \
+	largenet/myrng/$(DEPDIR)/$(am__dirstamp)
+largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-WELLEngine.lo:  \
+	largenet/myrng/$(am__dirstamp) \
+	largenet/myrng/$(DEPDIR)/$(am__dirstamp)
 largenet/motifs/$(am__dirstamp):
 	@$(MKDIR_P) largenet/motifs
 	@: > largenet/motifs/$(am__dirstamp)
@@ -821,8 +830,10 @@ mostlyclean-compile:
 	-rm -f largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadStarMotif.lo
 	-rm -f largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.$(OBJEXT)
 	-rm -f largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.lo
-	-rm -f largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.$(OBJEXT)
-	-rm -f largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo
+	-rm -f largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-WELLEngine.$(OBJEXT)
+	-rm -f largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-WELLEngine.lo
+	-rm -f largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.$(OBJEXT)
+	-rm -f largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo
 
 distclean-compile:
 	-rm -f *.tab.c
@@ -860,7 +871,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-QuadStarMotif.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-TripleMotif.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@largenet/motifs/detail/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-motif_construction.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@largenet/myrng1.2/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/myrng/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-WELLEngine.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@largenet/myrng/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.Plo@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -970,12 +982,19 @@ largenet/base/repo/liblargenet_@PACKAGE_VERSION@_la-repo_base.lo: largenet/base/
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/base/repo/liblargenet_@PACKAGE_VERSION@_la-repo_base.lo `test -f 'largenet/base/repo/repo_base.cpp' || echo '$(srcdir)/'`largenet/base/repo/repo_base.cpp
 
-largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo: largenet/myrng1.2/myrngWELL.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo -MD -MP -MF largenet/myrng1.2/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.Tpo -c -o largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo `test -f 'largenet/myrng1.2/myrngWELL.cpp' || echo '$(srcdir)/'`largenet/myrng1.2/myrngWELL.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/myrng1.2/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.Tpo largenet/myrng1.2/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='largenet/myrng1.2/myrngWELL.cpp' object='largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo' libtool=yes @AMDEPBACKSLASH@
+largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo: largenet/myrng/myrngWELL.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo -MD -MP -MF largenet/myrng/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.Tpo -c -o largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo `test -f 'largenet/myrng/myrngWELL.cpp' || echo '$(srcdir)/'`largenet/myrng/myrngWELL.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/myrng/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.Tpo largenet/myrng/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='largenet/myrng/myrngWELL.cpp' object='largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/myrng1.2/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo `test -f 'largenet/myrng1.2/myrngWELL.cpp' || echo '$(srcdir)/'`largenet/myrng1.2/myrngWELL.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-myrngWELL.lo `test -f 'largenet/myrng/myrngWELL.cpp' || echo '$(srcdir)/'`largenet/myrng/myrngWELL.cpp
+
+largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-WELLEngine.lo: largenet/myrng/WELLEngine.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-WELLEngine.lo -MD -MP -MF largenet/myrng/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-WELLEngine.Tpo -c -o largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-WELLEngine.lo `test -f 'largenet/myrng/WELLEngine.cpp' || echo '$(srcdir)/'`largenet/myrng/WELLEngine.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) largenet/myrng/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-WELLEngine.Tpo largenet/myrng/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-WELLEngine.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='largenet/myrng/WELLEngine.cpp' object='largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-WELLEngine.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o largenet/myrng/liblargenet_@PACKAGE_VERSION@_la-WELLEngine.lo `test -f 'largenet/myrng/WELLEngine.cpp' || echo '$(srcdir)/'`largenet/myrng/WELLEngine.cpp
 
 largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.lo: largenet/motifs/QuadLineMotif.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(liblargenet_@PACKAGE_VERSION@_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.lo -MD -MP -MF largenet/motifs/$(DEPDIR)/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.Tpo -c -o largenet/motifs/liblargenet_@PACKAGE_VERSION@_la-QuadLineMotif.lo `test -f 'largenet/motifs/QuadLineMotif.cpp' || echo '$(srcdir)/'`largenet/motifs/QuadLineMotif.cpp
@@ -1206,7 +1225,7 @@ clean-libtool:
 	-rm -rf largenet/measures/.libs largenet/measures/_libs
 	-rm -rf largenet/motifs/.libs largenet/motifs/_libs
 	-rm -rf largenet/motifs/detail/.libs largenet/motifs/detail/_libs
-	-rm -rf largenet/myrng1.2/.libs largenet/myrng1.2/_libs
+	-rm -rf largenet/myrng/.libs largenet/myrng/_libs
 
 distclean-libtool:
 	-rm -f libtool config.lt
@@ -1519,8 +1538,8 @@ distclean-generic:
 	-rm -f largenet/motifs/$(am__dirstamp)
 	-rm -f largenet/motifs/detail/$(DEPDIR)/$(am__dirstamp)
 	-rm -f largenet/motifs/detail/$(am__dirstamp)
-	-rm -f largenet/myrng1.2/$(DEPDIR)/$(am__dirstamp)
-	-rm -f largenet/myrng1.2/$(am__dirstamp)
+	-rm -f largenet/myrng/$(DEPDIR)/$(am__dirstamp)
+	-rm -f largenet/myrng/$(am__dirstamp)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -1532,7 +1551,7 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf examples/swarm/$(DEPDIR) examples/swarm/output/$(DEPDIR) examples/votermodel/$(DEPDIR) largenet/$(DEPDIR) largenet/base/$(DEPDIR) largenet/base/repo/$(DEPDIR) largenet/io/$(DEPDIR) largenet/measures/$(DEPDIR) largenet/motifs/$(DEPDIR) largenet/motifs/detail/$(DEPDIR) largenet/myrng1.2/$(DEPDIR)
+	-rm -rf examples/swarm/$(DEPDIR) examples/swarm/output/$(DEPDIR) examples/votermodel/$(DEPDIR) largenet/$(DEPDIR) largenet/base/$(DEPDIR) largenet/base/repo/$(DEPDIR) largenet/io/$(DEPDIR) largenet/measures/$(DEPDIR) largenet/motifs/$(DEPDIR) largenet/motifs/detail/$(DEPDIR) largenet/myrng/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-libtool distclean-local distclean-tags
@@ -1581,7 +1600,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf examples/swarm/$(DEPDIR) examples/swarm/output/$(DEPDIR) examples/votermodel/$(DEPDIR) largenet/$(DEPDIR) largenet/base/$(DEPDIR) largenet/base/repo/$(DEPDIR) largenet/io/$(DEPDIR) largenet/measures/$(DEPDIR) largenet/motifs/$(DEPDIR) largenet/motifs/detail/$(DEPDIR) largenet/myrng1.2/$(DEPDIR)
+	-rm -rf examples/swarm/$(DEPDIR) examples/swarm/output/$(DEPDIR) examples/votermodel/$(DEPDIR) largenet/$(DEPDIR) largenet/base/$(DEPDIR) largenet/base/repo/$(DEPDIR) largenet/io/$(DEPDIR) largenet/measures/$(DEPDIR) largenet/motifs/$(DEPDIR) largenet/motifs/detail/$(DEPDIR) largenet/myrng/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

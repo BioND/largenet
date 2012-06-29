@@ -19,7 +19,7 @@
 
 #include <largenet/base/types.h>
 #include <largenet/base/traits.h>
-#include <largenet/myrng1.2/myrngWELL.h>
+#include <largenet/myrng/myrngWELL.h>
 #include <cassert>
 #include <cmath>
 

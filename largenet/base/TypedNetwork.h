@@ -18,7 +18,7 @@
 #include <largenet/base/types.h>
 #include <largenet/base/traits.h>
 #include <largenet/base/repo/CategorizedRepository.h>
-#include <largenet/myrng1.2/myrngWELL.h>
+#include <largenet/myrng/myrngWELL.h>
 #include <iterator>
 #include <cassert>
 #include <utility> // for std::pair
@@ -725,7 +725,7 @@ std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::getRandomNode() const
 	{
 		ret.first = true;
 		ret.second = nodeStore_->id(
-				static_cast<repo::address_t>(rng.IntFromTo(0,
+				static_cast<repo::address_t>(rng.IntFromTo<repo::id_size_t>(0,
 						nodeStore_->size() - 1)));
 	}
 	return ret;
@@ -740,7 +740,7 @@ std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::getRandomNode(
 	{
 		ret.first = true;
 		ret.second = nodeStore_->id(s,
-				static_cast<repo::address_t>(rng.IntFromTo(0,
+				static_cast<repo::address_t>(rng.IntFromTo<repo::id_size_t>(0,
 						nodeStore_->count(s) - 1)));
 	}
 	return ret;
@@ -754,7 +754,7 @@ std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::getRandomLink() const
 	{
 		ret.first = true;
 		ret.second = linkStore_->id(
-				static_cast<repo::address_t>(rng.IntFromTo(0,
+				static_cast<repo::address_t>(rng.IntFromTo<repo::id_size_t>(0,
 						linkStore_->size() - 1)));
 	}
 	return ret;
@@ -769,7 +769,7 @@ std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::getRandomLink(
 	{
 		ret.first = true;
 		ret.second = linkStore_->id(s,
-				static_cast<repo::address_t>(rng.IntFromTo(0,
+				static_cast<repo::address_t>(rng.IntFromTo<repo::id_size_t>(0,
 						linkStore_->count(s) - 1)));
 	}
 	return ret;
@@ -782,7 +782,7 @@ std::pair<bool, link_id_t> TypedNetwork<_Node, _Link>::getRandomNeighborLink(
 	std::pair<bool, link_id_t> ret = std::make_pair(false, 0);
 	if (degree(n) != 0)
 	{
-		const int num = rng.IntFromTo(0, degree(n) - 1);
+		const id_size_t num = rng.IntFromTo<id_size_t>(0, degree(n) - 1);
 		NeighborLinkIteratorRange iters = neighborLinks(n);
 		NeighborLinkIterator it = iters.first;
 		std::advance(it, num);
@@ -799,7 +799,7 @@ std::pair<bool, node_id_t> TypedNetwork<_Node, _Link>::getRandomNeighbor(
 	std::pair<bool, node_id_t> ret = std::make_pair(false, 0);
 	if (degree(n) != 0)
 	{
-		const int num = rng.IntFromTo(0, degree(n) - 1);
+		const id_size_t num = rng.IntFromTo<id_size_t>(0, degree(n) - 1);
 		NeighborIteratorRange iters = neighbors(n);
 		NeighborIterator it = iters.first;
 		std::advance(it, num);

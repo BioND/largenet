@@ -1,7 +1,7 @@
-/* Defines the network processes, selects one of them at each step, an realizes it
+/* Defines the network processes, selects one of them at each step, and realizes it
  */
 #include "SwarmModel.h"
-#include <largenet/myrng1.2/myrngWELL.h>
+#include <largenet/myrng/myrngWELL.h>
 #include <cmath>
 
 using namespace lnet;

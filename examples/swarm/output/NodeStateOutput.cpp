@@ -9,7 +9,7 @@
 
 using namespace lnet;
 
-NodeStateOutput::NodeStateOutput(ostream& out, const TripleNetwork& net,
+NodeStateOutput::NodeStateOutput(std::ostream& out, const TripleNetwork& net,
 		const double interval) :
 	IntervalOutput(out, interval), net_(net)
 {
