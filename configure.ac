@@ -1,5 +1,5 @@
 AC_PREREQ([2.65])
-AC_INIT([largenet], [0.5])
+AC_INIT([largenet], [0.6])
 AM_INIT_AUTOMAKE([1.11 -Wall -Werror foreign silent-rules subdir-objects])
 LT_PREREQ([2.2])
 LT_INIT([disable-static])
